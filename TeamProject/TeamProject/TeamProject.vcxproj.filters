@@ -117,6 +117,9 @@
     <ClInclude Include="ImageManager.h">
       <Filter>System\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="Test.h">
+      <Filter>MainEntry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TeamProject.cpp">
@@ -172,6 +175,9 @@
     </ClCompile>
     <ClCompile Include="ImageManager.cpp">
       <Filter>System\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Test.cpp">
+      <Filter>MainEntry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
