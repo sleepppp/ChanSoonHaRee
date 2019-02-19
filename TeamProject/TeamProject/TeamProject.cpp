@@ -7,7 +7,7 @@
 int APIENTRY WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR param, int command)
 {
 	WindowDesc desc;
-	desc.AppName = L"TeamPortfolio";
+	desc.AppName = L"ChanSoonHaRee";
 	desc.Instance = instance;
 	desc.bFullScreen = false;
 	desc.bVsync = false;

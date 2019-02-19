@@ -27,4 +27,9 @@ using namespace std;
 
 #include "LibraryHeader.h"
 #include "DefineHeader.h"
+#include "EnumStructHeader.h"
 #include "ModuleHeader.h"
+
+#define IsMouseOnGui ImGui::GetIO().WantCaptureMouse
+//콘솔 창 출력
+#pragma comment(linker , "/entry:WinMainCRTStartup /subsystem:console")

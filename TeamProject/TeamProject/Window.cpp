@@ -6,23 +6,34 @@
 WindowDesc Window::windowDesc;
 Program* Window::program = nullptr;
 
+/*********************************************************************************
+## WIndow ## 
+윈도우 클래스 생성자 
+레지스터 등록 및 윈도우 창 생성
+**********************************************************************************/
 Window::Window()
 {
 	this->SetRegister();
 	this->CreateWindowApi();
 }
-
-
+/*********************************************************************************
+## ~Window ##
+윈도우 클래스 소멸자
+**********************************************************************************/
 Window::~Window()
 {
+	//디스플레이 세팅 초기화 
 	if (windowDesc.bFullScreen == true)
 		ChangeDisplaySettings(NULL, 0);
-
+	//윈메인 해제
 	DestroyWindow(windowDesc.Handle);
-
+	//레지스터 해제 
 	UnregisterClass(windowDesc.AppName.c_str(), windowDesc.Instance);
 }
-
+/*********************************************************************************
+## Run ##
+실질적인 메인 루프
+**********************************************************************************/
 WPARAM Window::Run()
 {
 	MSG msg = { 0 };
@@ -52,8 +63,8 @@ WPARAM Window::Run()
 		}
 		else
 		{
-
-			//Rendering
+			this->UpdateManager();
+			Window::program->Update();
 			Window::program->Render();
 		}
 	}
@@ -67,9 +78,13 @@ WPARAM Window::Run()
 	return msg.wParam;
 }
 
+/*********************************************************************************
+## WndProc ##
+메인 프록시 
+**********************************************************************************/
 LRESULT Window::WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	
+	if (ImGui::WndProc((UINT*)handle, message, wParam, lParam)) return true;
 	switch (message)
 	{
 		break;
@@ -85,11 +100,17 @@ LRESULT Window::WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		break;
 	}
-
+	if (message == WM_KEYDOWN || message == WM_MOUSEMOVE)
+		Input::Get()->InputProc(message, wParam, lParam);
+	if (message == WM_MOUSEWHEEL)
+		CameraManager::Get()->CameraProc(message, wParam, lParam);
 
 	return (DefWindowProc(handle, message, wParam, lParam));
 }
-
+/*********************************************************************************
+## SetRegister ##
+레지스터 등록
+**********************************************************************************/
 void Window::SetRegister()
 {
 	WNDCLASS wndClass;
@@ -118,10 +139,11 @@ void Window::SetRegister()
 
 		ChangeDisplaySettings(&devMode, CDS_FULLSCREEN);
 	}
-
-
 }
-
+/*********************************************************************************
+## CreateWindowApi ##
+윈메인 생성 및 등록
+**********************************************************************************/
 void Window::CreateWindowApi()
 {
 	RECT rect = { 0, 0, (LONG)windowDesc.Width, (LONG)windowDesc.Height };
@@ -164,13 +186,44 @@ void Window::CreateWindowApi()
 
 	ShowCursor(true);
 }
-
+/*********************************************************************************
+## CreateManager ##
+싱글톤 메니져들 생성 부분
+**********************************************************************************/
 void Window::CreateManager()
 {
-
+	DXRenderer::Create();
+	ImGui::Create(Window::GetWindowDesc().Handle, _D3DDevice, _D3DDeviceContext);
+	{
+		ImGui::StyleColorsClassic();
+	}
+	Input::Create();
+	CameraManager::Create();
+	Time::Create();
+	ImageManager::Create();
 }
-
+/*********************************************************************************
+## DeleteManager ##
+싱글톤 메니져들 해제 부분
+**********************************************************************************/
 void Window::DeleteManager()
 {
+	ImageManager::Delete();
+	Time::Delete();
+	CameraManager::Delete();
+	Input::Delete();
+	ImGui::Delete();
+	DXRenderer::Delete();
+}
 
+/**********************************************************************************
+## UpdateManager ##
+메니져들 업데이트 
+***********************************************************************************/
+void Window::UpdateManager()
+{
+	Time::Get()->Update();
+	Input::Get()->Update();
+	CameraManager::Get()->Update();
+	ImGui::Update();
 }

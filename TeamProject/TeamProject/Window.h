@@ -1,5 +1,5 @@
 #pragma once
-
+//윈메인 정보를 담고 있는 구조체 
 struct WindowDesc
 {
 	wstring AppName;
@@ -34,5 +34,6 @@ private:
 	void CreateWindowApi();
 	void CreateManager();
 	void DeleteManager();
+	void UpdateManager();
 };
 

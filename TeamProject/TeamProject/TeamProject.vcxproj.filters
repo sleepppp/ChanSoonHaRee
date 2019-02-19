@@ -12,15 +12,42 @@
     <Filter Include="System">
       <UniqueIdentifier>{fbdbd1fc-dc85-40b2-977c-095158e4b8c3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="System\Window">
       <UniqueIdentifier>{545818c3-5899-4588-bc93-00184abbe025}</UniqueIdentifier>
     </Filter>
     <Filter Include="MainEntry">
       <UniqueIdentifier>{1700f802-9853-409e-bbcd-706c2aa7f351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="System\DirectX">
+      <UniqueIdentifier>{637938c5-d26e-41de-9d40-07df26e33f09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{8eb495b3-37e5-4ef3-b4bf-e40af1c4eb87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\Math">
+      <UniqueIdentifier>{912c0cf4-1c32-4e26-a9a2-4e51e78bf41f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Resource">
+      <UniqueIdentifier>{6c635a00-5a21-4a62-9860-ffd40e0aebb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\File">
+      <UniqueIdentifier>{2e995de0-ded9-45ac-8133-f55767129a13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\String">
+      <UniqueIdentifier>{5b979675-d9f4-4db1-bf17-20f13e552321}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\View">
+      <UniqueIdentifier>{27f13dd8-5c4d-4b76-aea4-dad90a752984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Input">
+      <UniqueIdentifier>{355edd46-0469-41f9-9f0e-a8f0b62bf7c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Time">
+      <UniqueIdentifier>{bf9bc905-d37b-467c-9d2a-c8c3151ea294}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -28,13 +55,13 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="TeamProject.h">
-      <Filter>헤더 파일\리소스 파일</Filter>
+      <Filter>리소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>헤더 파일\리소스 파일</Filter>
+      <Filter>리소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>헤더 파일\리소스 파일</Filter>
+      <Filter>리소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>System\Window</Filter>
@@ -51,13 +78,52 @@
     <ClInclude Include="Program.h">
       <Filter>MainEntry</Filter>
     </ClInclude>
+    <ClInclude Include="DXRenderer.h">
+      <Filter>System\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Utility\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Utility\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Figure.h">
+      <Filter>Utility\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>System\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumStructHeader.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Path.h">
+      <Filter>Utility\File</Filter>
+    </ClInclude>
+    <ClInclude Include="BinaryFile.h">
+      <Filter>Utility\File</Filter>
+    </ClInclude>
+    <ClInclude Include="StringHelper.h">
+      <Filter>System\String</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>System\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>System\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>System\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>System\Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TeamProject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>헤더 파일\리소스 파일</Filter>
+      <Filter>리소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>System\Window</Filter>
@@ -65,18 +131,60 @@
     <ClCompile Include="Program.cpp">
       <Filter>MainEntry</Filter>
     </ClCompile>
+    <ClCompile Include="DXRenderer + Create.cpp">
+      <Filter>System\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="DXRenderer + Rendering.cpp">
+      <Filter>System\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="DXRenderer.cpp">
+      <Filter>System\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Utility\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Utility\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Figure.cpp">
+      <Filter>Utility\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>System\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Path.cpp">
+      <Filter>Utility\File</Filter>
+    </ClCompile>
+    <ClCompile Include="BinaryFile.cpp">
+      <Filter>Utility\File</Filter>
+    </ClCompile>
+    <ClCompile Include="StringHelper.cpp">
+      <Filter>System\String</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>System\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>System\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>System\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>System\Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TeamProject.rc">
-      <Filter>헤더 파일\리소스 파일</Filter>
+      <Filter>리소스 파일</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
-      <Filter>헤더 파일\리소스 파일</Filter>
+      <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="TeamProject.ico">
-      <Filter>헤더 파일\리소스 파일</Filter>
+      <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@ public:
 
 	void Init();
 	void Release();
-	void Updaet();
+	void Update();
 	void Render();
 };
 

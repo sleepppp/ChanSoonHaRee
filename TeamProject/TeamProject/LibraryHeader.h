@@ -24,3 +24,15 @@
 #include <d2d1helper.h>
 #include <d2d1.h>
 #include <dwrite.h>
+
+//lib 링크
+#pragma comment (lib, "../Libraries/fmodex_vc.lib")
+//fmod.hpp 추가
+#include "../Libraries/inc/fmod.hpp"
+
+#pragma comment (lib, "ImGui.lib")
+#include "imgui.h"
+#include "imguiDx11.h"
+
+#include <json/json.h>
+#pragma comment(lib, "jsoncpp.lib")
