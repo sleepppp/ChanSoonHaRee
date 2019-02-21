@@ -1,17 +1,21 @@
+/*************************************************************
+## Time ##
+시간 관리 하는 클래스 
+*************************************************************/
 #pragma once
 class Time
 {
 	SingletonHeader(Time)
 private:
-	bool isHighHardware;	//고성능 하드웨어를 지원하느냐
-	float timeScale;		//타이머의 스케일()
-	float timeElapsed;		//tick 카운트
+	bool isHighHardware;			//고성능 하드웨어를 지원하느냐
+	float timeScale;				//타이머의 스케일()
+	float timeElapsed;				//tick 카운트
 
-	__int64 curTime;
-	__int64 lastTime;
-	__int64 periodFrequency;
+	__int64 curTime;				//현재 시간
+	__int64 lastTime;				//이전 프레임 시간
+	__int64 periodFrequency;		//고성능 하드웨어 검사용 변수
 
-	unsigned long frameRate;
+	unsigned long frameRate;		
 	unsigned long fpsFrameCount;
 	float fpsTimeElapsed;
 	float worldTime;

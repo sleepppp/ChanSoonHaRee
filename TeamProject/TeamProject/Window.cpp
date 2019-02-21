@@ -2,7 +2,7 @@
 #include "Window.h"
 
 #include "Program.h"
-
+//static 변수를 선언했으면 아래와 같이 반드시 cpp에서 초기화 해주어야 한다. 이유는 구글링 해보세요
 WindowDesc Window::windowDesc;
 Program* Window::program = nullptr;
 

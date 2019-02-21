@@ -1,29 +1,34 @@
+/*************************************************************
+## CameraManager ##
+카메라 싱글톤 
+*************************************************************/
 #pragma once
 
-#define CaemraMoveStartDistance 5
+#define CaemraMoveStartDistance 5		
 
-#define CameraMaxSpeed 30.0f 
-#define CameraMinSpeed 2.0f 
-#define CameraMaxDistance 960.f
+#define CameraMaxSpeed 30.0f			//카메라 최대 스피드
+#define CameraMinSpeed 2.0f				//카메라 최소 스피드
+#define CameraMaxDistance 960.f			
 #define CameraMinDistance 48.f 
 
-#define CameraZoomMax 2.5f
-#define CameraZoomMin 0.5f
+#define CameraZoomMax 2.5f				//카메라 줌 최대값
+#define CameraZoomMin 0.5f				//카메라 줌 최소값
 
 class CameraManager
 {
+	//싱글톤으로 생성
 	SingletonHeader(CameraManager)
 private:
-	enum MoveState {FollowTarget,MoveToTarget,FreeCamera,End};
+	enum MoveState {FollowTarget,MoveToTarget,FreeCamera,End};		//카메라 상태 값
 private:
-	MoveState state;
-	float zoomFactor;
-	RECT cameraRect;
-	Synthesize(Vector2,position,Position)
-	Synthesize(class GameObject*,pTarget,Target)
-	Synthesize(Vector2,mapSize,MapSize)
-	Synthesize(float,speed,Speed)
-	Vector2 saveMouse;
+	MoveState state;								//카메라 상태
+	float zoomFactor;								//카메라 줌 
+	RECT cameraRect;								//카메라 렉트
+	Synthesize(Vector2,position,Position)			//카메라 좌표
+	Synthesize(class GameObject*,pTarget,Target)	//카메라가 따라갈 GameObject(추적카메라 구현 시 사용)
+	Synthesize(Vector2,mapSize,MapSize)				//전체 맵 사이즈 (카메라 보정이 들어감)
+	Synthesize(float,speed,Speed)					//카메라 스피드 값
+	Vector2 saveMouse;								//자유시점 카메라에 사용(이전 프레임 마우스 좌표 저장 값)
 public:
 	void Update();
 	void OnGui();

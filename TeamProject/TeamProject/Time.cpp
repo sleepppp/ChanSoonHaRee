@@ -12,7 +12,9 @@ Time::Time()
 	//고성능 하드웨어를 지원하는지 검사한다. 
 	if (QueryPerformanceFrequency((LARGE_INTEGER*)&this->periodFrequency))
 	{
+		//고성능 하드웨어 여부 true
 		this->isHighHardware = true;
+		//마지막 타임 받아옴 
 		QueryPerformanceFrequency((LARGE_INTEGER*)&lastTime);
 
 		this->timeScale = 1.0f / this->periodFrequency;
