@@ -16,3 +16,4 @@ ex) 싱글톤,유틸 클래스들 등등
 #include "CameraManager.h"
 #include "DXRenderer.h"
 #include "ImageManager.h"
+#include "ObjectManager.h"

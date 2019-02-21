@@ -193,7 +193,10 @@ void DXRenderer::CreateBackBuffer()
 	vp.TopLeftY = 0;
 	d3dDeviceContext->RSSetViewports(1, &vp);
 }
-
+/********************************************************************************
+## CreateDepthStencilState ##
+DepthStencilState는 사용안함으로 설정
+********************************************************************************/
 void DXRenderer::CreateDepthStencilState()
 {
 	//스텐실 사용 안함 

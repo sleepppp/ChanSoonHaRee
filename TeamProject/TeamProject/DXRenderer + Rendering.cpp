@@ -57,7 +57,7 @@ void DXRenderer::RenderText(int x, int y, wstring text, COLORREF color, float al
 		text.c_str(),
 		text.length(),
 		dwTextFormat[font],
-		(float)text.length()*size,
+		(float)text.length() * size,
 		(float)size,
 		&dwLayout
 	);
@@ -86,7 +86,6 @@ void DXRenderer::RenderText(int x, int y, wstring text, COLORREF color, float al
 /********************************************************************************
 ## RenderTextField ##
 ********************************************************************************/
-
 void DXRenderer::RenderTextField(int x, int y, wstring text, int size, int width, int height, DefaultBrush::Enum defaultBrush, DWRITE_TEXT_ALIGNMENT align, wstring font)
 {
 	dwFactory->CreateTextLayout(

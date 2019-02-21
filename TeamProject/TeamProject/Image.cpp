@@ -312,10 +312,6 @@ Vector2 Image::GetPivotPosition(int x, int y, Pivot::Enum pivot)
 		pos.x -= size.x * scale.x * 0.5f;
 		pos.y -= size.y * scale.y;
 		break;
-
-	case Pivot::TOP:
-		pos.x -= size.x * scale.x * 0.5f;
-		break;
 	}
 
 	return pos;

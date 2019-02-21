@@ -28,7 +28,7 @@ namespace Pivot
 {
 	enum Enum
 	{
-		LEFT_TOP = 0, CENTER, BOTTOM, TOP
+		LEFT_TOP = 0, CENTER, BOTTOM
 	};
 
 	inline string GetPivotName(Pivot::Enum pivot)
@@ -41,8 +41,6 @@ namespace Pivot
 			return "Center";
 		case Pivot::BOTTOM:
 			return "Bottom";
-		case Pivot::TOP:
-			return "Top";
 		default:
 			return "Error";
 		}
@@ -56,8 +54,6 @@ namespace Pivot
 			return Pivot::CENTER;
 		else if (name == "Bottom")
 			return Pivot::BOTTOM;
-		else
-			return Pivot::TOP;
 	}
 
 }

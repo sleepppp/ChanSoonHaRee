@@ -201,6 +201,7 @@ void Window::CreateManager()
 	CameraManager::Create();
 	Time::Create();
 	ImageManager::Create();
+	ObjectManager::Create();
 }
 /*********************************************************************************
 ## DeleteManager ##
@@ -208,6 +209,7 @@ void Window::CreateManager()
 **********************************************************************************/
 void Window::DeleteManager()
 {
+	ObjectManager::Delete();
 	ImageManager::Delete();
 	Time::Delete();
 	CameraManager::Delete();

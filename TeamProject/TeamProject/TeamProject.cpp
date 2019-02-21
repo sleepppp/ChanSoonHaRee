@@ -1,7 +1,4 @@
-﻿// TeamProject.cpp : 응용 프로그램에 대한 진입점을 정의합니다.
-//
-
-/*************************************************************
+﻿/*************************************************************
 ## WinMain.cpp ##
 윈메인 입니다. 레지스터 등록 및 윈도우 창 생성은 Window클래스에 일임하고 
 이곳에서는 생성할 윈도우 창 정보만 구조체에 초기화합니다. 
@@ -23,7 +20,7 @@ int APIENTRY WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR param, in
 	desc.bToolMode = true;				//툴작업 용으로 로드 여부 
 	desc.command = command;				//윈도우 커맨드 값
 
-	Window::SetWindowDesc(desc);		//다 초기화 했으면 세팅해준다 .
+	Window::SetWindowDesc(desc);		//다 초기화 했으면 세팅해준다 
 	srand((UINT)time(0));				//타임시드 초기화 
 
 	Window* window = new Window();		//윈도우 클래스 생성 -> 생성자에서 윈도우 창 생성 및 레지스터 등록한다.
