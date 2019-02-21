@@ -80,7 +80,8 @@ _DXRenderer -> 전에 내가 올렸던 GIZMO클래스의 기능을 넣어놨다.
 ****************************************************************************************/
 void Player::Render()
 {
-	_DXRenderer->DrawRectangle(rc, DefaultBrush::blue, true);
+	RECT worldRect = _Camera->GetRelativeRect(rc);
+	_DXRenderer->DrawRectangle(worldRect, DefaultBrush::blue, false);
 }
 /***************************************************************************************
 ## Move ## 

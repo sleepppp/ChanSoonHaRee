@@ -84,7 +84,7 @@ void Vector2::FixedX(float min, float max)
 @@ float max : �ִ밪
 *******************************************************************************/
 void Vector2::FixedY(float min, float max)
-{
+{	
 	if (y < min) y = min;
 	if (y > max) y = max;
 }

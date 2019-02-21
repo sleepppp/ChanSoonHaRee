@@ -110,7 +110,7 @@ void Image::Render(int x, int y, Pivot::Enum pivot, bool isRelativePos)
 		size.y = size.y * zoomScale.y;
 
 		//카메라 상대좌표
-		render = _Camera->GetReltativeVector2(render);
+		render = _Camera->GetRelativeVector2(render);
 	}
 	//카메라에 없으면 랜더x
 	if (render.x - size.x > WinSizeX || render.x + size.x < 0 ||
@@ -178,7 +178,7 @@ void Image::FrameRender(int x, int y, int frameX, int frameY, Pivot::Enum pivot,
 		size.y = size.y * zoomScale.y;
 
 		//카메라 상대좌표
-		render = _Camera->GetReltativeVector2(render);
+		render = _Camera->GetRelativeVector2(render);
 	}
 	//카메라에 없으면 랜더x
 	if (render.x - size.x > WinSizeX || render.x + size.x < 0 ||
@@ -269,6 +269,10 @@ void Image::ResetRenderOption()
 ********************************************************************************/
 COLORREF Image::GetPixel(int imageLeft, int imageTop, int x, int y)
 {
+	if (pixelCollisionDC != nullptr)
+	{
+
+	}
 	return COLORREF();
 }
 

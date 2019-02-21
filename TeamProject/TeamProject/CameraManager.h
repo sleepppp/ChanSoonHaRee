@@ -35,7 +35,8 @@ public:
 
 	RECT GetRelativeRect(RECT rc);
 	POINT GetRelatviePoint(POINT pt);
-	Vector2 GetReltativeVector2(Vector2 v);
+	Vector2 GetRelativeVector2(Vector2 v);
+
 	Vector2 GetWorldMouse();
 	Vector2 GetWorldViewportCenter();
 	POINT GetWorldMousePoint();

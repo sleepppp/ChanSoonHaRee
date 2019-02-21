@@ -143,9 +143,6 @@
     <ClCompile Include="Window.cpp">
       <Filter>System\Window</Filter>
     </ClCompile>
-    <ClCompile Include="Program.cpp">
-      <Filter>MainEntry</Filter>
-    </ClCompile>
     <ClCompile Include="DXRenderer + Create.cpp">
       <Filter>System\DirectX</Filter>
     </ClCompile>
@@ -202,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>MainEntry\2019.02.21</Filter>
+    </ClCompile>
+    <ClCompile Include="Program.cpp">
+      <Filter>MainEntry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

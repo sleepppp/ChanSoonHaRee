@@ -163,8 +163,8 @@ void DXRenderer::DrawLine( Vector2 start, Vector2 end, D2D1::ColorF::Enum color,
 
 	if (isRelativePos)
 	{
-		start = _Camera->GetReltativeVector2(start);
-		end = _Camera->GetReltativeVector2(end);
+		start = _Camera->GetRelativeVector2(start);
+		end = _Camera->GetRelativeVector2(end);
 	}
 
 
@@ -188,8 +188,8 @@ void DXRenderer::DrawLine(Vector2 start, Vector2 end, DefaultBrush::Enum default
 
 	if (isRelativePos)
 	{
-		start = _Camera->GetReltativeVector2(start);
-		end = _Camera->GetReltativeVector2(end);
+		start = _Camera->GetRelativeVector2(start);
+		end = _Camera->GetRelativeVector2(end);
 	}
 
 	d2dRenderTarget->DrawLine(D2D1::Point2F(start.x, start.y),

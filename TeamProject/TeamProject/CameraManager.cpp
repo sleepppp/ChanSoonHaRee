@@ -92,6 +92,8 @@ POINT CameraManager::GetRelatviePoint(POINT pt)
 {
 	pt.x -= (LONG)position.x;
 	pt.y -= (LONG)position.y;
+	pt.x = (LONG)(CastingFloat(pt.x) * zoomFactor);
+	pt.y = (LONG)(CastingFloat(pt.y) * zoomFactor);
 	return std::move(pt);
 }
 
@@ -102,7 +104,7 @@ POINT CameraManager::GetRelatviePoint(POINT pt)
 
 @@ return Vector2 : 보정 한 Vector2반환 
 ***************************************************************************/
-Vector2 CameraManager::GetReltativeVector2(Vector2 v)
+Vector2 CameraManager::GetRelativeVector2(Vector2 v)
 {
 	v.x -= position.x;
 	v.y -= position.y;

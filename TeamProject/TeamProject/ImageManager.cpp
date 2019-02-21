@@ -92,7 +92,17 @@ Image * ImageManager::AddFrameImage(string key, wstring file, int maxFrameX, int
 		image = new Image;
 		image->Init(bitmap, loadInfo, maxFrameX, maxFrameY);
 
-		if (usePixelCollision) {}
+		if (usePixelCollision)
+		{
+			HBITMAP hBit = (HBITMAP)LoadImageW(Window::GetWindowDesc().Instance, file.c_str(), IMAGE_BITMAP,
+				bitmap->GetPixelSize().width, bitmap->GetPixelSize().height, LR_LOADFROMFILE);
+			HDC memDC = CreateCompatibleDC(Window::GetWindowDesc().Hdc);
+
+			SelectObject(memDC, hBit);
+			DeleteObject(hBit);
+
+			image->SetPixelDC(memDC);
+		}
 
 		this->imageList.insert(make_pair(key, image));
 		return image;
@@ -168,8 +178,6 @@ ID2D1Bitmap * ImageManager::CreateD2DBitmapFromFile(wstring file)
 
 	SafeRelease(ipDecoder);
 	SafeRelease(ipFrame);
-
-	
 
 	return ipResult;
 }
