@@ -168,7 +168,6 @@
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TeamProject.h" />
-    <ClInclude Include="Test.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Window.h" />
@@ -194,7 +193,6 @@
     </ClCompile>
     <ClCompile Include="StringHelper.cpp" />
     <ClCompile Include="TeamProject.cpp" />
-    <ClCompile Include="Test.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Window.cpp" />
