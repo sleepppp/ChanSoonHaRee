@@ -20,6 +20,12 @@ Player::~Player()
 
 void Player::Init()
 {
+<<<<<<< HEAD
+=======
+	_bullet = new Bullet;
+	_bullet->Init(10,WinSizeY);
+
+>>>>>>> 69be1a8655bf950fb8e0229bd58b58aec27bf7af
 	_speed = 200.0f;
 	_name = "플레이어";
 	_position.x = WinSizeX / 2;
