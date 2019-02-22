@@ -39,8 +39,12 @@ void Bullet::Render()
 {
 	for (int i = 0; i < _vBullet.size(); i++) 
 	{
-		//총알 사각형 그리기
-		_DXRenderer->DrawRectangle(_vBullet.at(i).rc, DefaultBrush::green, false, 3.0f);
+		if (_vBullet.at(i).isfire == true) 
+		{
+			//총알 사각형 그리기
+			_DXRenderer->DrawRectangle(_vBullet.at(i).rc, DefaultBrush::green, false, 3.0f);
+		}
+
 	}
 	
 }
@@ -114,16 +118,21 @@ void Bullet::Move()
 //총알 충돌 처리 함수
 bool Bullet::Intersect(RECT rc) 
 {
+	
 	for (int i = 0; i < _vBullet.size(); i++) 
 	{
-		RECT temp;
-		if (IntersectRect(&temp, &_vBullet.at(i).rc, &rc)) 
+		if (_vBullet.at(i).isfire == true) 
 		{
-			//충돌되면 fire를 false로
-			_vBullet.at(i).isfire = false;
+			RECT temp;
+			if (IntersectRect(&temp, &_vBullet.at(i).rc, &rc))
+			{
+				//충돌되면 fire를 false로
+				_vBullet.at(i).isfire = false;
 
-			return true;
+				return true;
+			}
 		}
+
 	}
 	return false;
 }
