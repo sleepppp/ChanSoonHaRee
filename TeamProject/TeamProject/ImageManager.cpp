@@ -13,7 +13,8 @@ SingletonCpp(ImageManager)
 ********************************************************************************/
 ImageManager::ImageManager()
 {
-	
+	this->SetCoverter(_DXRenderer->GetFormatConverter());
+	this->SetFactory(_DXRenderer->GetImageingFactory());
 }
 /********************************************************************************
 ## ~ImageManager ## 

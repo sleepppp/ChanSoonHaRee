@@ -46,9 +46,6 @@
     <Filter Include="MainEntry">
       <UniqueIdentifier>{1700f802-9853-409e-bbcd-706c2aa7f351}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainEntry\2019.02.21">
-      <UniqueIdentifier>{5de5a43a-7994-439c-a6b6-a7932aedeb59}</UniqueIdentifier>
-    </Filter>
     <Filter Include="System">
       <UniqueIdentifier>{fbdbd1fc-dc85-40b2-977c-095158e4b8c3}</UniqueIdentifier>
     </Filter>
@@ -138,12 +135,6 @@
     <ClInclude Include="stdafx.h">
       <Filter>MainHeader</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>MainEntry\2019.02.21</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>MainEntry\2019.02.21</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>PublicForder\Ree</Filter>
     </ClInclude>
@@ -152,6 +143,18 @@
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>PublicForder\Chan</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>PublicForder\Soon</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>PublicForder\Soon</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>PublicForder\Soon</Filter>
+    </ClInclude>
+    <ClInclude Include="TestAnimation.h">
+      <Filter>PublicForder\Soon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -206,12 +209,6 @@
     <ClCompile Include="TeamProject.cpp">
       <Filter>MainHeader</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>MainEntry\2019.02.21</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>MainEntry\2019.02.21</Filter>
-    </ClCompile>
     <ClCompile Include="Program.cpp">
       <Filter>MainEntry</Filter>
     </ClCompile>
@@ -223,6 +220,18 @@
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>PublicForder\Chan</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>PublicForder\Soon</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>PublicForder\Soon</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>PublicForder\Soon</Filter>
+    </ClCompile>
+    <ClCompile Include="TestAnimation.cpp">
+      <Filter>PublicForder\Soon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
