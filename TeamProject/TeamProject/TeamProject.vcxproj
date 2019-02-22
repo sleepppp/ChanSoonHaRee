@@ -153,6 +153,7 @@
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="DefineHeader.h" />
     <ClInclude Include="DXRenderer.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnumStructHeader.h" />
     <ClInclude Include="Figure.h" />
     <ClInclude Include="GameObject.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="DXRenderer + Create.cpp" />
     <ClCompile Include="DXRenderer + Rendering.cpp" />
     <ClCompile Include="DXRenderer.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Figure.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Image.cpp" />

@@ -9,18 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="System">
-      <UniqueIdentifier>{fbdbd1fc-dc85-40b2-977c-095158e4b8c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainEntry">
-      <UniqueIdentifier>{1700f802-9853-409e-bbcd-706c2aa7f351}</UniqueIdentifier>
-    </Filter>
     <Filter Include="리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="System\DirectX">
-      <UniqueIdentifier>{637938c5-d26e-41de-9d40-07df26e33f09}</UniqueIdentifier>
     </Filter>
     <Filter Include="Utility">
       <UniqueIdentifier>{8eb495b3-37e5-4ef3-b4bf-e40af1c4eb87}</UniqueIdentifier>
@@ -28,32 +19,14 @@
     <Filter Include="Utility\Math">
       <UniqueIdentifier>{912c0cf4-1c32-4e26-a9a2-4e51e78bf41f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\Resource">
-      <UniqueIdentifier>{6c635a00-5a21-4a62-9860-ffd40e0aebb1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utility\File">
       <UniqueIdentifier>{2e995de0-ded9-45ac-8133-f55767129a13}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\View">
-      <UniqueIdentifier>{27f13dd8-5c4d-4b76-aea4-dad90a752984}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\Input">
-      <UniqueIdentifier>{355edd46-0469-41f9-9f0e-a8f0b62bf7c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\Time">
-      <UniqueIdentifier>{bf9bc905-d37b-467c-9d2a-c8c3151ea294}</UniqueIdentifier>
     </Filter>
     <Filter Include="Utility\String">
       <UniqueIdentifier>{5b979675-d9f4-4db1-bf17-20f13e552321}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\Window">
-      <UniqueIdentifier>{545818c3-5899-4588-bc93-00184abbe025}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MainHeader">
       <UniqueIdentifier>{ceba5b2f-d487-4c5b-ae04-c120837460bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainEntry\2019.02.21">
-      <UniqueIdentifier>{5de5a43a-7994-439c-a6b6-a7932aedeb59}</UniqueIdentifier>
     </Filter>
     <Filter Include="PublicForder">
       <UniqueIdentifier>{52365358-4a56-4dc5-8c6b-dccd74e6f7b4}</UniqueIdentifier>
@@ -69,6 +42,33 @@
     </Filter>
     <Filter Include="PublicForder\Ha">
       <UniqueIdentifier>{34c97096-16d2-4e34-aca5-5b7f4002198a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainEntry">
+      <UniqueIdentifier>{1700f802-9853-409e-bbcd-706c2aa7f351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainEntry\2019.02.21">
+      <UniqueIdentifier>{5de5a43a-7994-439c-a6b6-a7932aedeb59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{fbdbd1fc-dc85-40b2-977c-095158e4b8c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\DirectX">
+      <UniqueIdentifier>{637938c5-d26e-41de-9d40-07df26e33f09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Resource">
+      <UniqueIdentifier>{6c635a00-5a21-4a62-9860-ffd40e0aebb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\View">
+      <UniqueIdentifier>{27f13dd8-5c4d-4b76-aea4-dad90a752984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Input">
+      <UniqueIdentifier>{355edd46-0469-41f9-9f0e-a8f0b62bf7c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Time">
+      <UniqueIdentifier>{bf9bc905-d37b-467c-9d2a-c8c3151ea294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Window">
+      <UniqueIdentifier>{545818c3-5899-4588-bc93-00184abbe025}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +147,9 @@
     <ClInclude Include="Player.h">
       <Filter>PublicForder\Ree</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>PublicForder\Ha</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -211,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>PublicForder\Ree</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>PublicForder\Ha</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
