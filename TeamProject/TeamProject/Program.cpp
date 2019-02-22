@@ -2,7 +2,6 @@
 #include "Program.h"
 
 #include "Player.h"
-#include "Enemy.h"
 
 //프로그램 생성자에서 플레이어와 에너미 객체를 생성해서 오브잭트 매니져에
 //등록한다. 
@@ -10,8 +9,6 @@ Program::Program()
 {
 	Player* player = new Player;
 	_ObjectManager->AddObject(player);
-	Enemy* enemy = new Enemy;
-	_ObjectManager->AddObject(enemy);
 }
 
 

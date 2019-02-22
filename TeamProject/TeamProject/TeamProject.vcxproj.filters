@@ -55,6 +55,21 @@
     <Filter Include="MainEntry\2019.02.21">
       <UniqueIdentifier>{5de5a43a-7994-439c-a6b6-a7932aedeb59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PublicForder">
+      <UniqueIdentifier>{52365358-4a56-4dc5-8c6b-dccd74e6f7b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Ree">
+      <UniqueIdentifier>{ba585205-377b-4ef7-b5f7-ad931b20b002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Chan">
+      <UniqueIdentifier>{c648cb71-0c75-4026-ad3f-39fed23f7176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Soon">
+      <UniqueIdentifier>{3df1a5e0-e911-4ccd-9176-64c3faa8dda3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Ha">
+      <UniqueIdentifier>{34c97096-16d2-4e34-aca5-5b7f4002198a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -123,9 +138,6 @@
     <ClInclude Include="stdafx.h">
       <Filter>MainHeader</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>MainEntry\2019.02.21</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>MainEntry\2019.02.21</Filter>
     </ClInclude>
@@ -133,7 +145,7 @@
       <Filter>MainEntry\2019.02.21</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>MainEntry\2019.02.21</Filter>
+      <Filter>PublicForder\Ree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -188,20 +200,17 @@
     <ClCompile Include="TeamProject.cpp">
       <Filter>MainHeader</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>MainEntry\2019.02.21</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>MainEntry\2019.02.21</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
       <Filter>MainEntry\2019.02.21</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>MainEntry\2019.02.21</Filter>
-    </ClCompile>
     <ClCompile Include="Program.cpp">
       <Filter>MainEntry</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>PublicForder\Ree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

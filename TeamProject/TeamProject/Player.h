@@ -6,8 +6,6 @@
 ****************************************************************************************/
 class Player : public GameObject
 {
-private:
-	float speed; 
 public:
 	Player();
 	~Player();
@@ -16,7 +14,5 @@ public:
 	void Release()override;
 	void Update()override;
 	void Render()override; 
-
-	void Move(Vector2 moveValue);
 };
 

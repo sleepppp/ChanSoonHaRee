@@ -23,7 +23,7 @@
     <ProjectGuid>{59369EAE-E275-4010-AA30-2C70122FFA8A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>TeamProject</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -153,7 +153,6 @@
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="DefineHeader.h" />
     <ClInclude Include="DXRenderer.h" />
-    <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnumStructHeader.h" />
     <ClInclude Include="Figure.h" />
     <ClInclude Include="GameObject.h" />
@@ -182,7 +181,6 @@
     <ClCompile Include="DXRenderer + Create.cpp" />
     <ClCompile Include="DXRenderer + Rendering.cpp" />
     <ClCompile Include="DXRenderer.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Figure.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Image.cpp" />
