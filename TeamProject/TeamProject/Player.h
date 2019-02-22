@@ -9,7 +9,6 @@
 class Player : public GameObject
 {
 	class Bullet* _bullet;			//총알 클래스
-	class Enemy* _enemy;			//에너미 클래스
 
 	float _speed;					//플레이어 속도값		
 	Vector2 _playerBullet;			//플레이어가 쏘는 총알의 사이즈(x,y)		

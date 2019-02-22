@@ -83,15 +83,19 @@ void Player::Render()
 void Player::Collision()
 {
 	//_enemy를 찾습니다.
-	GameObject* _enemy = _ObjectManager->FindObject("_enemy");	
+	vector<GameObject*> enemyList = _ObjectManager->FindObjects("enemy");	
 
 	//리턴값이 nullptr이 아닐 경우
-	if (_enemy!=nullptr)
+	for (UINT i = 0; i < enemyList.size(); ++i)
 	{
-		//플레이어 총알과 에너미 몸체가 충돌할 경우
-		if (_bullet->Intersect(_enemy->GetRect()))
+		if (enemyList[i] != nullptr)
 		{
-			_enemy->SetIsLive(false);
+			//플레이어 총알과 에너미 몸체가 충돌할 경우
+			if (_bullet->Intersect(enemyList[i]->GetRect()))
+			{
+				enemyList[i]->SetIsLive(false);
+			}
 		}
-	}	
+	}
+	
 }
