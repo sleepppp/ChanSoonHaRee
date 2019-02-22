@@ -104,7 +104,7 @@ void Bullet::Move()
 		float distance = Math::GetDistance(_viBullet->firePosition.x, _viBullet->firePosition.y, _viBullet->position.x, _viBullet->position.y);
 
 		//만약, 사정거리 보다 거리가 멀어지면 발사 막기 isfire 를 false 처리
-		if (_range > distance) 
+		if (_range < distance) 
 		{
 			_viBullet->isfire = false;
 		}

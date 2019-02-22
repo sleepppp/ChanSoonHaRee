@@ -20,7 +20,7 @@ Player::~Player()
 void Player::Init()
 {
 	_bullet = new Bullet;
-	_bullet->Init(10,500);
+	_bullet->Init(10,WinSizeY);
 
 	_speed = 200.0f;
 	_name = "플레이어";
@@ -59,7 +59,7 @@ void Player::Update()
 	}
 
 	//액션:총알발사
-	if (_Input->GetKey(VK_SPACE))
+	if (_Input->GetKeyDown(VK_SPACE))
 	{
 		_bullet->Fire(Vector2(_position), Vector2(_playerBullet), Math::PI/2, 200.f);
 		//this->BulletFire();		//총알 생성 및 발사
