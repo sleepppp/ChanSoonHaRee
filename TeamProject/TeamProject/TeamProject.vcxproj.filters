@@ -150,6 +150,9 @@
     <ClInclude Include="Enemy.h">
       <Filter>PublicForder\Ha</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>PublicForder\Chan</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -217,6 +220,9 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>PublicForder\Ha</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>PublicForder\Chan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
