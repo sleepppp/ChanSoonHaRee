@@ -3,6 +3,7 @@
 시간 관리 하는 클래스 
 *************************************************************/
 #pragma once
+
 class Time
 {
 	SingletonHeader(Time)
@@ -22,7 +23,7 @@ private:
 private:
 	void Tick(float lockFPS = 60.0f);
 public:
-	void Init();
+	void StartClock();
 	void Update();
 	void Render();
 

@@ -50,6 +50,7 @@ WPARAM Window::Run()
 
 	}
 	Window::program->Init();
+	_Time->StartClock();
 	//============Main Loop===================================
 	while (true)
 	{

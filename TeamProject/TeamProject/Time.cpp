@@ -38,6 +38,14 @@ Time::~Time()
 void Time::Tick(float lockFPS)
 {
 	static bool isFirstChecking = false;
+	//worldTime 버그 때문에 추가
+	if (isFirstChecking == false)
+	{
+		this->worldTime = 0.0f;
+		this->frameRate = this->fpsFrameCount = 0;
+		this->fpsTimeElapsed = this->worldTime = 0.0f;
+		isFirstChecking = true;
+	}
 
 	//고성능 하드웨어를 지원한다면 밀리세컨드 이상의 단위로 받아온다.
 	if (this->isHighHardware)
@@ -78,23 +86,54 @@ void Time::Tick(float lockFPS)
 		this->fpsFrameCount = 0;
 		this->fpsTimeElapsed = 0.0f;
 	}
-	//worldTime 버그 때문에 추가
-	if (isFirstChecking == false)
-	{
-		this->worldTime = 0.0f;
-		isFirstChecking = true;
-	}
 }
 
-void Time::Init()
+void Time::StartClock()
 {
-	this->frameRate = this->fpsFrameCount = 0;
-	this->fpsTimeElapsed = this->worldTime = 0.0f;
+	//고성능 하드웨어를 지원한다면 밀리세컨드 이상의 단위로 받아온다.
+	if (this->isHighHardware)
+		QueryPerformanceCounter((LARGE_INTEGER*)&this->curTime);
+	//아니라면 밀리세컨드 단위로 현제타임을 받아온다.
+	else
+		this->curTime = timeGetTime();
+	//deltaTimedms = (현재 시간 - 지난 프레임에 체킹한 시간) * timeScale;
+	this->timeElapsed = (this->curTime - this->lastTime) * timeScale;
+	//프레임 락이 설정 되어 있다면
+	if (LockingFPS > 0.0f)
+	{
+		//deltaTime이 제한 프레임시간 보다 작을 때까지 루프
+		while (this->timeElapsed < (1.0f / LockingFPS))
+		{
+			//고성능 하드웨어 지원하면 밀리세컨드 이상의 단위로 받아온다. 
+			if (this->isHighHardware)
+				QueryPerformanceCounter((LARGE_INTEGER*)&this->curTime);
+			//아니라면 현재 시간은 밀리세컨드 단위로 현재 시간받아온다. 
+			else
+				this->curTime = timeGetTime();
+			//deltaTime다시 설정
+			this->timeElapsed = (this->curTime - this->lastTime) * this->timeScale;
+		}
+	}
+	//마지막 프레임 시간 현재시간으로 초기화 
+	this->lastTime = this->curTime;
+	//프레임 증가
+	this->fpsFrameCount++;
+	//프레임 델타 타임 증가 
+	this->fpsTimeElapsed += this->timeElapsed;
+	//프로세스 실행 후 시간 증감
+	this->worldTime += this->timeElapsed;
+	//초당 프레임 타임이 1초가 넘었다면 요소들 다시 초기화 
+	if (this->fpsTimeElapsed > 1.0f)
+	{
+		this->frameRate = this->fpsFrameCount;
+		this->fpsFrameCount = 0;
+		this->fpsTimeElapsed = 0.0f;
+	}
 }
 
 void Time::Update()
 {
-	this->Tick(500.0f);
+	this->Tick(LockingFPS);
 }
 
 void Time::Render()

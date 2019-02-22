@@ -3,7 +3,8 @@
 class Enemy :	public GameObject
 {
 private:
-
+	float _speed;
+	bool _isLeft;
 public:
 	void Init()override;
 	void Release()override;
@@ -11,7 +12,7 @@ public:
 	void Render()override;
 
 public:
-	Enemy();
+	Enemy(Vector2 position);
 	~Enemy();
 };
 

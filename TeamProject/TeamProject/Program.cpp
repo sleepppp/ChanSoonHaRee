@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Program.h"
-
+#include "Enemy.h"
 #include "Player.h"
 
 //프로그램 생성자에서 플레이어와 에너미 객체를 생성해서 오브잭트 매니져에
@@ -9,6 +9,18 @@ Program::Program()
 {
 	Player* player = new Player;
 	_ObjectManager->AddObject(player);
+
+	for (int j = 0; j < 3; ++j)
+	{
+		for (int i = 0; i < 5; ++i)
+		{
+			Enemy* enemy;
+			Vector2 position = Vector2(((WinSizeX / 2) - 200)+ (i * 100), 100 + (j * 100));
+			enemy = new Enemy(position);
+			_ObjectManager->AddObject(enemy);
+		}
+	}
+	
 }
 
 
