@@ -6,13 +6,17 @@
 ****************************************************************************************/
 class Player : public GameObject
 {
+	float _speed;
 public:
 	Player();
 	~Player();
-
+	
 	void Init()override; 
 	void Release()override;
 	void Update()override;
-	void Render()override; 
+	void Render()override;
+
+	void BulletFire();		//ÃÑ¾Ë ¹ß»ç
+	void BulletMove();		//ÃÑ¾Ë ÀÌµ¿
 };
 
