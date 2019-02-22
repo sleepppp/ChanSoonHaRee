@@ -19,6 +19,9 @@ Player::~Player()
 
 void Player::Init()
 {
+	_bullet = new Bullet;
+	_bullet->Init(10,500);
+
 	_speed = 200.0f;
 	_name = "플레이어";
 	_position.x = WinSizeX / 2;
@@ -27,11 +30,16 @@ void Player::Init()
 	_size.y = 48;
 	_pivot = Pivot::CENTER;
 
+	_playerBullet.x = 40;		//플레이어가 쏘는 총알의 사이즈
+	_playerBullet.y = 40;	
+
 	this->UpdateRect();		//rc 초기화
 }
 
 void Player::Release()
 {
+	_bullet->Release();
+	SafeDelete(_bullet);
 }
 
 void Player::Update()
@@ -53,20 +61,29 @@ void Player::Update()
 	//액션:총알발사
 	if (_Input->GetKey(VK_SPACE))
 	{
-		this->BulletFire();		//총알 생성 및 발사
-		this->UpdateRect();		
+		_bullet->Fire(Vector2(_position), Vector2(_playerBullet), Math::PI/2, 200.f);
+		//this->BulletFire();		//총알 생성 및 발사
+		this->UpdateRect();	
+		
 	}
+	_bullet->Update();
 }
 
 void Player::Render()
 {
 	this->UpdateRect();
 	_DXRenderer->FillRectangle(_rc, DefaultBrush::blue, true);	
+	
+	_bullet->Render();
 }
+
 
 //플레이어 총알 발사
 void Player::BulletFire()
 {
+	
+
+
 	//불렛클래스를 벡터에 담아서...그려주고 불값 없으면 추가하고
 	
 	//총알 벡터 10개

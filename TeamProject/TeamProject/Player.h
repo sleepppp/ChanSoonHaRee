@@ -9,8 +9,12 @@
 class Player : public GameObject
 {
 	float _speed;					//플레이어 속도값	
-	//bool _is
+	
+	Vector2 _playerBullet;			//플레이어가 쏘는 총알의 사이즈
+	
 	class Bullet* _bullet;			//총알 클래스
+
+
 
 public:
 	Player();
