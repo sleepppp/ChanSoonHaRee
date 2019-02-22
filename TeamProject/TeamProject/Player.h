@@ -1,12 +1,17 @@
 #pragma once
 #include "GameObject.h"
+
 /***************************************************************************************
 ## Player ##
 게임 오브젝트를 상속
 ****************************************************************************************/
+
 class Player : public GameObject
 {
-	float _speed;
+	float _speed;					//플레이어 속도값	
+	//bool _is
+	class Bullet* _bullet;			//총알 클래스
+
 public:
 	Player();
 	~Player();
@@ -18,5 +23,7 @@ public:
 
 	void BulletFire();		//총알 발사
 	void BulletMove();		//총알 이동
+
+
 };
 
