@@ -20,12 +20,6 @@ Player::~Player()
 
 void Player::Init()
 {
-<<<<<<< HEAD
-=======
-	_bullet = new Bullet;
-	_bullet->Init(10,WinSizeY);
-
->>>>>>> 69be1a8655bf950fb8e0229bd58b58aec27bf7af
 	_speed = 200.0f;
 	_name = "플레이어";
 	_position.x = WinSizeX / 2;
@@ -95,7 +89,6 @@ void Player::Collision()
 		//플레이어 총알과 에너미 몸체가 충돌할 경우
 		if (_bullet->Intersect(_enemy->GetRect()))
 		{
-			//
 			_enemy->SetIsLive(false);
 		}
 	}
