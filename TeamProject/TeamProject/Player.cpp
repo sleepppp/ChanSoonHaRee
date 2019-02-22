@@ -21,7 +21,7 @@ Player::~Player()
 void Player::Init()
 {
 	_speed = 200.0f;
-	_name = "플레이어";
+	_name = "player";
 	_position.x = WinSizeX / 2;
 	_position.y = WinSizeY - 100;
 	_size.x = 24;
@@ -31,7 +31,7 @@ void Player::Init()
 
 	//bullet값
 	_bullet = new Bullet;
-	_bullet->Init(10, 500);
+	_bullet->Init(10, 800);
 
 	_playerBullet.x = 40;		//플레이어가 쏘는 총알의 사이즈
 	_playerBullet.y = 40;	
@@ -62,11 +62,12 @@ void Player::Update()
 	//액션:총알발사
 	if (_Input->GetKeyDown(VK_SPACE))
 	{
-		_bullet->Fire(Vector2(_position), Vector2(_playerBullet), Math::PI/2, 200.f);				
+		_bullet->Fire(Vector2(_position), Vector2(_playerBullet), Math::PI/2, 400.0f);				
 		this->UpdateRect();			
 	}
 
 	_bullet->Update();
+	this->Collision();
 }
 
 void Player::Render()
@@ -74,10 +75,11 @@ void Player::Render()
 	this->UpdateRect();
 	_DXRenderer->FillRectangle(_rc, DefaultBrush::blue, true);	
 	
-	_bullet->Render();
-	
+	_bullet->Render();	
 }
 
+
+//플레이어 총알과 에너미 충돌 함수
 void Player::Collision()
 {
 	//_enemy를 찾습니다.
@@ -91,6 +93,5 @@ void Player::Collision()
 		{
 			_enemy->SetIsLive(false);
 		}
-	}
-	
+	}	
 }
