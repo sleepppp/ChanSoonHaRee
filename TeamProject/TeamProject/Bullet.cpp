@@ -39,8 +39,12 @@ void Bullet::Render()
 {
 	for (int i = 0; i < _vBullet.size(); i++) 
 	{
-		//총알 사각형 그리기
-		_DXRenderer->DrawRectangle(_vBullet.at(i).rc, DefaultBrush::green, false, 3.0f);
+		if (_vBullet.at(i).isfire == true) 
+		{
+			//총알 사각형 그리기
+			_DXRenderer->DrawRectangle(_vBullet.at(i).rc, DefaultBrush::green, false, 3.0f);
+		}
+
 	}
 	
 }
@@ -104,7 +108,7 @@ void Bullet::Move()
 		float distance = Math::GetDistance(_viBullet->firePosition.x, _viBullet->firePosition.y, _viBullet->position.x, _viBullet->position.y);
 
 		//만약, 사정거리 보다 거리가 멀어지면 발사 막기 isfire 를 false 처리
-		if (_range > distance) 
+		if (_range < distance) 
 		{
 			_viBullet->isfire = false;
 		}
@@ -114,16 +118,21 @@ void Bullet::Move()
 //총알 충돌 처리 함수
 bool Bullet::Intersect(RECT rc) 
 {
+	
 	for (int i = 0; i < _vBullet.size(); i++) 
 	{
-		RECT temp;
-		if (IntersectRect(&temp, &_vBullet.at(i).rc, &rc)) 
+		if (_vBullet.at(i).isfire == true) 
 		{
-			//충돌되면 fire를 false로
-			_vBullet.at(i).isfire = false;
+			RECT temp;
+			if (IntersectRect(&temp, &_vBullet.at(i).rc, &rc))
+			{
+				//충돌되면 fire를 false로
+				_vBullet.at(i).isfire = false;
 
-			return true;
+				return true;
+			}
 		}
+
 	}
 	return false;
 }
