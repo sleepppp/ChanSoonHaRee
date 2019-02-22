@@ -15,7 +15,7 @@ using namespace Figure;
 기본값을 초기화 해주면 더 빠르다. 
 **********************************************************************************************/
 GameObject::GameObject()
-	:pivot(Pivot::LEFT_TOP),position(0.f,0.f),size(0.f,0.f),isActive(true),isLive(true)
+	:_pivot(Pivot::LEFT_TOP),_position(0.f,0.f),_size(0.f,0.f),_isActive(true),_isLive(true)
 {
 	//기본값으로 렉트 설정 
 	this->UpdateRect();
@@ -36,7 +36,7 @@ GameObject::~GameObject()
 ****************************************************************************************/
 void GameObject::SetPosition(Vector2 pos)
 {
-	this->position = pos;
+	this->_position = pos;
 	this->UpdateRect();
 }
 /***************************************************************************************
@@ -47,7 +47,7 @@ void GameObject::SetPosition(Vector2 pos)
 ****************************************************************************************/
 void GameObject::SetSize(Vector2 size)
 {
-	this->size = size;
+	this->_size = size;
 	this->UpdateRect();
 }
 /***************************************************************************************
@@ -58,7 +58,7 @@ void GameObject::SetSize(Vector2 size)
 ****************************************************************************************/
 void GameObject::SetPivot(Pivot::Enum pivot)
 {
-	this->pivot = pivot;
+	this->_pivot = pivot;
 	this->UpdateRect();
 }
 /***************************************************************************************
@@ -67,16 +67,16 @@ void GameObject::SetPivot(Pivot::Enum pivot)
 ****************************************************************************************/
 void GameObject::UpdateRect()
 {
-	switch (pivot)
+	switch (_pivot)
 	{
 	case Pivot::LEFT_TOP:
-		this->rc = RectMake(position.x, position.y, size.x, size.y);
+		this->_rc = RectMake(_position.x, _position.y, _size.x, _size.y);
 		break;
 	case Pivot::CENTER:
-		this->rc = RectMakeCenter(position.x, position.y, size.x, size.y);
+		this->_rc = RectMakeCenter(_position.x, _position.y, _size.x, _size.y);
 		break;
 	case Pivot::BOTTOM:
-		this->rc = RectMakeBottom(position.x, position.y, size.x, size.y);
+		this->_rc = RectMakeBottom(_position.x, _position.y, _size.x, _size.y);
 		break;
 	default:
 		break;

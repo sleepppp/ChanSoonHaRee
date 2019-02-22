@@ -10,13 +10,13 @@ class GameObject
 {
 	//Protected로 접근지정자가 설정되어 있으면 자식 객체에서만 해당 변수 및 함수를 접근 가능
 protected:
-	Pivot::Enum pivot;		//렉트 생성할 피봇 
-	string name;			//오브젝트 이름 
-	Vector2 position;		//오브젝트 좌표 
-	Vector2 size;			//오브젝트 사이즈 
-	RECT rc;				//오브젝트 렉트 
-	bool isActive;			//활성 여부 
-	Synthesize(bool,isLive,IsLive)	//생사 여부(예제로 Synthesize 넣어봤음, 집에서 이것저것 해볼 때 한번 써보세요) 
+	Pivot::Enum _pivot;		//렉트 생성할 피봇 
+	string _name;			//오브젝트 이름 
+	Vector2 _position;		//오브젝트 좌표 
+	Vector2 _size;			//오브젝트 사이즈 
+	RECT _rc;				//오브젝트 렉트 
+	bool _isActive;			//활성 여부 
+	Synthesize(bool,_isLive,IsLive)	//생사 여부(예제로 Synthesize 넣어봤음, 집에서 이것저것 해볼 때 한번 써보세요) 
 public:
 	//생성자며 
 	GameObject();
@@ -33,17 +33,17 @@ public:
 	virtual void Update() = 0;
 	virtual void Render() = 0; 
 	//접근자
-	string GetName()const { return name; }
-	Vector2 GetPosition()const { return this->position; }
-	Vector2 GetSize()const { return this->size; }
-	RECT GetRect()const { return this->rc; }
-	bool GetActive()const { return this->isActive; }
+	string GetName()const { return _name; }
+	Vector2 GetPosition()const { return this->_position; }
+	Vector2 GetSize()const { return this->_size; }
+	RECT GetRect()const { return this->_rc; }
+	bool GetActive()const { return this->_isActive; }
 	//설정자
-	void SetName(string name) { this->name = name; }
+	void SetName(string name) { this->_name = name; }
 	void SetPosition(Vector2 pos);
 	void SetSize(Vector2 size);
 	void SetPivot(Pivot::Enum pivot);
-	void SetActice(bool b) { this->isActive = b; }
+	void SetActice(bool b) { this->_isActive = b; }
 	//렉트를 피벗 기준으로 업데이트 시켜준다.
 	void UpdateRect();
 };
