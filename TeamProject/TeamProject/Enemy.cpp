@@ -26,15 +26,21 @@ void Enemy::Release()
 
 void Enemy::Update()
 {
+	_bullet->Update();
 	_player = (Player*) _ObjectManager->FindObject("player");
 	this->_count++;
 	this->EnemyMove();
 	this->EnemyFire();
+	if (_player != nullptr)
+	{
+		_bullet->Intersect(_player->GetRect());
+	}
 }
 
 void Enemy::Render()
 {
 	_DXRenderer->DrawRectangle(_rc, DefaultBrush::green);
+	_bullet->Render();
 	//창 생성(이름은 EnemySpeed)
 	//ImGui::Begin("EnemySpeed");
 	//{
@@ -97,7 +103,7 @@ void Enemy::EnemyFire()
 	if (_count % 100 == 0)
 	{
 		_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
-		_bullet->Fire(Vector2(_position.x, _position.y), Vector2(10, 10), _angle, 60.0f);
+		_bullet->Fire(Vector2(_position.x, _position.y), Vector2(10, 10), _angle, 200.0f);
 		this->UpdateRect();
 	}
 }
