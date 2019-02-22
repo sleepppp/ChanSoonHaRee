@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "Bullet.h"		//총알
+#include "Enemy.h"
 
 /*****************************************
 전역: 변수: _player , bool값: _isActive
@@ -19,9 +20,6 @@ Player::~Player()
 
 void Player::Init()
 {
-	_bullet = new Bullet;
-	_bullet->Init(10,500);
-
 	_speed = 200.0f;
 	_name = "플레이어";
 	_position.x = WinSizeX / 2;
@@ -29,11 +27,14 @@ void Player::Init()
 	_size.x = 24;
 	_size.y = 48;
 	_pivot = Pivot::CENTER;
+	this->UpdateRect();		//rc 초기화
+
+	//bullet값
+	_bullet = new Bullet;
+	_bullet->Init(10, 500);
 
 	_playerBullet.x = 40;		//플레이어가 쏘는 총알의 사이즈
 	_playerBullet.y = 40;	
-
-	this->UpdateRect();		//rc 초기화
 }
 
 void Player::Release()
@@ -59,13 +60,12 @@ void Player::Update()
 	}
 
 	//액션:총알발사
-	if (_Input->GetKey(VK_SPACE))
+	if (_Input->GetKeyDown(VK_SPACE))
 	{
-		_bullet->Fire(Vector2(_position), Vector2(_playerBullet), Math::PI/2, 200.f);
-		//this->BulletFire();		//총알 생성 및 발사
-		this->UpdateRect();	
-		
+		_bullet->Fire(Vector2(_position), Vector2(_playerBullet), Math::PI/2, 200.f);				
+		this->UpdateRect();			
 	}
+
 	_bullet->Update();
 }
 
@@ -75,22 +75,23 @@ void Player::Render()
 	_DXRenderer->FillRectangle(_rc, DefaultBrush::blue, true);	
 	
 	_bullet->Render();
+	
 }
 
-
-//플레이어 총알 발사
-void Player::BulletFire()
+void Player::Collision()
 {
-	
+	//_enemy를 찾습니다.
+	GameObject* _enemy = _ObjectManager->FindObject("_enemy");	
 
-
-	//불렛클래스를 벡터에 담아서...그려주고 불값 없으면 추가하고
+	//리턴값이 nullptr이 아닐 경우
+	if (_enemy!=nullptr)
+	{
+		//플레이어 총알과 에너미 몸체가 충돌할 경우
+		if (_bullet->Intersect(_enemy->GetRect()))
+		{
+			//
+			_enemy->SetIsLive(false);
+		}
+	}
 	
-	//총알 벡터 10개
-	//발사할 경우 bool값으로 false는 continue, true면 진입;
-	
-	//발사할 경우 bool값 false로 변경
-	//rc그리기
-
-	//Vector
 }

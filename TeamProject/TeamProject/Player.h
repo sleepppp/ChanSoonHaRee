@@ -8,13 +8,11 @@
 
 class Player : public GameObject
 {
-	float _speed;					//플레이어 속도값	
-	
-	Vector2 _playerBullet;			//플레이어가 쏘는 총알의 사이즈
-	
 	class Bullet* _bullet;			//총알 클래스
+	class Enemy* _enemy;			//에너미 클래스
 
-
+	float _speed;					//플레이어 속도값		
+	Vector2 _playerBullet;			//플레이어가 쏘는 총알의 사이즈(x,y)		
 
 public:
 	Player();
@@ -25,9 +23,6 @@ public:
 	void Update()override;
 	void Render()override;
 
-	void BulletFire();		//총알 발사
-	void BulletMove();		//총알 이동
-
-
+	void Collision();
 };
 
