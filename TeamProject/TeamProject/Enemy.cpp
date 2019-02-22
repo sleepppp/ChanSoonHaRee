@@ -15,8 +15,9 @@ Enemy::~Enemy()
 
 void Enemy::Init()
 {
+	_name = "enemy";
 	this->EnemyInit();
-	GameObject* _player = _ObjectManager->FindObject("player");
+	_player =(Player*) _ObjectManager->FindObject("player");
 }
 
 void Enemy::Release()
@@ -25,7 +26,7 @@ void Enemy::Release()
 
 void Enemy::Update()
 {
-	GameObject* _player = _ObjectManager->FindObject("player");
+	_player = (Player*) _ObjectManager->FindObject("player");
 	this->_count++;
 	this->EnemyMove();
 	this->EnemyFire();
@@ -93,11 +94,11 @@ void Enemy::EnemyMove()
 //에너미의 총알을 발사하는 여부를 확인하고 플레이어를 타겟으로 총알을 발사한다.
 void Enemy::EnemyFire()
 {
-	//if (_count % 100 == 0)
-	//{
-	//	_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
-	//	_bullet->Fire(Vector2(_position.x, _position.y), Vector2(10, 10), _angle, 60.0f);
-	//	this->UpdateRect();
-	//}
+	if (_count % 100 == 0)
+	{
+		_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
+		_bullet->Fire(Vector2(_position.x, _position.y), Vector2(10, 10), _angle, 60.0f);
+		this->UpdateRect();
+	}
 }
 
