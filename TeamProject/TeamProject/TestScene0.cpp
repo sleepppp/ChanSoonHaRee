@@ -11,7 +11,10 @@ TestScene0::TestScene0()
 TestScene0::~TestScene0()
 {
 }
-
+/***********************************************
+## Init ##
+¾ÀÀÌ ¹Ù²ğ ¶§¸¶´Ù È£Ãâ
+************************************************/
 void TestScene0::Init()
 {
 	TestAnimation* animation = new TestAnimation();
@@ -19,12 +22,17 @@ void TestScene0::Init()
 
 	_ObjectManager->Init();
 }
-
+/***********************************************
+## Relase ##
+¾ÀÀÌ ¹Ù²ğ ¶§¸¶´Ù È£Ãâ
+************************************************/
 void TestScene0::Release()
 {
 	_ObjectManager->Release();
 }
-
+/***********************************************
+## Update ##
+************************************************/
 void TestScene0::Update()
 {
 	_ObjectManager->Update();
@@ -34,7 +42,9 @@ void TestScene0::Update()
 		_SceneManager->ChangeScene("Test1");
 	}
 }
-
+/***********************************************
+## Render ##
+************************************************/
 void TestScene0::Render()
 {
 	_ObjectManager->Render();

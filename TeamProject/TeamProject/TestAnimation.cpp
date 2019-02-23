@@ -15,8 +15,9 @@ TestAnimation::TestAnimation()
 	this->_size = Vector2(200, 200);
 	this->_pivot = Pivot::CENTER;
 	this->UpdateRect();
-
+	//이미지 등록 방법 
 	_ImageManager->AddFrameImage("TestAnimation", L"../Resources/PlayerTest.png", 8, 2);
+	//등록이 끝났으면 찾아서 현재 이미지 포인터에 넣어주자
 	this->_image = _ImageManager->FindImage("TestAnimation");
 	this->_frameCount = 0.0f;
 	this->_frameX = this->_frameY = 0;
@@ -98,7 +99,7 @@ void TestAnimation::Render()
 		_image->SetSize(_size);
 		_image->SetAngle(angle);
 		_image->FrameRender(_position.x,_position.y, _frameX, _frameY, Pivot::CENTER, true);
-		//_DXRenderer->DrawRectangle(_rc, DefaultBrush::blue, true,3.0f);
+		_DXRenderer->DrawRectangle(_rc, DefaultBrush::blue, true,3.0f);
 	}
 
 	ImGui::Begin("TestAnimation");

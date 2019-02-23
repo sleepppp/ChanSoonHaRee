@@ -210,6 +210,7 @@ void Window::CreateManager()
 **********************************************************************************/
 void Window::DeleteManager()
 {
+	SceneManager::DeleteSingleton();
 	ObjectManager::Delete();
 	ImageManager::Delete();
 	Time::Delete();

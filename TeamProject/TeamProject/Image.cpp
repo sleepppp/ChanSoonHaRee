@@ -133,7 +133,7 @@ void Image::Render(int x, int y, Pivot::Enum pivot, bool isRelativePos)
 		offset.y = size.y;
 	}
 
-	D2D1::Matrix3x2F rotation = D2D1::Matrix3x2F::Rotation(angle);
+	D2D1::Matrix3x2F rotation = D2D1::Matrix3x2F::Rotation(angle, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
 
 	D2D1_RECT_F dxArea = D2D1::RectF(0.f, 0.f, size.x, size.y);
 	Image::renderTarget->SetTransform(reverse * rotation *
@@ -200,13 +200,8 @@ void Image::FrameRender(int x, int y, int frameX, int frameY, Pivot::Enum pivot,
 		reverse = D2D1::Matrix3x2F::Scale(scale.x, -scale.y);
 		offset.y = size.y;
 	}
-	if (FLOAT_EQUAL(angle, 0.0f) == false)
-	{
 
-	}
-
-	D2D1::Matrix3x2F rotation = D2D1::Matrix3x2F::Rotation(angle, D2D1::Point2F());
-
+	D2D1::Matrix3x2F rotation = D2D1::Matrix3x2F::Rotation(angle, D2D1::Point2F(size.x / 2.f, size.y / 2.f));
 	D2D1_RECT_F dxArea = D2D1::RectF(0.0f, 0.0f, size.x, size.y);
 	D2D1_RECT_F dxSrc = D2D1::RectF((float)frameInfo[frame].X,(float) frameInfo[frame].Y,
 		(float)(frameInfo[frame].X + frameInfo[frame].Width),
@@ -249,9 +244,9 @@ void Image::SetScale(float scale)
 /********************************************************************************
 ## SetAngle ## 
 회전값 세팅 
-@@ flaot angle : 회전값 세팅 
+@@ flaot angle : 디그리 값으로 넣어주자
 ********************************************************************************/
-void Image::SetAngle(float angle)
+void Image::SetAngle(float angle /*디그리*/)
 {
 	this->angle = angle;
 }

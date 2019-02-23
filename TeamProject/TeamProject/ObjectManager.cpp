@@ -22,6 +22,16 @@ ObjectManager::ObjectManager()
 ****************************************************************************************/
 ObjectManager::~ObjectManager()
 {
+	ObjectIter iter = objectContainer.begin();
+	for (; objectContainer.end() != iter; ++iter)
+	{
+		for (UINT i = 0; i < iter->second.size(); ++i)
+		{
+			iter->second[i]->Release();
+			SafeDelete(iter->second[i]);
+		}
+		iter->second.clear();
+	}
 	objectContainer.clear();
 }
 /***************************************************************************************
@@ -102,7 +112,11 @@ void ObjectManager::Render()
 		}
 	}
 }
-
+/***********************************************
+## AddObject ##
+@@ ObjectType::Enum type : 오브젝트 담을 벡터 카테고리 Enum 
+@@ GameObject* object : 담을 오브젝트 
+************************************************/
 void ObjectManager::AddObject(ObjectType::Enum type, GameObject * gameObject)
 {
 	//ObjectIter iter = objectContainer.find(type);
@@ -110,10 +124,19 @@ void ObjectManager::AddObject(ObjectType::Enum type, GameObject * gameObject)
 	//{
 	//	iter->second.push_back(gameObject);
 	//}
-
+	
+	//맵도 키값을 통해 배열처럼 접근 가능(find처럼 내부적으로 이진탐색 알고리즘으로 탐색한다)
+	//문제는 해당 키값이 없을 경우 빈 방을 생성하고 data값을 0으로 초기화 한다. 
+	//고로 키값이 없을 때 빈방을 만들어 버리므로 조심해야한다. 
 	objectContainer[type].push_back(gameObject);
 }
+/***********************************************
+## FindObject ##
+@@ ObjectType::Enum type : 찾을 오브젝트 카테고리 enum 
+@@ string name : 찾을 오브젝트 이름 
 
+오브젝트 타입 벡터내에서 찾아서 반환 
+************************************************/
 GameObject * ObjectManager::FindObject(ObjectType::Enum type, string name)
 {
 	vector<GameObject*> objectList = objectContainer[type];
@@ -126,7 +149,12 @@ GameObject * ObjectManager::FindObject(ObjectType::Enum type, string name)
 	}
 	return nullptr;
 }
+/***********************************************
+## FindObject ##
+@@ string name : 찾을 오브젝트 이름 
 
+전체 오브젝트 컨테이너를 뒤져서 찾는다. 
+************************************************/
 GameObject * ObjectManager::FindObject(string name)
 {
 	ObjectIter iter = objectContainer.begin();
@@ -140,7 +168,13 @@ GameObject * ObjectManager::FindObject(string name)
 	}
 	return nullptr;
 }
+/***********************************************
+## FindObjects ##
+@@ ObjectType::Enum type : 찾을 오브젝트 카테고리 
+@@ string name : 찾을 오브젝트 이름 
 
+같은 이름의 오브젝트를 전부 찾아서 벡터에 담아 반환 
+************************************************/
 vector<class GameObject*> ObjectManager::FindObjects(ObjectType::Enum type, string name)
 {
 	vector<GameObject*> findList;
@@ -156,7 +190,12 @@ vector<class GameObject*> ObjectManager::FindObjects(ObjectType::Enum type, stri
 
 	return findList;
 }
+/***********************************************
+## GetObjectList ##
+@@ ObjectType::Enum type : 오브젝트 타입 
 
+해당 오브젝트 타입 벡터 전부 반환
+************************************************/
 vector<class GameObject*> ObjectManager::GetObjectList(ObjectType::Enum type)
 {
 	return objectContainer[type];
