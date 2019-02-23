@@ -4,6 +4,7 @@
 #include "Image.h"
 #include "StringHelper.h"
 #include "BinaryFile.h"
+#include "SceneManager.h"
 
 /*****************************************************************************
 ## Animation ##

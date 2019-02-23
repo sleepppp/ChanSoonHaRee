@@ -30,7 +30,6 @@ public:
 	class GameObject* FindObject(string name);
 	vector<class GameObject*> FindObjects(ObjectType::Enum type, string name);
 	vector<class GameObject*> GetObjectList(ObjectType::Enum type);
-
 };
 
 #define _ObjectManager ObjectManager::Get()

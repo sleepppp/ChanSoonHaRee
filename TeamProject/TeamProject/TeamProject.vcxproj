@@ -152,6 +152,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BinaryFile.h" />
     <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="ChanScene.h" />
     <ClInclude Include="DefineHeader.h" />
     <ClInclude Include="DXRenderer.h" />
     <ClInclude Include="EnumStructHeader.h" />
@@ -167,11 +168,15 @@
     <ClInclude Include="Program.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="SceneBase.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TeamProject.h" />
     <ClInclude Include="TestAnimation.h" />
+    <ClInclude Include="TestScene0.h" />
+    <ClInclude Include="TestScene1.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Window.h" />
@@ -180,6 +185,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BinaryFile.cpp" />
     <ClCompile Include="CameraManager.cpp" />
+    <ClCompile Include="ChanScene.cpp" />
     <ClCompile Include="DXRenderer + Create.cpp" />
     <ClCompile Include="DXRenderer + Rendering.cpp" />
     <ClCompile Include="DXRenderer.cpp" />
@@ -192,6 +198,8 @@
     <ClCompile Include="Path.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="SceneBase.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -201,6 +209,8 @@
     <ClCompile Include="StringHelper.cpp" />
     <ClCompile Include="TeamProject.cpp" />
     <ClCompile Include="TestAnimation.cpp" />
+    <ClCompile Include="TestScene0.cpp" />
+    <ClCompile Include="TestScene1.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Window.cpp" />

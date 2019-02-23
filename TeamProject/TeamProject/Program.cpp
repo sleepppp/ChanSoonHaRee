@@ -1,13 +1,14 @@
 #include "stdafx.h"
 #include "Program.h"
 
-#include "TestAnimation.h"
+#include "TestScene0.h"
+#include "TestScene1.h"
+#include "ChanScene.h"
 //프로그램 생성자에서 플레이어와 에너미 객체를 생성해서 오브잭트 매니져에
 //등록한다. 
 Program::Program()
 {
-	TestAnimation* animation = new TestAnimation;
-	_ObjectManager->AddObject(ObjectType::Object,animation);
+
 	
 }
 
@@ -19,20 +20,26 @@ Program::~Program()
 
 void Program::Init()
 {
-	//모든 오브젝트 Init()해준다
-	_ObjectManager->Init();
+	TestScene0* scene = new TestScene0;
+	_SceneManager->AddScene("Test0", scene);
+	TestScene1* scene1 = new TestScene1;
+	_SceneManager->AddScene("Test1", scene1);
+
+	ChanScene* chanScene = new ChanScene;
+	_SceneManager->AddScene("ChanScene", chanScene);
+
+	_SceneManager->ChangeScene("Test1");
+
 }
 
 void Program::Release()
 {
-	//모든 오브젝트 Relase및 할당해제 해준다. 
-	_ObjectManager->Release();
+	
 }
 
 void Program::Update()
 {
-	//모든 오브젝트 업데이트 해준다. 
-	_ObjectManager->Update();
+	_SceneManager->Update();
 }
 
 void Program::Render()
@@ -44,9 +51,7 @@ void Program::Render()
 	{
 		_Time->Render();
 		{
-			//여기서 메인 렌더링 처리
-			_ObjectManager->Render();
-			//여기까지
+			_SceneManager->Render();
 		}
 	}
 	//Direct2D 렌더타겟 언바인딩 
