@@ -1,14 +1,13 @@
 #include "stdafx.h"
 #include "Program.h"
-#include "Enemy.h"
-#include "Player.h"
+
 #include "TestAnimation.h"
 //프로그램 생성자에서 플레이어와 에너미 객체를 생성해서 오브잭트 매니져에
 //등록한다. 
 Program::Program()
 {
 	TestAnimation* animation = new TestAnimation;
-	_ObjectManager->AddObject(animation);
+	_ObjectManager->AddObject(ObjectType::Object,animation);
 	
 }
 

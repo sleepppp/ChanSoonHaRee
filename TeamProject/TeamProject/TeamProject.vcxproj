@@ -23,7 +23,7 @@
     <ProjectGuid>{59369EAE-E275-4010-AA30-2C70122FFA8A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>TeamProject</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -151,11 +151,9 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BinaryFile.h" />
-    <ClInclude Include="Bullet.h" />
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="DefineHeader.h" />
     <ClInclude Include="DXRenderer.h" />
-    <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnumStructHeader.h" />
     <ClInclude Include="Figure.h" />
     <ClInclude Include="GameObject.h" />
@@ -166,7 +164,6 @@
     <ClInclude Include="ModuleHeader.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Path.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ImageManager.h" />
@@ -182,12 +179,10 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BinaryFile.cpp" />
-    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="DXRenderer + Create.cpp" />
     <ClCompile Include="DXRenderer + Rendering.cpp" />
     <ClCompile Include="DXRenderer.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Figure.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Image.cpp" />
@@ -195,7 +190,6 @@
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Path.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="stdafx.cpp">

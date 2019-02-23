@@ -200,6 +200,10 @@ void Image::FrameRender(int x, int y, int frameX, int frameY, Pivot::Enum pivot,
 		reverse = D2D1::Matrix3x2F::Scale(scale.x, -scale.y);
 		offset.y = size.y;
 	}
+	if (FLOAT_EQUAL(angle, 0.0f) == false)
+	{
+
+	}
 
 	D2D1::Matrix3x2F rotation = D2D1::Matrix3x2F::Rotation(angle, D2D1::Point2F());
 

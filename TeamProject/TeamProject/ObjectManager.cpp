@@ -10,7 +10,11 @@ SingletonCpp(ObjectManager)
 ****************************************************************************************/
 ObjectManager::ObjectManager()
 {
-
+	for (UINT i = 0; i < ObjectType::End; ++i)
+	{
+		vector<GameObject*> emptyVector;
+		objectContainer.insert(make_pair((ObjectType::Enum)i, emptyVector));
+	}
 }
 
 /***************************************************************************************
@@ -18,8 +22,7 @@ ObjectManager::ObjectManager()
 ****************************************************************************************/
 ObjectManager::~ObjectManager()
 {
-	//오브젝트 벡터 클리어 ~(혹시 몰라서)
-	objectList.clear();
+	objectContainer.clear();
 }
 /***************************************************************************************
 ## Init ## 
@@ -27,9 +30,13 @@ ObjectManager::~ObjectManager()
 ****************************************************************************************/
 void ObjectManager::Init()
 {
-	for (UINT i = 0; i < objectList.size(); ++i)
+	ObjectIter iter = objectContainer.begin();
+	for (; iter != objectContainer.end(); ++iter)
 	{
-		objectList[i]->Init();
+		for (UINT i = 0; i < iter->second.size(); ++i)
+		{
+			iter->second[i]->Init();
+		}
 	}
 }
 /***************************************************************************************
@@ -38,12 +45,16 @@ void ObjectManager::Init()
 ****************************************************************************************/
 void ObjectManager::Release()
 {
-	for (UINT i = 0; i < objectList.size(); ++i)
+	ObjectIter iter = objectContainer.begin();
+	for (; objectContainer.end() != iter; ++iter)
 	{
-		objectList[i]->Release();
-		SafeDelete(objectList[i]);
+		for (UINT i = 0; i < iter->second.size(); ++i)
+		{
+			iter->second[i]->Release();
+			SafeDelete(iter->second[i]);
+		}
+		iter->second.clear();
 	}
-	objectList.clear();
 }
 /***************************************************************************************
 ## Update ## 
@@ -54,23 +65,24 @@ void ObjectManager::Release()
 ****************************************************************************************/
 void ObjectManager::Update()
 {
-	for (UINT i = 0; i < objectList.size(); ++i)
+	ObjectIter iter = objectContainer.begin();
+	for (; iter != objectContainer.end(); ++iter)
 	{
-		//만약 오브젝트의 isLive값이 false라면 죽었다는 뜻이므로 
-		if (objectList[i]->GetIsLive() == false)
+		for (UINT i = 0; i < iter->second.size(); ++i)
 		{
-			//오브젝트 Relase및 할당해제, 벡터에서 제거까지 해준다. 
-			objectList[i]->Release();
-			SafeDelete(objectList[i]);
-			objectList.erase(objectList.begin() + i);
-			i--;
-			//모든 제거 과정이 끝났다면 아래에 있는 코드는 실행되면 안되므로 continue;
-			continue;
-		}
-		//만약 오브젝트가 살아있고 활성상태가 true라면 업데이트 해라 
-		if (objectList[i]->GetActive() == true)
-		{
-			objectList[i]->Update();
+			if (iter->second[i]->GetIsLive() == false)
+			{
+				iter->second[i]->Release();
+				SafeDelete(iter->second[i]);
+				iter->second.erase(iter->second.begin() + i);
+				--i;
+				continue;
+			}
+
+			if (iter->second[i]->GetActive() == true)
+			{
+				iter->second[i]->Update();
+			}
 		}
 	}
 }
@@ -80,70 +92,72 @@ void ObjectManager::Update()
 ****************************************************************************************/
 void ObjectManager::Render()
 {
-	for (UINT i = 0; i < objectList.size(); ++i)
+	ObjectIter iter = objectContainer.begin();
+	for (; iter != objectContainer.end(); ++iter)
 	{
-		//만약 해당 오브젝트가 활성화가 되어있다면 렌더링 해라
-		if (objectList[i]->GetActive())
-			objectList[i]->Render();
+		for (UINT i = 0; i < iter->second.size(); ++i)
+		{
+			if(iter->second[i]->GetActive())
+				iter->second[i]->Render();
+		}
 	}
 }
-/***************************************************************************************
-## AddObject ## 
-@@ GameObject* object : 등록할 오브젝트 
-****************************************************************************************/
-void ObjectManager::AddObject(GameObject * object)
-{
-	objectList.push_back(object);
-}
-/***************************************************************************************
-## FindObject ## 
-@@ string name : 찾을 오브젝트 이름 
 
-@@ return GameObject* : 찾은 오브젝트 포인터 반환(만약 못찾았다면 nullptr반환)
-****************************************************************************************/
-GameObject * ObjectManager::FindObject(string name)
+void ObjectManager::AddObject(ObjectType::Enum type, GameObject * gameObject)
 {
+	//ObjectIter iter = objectContainer.find(type);
+	//if (iter != objectContainer.end())
+	//{
+	//	iter->second.push_back(gameObject);
+	//}
+
+	objectContainer[type].push_back(gameObject);
+}
+
+GameObject * ObjectManager::FindObject(ObjectType::Enum type, string name)
+{
+	vector<GameObject*> objectList = objectContainer[type];
 	for (UINT i = 0; i < objectList.size(); ++i)
 	{
-		//만약 오브젝트의 이름이랑 찾을려는 이름이랑 같다면 
 		if (objectList[i]->GetName() == name)
 		{
-			//해당 오브젝트 반환해라 
 			return objectList[i];
 		}
 	}
-	//여기까지 왔다면 못찾은것 nullptr 반환 
 	return nullptr;
 }
-/***************************************************************************************
-## FindObjects ##
-해당 이름의 오브젝트를 전부 찾아서 반환
-@@ string name : 찾을 오브젝트들 이름 
 
-@@ return vector<GameObject*> : 찾은 오브젝트들 담겨있는 벡터 
-****************************************************************************************/
-vector<class GameObject*> ObjectManager::FindObjects(string name)
+GameObject * ObjectManager::FindObject(string name)
 {
-	//찾은 오브젝트들 담을 벡터 
+	ObjectIter iter = objectContainer.begin();
+	for (; iter != objectContainer.end(); ++iter)
+	{
+		for (UINT i = 0; i < iter->second.size(); ++i)
+		{
+			if (iter->second[i]->GetName() == name)
+				return iter->second[i];
+		}
+	}
+	return nullptr;
+}
+
+vector<class GameObject*> ObjectManager::FindObjects(ObjectType::Enum type, string name)
+{
 	vector<GameObject*> findList;
-	
+
+	vector<GameObject*> objectList = objectContainer[type];
 	for (UINT i = 0; i < objectList.size(); ++i)
 	{
-		//만약 찾을려는 오브젝트랑 해당 오브젝트랑 이름이 같다면 
 		if (objectList[i]->GetName() == name)
 		{
-			//벡터에 담는다
 			findList.push_back(objectList[i]);
 		}
 	}
-	//찾은 녀석들 전부 담아서 반환 
+
 	return findList;
 }
-/***************************************************************************************
-## GetObjectList ## 
-모든 오브젝트 리스트 반환
-****************************************************************************************/
-vector<class GameObject*> ObjectManager::GetObjectList()
+
+vector<class GameObject*> ObjectManager::GetObjectList(ObjectType::Enum type)
 {
-	return objectList;
+	return objectContainer[type];
 }

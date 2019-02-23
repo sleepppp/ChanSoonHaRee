@@ -135,15 +135,6 @@
     <ClInclude Include="stdafx.h">
       <Filter>MainHeader</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>PublicForder\Ree</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>PublicForder\Ha</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>PublicForder\Chan</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>PublicForder\Soon</Filter>
     </ClInclude>
@@ -211,15 +202,6 @@
     </ClCompile>
     <ClCompile Include="Program.cpp">
       <Filter>MainEntry</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>PublicForder\Ree</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>PublicForder\Ha</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>PublicForder\Chan</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>PublicForder\Soon</Filter>
