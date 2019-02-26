@@ -255,4 +255,23 @@ namespace Figure
 		rc->right += x;
 		rc->bottom += y;
 	}
+
+	inline RECT RectMakePivot(int x, int y, int width ,int height ,Pivot::Enum pivot)
+	{
+		RECT rc;
+		switch (pivot)
+		{
+		case Pivot::LEFT_TOP:
+			rc = RectMake(x, y, width, height);
+			break;
+		case Pivot::CENTER:
+			rc = RectMakeCenter(x, y, width, height);
+			break;
+		case Pivot::BOTTOM:
+			rc = RectMakeBottom(x, y, width, height);
+			break;
+		default:
+			break;
+		}
+	}
 }

@@ -23,7 +23,7 @@
     <ProjectGuid>{59369EAE-E275-4010-AA30-2C70122FFA8A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>TeamProject</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -165,9 +165,11 @@
     <ClInclude Include="ModuleHeader.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Path.h" />
+    <ClInclude Include="PlayerTestScene.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="SaveLoadModule.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="stdafx.h" />
@@ -175,8 +177,11 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TeamProject.h" />
     <ClInclude Include="TestAnimation.h" />
+    <ClInclude Include="TestEenemy.h" />
+    <ClInclude Include="TestPlayer.h" />
     <ClInclude Include="TestScene0.h" />
     <ClInclude Include="TestScene1.h" />
+    <ClInclude Include="TextFile.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Window.h" />
@@ -196,8 +201,10 @@
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Path.cpp" />
+    <ClCompile Include="PlayerTestScene.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="SaveLoadModule.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -209,8 +216,11 @@
     <ClCompile Include="StringHelper.cpp" />
     <ClCompile Include="TeamProject.cpp" />
     <ClCompile Include="TestAnimation.cpp" />
+    <ClCompile Include="TestEenemy.cpp" />
+    <ClCompile Include="TestPlayer.cpp" />
     <ClCompile Include="TestScene0.cpp" />
     <ClCompile Include="TestScene1.cpp" />
+    <ClCompile Include="TextFile.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Window.cpp" />

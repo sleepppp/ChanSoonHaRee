@@ -4,6 +4,9 @@
 #include "TestScene0.h"
 #include "TestScene1.h"
 #include "ChanScene.h"
+#include "PlayerTestScene.h"
+
+#include "SaveLoadModule.h"
 //프로그램 생성자에서 플레이어와 에너미 객체를 생성해서 오브잭트 매니져에
 //등록한다. 
 Program::Program()
@@ -17,7 +20,6 @@ Program::~Program()
 {
 }
 
-
 void Program::Init()
 {
 	TestScene0* scene = new TestScene0;
@@ -28,8 +30,10 @@ void Program::Init()
 	ChanScene* chanScene = new ChanScene;
 	_SceneManager->AddScene("ChanScene", chanScene);
 
-	_SceneManager->ChangeScene("Test1");
+	PlayerTestScene* playerScene = new PlayerTestScene;
+	_SceneManager->AddScene("PlayerTestScene", playerScene);
 
+	_SceneManager->ChangeScene("PlayerTestScene");
 }
 
 void Program::Release()

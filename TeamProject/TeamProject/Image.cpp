@@ -266,18 +266,14 @@ void Image::ResetRenderOption()
 /********************************************************************************
 ## GetPixel ## 
 ********************************************************************************/
-COLORREF Image::GetPixel(int imageLeft, int imageTop, int x, int y)
+
+COLORREF Image::GetPixelColor(int x, int y)
 {
 	if (pixelCollisionDC != nullptr)
 	{
-
+		return GetPixel(pixelCollisionDC, x, y);
 	}
-	return COLORREF();
-}
-
-COLORREF Image::GetPixel(int x, int y)
-{
-	return COLORREF();
+	return RGB(0, 0, 0);
 }
 
 /********************************************************************************

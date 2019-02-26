@@ -67,6 +67,15 @@
     <Filter Include="System\Window">
       <UniqueIdentifier>{545818c3-5899-4588-bc93-00184abbe025}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PublicForder\Soon\Module">
+      <UniqueIdentifier>{379a2311-5586-4e7f-b73b-d118451d15a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Soon\SceneAnimationTest">
+      <UniqueIdentifier>{a6d0e8fe-1948-4257-bcbd-eae27c2092ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Soon\PlayerTest">
+      <UniqueIdentifier>{79d6414b-5329-4573-8eb3-d63e6ef27b1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -135,32 +144,47 @@
     <ClInclude Include="stdafx.h">
       <Filter>MainHeader</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>PublicForder\Soon</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>PublicForder\Soon</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>PublicForder\Soon</Filter>
-    </ClInclude>
-    <ClInclude Include="TestAnimation.h">
-      <Filter>PublicForder\Soon</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneBase.h">
-      <Filter>PublicForder\Soon</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>PublicForder\Soon</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene0.h">
-      <Filter>PublicForder\Soon</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene1.h">
-      <Filter>PublicForder\Soon</Filter>
-    </ClInclude>
     <ClInclude Include="ChanScene.h">
       <Filter>PublicForder\Chan</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBase.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="TestAnimation.h">
+      <Filter>PublicForder\Soon\SceneAnimationTest</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene0.h">
+      <Filter>PublicForder\Soon\SceneAnimationTest</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene1.h">
+      <Filter>PublicForder\Soon\SceneAnimationTest</Filter>
+    </ClInclude>
+    <ClInclude Include="TestPlayer.h">
+      <Filter>PublicForder\Soon\PlayerTest</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTestScene.h">
+      <Filter>PublicForder\Soon\PlayerTest</Filter>
+    </ClInclude>
+    <ClInclude Include="TestEenemy.h">
+      <Filter>PublicForder\Soon\PlayerTest</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveLoadModule.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="TextFile.h">
+      <Filter>Utility\File</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -218,32 +242,47 @@
     <ClCompile Include="Program.cpp">
       <Filter>MainEntry</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>PublicForder\Soon</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>PublicForder\Soon</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>PublicForder\Soon</Filter>
-    </ClCompile>
-    <ClCompile Include="TestAnimation.cpp">
-      <Filter>PublicForder\Soon</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneBase.cpp">
-      <Filter>PublicForder\Soon</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>PublicForder\Soon</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScene0.cpp">
-      <Filter>PublicForder\Soon</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScene1.cpp">
-      <Filter>PublicForder\Soon</Filter>
-    </ClCompile>
     <ClCompile Include="ChanScene.cpp">
       <Filter>PublicForder\Chan</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneBase.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="TestAnimation.cpp">
+      <Filter>PublicForder\Soon\SceneAnimationTest</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene0.cpp">
+      <Filter>PublicForder\Soon\SceneAnimationTest</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene1.cpp">
+      <Filter>PublicForder\Soon\SceneAnimationTest</Filter>
+    </ClCompile>
+    <ClCompile Include="TestPlayer.cpp">
+      <Filter>PublicForder\Soon\PlayerTest</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerTestScene.cpp">
+      <Filter>PublicForder\Soon\PlayerTest</Filter>
+    </ClCompile>
+    <ClCompile Include="TestEenemy.cpp">
+      <Filter>PublicForder\Soon\PlayerTest</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveLoadModule.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="TextFile.cpp">
+      <Filter>Utility\File</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -79,8 +79,7 @@ public:
 
 	//ÇÈ¼¿Ãæµ¹¿ë
 	void SetPixelDC(HDC pixelDC) { pixelCollisionDC = pixelDC; }
-	COLORREF GetPixel(int imageLeft, int imageTop, int x, int y);
-	COLORREF GetPixel(int x, int y);
+	COLORREF GetPixelColor(int x, int y);
 	HDC GetPixelDC() { return pixelCollisionDC; }
 	void SetReverse(bool x, bool y){reverseAxisX = x;reverseAxisY = y;}
 	void SetReverseX(bool x) { reverseAxisX = x; }

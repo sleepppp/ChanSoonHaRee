@@ -68,7 +68,7 @@ float Math::RandF()
 **********************************************************/
 float Math::Lerp(float val1, float val2, float amount)
 {
-	return val1 + (val2 - val1)* amount;
+	return val1 + (val2 - val1) * amount;
 }
 /**********************************************************
 ## Clampf ##
