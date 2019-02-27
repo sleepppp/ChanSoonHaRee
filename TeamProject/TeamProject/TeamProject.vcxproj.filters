@@ -184,7 +184,7 @@
       <Filter>Utility\File</Filter>
     </ClInclude>
     <ClInclude Include="TestEnemy.h">
-      <Filter>PublicForder\Soon\PlayerTest</Filter>
+      <Filter>PublicForder\Ree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -282,7 +282,7 @@
       <Filter>Utility\File</Filter>
     </ClCompile>
     <ClCompile Include="TestEnemy.cpp">
-      <Filter>PublicForder\Soon\PlayerTest</Filter>
+      <Filter>PublicForder\Ree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

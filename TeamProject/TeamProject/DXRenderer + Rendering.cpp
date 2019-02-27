@@ -341,14 +341,65 @@ void DXRenderer::DrawEllipse(RECT rc, DefaultBrush::Enum defaultBrush, bool isRe
 	++this->currentDrawCall;
 }
 
-void DXRenderer::DrawEllipse(Vector2 origin, float radius, DefaultBrush::Enum defaultBrush, bool isARelativePos, float strokeWidth)
+void DXRenderer::DrawEllipse(Vector2 origin, float radius, DefaultBrush::Enum defaultBrush, bool isRelativePos, float strokeWidth)
 {
-	this->DrawEllipse(Figure::RectMakeByEllipse(origin, radius), defaultBrush, isARelativePos, strokeWidth);
+	RECT rc = Figure::RectMakeByEllipse(origin, radius);
+	Vector2 pos = origin;
+	if (isRelativePos)
+	{
+		rc = _Camera->GetRelativeRect(rc);
+		pos = _Camera->GetRelativeVector2(pos);
+	}
+	//카메라에 없으면 랜더x
+	if (rc.left > WinSizeX || rc.right < 0 ||
+		rc.top  > WinSizeY || rc.bottom < 0)
+	{
+		return;
+	}
+
+	D2D1_ELLIPSE ellipse;
+	ellipse.point.x = pos.x;
+	ellipse.point.y = pos.y;
+	ellipse.radiusX = radius;
+	ellipse.radiusY = radius;
+
+	d2dRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	d2dRenderTarget->DrawEllipse(&ellipse, dwDefaultBrush[defaultBrush], strokeWidth);
+
+	++this->currentDrawCall;
 }
 
 void DXRenderer::DrawEllipse(Vector2 origin, float radius, D2D1::ColorF::Enum color, float alpha, bool isRelativePos, float strokeWidth)
 {
-	this->DrawEllipse(Figure::RectMakeByEllipse(origin, radius), color,alpha, isRelativePos, strokeWidth);
+	RECT rc = Figure::RectMakeByEllipse(origin, radius);
+	Vector2 pos = origin;
+	if (isRelativePos)
+	{
+		rc = _Camera->GetRelativeRect(rc);
+		pos = _Camera->GetRelativeVector2(pos);
+	}
+	//카메라에 없으면 랜더x
+	if (rc.left > WinSizeX || rc.right < 0 ||
+		rc.top  > WinSizeY || rc.bottom < 0)
+	{
+		return;
+	}
+
+	ID2D1SolidColorBrush* brush;
+	d2dRenderTarget->CreateSolidColorBrush(D2D1::ColorF(color, alpha), &brush);
+
+	D2D1_ELLIPSE ellipse;
+	ellipse.point.x = pos.x;
+	ellipse.point.y = pos.y;
+	ellipse.radiusX = radius;
+	ellipse.radiusY = radius;
+
+	d2dRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	d2dRenderTarget->DrawEllipse(&ellipse, brush, strokeWidth);
+
+	brush->Release();
+
+	++this->currentDrawCall;
 }
 
 /********************************************************************************
@@ -487,10 +538,61 @@ void DXRenderer::FillEllipse(RECT rc, DefaultBrush::Enum defaultBrush, bool isRe
 
 void DXRenderer::FiilEllipse(Vector2 origin,float radius, D2D1::ColorF::Enum color, float alpha, bool isRelative)
 {
-	this->FillEllipse(Figure::RectMakeByEllipse(origin, radius), color, alpha, isRelative);
+	RECT rc = Figure::RectMakeByEllipse(origin, radius);
+	Vector2 pos = origin;
+	if (isRelative)
+	{
+		rc = _Camera->GetRelativeRect(rc);
+		pos = _Camera->GetRelativeVector2(pos);
+	}
+	//카메라에 없으면 랜더x
+	if (rc.left > WinSizeX || rc.right < 0 ||
+		rc.top  > WinSizeY || rc.bottom < 0)
+	{
+		return;
+	}
+
+	ID2D1SolidColorBrush* brush;
+	d2dRenderTarget->CreateSolidColorBrush(D2D1::ColorF(color, alpha), &brush);
+
+	D2D1_ELLIPSE ellipse;
+	ellipse.point.x = pos.x;
+	ellipse.point.y = pos.y;
+	ellipse.radiusX = radius;
+	ellipse.radiusY = radius;
+
+	d2dRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	d2dRenderTarget->FillEllipse(&ellipse, brush);
+
+	brush->Release();
+
+	++this->currentDrawCall;
 }
 
 void DXRenderer::FiilEllipse(Vector2 origin, float radius, DefaultBrush::Enum brush, bool isRelativePos)
 {
-	this->FillEllipse(Figure::RectMakeByEllipse(origin, radius), brush, isRelativePos);
+	RECT rc = Figure::RectMakeByEllipse(origin, radius);
+	Vector2 pos = origin;
+	if (isRelativePos)
+	{
+		rc = _Camera->GetRelativeRect(rc);
+		pos = _Camera->GetRelativeVector2(pos);
+	}
+	//카메라에 없으면 랜더x
+	if (rc.left > WinSizeX || rc.right < 0 ||
+		rc.top  > WinSizeY || rc.bottom < 0)
+	{
+		return;
+	}
+
+	D2D1_ELLIPSE ellipse;
+	ellipse.point.x = pos.x;
+	ellipse.point.y = pos.y;
+	ellipse.radiusX = radius;
+	ellipse.radiusY = radius;
+
+	d2dRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+	d2dRenderTarget->FillEllipse(&ellipse, dwDefaultBrush[brush]);
+
+	++this->currentDrawCall;
 }
