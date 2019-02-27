@@ -101,10 +101,14 @@ public:
 	void DrawRectangle(RECT rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black, bool isRelativePos = false, float strokeWidth = 1);
 	void DrawEllipse(RECT rc, D2D1::ColorF::Enum color, float alpha, bool isRelativePos = false, float strokeWidth = 1);
 	void DrawEllipse(RECT rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black, bool isRelativePos = false, float strokeWidth = 1);
+	void DrawEllipse(Vector2 origin, float radius, DefaultBrush::Enum defaultBrush = DefaultBrush::black, bool isARelativePos = false, float strokeWidth = 1);
+	void DrawEllipse(Vector2 origin,float radius, D2D1::ColorF::Enum color, float alpha, bool isRelativePos = false, float strokeWidth = 1);
 	void FillRectangle(RECT rc, D2D1::ColorF::Enum color, float alpha, bool isRelativePos = false);
 	void FillRectangle(RECT rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black, bool isRelativePos = false);
 	void FillEllipse(RECT rc, D2D1::ColorF::Enum color, float alpha, bool isRelativePos = false);
 	void FillEllipse(RECT rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black, bool isRelativePos = false);
+	void FiilEllipse(Vector2 origin,float radius, D2D1::ColorF::Enum color, float alpha, bool isRelative = false);
+	void FiilEllipse(Vector2 origin,float radius, DefaultBrush::Enum brush = DefaultBrush::black, bool isRelativePos = false);
 public:
 	ID3D11Device* GetD3DDevice()const { return this->d3dDevice; }
 	ID3D11DeviceContext* GetD3DDeviceContext()const { return this->d3dDeviceContext; }

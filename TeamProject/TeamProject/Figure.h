@@ -256,6 +256,11 @@ namespace Figure
 		rc->bottom += y;
 	}
 
+	inline RECT RectMakeByEllipse(Vector2 center, float radius)
+	{
+		return RectMakeCenter(CastingInt(center.x), CastingInt(center.y), CastingInt(radius), CastingInt(radius));
+	}
+
 	inline RECT RectMakePivot(int x, int y, int width ,int height ,Pivot::Enum pivot)
 	{
 		RECT rc;
