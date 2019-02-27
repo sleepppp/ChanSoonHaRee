@@ -75,10 +75,10 @@ void CameraManager::OnGui()
 RECT CameraManager::GetRelativeRect(RECT rc)
 {
 	Figure::MoveRect(&rc, (int)-position.x, (int)-position.y);
-	rc.left =(LONG)( rc.left * zoomFactor);
-	rc.top = (LONG)(rc.top * zoomFactor);
-	rc.right = (LONG)(rc.right * zoomFactor);
-	rc.bottom =(LONG)( rc.bottom * zoomFactor);
+	rc.left =(LONG)(CastingFloat(rc.left) * zoomFactor);
+	rc.top = (LONG)(CastingFloat(rc.top) * zoomFactor);
+	rc.right = (LONG)(CastingFloat(rc.right) * zoomFactor);
+	rc.bottom =(LONG)( CastingFloat(rc.bottom) * zoomFactor);
 	return std::move(rc);
 }
 /***************************************************************************

@@ -341,6 +341,16 @@ void DXRenderer::DrawEllipse(RECT rc, DefaultBrush::Enum defaultBrush, bool isRe
 	++this->currentDrawCall;
 }
 
+void DXRenderer::DrawEllipse(Vector2 origin, float radius, DefaultBrush::Enum defaultBrush, bool isARelativePos, float strokeWidth)
+{
+	this->DrawEllipse(Figure::RectMakeByEllipse(origin, radius), defaultBrush, isARelativePos, strokeWidth);
+}
+
+void DXRenderer::DrawEllipse(Vector2 origin, float radius, D2D1::ColorF::Enum color, float alpha, bool isRelativePos, float strokeWidth)
+{
+	this->DrawEllipse(Figure::RectMakeByEllipse(origin, radius), color,alpha, isRelativePos, strokeWidth);
+}
+
 /********************************************************************************
 ## FillRectangle ## 
 @@ RECT rc : 사각형 영역
@@ -473,4 +483,14 @@ void DXRenderer::FillEllipse(RECT rc, DefaultBrush::Enum defaultBrush, bool isRe
 	d2dRenderTarget->FillEllipse(&ellipse, dwDefaultBrush[defaultBrush]);
 
 	++this->currentDrawCall;
+}
+
+void DXRenderer::FiilEllipse(Vector2 origin,float radius, D2D1::ColorF::Enum color, float alpha, bool isRelative)
+{
+	this->FillEllipse(Figure::RectMakeByEllipse(origin, radius), color, alpha, isRelative);
+}
+
+void DXRenderer::FiilEllipse(Vector2 origin, float radius, DefaultBrush::Enum brush, bool isRelativePos)
+{
+	this->FillEllipse(Figure::RectMakeByEllipse(origin, radius), brush, isRelativePos);
 }

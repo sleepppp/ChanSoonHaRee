@@ -99,10 +99,10 @@ void Time::StartClock()
 	//deltaTimedms = (현재 시간 - 지난 프레임에 체킹한 시간) * timeScale;
 	this->timeElapsed = (this->curTime - this->lastTime) * timeScale;
 	//프레임 락이 설정 되어 있다면
-	if (LockingFPS > 0.0f)
+	if (LockFPS > 0.0f)
 	{
 		//deltaTime이 제한 프레임시간 보다 작을 때까지 루프
-		while (this->timeElapsed < (1.0f / LockingFPS))
+		while (this->timeElapsed < (1.0f / LockFPS))
 		{
 			//고성능 하드웨어 지원하면 밀리세컨드 이상의 단위로 받아온다. 
 			if (this->isHighHardware)
@@ -133,7 +133,7 @@ void Time::StartClock()
 
 void Time::Update()
 {
-	this->Tick(LockingFPS);
+	this->Tick(LockFPS);
 }
 
 void Time::Render()
