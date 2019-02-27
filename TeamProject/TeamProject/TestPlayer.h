@@ -3,6 +3,7 @@
 
 class TestPlayer : public GameObject
 {
+	
 private:
 	Vector2 _direction;
 	RECT _attackRc;

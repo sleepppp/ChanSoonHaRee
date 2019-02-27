@@ -177,14 +177,14 @@
     <ClInclude Include="PlayerTestScene.h">
       <Filter>PublicForder\Soon\PlayerTest</Filter>
     </ClInclude>
-    <ClInclude Include="TestEenemy.h">
-      <Filter>PublicForder\Soon\PlayerTest</Filter>
-    </ClInclude>
     <ClInclude Include="SaveLoadModule.h">
       <Filter>PublicForder\Soon\Module</Filter>
     </ClInclude>
     <ClInclude Include="TextFile.h">
       <Filter>Utility\File</Filter>
+    </ClInclude>
+    <ClInclude Include="TestEnemy.h">
+      <Filter>PublicForder\Soon\PlayerTest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -275,14 +275,14 @@
     <ClCompile Include="PlayerTestScene.cpp">
       <Filter>PublicForder\Soon\PlayerTest</Filter>
     </ClCompile>
-    <ClCompile Include="TestEenemy.cpp">
-      <Filter>PublicForder\Soon\PlayerTest</Filter>
-    </ClCompile>
     <ClCompile Include="SaveLoadModule.cpp">
       <Filter>PublicForder\Soon\Module</Filter>
     </ClCompile>
     <ClCompile Include="TextFile.cpp">
       <Filter>Utility\File</Filter>
+    </ClCompile>
+    <ClCompile Include="TestEnemy.cpp">
+      <Filter>PublicForder\Soon\PlayerTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

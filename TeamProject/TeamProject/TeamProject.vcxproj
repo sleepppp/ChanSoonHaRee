@@ -177,7 +177,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TeamProject.h" />
     <ClInclude Include="TestAnimation.h" />
-    <ClInclude Include="TestEenemy.h" />
+    <ClInclude Include="TestEnemy.h" />
     <ClInclude Include="TestPlayer.h" />
     <ClInclude Include="TestScene0.h" />
     <ClInclude Include="TestScene1.h" />
@@ -216,7 +216,7 @@
     <ClCompile Include="StringHelper.cpp" />
     <ClCompile Include="TeamProject.cpp" />
     <ClCompile Include="TestAnimation.cpp" />
-    <ClCompile Include="TestEenemy.cpp" />
+    <ClCompile Include="TestEnemy.cpp" />
     <ClCompile Include="TestPlayer.cpp" />
     <ClCompile Include="TestScene0.cpp" />
     <ClCompile Include="TestScene1.cpp" />

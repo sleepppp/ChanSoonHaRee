@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TestPlayer.h"
 
-#include "TestEenemy.h"
+#include "TestEnemy.h"
 #include "TextFile.h"
 TestPlayer::TestPlayer()
 {
@@ -63,27 +63,27 @@ void TestPlayer::Update()
 			_attackRc = Figure::RectMakeCenter(_position.x + _direction.x * 50, _position.y + _direction.y * 50, 50, 50);
 		}
 	}
-	if (_isAttackActive)
-	{
-		vector<GameObject*> objectList = _ObjectManager->FindObjects(ObjectType::Object, "TestEnemy");
-
-		for (UINT i = 0; i < objectList.size(); ++i)
-		{
-			RECT temp;
-			if (IntersectRect(&temp, &_attackRc, &objectList[i]->GetRect()))
-			{
-				((TestEenemy*)objectList[i])->Damage(0);
-				_attackTime = _attackActiveTime;
-			}
-		}
-
-		_attackTime += _Time->DeltaTime();
-		if (_attackTime >= _attackActiveTime)
-		{
-			_attackTime = 0.f;
-			_isAttackActive = false;
-		}
-	}
+	//if (_isAttackActive)
+	//{
+	//	vector<GameObject*> objectList = _ObjectManager->FindObjects(ObjectType::Object, "TestEnemy");
+	//
+	//	for (UINT i = 0; i < objectList.size(); ++i)
+	//	{
+	//		RECT temp;
+	//		if (IntersectRect(&temp, &_attackRc, &objectList[i]->GetRect()))
+	//		{
+	//			((TestEnemy*)objectList[i])->Damage(0);
+	//			_attackTime = _attackActiveTime;
+	//		}
+	//	}
+	//
+	//	_attackTime += _Time->DeltaTime();
+	//	if (_attackTime >= _attackActiveTime)
+	//	{
+	//		_attackTime = 0.f;
+	//		_isAttackActive = false;
+	//	}
+	//}
 	
 }
 
@@ -106,7 +106,7 @@ void TestPlayer::Render()
 void TestPlayer::SaveData()
 {	
 	TextWriter* w = new TextWriter;
-	if (w->Open("TestPlayer.txt"))
+	if (w->Open("../TestPlayer.txt"))
 	{
 		w->Float(_position.x);
 		w->Float(_position.y);
@@ -121,7 +121,7 @@ void TestPlayer::SaveData()
 void TestPlayer::LoadData()
 {
 	TextReader* r = new TextReader;
-	if (r->Open("TestPlayer.txt"))
+	if (r->Open("../TestPlayer.txt"))
 	{
 		_position.x = r->Float();
 		_position.y = r->Float();
