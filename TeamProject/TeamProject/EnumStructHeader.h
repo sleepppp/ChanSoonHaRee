@@ -3,16 +3,19 @@
 여러 클래스들이 공용으로 사용할 구조체 및 Enum들 
 **********************************************************/
 #pragma once
+#include "Vector2.h"
 struct TagMessage
 {
 	string name;
 	float delayTime;
-	class DataContextValue* data;
+	int intData;
+	Vector2 vector2Data;
+	void* pData;
 
 	TagMessage()
-		:name(""), delayTime(0.0f), data(nullptr) {}
-	TagMessage(string name, float delayTime = 0.0f, class DataContextValue* data = nullptr)
-		:name(name), delayTime(delayTime), data(data) {}
+		:name(""), delayTime(0.f), vector2Data(0, 0),intData(0), pData(nullptr) {}
+	TagMessage(string name, float delayTime = 0.f,int data = 0, Vector2 vector2Data = Vector2(), void* pData = nullptr)
+		:name(name), delayTime(delayTime), vector2Data(vector2Data), pData(pData) {}
 };
 
 struct TagInt
@@ -59,6 +62,14 @@ namespace Pivot
 }
 
 
+namespace ObjectType
+{
+	enum Enum : int
+	{
+		BackGround = 0, Object, UI, End
+	};
+}
+
 
 class GameColor
 {
@@ -79,4 +90,9 @@ public:
 		:r(0.f), g(0.f), b(0.f), a(0.f) {}
 	GameColor(float r, float g, float b, float a)
 		:r(r), g(g), b(b), a(a) {}
+
+	COLORREF GetColorref()
+	{
+		return RGB((BYTE)(arr[2] * 255.f), (BYTE)(arr[1] * 255.f), (BYTE)(arr[0] * 255.f));
+	}
 };

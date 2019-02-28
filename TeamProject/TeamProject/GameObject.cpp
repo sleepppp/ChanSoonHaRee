@@ -1,82 +1,160 @@
 #include "stdafx.h"
 #include "GameObject.h"
 
-//RectMake,RectMakeCenter등등 쌤의 코드에서 있던 commonMacroFunction.h와 같은 역할을 한다. 
-//만약 Figure::RectMake 같이 코드를 계속 치기 귀찮다면 해당 cpp에서 
-//아래와 같이 using namespace Figure를 쳐주게 되면 전처럼 바로 RectMake함수를 호출할 수 있게된다. 
-using namespace Figure;
+#include <functional>
+#include <unordered_map>
 
-/********************************************************************************************
+/*************************************************************************
 ## GameObject ##
-생성자 
-
-멤버 이니셜라이즈~
-게임오브젝트가 할당 될 때 멤버변수(클래스 변수)들의 생성자도 함께 호출해주기 때문에 이런식으로 
-기본값을 초기화 해주면 더 빠르다. 
-**********************************************************************************************/
+**************************************************************************/
 GameObject::GameObject()
-	:_pivot(Pivot::LEFT_TOP),_position(0.f,0.f),_size(0.f,0.f),_isActive(true),_isLive(true)
+	:_name(""), _pivot(Pivot::CENTER),_position(0,0),_size(0,0),_isActive(true),_isLive(true)
 {
-	//기본값으로 렉트 설정 
-	this->UpdateRect();
+	this->UpdateMainRect();
+}
+/*************************************************************************
+## GameObject ##
+@@ string name : 객체 이름 
+@@ Vector2 pos : 객체 좌표
+@@ Vector2 size : 객체 사이즈 
+@@ Pivot::Enum pivot : 객체 피봇 
+**************************************************************************/
+GameObject::GameObject(string name, Vector2 pos, Vector2 size, Pivot::Enum pivot)
+	:_name(name),_position(pos),_size(size),_pivot(pivot),_isActive(true),_isLive(true)
+{
+	this->UpdateMainRect();
 }
 
-/***************************************************************************************
+/*************************************************************************
 ## ~GameObject ##
-소멸자
-****************************************************************************************/
+**************************************************************************/
 GameObject::~GameObject()
 {
+	this->_callbackList.clear();
+	this->_reserveMessageList.clear();
 }
-/***************************************************************************************
-## SetPosition ## 
-@@ Vector2 pos : 설정할 좌표 값 
 
-좌표가 변경 사항이 있으면 렉트를 갱신해라
-****************************************************************************************/
-void GameObject::SetPosition(Vector2 pos)
+/*************************************************************************
+## Release ##
+**************************************************************************/
+void GameObject::Release()
 {
-	this->_position = pos;
-	this->UpdateRect();
+	_reserveMessageList.clear();
 }
-/***************************************************************************************
-## SetSize ## 
-@@ Vector2 size : 설정할 사이즈 값 
+/*************************************************************************
+## Update ##
+예약 메세지가 있다면 예약시간을 재다가 시간이 다되었다면 해당 메세지의 함수를 호출
+**************************************************************************/
+void GameObject::Update()
+{
+	float deltaTime = _TimeManager->DeltaTime();
+	for (UINT i = 0; i < _reserveMessageList.size(); ++i)
+	{
+		//예약된 메세지의 예약시간을 deltaTime만큼 빼준다
+		_reserveMessageList[i].delayTime -= deltaTime;
+		//만약 예약된 시간이 다되었다면 
+		if (_reserveMessageList[i].delayTime <= 0.f)
+		{
+			//해당 메세지의 함수를 실행시켜준다. 
+			this->SendCallbackMessage(_reserveMessageList[i]);
+			_reserveMessageList.erase(_reserveMessageList.begin() + i--);
+		}
+	}
+}
+/*************************************************************************
+## SendCallbackMessage ##
+@@ TagMessage message : 해당 객체에 보낼 메세지
+**************************************************************************/
+void GameObject::SendCallbackMessage(const TagMessage message)
+{
+	//만약 딜레이 타임이 없다면 
+	if (message.delayTime <= 0.0f)
+	{ 
+		//바로 해당 메세지의 이름과 같은 함수를 찾아서 실행시켜준다. 
+		CallbackHashmapIter iter = _callbackList.find(message.name);
+		if (iter != _callbackList.end())
+		{
+			iter->second(message);
+		}
+	}
+	//만약 메세지의 딜레이 타임이 있다면
+	else
+	{
+		//예약 메세지리스트에 넣어둔다. 
+		//GameObject의 업데이트에서 예약 메세지의 시간을 재다가 시간이 다되었다면 호출
+		_reserveMessageList.push_back(message);
+	}
+}
+/*************************************************************************
+## AddCallbackMessage ##
+메세지 통신에 사용할 함수를 미리 등록한다. 
+@@ string name : 등록할 함수의 이름
+@@ function<void(TagMessage)> func : 등록할 함수 
+**************************************************************************/
+void GameObject::AddCallbackMessage(const string name,const function<void(struct TagMessage)> func)
+{
+	if (_callbackList.find(name) != _callbackList.end())
+	{
+		_callbackList.insert(make_pair(name, func));
+	}
+}
 
-사이즈 변경 사항이 있으면 렉트를 갱신해라 
-****************************************************************************************/
-void GameObject::SetSize(Vector2 size)
-{
-	this->_size = size;
-	this->UpdateRect();
-}
-/***************************************************************************************
+/*************************************************************************
 ## SetPivot ##
-@@ Pivot::Enum pivot : 설정할 렉트 피봇값 
-
-만약 피봇이 변경되었다면 렉트를 갱신하라
-****************************************************************************************/
-void GameObject::SetPivot(Pivot::Enum pivot)
+@@ Pivot::Enum pivot : 피봇
+**************************************************************************/
+void GameObject::SetPivot(const Pivot::Enum pivot)
 {
-	this->_pivot = pivot;
-	this->UpdateRect();
+	this->_pivot = pivot; 
+	this->UpdateMainRect();
 }
-/***************************************************************************************
-## UpdateRect ##
-렉트를 피봇에 따라 갱신
-****************************************************************************************/
-void GameObject::UpdateRect()
+/*************************************************************************
+## SetPosition ##
+@@ Vector2 pos : 바꿔줄 좌표
+**************************************************************************/
+void GameObject::SetPosition(const Vector2 position)
+{
+	this->_position = position;
+	this->UpdateMainRect();
+}
+/*************************************************************************
+## SetSize ##
+@@ Vector2 size : 바꿔줄 사이즈
+**************************************************************************/
+void GameObject::SetSize(const Vector2 size)
+{
+	this->_size = size; 
+	this->UpdateMainRect();
+}
+/*************************************************************************
+## SetActive ##
+활성상태를 바꿔주고 활성,비활성될때에 실행되어야 할 함수를 호출
+@@ bool b : 활성 여부 
+**************************************************************************/
+void GameObject::SetActive(const bool b)
+{
+	this->_isActive = b; 
+	if (_isActive)
+		this->Enable();
+	else
+		this->Disable();
+}
+/*************************************************************************
+## UpdateMainRect ##
+피봇에 따라서 렉트의 정보를 갱신해준다.
+**************************************************************************/
+void GameObject::UpdateMainRect()
 {
 	switch (_pivot)
 	{
 	case Pivot::LEFT_TOP:
-		this->_rc = RectMake(_position.x, _position.y, _size.x, _size.y);
+		this->_mainRect = Figure::RectMake(_position, _size);
 		break;
 	case Pivot::CENTER:
-		this->_rc = RectMakeCenter(_position.x, _position.y, _size.x, _size.y);
+		this->_mainRect = Figure::RectMakeCenter(_position, _size);
 		break;
 	case Pivot::BOTTOM:
-		this->_rc = RectMakeBottom(_position.x, _position.y, _size.x, _size.y);
+		this->_mainRect = Figure::RectMakeBottom(_position, _size);
 		break;
 	default:
 		break;

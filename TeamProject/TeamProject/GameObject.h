@@ -1,50 +1,86 @@
 #pragma once
-/***************************************************************
-## GameObject ## 
-모든 오브젝트들은 앞으로 이 클래스를 상속받을 예정 
-때문에 모든 오브젝트들이 공통적으로 필요한 것들들 GameObject클래스에서 미리 
-만들어준다.
-Player,UI,Enemy,Item등등 
-***************************************************************/
+/*****************************************************************
+## GameObject ##
+기존 GameObject와 달라진 점 :
+RECT _rc -> _mainRect 
++ _callbackList;추가
++ _reserveMessageList;추가
+*****************************************************************/
 class GameObject
 {
-	//Protected로 접근지정자가 설정되어 있으면 자식 객체에서만 해당 변수 및 함수를 접근 가능
 protected:
-	Pivot::Enum _pivot;		//렉트 생성할 피봇 
-	string _name;			//오브젝트 이름 
-	Vector2 _position;		//오브젝트 좌표 
-	Vector2 _size;			//오브젝트 사이즈 
-	RECT _rc;				//오브젝트 렉트 
-	bool _isActive;			//활성 여부 
-	Synthesize(bool,_isLive,IsLive)	//생사 여부(예제로 Synthesize 넣어봤음, 집에서 이것저것 해볼 때 한번 써보세요) 
+	//unordered_map은 해쉬 테이블로 이루어져 있는 map으로서 해싱함수를 통해 키값을 배열의 
+	//인덱스로 바꾸는 방식을 사용하므로 매우 빠른 탐색속도를 가진다.최상의 경우 시간복잡도 상수를 가짐 
+	//사용 방법은 기존의 map과 동일하다. 이런게 있다 정도로 알아두자
+
+	//first에는 실행시킬 함수의 키값, second에는 실행시킬 함수를 담아둔다
+	//function<void(struct TagMessage)>는 함수를 담을수있는 변수 형으로서 맵안에 담겨있는 자료형은 다음과 같은 의미를 가진다
+	//반환형이 void이고 인자로는 struct TagMessage를 받는 함수 
+	
+	//다음과 같이 맵에 함수를 담아두는 이유는 더 원활한 객체간의 통신을 위해 간단한 메세지통신 기법을 구현하기 위함이다. 
+	//예를 들어 어떤 객체에서 GameObject를 상속받은 Enemy라는 객체의 Attack이라는 함수를 호출하고 싶을 때 우리는 
+	//Enemy* enemy = (Enemy*)ObjectManager->FindObject("sdas); enemy->Attack();
+	//과 같은 함수를 형변환을 한 후에 직접적으로 호출해주어야 했었다
+	//이 코드의 문제점은 찾아온 GameObject*가 Enemy클래스가 아닐 경우와 코드의 유지보수가 어렵다는 점이다. 
+	
+	//메세지 통신의 사용법은 Enemy클래스에서는 미리 자신의 callbackList에 "Attack"이라는 키값과 함께 Attack()함수를 담아둔다. 
+	//외부의 객체에서는 Enemy클래스에게 공격했다고 알려주고 싶을 때 enemy->SendMessage(TagMessage("Attack")); 과 같이 
+	//함수만 호출해주면 된다. 이렇게 되면 플레이어 클래스에서는 Enemy클래스의 헤더를 달 필요가 없어지고 Enemy*로 다운 캐스팅을 할 필요도
+	//없어진다.
+	typedef unordered_map < string, function<void(struct TagMessage)>> CallbackHashmap;
+	typedef unordered_map<string, function<void(struct TagMessage)>>::iterator CallbackHashmapIter;
+protected:
+	string _name;			//이름
+	Pivot::Enum _pivot;		//피봇
+	Vector2 _position;		//좌표
+	Vector2 _size;			//사이즈
+	RECT _mainRect;			//메인 렉트
+	bool _isActive;			//활성 여부
+private:	//아래의 변수들은 자식 객체에서 함부로 건들면 안되기 때문에 private로 엮는다. 
+	bool _isLive;			//객체 생존 여부(해당 불값을 끄면 ObjectManager에서 객체를 삭제한다) 
+
+	CallbackHashmap _callbackList;	//메세지 통신에 사용할 맵(이곳에 미리 키값과 함께 함수를 담아둔다) 
+	//예약 메세지 리스트 
+	//만약 보낸 메세지의 delayTime이 설정되어 있으면 바로 함수를 실행시키지 않고 이곳으로 보낸다. 
+	//GameObject의 업데이트에서는 해당 메세지의 딜레이 타임을 계산하다가 해당 함수를 실행 시켜준다. 
+	vector<struct TagMessage> _reserveMessageList;
 public:
-	//생성자며 
+	//생성자 오버로딩 
+	//상황에 맞게 자식객체들은 원하는 생성자를 사용하면 된다. 
 	GameObject();
-	//소멸자 되겠습니다
-	//소멸자에서 가상함수를 붙여 주는 이유는 GameObject*로 Object를 관리하기 때문에 delete GameObject를 하게 되면
-	//자식 객체의 소멸자도 호출되어야 한다. 만약 virtual을 안붙이면 자식 소멸자는 호출이 안됌
+	GameObject(string name, Vector2 pos, Vector2 size, Pivot::Enum pivot);
 	virtual ~GameObject();
-	//virtual void Init() = 0; 과 같이 어떤 함수의 뒤에 = 0 을 붙이면 
-	//해당 함수는 순수가상함수가 되어서 아무 내용도 작성할 수 없고 
-	//자식 객체는 반드시 순수 가상함수를 오버라이딩(override) 해주어야 한다. 
-	//만약 안할 시 빨간줄~
-	virtual void Init() = 0;
-	virtual void Release() = 0;
-	virtual void Update() = 0;
-	virtual void Render() = 0; 
-	//접근자
-	string GetName()const { return _name; }
+	//순수 가상함수로 지정하지 않은 이유는 GameObject클래스의 Release,Update에서도 실행되어야 할 내용들이 있기 때문이다.
+	virtual void Init() {}
+	virtual void Release();
+	virtual void Update();
+	virtual void Render() {}
+	//활성화될 때 실행되는 함수 (게임오브젝트를 상속받은 객체에서 만약 활성화 되는 순간에 실행해야 될 내용이 있다면 해당 함수를 
+	//오버라이딩해서 내용을 작성하면 된다. 
+	virtual void Enable() {}
+	//비활성화될 때 실행되는 함수
+	virtual void Disable() {}
+	//해당 객체에 메세지를 보낸다.
+	void SendCallbackMessage(const struct TagMessage message);
+	//해당 객체에 미리 메세지를 받았을 때 실행할 함수를 등록
+	void AddCallbackMessage(const string name, const function<void(struct TagMessage)> func);
+public:
+	//접근자며 설정자들
+	string GetName()const { return this->_name; }
 	Vector2 GetPosition()const { return this->_position; }
 	Vector2 GetSize()const { return this->_size; }
-	RECT GetRect()const { return this->_rc; }
+	RECT GetMainRect()const { return this->_mainRect; }
 	bool GetActive()const { return this->_isActive; }
-	//설정자
-	void SetName(string name) { this->_name = name; }
-	void SetPosition(Vector2 pos);
-	void SetSize(Vector2 size);
-	void SetPivot(Pivot::Enum pivot);
-	void SetActice(bool b) { this->_isActive = b; }
-	//렉트를 피벗 기준으로 업데이트 시켜준다.
-	void UpdateRect();
+	bool GetLive()const { return this->_isLive; }
+
+	void SetName(const string name) { this->_name = name; }
+	void SetPivot(const Pivot::Enum pivot);
+	void SetPosition(const Vector2 position);
+	void SetSize(const Vector2 size);
+	void SetActive(const bool b);
+	void Destroy() { this->_isLive = false; }
+protected:
+	//피봇에 따라서 렉트들 업데이트 된다
+	void UpdateMainRect();
 };
 

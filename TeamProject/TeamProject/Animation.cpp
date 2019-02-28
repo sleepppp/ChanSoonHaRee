@@ -11,8 +11,7 @@
 ******************************************************************************/
 Animation::Animation()
 	:isPlay(false), isLoop(true), currentFrameIndex(0),
-	currentFrameTime(0.f), frameUpdateTime(0.3f), image(nullptr),
-	isReverseX(false), isReverseY(false),func(nullptr)
+	currentFrameTime(0.f), frameUpdateTime(0.3f),func(nullptr)
 {
 
 }
@@ -35,7 +34,7 @@ void Animation::UpdateFrame()
 	if (this->isPlay)
 	{
 		//프레임 감는 시간은 델타 타임만큼 증가 
-		this->currentFrameTime += _Time->DeltaTime();
+		this->currentFrameTime += _TimeManager->DeltaTime();
 		//만약 프레임감는 시간이 프레임 업데이트 되는 시간보다 커졌다면 
 		if (this->currentFrameTime >= this->frameUpdateTime)
 		{
@@ -63,23 +62,6 @@ void Animation::UpdateFrame()
 	}
 }
 
-/******************************************************************************
-## Render ##
-*******************************************************************************/
-void Animation::Render(RECT rc)
-{
-	//이미지 키값이 있다면
-	if (this->image)
-	{
-		Vector2 size = Vector2(CastingFloat(rc.right - rc.left), CastingFloat(rc.bottom - rc.top));
-		this->image->SetSize(size);					//사이즈 세팅
-		this->image->SetReverseX(isReverseX);		//가로로 뒤집느냐
-		this->image->SetReverseY(isReverseY);		//세로로 뒤집느냐 
-		//프레임 정보는 벡터에 pair로 담겨 있는데 first에는 x 프레임 정보 second에는 y프레임 정보
-		this->image->FrameRender(CastingInt(rc.left), CastingInt(rc.top), 
-			frameList[currentFrameIndex].first, frameList[currentFrameIndex].second, Pivot::LEFT_TOP, true);
-	}
-}
 /*****************************************************************************
 ## Start ##
 ******************************************************************************/
@@ -178,26 +160,6 @@ void Animation::SetStartEndFrame(int startX, int startY, int endX, int endY,
 void Animation::SetCallbackFunc(function<void()> func)
 {
 	this->func = func;
-}
-
-
-/******************************************************************************
-## SetImage ##
-@@ Image* image : 이미지
-*******************************************************************************/
-void Animation::SetImage(Image * image)
-{
-	this->imageKey = image->GetLoadInfo().key;
-	this->image = image;
-}
-/******************************************************************************
-## SetImage ##
-@@ Image* image : 이미지 키값
-*******************************************************************************/
-void Animation::SetImage(string name)
-{
-	this->imageKey = name;
-	this->image = _ImageManager->FindImage(name);
 }
 
 /*****************************************************************************

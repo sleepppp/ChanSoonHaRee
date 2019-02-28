@@ -1,14 +1,7 @@
 #include "stdafx.h"
 #include "Program.h"
 
-#include "TestScene0.h"
-#include "TestScene1.h"
-#include "ChanScene.h"
-#include "PlayerTestScene.h"
-
-#include "SaveLoadModule.h"
-//프로그램 생성자에서 플레이어와 에너미 객체를 생성해서 오브잭트 매니져에
-//등록한다. 
+#include "MainScene.h"
 Program::Program()
 {
 
@@ -22,18 +15,8 @@ Program::~Program()
 
 void Program::Init()
 {
-	TestScene0* scene = new TestScene0;
-	_SceneManager->AddScene("Test0", scene);
-	TestScene1* scene1 = new TestScene1;
-	_SceneManager->AddScene("Test1", scene1);
-
-	ChanScene* chanScene = new ChanScene;
-	_SceneManager->AddScene("ChanScene", chanScene);
-
-	PlayerTestScene* playerScene = new PlayerTestScene;
-	_SceneManager->AddScene("PlayerTestScene", playerScene);
-
-	_SceneManager->ChangeScene("PlayerTestScene");
+	_SceneManager->AddScene("MainScene", new MainScene);
+	_SceneManager->LoadScene("MainScene");
 }
 
 void Program::Release()
@@ -53,7 +36,7 @@ void Program::Render()
 	//Direct2D 렌더타겟도 바인딩 여기까지 왔으면 렌더링 해도 된다. 
 	_DXRenderer->Direct2DBeginDraw();
 	{
-		_Time->Render();
+		_TimeManager->Render();
 		{
 			_SceneManager->Render();
 		}

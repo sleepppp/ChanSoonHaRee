@@ -153,7 +153,7 @@ int TextReader::Int()
 float TextReader::Float()
 {
 	endIndex = tempStr.find(TextReader::spaceToken);
-	float returnValue = atof(tempStr.substr(0, endIndex).c_str());
+	float returnValue = (float)atof(tempStr.substr(0, endIndex).c_str());
 	tempStr.erase(0, endIndex + 1);
 
 	return returnValue;

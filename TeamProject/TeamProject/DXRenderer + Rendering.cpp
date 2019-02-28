@@ -462,6 +462,31 @@ void DXRenderer::FillRectangle(RECT rc, DefaultBrush::Enum defaultBrush, bool is
 	++this->currentDrawCall;
 }
 
+void DXRenderer::FillRectangle(RECT rc, COLORREF color, float alpha, bool isRelativePos)
+{
+	if (isRelativePos)
+	{
+		rc = _Camera->GetRelativeRect(rc);
+	}
+	//카메라에 없으면 랜더x
+	if (rc.left > WinSizeX || rc.right < 0 ||
+		rc.top  > WinSizeY || rc.bottom < 0)
+	{
+		return;
+	}
+	ID2D1SolidColorBrush* brush;
+	d2dRenderTarget->CreateSolidColorBrush(D2D1::ColorF(color, alpha), &brush);
+
+	d2dRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+
+	d2dRenderTarget->FillRectangle(D2D1::RectF((float)rc.left, (float)rc.top, (float)rc.right, (float)rc.bottom),
+		brush);
+
+	brush->Release();
+
+	++this->currentDrawCall;
+}
+
 /********************************************************************************
 ## FillEllipse ## 
 @@ RECT rc : 사각형 영역 

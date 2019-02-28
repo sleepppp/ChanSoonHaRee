@@ -170,7 +170,7 @@ namespace Figure
 	}
 	/***********************************************************************
 	## LineMake ##
-	라인 그려줌 
+	라인 그려줌
 	@@ HDC hdc : 그릴 HDC영역
 	@@ int x1 : 시작점 X;
 	@@ int y1 : 시작점 Y;
@@ -198,12 +198,12 @@ namespace Figure
 	************************************************************************/
 	inline RECT RectMakeF(float x, float y, float width, float height)
 	{
-		RECT rc = {(LONG) x,(LONG) y,(LONG) (x + width),(LONG)(y + height) };
+		RECT rc = { (LONG)x,(LONG)y,(LONG)(x + width),(LONG)(y + height) };
 
 		return rc;
 	}
 	/***********************************************************************
-	## RectMakeCenter ## 
+	## RectMakeCenter ##
 	중심 기준으로 렉트 반환
 	************************************************************************/
 	inline  RECT RectMakeCenter(int x, int y, int width, int height)
@@ -212,6 +212,7 @@ namespace Figure
 
 		return rc;
 	}
+
 	/***********************************************************************
 	## RectMakeBottom ##
 	바텀 기준으로 렉트 반환
@@ -228,14 +229,14 @@ namespace Figure
 		return rc;
 	}
 	/***********************************************************************
-	## RectMakeLeftCenter ## 
+	## RectMakeLeftCenter ##
 	왼쪽 중심 기준으로 렉트 반환
 	************************************************************************/
 	inline RECT RectMakeLeftCenter(int x, int y, int width, int height)
 	{
 		RECT rc;
 		rc.left = x;
-		rc.top = y - height/2;
+		rc.top = y - height / 2;
 		rc.right = x + width;
 		rc.bottom = y + height / 2;
 
@@ -244,7 +245,7 @@ namespace Figure
 	/***********************************************************************
 	## MoveRect ##
 	렉트를 x,y값 만큼 이동 시킨다
-	@@ RECT* rc : 이동시킬 렉트 포인터 
+	@@ RECT* rc : 이동시킬 렉트 포인터
 	@@ int x : x이동량
 	@@ int y : y이동량
 	************************************************************************/
@@ -254,6 +255,18 @@ namespace Figure
 		rc->top += y;
 		rc->right += x;
 		rc->bottom += y;
+	}
+	inline RECT RectMake(Vector2 pos, Vector2 size)
+	{
+		return RectMake(CastingInt(pos.x), CastingInt(pos.y), CastingInt(size.x), CastingInt(size.y));
+	}
+	inline RECT RectMakeCenter(Vector2 pos, Vector2 size)
+	{
+		return RectMakeCenter(CastingInt(pos.x), CastingInt(pos.y), CastingInt(size.x), CastingInt(size.y));
+	}
+	inline RECT RectMakeBottom(Vector2 pos, Vector2 size)
+	{
+		return RectMakeBottom(CastingInt(pos.x), CastingInt(pos.y), CastingInt(size.x), CastingInt(size.y));
 	}
 
 	inline RECT RectMakeByEllipse(Vector2 center, float radius)

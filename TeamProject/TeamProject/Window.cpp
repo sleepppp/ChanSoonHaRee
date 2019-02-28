@@ -43,14 +43,15 @@ WPARAM Window::Run()
 	//=======================================================
 	if (Window::windowDesc.bToolMode == true)
 	{
-		Window::program = new Program();
+		
 	}
 	else
 	{
 
 	}
+	Window::program = new Program();
 	Window::program->Init();
-	_Time->StartClock();
+	_TimeManager->StartClock();
 	//============Main Loop===================================
 	while (true)
 	{
@@ -203,6 +204,7 @@ void Window::CreateManager()
 	Time::Create();
 	ImageManager::Create();
 	ObjectManager::Create();
+	SceneManager::Create();
 }
 /*********************************************************************************
 ## DeleteManager ##
@@ -210,7 +212,7 @@ void Window::CreateManager()
 **********************************************************************************/
 void Window::DeleteManager()
 {
-	SceneManager::DeleteSingleton();
+	SceneManager::Delete();
 	ObjectManager::Delete();
 	ImageManager::Delete();
 	Time::Delete();

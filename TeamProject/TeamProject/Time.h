@@ -36,4 +36,4 @@ public:
 	void MinusTimeScale(float fValue) { this->timeScale -= fValue; }
 };
 
-#define _Time Time::Get()
+#define _TimeManager Time::Get()

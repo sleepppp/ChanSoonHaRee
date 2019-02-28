@@ -14,12 +14,8 @@ public:
 		Vertical = 1,	//세로(횡) 
 	};
 private:
-	string imageKey;					//이미지 키값 
-	class Image* image;					//이미지 포인터
 	bool isPlay;						//플레이 불값
 	bool isLoop;						//루프돌리느냐
-	bool isReverseX;					//이미지 X를 리버스 하느냐
-	bool isReverseY;					//이미지 Y를 리버스 하느냐 
 
 	int currentFrameIndex;				//현재 프레임 정보 벡터 인덱스
 
@@ -33,7 +29,6 @@ public:
 	~Animation();
 
 	void UpdateFrame();
-	void Render(RECT rc);
 
 	void Start();
 	void Stop();
@@ -42,19 +37,12 @@ public:
 	void SetVectorFrame(vector<pair<int, int>> playFrame);
 	void SetStartEndFrame(int startX, int startY, int endX, int endY,
 		bool reverse, FrameDirection direction = FrameDirection::Horizontal);
-
 public:
 	void SetCallbackFunc(function<void()> func);
-	void SetImage(class Image* image);
-	void SetImage(string name);
-	void SetIsReverseX(bool b) { this->isReverseX = b; }
-	void SetIsReverseY(bool b) { this->isReverseY = b; }
 	void SetIsLoop(bool b) { this->isLoop = b; }
 	void SetFrameUpdateTime(float frameRate) { this->frameUpdateTime = frameRate; }
 public:
 	float GetFrameUpdateTime()const { return this->frameUpdateTime; }
-	bool GetIsReverseX()const { return this->isReverseX; }
-	bool GetIsReverseY()const { return this->isReverseY; }
 	bool getIsLoop()const { return this->isLoop; }
 	pair<int, int> GetNowFrameData()const;
 	int GetNowFrameX()const;

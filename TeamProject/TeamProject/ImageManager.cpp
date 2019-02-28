@@ -243,5 +243,21 @@ void ImageManager::LoadFolder(const string path, const string filter)
 ********************************************************************************/
 void ImageManager::LoadAllResource()
 {
-	
+	this->LoadFolder("../Resources/", "*.png");
+	this->LoadFolder("../Resources/UI/", "*.png");
+	this->LoadFolder("../Resources/Object/", "*.png");
+	this->LoadFolder("../Resources/Tile/Brick/", "*.png");
+	this->LoadFolder("../Resources/Tile/Dessert/", "*.png");
+	this->LoadFolder("../Resources/Tile/Dirt/", "*.png");
+	this->LoadFolder("../Resources/Tile/Etc/", "*.png");
+	this->LoadFolder("../Resources/Tile/Grass/", "*.png");
+	this->LoadFolder("../Resources/Tile/Row/", "*.png");
+	this->LoadFolder("../Resources/Tile/Snow/", "*.png");
+	this->LoadFolder("../Resources/Tile/Stone/", "*.png");
+	this->LoadFolder("../Resources/Tile/Water/", "*.png");
+	this->LoadFolder("../Resources/Tile/Wood/", "*.png");
+
+	//this->AddFrameImage("PlayerTest", PathResource(L"FrameImage/PlayerTest.png"), 8, 2);
+	//this->AddFrameImage("PlayerAttack", PathResource(L"FrameImage/PlayerAttack.png"), 10, 2);
+	//this->AddFrameImage("PlayerWalk", PathResource(L"FrameImage/PlayerWalk.png"), 8, 8);
 }
