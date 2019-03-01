@@ -1,15 +1,15 @@
-ï»¿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ì†ŒìŠ¤ íŒŒì¼">
+    <Filter Include="¼Ò½º ÆÄÀÏ">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="í—¤ë” íŒŒì¼">
+    <Filter Include="Çì´õ ÆÄÀÏ">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="ë¦¬ì†ŒìŠ¤ íŒŒì¼">
+    <Filter Include="¸®¼Ò½º ÆÄÀÏ">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
@@ -76,13 +76,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
-      <Filter>ë¦¬ì†ŒìŠ¤ íŒŒì¼</Filter>
+      <Filter>¸®¼Ò½º ÆÄÀÏ</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>ë¦¬ì†ŒìŠ¤ íŒŒì¼</Filter>
+      <Filter>¸®¼Ò½º ÆÄÀÏ</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>ë¦¬ì†ŒìŠ¤ íŒŒì¼</Filter>
+      <Filter>¸®¼Ò½º ÆÄÀÏ</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>System\Window</Filter>
@@ -165,27 +165,19 @@
     <ClInclude Include="MainScene.h">
       <Filter>MainEntry\Scene</Filter>
     </ClInclude>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     <ClInclude Include="Enemy.h">
       <Filter>PublicForder\Ha</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
       <Filter>PublicForder\Ha</Filter>
-=======
+
     <ClInclude Include="Item.h">
       <Filter>PublicForder\Chan</Filter>
->>>>>>> 0eb916f6869bc8aa1136e7a54735bc85d9f19bb4
     </ClInclude>
-=======
->>>>>>> parent of 4cb136f... ## ì´í•™ì˜ ##
-=======
->>>>>>> parent of 0eb916f... ## ì˜ì°¬ ##
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>ë¦¬ì†ŒìŠ¤ íŒŒì¼</Filter>
+      <Filter>¸®¼Ò½º ÆÄÀÏ</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>System\Window</Filter>
@@ -291,21 +283,21 @@
 >>>>>>> 0eb916f6869bc8aa1136e7a54735bc85d9f19bb4
     </ClCompile>
 =======
->>>>>>> parent of 4cb136f... ## ì´í•™ì˜ ##
+>>>>>>> parent of 4cb136f... ## ÀÌÇĞ¿µ ##
 =======
->>>>>>> parent of 0eb916f... ## ì˜ì°¬ ##
+>>>>>>> parent of 0eb916f... ## ÀÇÂù ##
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TeamProject.rc">
-      <Filter>ë¦¬ì†ŒìŠ¤ íŒŒì¼</Filter>
+      <Filter>¸®¼Ò½º ÆÄÀÏ</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
-      <Filter>ë¦¬ì†ŒìŠ¤ íŒŒì¼</Filter>
+      <Filter>¸®¼Ò½º ÆÄÀÏ</Filter>
     </Image>
     <Image Include="TeamProject.ico">
-      <Filter>ë¦¬ì†ŒìŠ¤ íŒŒì¼</Filter>
+      <Filter>¸®¼Ò½º ÆÄÀÏ</Filter>
     </Image>
   </ItemGroup>
 </Project>
