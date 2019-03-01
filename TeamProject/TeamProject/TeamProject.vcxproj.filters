@@ -1,268 +1,277 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Animation.cpp">
-      <Filter>PublicFolder\Soon</Filter>
-    </ClCompile>
-    <ClCompile Include="BinaryFile.cpp">
-      <Filter>Utility\File</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraManager.cpp">
-      <Filter>System\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="DXRenderer + Create.cpp">
-      <Filter>System\Direct</Filter>
-    </ClCompile>
-    <ClCompile Include="DXRenderer + Rendering.cpp">
-      <Filter>System\Direct</Filter>
-    </ClCompile>
-    <ClCompile Include="DXRenderer.cpp">
-      <Filter>System\Direct</Filter>
-    </ClCompile>
-    <ClCompile Include="Figure.cpp">
-      <Filter>Utility\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>PublicFolder\Soon</Filter>
-    </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>System\Image</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageManager.cpp">
-      <Filter>System\Image</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_demo.cpp">
-      <Filter>MainHeader</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>System\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Loading.cpp">
-      <Filter>PublicFolder\Soon</Filter>
-    </ClCompile>
-    <ClCompile Include="MainScene + SoonInit.cpp">
-      <Filter>PublicFolder\Soon</Filter>
-    </ClCompile>
-    <ClCompile Include="MainScene + ChanInit.cpp">
-      <Filter>PublicFolder\Chan</Filter>
-    </ClCompile>
-    <ClCompile Include="MainScene + HaInit.cpp">
-      <Filter>PublicFolder\Ha</Filter>
-    </ClCompile>
-    <ClCompile Include="MainScene + ReeInit.cpp">
-      <Filter>PublicFolder\Ree</Filter>
-    </ClCompile>
-    <ClCompile Include="MainScene.cpp">
-      <Filter>MainEntry</Filter>
-    </ClCompile>
-    <ClCompile Include="Math.cpp">
-      <Filter>Utility\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>PublicFolder\Soon</Filter>
-    </ClCompile>
-    <ClCompile Include="Path.cpp">
-      <Filter>Utility\File</Filter>
-    </ClCompile>
-    <ClCompile Include="Program.cpp">
-      <Filter>MainEntry</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneBase.cpp">
-      <Filter>PublicFolder\Soon</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>PublicFolder\Soon</Filter>
-    </ClCompile>
-    <ClCompile Include="StringHelper.cpp">
-      <Filter>Utility\String</Filter>
-    </ClCompile>
-    <ClCompile Include="TeamProject.cpp">
-      <Filter>MainHeader</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="TextFile.cpp">
-      <Filter>Utility\File</Filter>
-    </ClCompile>
-    <ClCompile Include="Time.cpp">
-      <Filter>System\Time</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>Utility\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>System\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>PublicFolder\Ha</Filter>
-    </ClCompile>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{8eb495b3-37e5-4ef3-b4bf-e40af1c4eb87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\Math">
+      <UniqueIdentifier>{912c0cf4-1c32-4e26-a9a2-4e51e78bf41f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\File">
+      <UniqueIdentifier>{2e995de0-ded9-45ac-8133-f55767129a13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\String">
+      <UniqueIdentifier>{5b979675-d9f4-4db1-bf17-20f13e552321}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainHeader">
+      <UniqueIdentifier>{ceba5b2f-d487-4c5b-ae04-c120837460bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder">
+      <UniqueIdentifier>{52365358-4a56-4dc5-8c6b-dccd74e6f7b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Ree">
+      <UniqueIdentifier>{ba585205-377b-4ef7-b5f7-ad931b20b002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Soon">
+      <UniqueIdentifier>{3df1a5e0-e911-4ccd-9176-64c3faa8dda3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Ha">
+      <UniqueIdentifier>{34c97096-16d2-4e34-aca5-5b7f4002198a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainEntry">
+      <UniqueIdentifier>{1700f802-9853-409e-bbcd-706c2aa7f351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{fbdbd1fc-dc85-40b2-977c-095158e4b8c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\DirectX">
+      <UniqueIdentifier>{637938c5-d26e-41de-9d40-07df26e33f09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Resource">
+      <UniqueIdentifier>{6c635a00-5a21-4a62-9860-ffd40e0aebb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\View">
+      <UniqueIdentifier>{27f13dd8-5c4d-4b76-aea4-dad90a752984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Input">
+      <UniqueIdentifier>{355edd46-0469-41f9-9f0e-a8f0b62bf7c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Time">
+      <UniqueIdentifier>{bf9bc905-d37b-467c-9d2a-c8c3151ea294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Window">
+      <UniqueIdentifier>{545818c3-5899-4588-bc93-00184abbe025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Soon\Module">
+      <UniqueIdentifier>{379a2311-5586-4e7f-b73b-d118451d15a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainEntry\Scene">
+      <UniqueIdentifier>{48604a6e-c863-4d87-a64e-b3c534db044d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Chan">
+      <UniqueIdentifier>{c648cb71-0c75-4026-ad3f-39fed23f7176}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.h">
-      <Filter>PublicFolder\Soon</Filter>
-    </ClInclude>
-    <ClInclude Include="BinaryFile.h">
-      <Filter>Utility\File</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraManager.h">
-      <Filter>System\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="DefineHeader.h">
-      <Filter>MainHeader</Filter>
-    </ClInclude>
-    <ClInclude Include="DXRenderer.h">
-      <Filter>System\Direct</Filter>
-    </ClInclude>
-    <ClInclude Include="EnumStructHeader.h">
-      <Filter>MainHeader</Filter>
-    </ClInclude>
-    <ClInclude Include="Figure.h">
-      <Filter>Utility\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>PublicFolder\Soon</Filter>
-    </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>System\Image</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageManager.h">
-      <Filter>System\Image</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>System\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="LibraryHeader.h">
-      <Filter>MainHeader</Filter>
-    </ClInclude>
-    <ClInclude Include="Loading.h">
-      <Filter>PublicFolder\Soon</Filter>
-    </ClInclude>
-    <ClInclude Include="MainScene.h">
-      <Filter>MainEntry</Filter>
-    </ClInclude>
-    <ClInclude Include="Math.h">
-      <Filter>Utility\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleHeader.h">
-      <Filter>MainHeader</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>PublicFolder\Soon</Filter>
-    </ClInclude>
-    <ClInclude Include="Path.h">
-      <Filter>Utility\File</Filter>
-    </ClInclude>
-    <ClInclude Include="Program.h">
-      <Filter>MainEntry</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Resource</Filter>
+    <ClInclude Include="TeamProject.h">
+      <Filter>리소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Resource</Filter>
+      <Filter>리소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="SceneBase.h">
-      <Filter>PublicFolder\Soon</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>PublicFolder\Soon</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>MainHeader</Filter>
-    </ClInclude>
-    <ClInclude Include="StringHelper.h">
-      <Filter>Utility\String</Filter>
-    </ClInclude>
-    <ClInclude Include="TeamProject.h">
-      <Filter>MainHeader</Filter>
-    </ClInclude>
-    <ClInclude Include="TextFile.h">
-      <Filter>Utility\File</Filter>
-    </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>System\Time</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>Utility\Math</Filter>
+    <ClInclude Include="Resource.h">
+      <Filter>리소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>System\Window</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>PublicFolder\Ha</Filter>
+    <ClInclude Include="Program.h">
+      <Filter>MainEntry</Filter>
+    </ClInclude>
+    <ClInclude Include="DXRenderer.h">
+      <Filter>System\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Utility\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Utility\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Figure.h">
+      <Filter>Utility\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>System\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Path.h">
+      <Filter>Utility\File</Filter>
+    </ClInclude>
+    <ClInclude Include="BinaryFile.h">
+      <Filter>Utility\File</Filter>
+    </ClInclude>
+    <ClInclude Include="StringHelper.h">
+      <Filter>Utility\String</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>System\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>System\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>System\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>System\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="DefineHeader.h">
+      <Filter>MainHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumStructHeader.h">
+      <Filter>MainHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="LibraryHeader.h">
+      <Filter>MainHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleHeader.h">
+      <Filter>MainHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>MainHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBase.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="TextFile.h">
+      <Filter>Utility\File</Filter>
+    </ClInclude>
+    <ClInclude Include="Loading.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>MainEntry\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="small.ico">
-      <Filter>Resource</Filter>
-    </Image>
-    <Image Include="TeamProject.ico">
-      <Filter>Resource</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="System">
-      <UniqueIdentifier>{b568ec97-4d9c-4649-b873-41c15bd17506}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utility">
-      <UniqueIdentifier>{3224eec3-a150-42ba-9009-fa213ae3f458}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainEntry">
-      <UniqueIdentifier>{5c390aa4-b278-4aa6-b946-18018c8466a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainHeader">
-      <UniqueIdentifier>{a7e4d80d-9c28-4864-afba-5d80658b538e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PublicFolder">
-      <UniqueIdentifier>{ef99e31b-e7f2-40b0-87a7-569a478491ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PublicFolder\Soon">
-      <UniqueIdentifier>{8a24c0cb-d1bc-4cc0-b8be-e5fc0e9bdabf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PublicFolder\Chan">
-      <UniqueIdentifier>{42268cd2-5073-421d-8353-a28893a35966}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PublicFolder\Ha">
-      <UniqueIdentifier>{773229b2-afa3-47c1-ab01-91ce170d0e24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PublicFolder\Ree">
-      <UniqueIdentifier>{0f5f0473-a00e-4794-a3be-0a3708730f9b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utility\File">
-      <UniqueIdentifier>{8fddadd1-4333-48e9-bffe-9312d92599e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utility\Math">
-      <UniqueIdentifier>{8f18e2de-76b3-4b25-a72a-4891a6e01c5f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\Camera">
-      <UniqueIdentifier>{c899447c-773c-4481-a902-279c6f38fcd7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\Direct">
-      <UniqueIdentifier>{0e125761-dc80-44bb-9321-339c14b915fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\Image">
-      <UniqueIdentifier>{2347769e-2349-4c01-aabf-320299aba61c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\Input">
-      <UniqueIdentifier>{7c938a0a-105f-4216-90ca-c0ce1cb02095}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource">
-      <UniqueIdentifier>{c6dab7e6-5a3f-48cb-a7ce-bcde5e40ce8a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utility\String">
-      <UniqueIdentifier>{aae221de-eaa5-4fb5-8f20-ff5db37ea03f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\Time">
-      <UniqueIdentifier>{9c5d12a7-7199-4098-9c72-8a1e332cac89}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\Window">
-      <UniqueIdentifier>{c3417f8d-4abb-45d4-8876-b1dff0025e8c}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>리소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>System\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="DXRenderer + Create.cpp">
+      <Filter>System\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="DXRenderer + Rendering.cpp">
+      <Filter>System\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="DXRenderer.cpp">
+      <Filter>System\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Utility\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Utility\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Figure.cpp">
+      <Filter>Utility\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>System\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Path.cpp">
+      <Filter>Utility\File</Filter>
+    </ClCompile>
+    <ClCompile Include="BinaryFile.cpp">
+      <Filter>Utility\File</Filter>
+    </ClCompile>
+    <ClCompile Include="StringHelper.cpp">
+      <Filter>Utility\String</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>System\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>System\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>System\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>System\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="TeamProject.cpp">
+      <Filter>MainHeader</Filter>
+    </ClCompile>
+    <ClCompile Include="Program.cpp">
+      <Filter>MainEntry</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneBase.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="TextFile.cpp">
+      <Filter>Utility\File</Filter>
+    </ClCompile>
+    <ClCompile Include="Loading.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>MainEntry\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>MainHeader</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene + SoonInit.cpp">
+      <Filter>PublicForder\Soon</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene + ReeInit.cpp">
+      <Filter>PublicForder\Ree</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene + HaInit.cpp">
+      <Filter>PublicForder\Ha</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene + ChanInit.cpp">
+      <Filter>PublicForder\Chan</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TeamProject.rc">
-      <Filter>Resource</Filter>
+      <Filter>리소스 파일</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="TeamProject.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>
