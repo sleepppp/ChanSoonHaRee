@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Enemy.h"
-#include "player.h"
+//#include "player.h"
 
 Enemy::Enemy()
 {
@@ -91,7 +91,7 @@ void Enemy::EnemyInit()
 void Enemy::Move()
 {
 	// 난 항상 플레이어를 중심으로 움직일 거야
-	this->_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
+	//this->_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
 	if (_state == StateType::Chasing)
 	{
 		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
@@ -112,7 +112,7 @@ void Enemy::Move()
 void Enemy::Attack()
 {
 	//플레이어와 나의 사이 거리를 재는 도구지!
-	_distance = Math::GetDistance(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
+	//_distance = Math::GetDistance(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
 
 	//만약 나와 플레이어간의 거리가 내 몸크기의 두배가 안된다면
 	if (_distance < (_size.x * 2))
@@ -216,23 +216,23 @@ void Enemy::CardinalPointsAttack()
 
 void Enemy::Collision()
 {
-	RECT Temp = { 0 };
-	if (IntersectRect(&Temp, &_attackLeft, &_player->GetMainRect()))
-	{
-		_isAttack = true;
-	}
-	if (IntersectRect(&Temp, &_attackTop, &_player->GetMainRect()))
-	{
-		_isAttack = true;
-	}
-	if (IntersectRect(&Temp, &_attackRight, &_player->GetMainRect()))
-	{
-		_isAttack = true;
-	}
-	if (IntersectRect(&Temp, &_attackBottom, &_player->GetMainRect()))
-	{
-		_isAttack = true;
-	}
+	//RECT Temp = { 0 };
+	//if (IntersectRect(&Temp, &_attackLeft, &_player->GetMainRect()))
+	//{
+	//	_isAttack = true;
+	//}
+	//if (IntersectRect(&Temp, &_attackTop, &_player->GetMainRect()))
+	//{
+	//	_isAttack = true;
+	//}
+	//if (IntersectRect(&Temp, &_attackRight, &_player->GetMainRect()))
+	//{
+	//	_isAttack = true;
+	//}
+	//if (IntersectRect(&Temp, &_attackBottom, &_player->GetMainRect()))
+	//{
+	//	_isAttack = true;
+	//}
 }
 
 void Enemy::AttackedDemege(int damage)
