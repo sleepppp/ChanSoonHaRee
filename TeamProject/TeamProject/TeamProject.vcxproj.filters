@@ -94,6 +94,9 @@
     <ClCompile Include="Window.cpp">
       <Filter>System\Window</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>PublicFolder\Ha</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -185,6 +188,9 @@
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>System\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>PublicFolder\Ha</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
