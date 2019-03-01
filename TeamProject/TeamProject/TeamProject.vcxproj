@@ -160,6 +160,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="LibraryHeader.h" />
     <ClInclude Include="Loading.h" />
     <ClInclude Include="MainScene.h" />
@@ -197,6 +198,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Loading.cpp" />
     <ClCompile Include="MainScene + ChanInit.cpp" />
     <ClCompile Include="MainScene + HaInit.cpp" />

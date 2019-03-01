@@ -165,11 +165,16 @@
     <ClInclude Include="MainScene.h">
       <Filter>MainEntry\Scene</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Enemy.h">
       <Filter>PublicForder\Ha</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
       <Filter>PublicForder\Ha</Filter>
+=======
+    <ClInclude Include="Item.h">
+      <Filter>PublicForder\Chan</Filter>
+>>>>>>> 0eb916f6869bc8aa1136e7a54735bc85d9f19bb4
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -266,11 +271,16 @@
     <ClCompile Include="MainScene + ChanInit.cpp">
       <Filter>PublicForder\Chan</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Enemy.cpp">
       <Filter>PublicForder\Ha</Filter>
     </ClCompile>
     <ClCompile Include="player.cpp">
       <Filter>PublicForder\Ha</Filter>
+=======
+    <ClCompile Include="Item.cpp">
+      <Filter>PublicForder\Chan</Filter>
+>>>>>>> 0eb916f6869bc8aa1136e7a54735bc85d9f19bb4
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
