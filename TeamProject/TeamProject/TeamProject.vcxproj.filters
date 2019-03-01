@@ -166,6 +166,7 @@
       <Filter>MainEntry\Scene</Filter>
     </ClInclude>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClInclude Include="Enemy.h">
       <Filter>PublicForder\Ha</Filter>
     </ClInclude>
@@ -176,6 +177,8 @@
       <Filter>PublicForder\Chan</Filter>
 >>>>>>> 0eb916f6869bc8aa1136e7a54735bc85d9f19bb4
     </ClInclude>
+=======
+>>>>>>> parent of 4cb136f... ## 이학영 ##
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -272,6 +275,7 @@
       <Filter>PublicForder\Chan</Filter>
     </ClCompile>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClCompile Include="Enemy.cpp">
       <Filter>PublicForder\Ha</Filter>
     </ClCompile>
@@ -282,6 +286,8 @@
       <Filter>PublicForder\Chan</Filter>
 >>>>>>> 0eb916f6869bc8aa1136e7a54735bc85d9f19bb4
     </ClCompile>
+=======
+>>>>>>> parent of 4cb136f... ## 이학영 ##
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TeamProject.rc">

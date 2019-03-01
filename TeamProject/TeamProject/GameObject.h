@@ -19,7 +19,7 @@ protected:
 	
 	//다음과 같이 맵에 함수를 담아두는 이유는 더 원활한 객체간의 통신을 위해 간단한 메세지통신 기법을 구현하기 위함이다. 
 	//예를 들어 어떤 객체에서 GameObject를 상속받은 Enemy라는 객체의 Attack이라는 함수를 호출하고 싶을 때 우리는 
-	//Enemy* enemy = (Enemy*)ObjectManager->FindObject("sdas"); enemy->Attack();
+	//Enemy* enemy = (Enemy*)ObjectManager->FindObject("sdas); enemy->Attack();
 	//과 같은 함수를 형변환을 한 후에 직접적으로 호출해주어야 했었다
 	//이 코드의 문제점은 찾아온 GameObject*가 Enemy클래스가 아닐 경우와 코드의 유지보수가 어렵다는 점이다. 
 	
@@ -40,7 +40,7 @@ private:	//아래의 변수들은 자식 객체에서 함부로 건들면 안되기 때문에 private로 �
 	bool _isLive;			//객체 생존 여부(해당 불값을 끄면 ObjectManager에서 객체를 삭제한다) 
 
 	CallbackHashmap _callbackList;	//메세지 통신에 사용할 맵(이곳에 미리 키값과 함께 함수를 담아둔다) 
-	//예약 메세지 리스트	
+	//예약 메세지 리스트 
 	//만약 보낸 메세지의 delayTime이 설정되어 있으면 바로 함수를 실행시키지 않고 이곳으로 보낸다. 
 	//GameObject의 업데이트에서는 해당 메세지의 딜레이 타임을 계산하다가 해당 함수를 실행 시켜준다. 
 	vector<struct TagMessage> _reserveMessageList;
