@@ -34,9 +34,6 @@
     <Filter Include="PublicForder\Ree">
       <UniqueIdentifier>{ba585205-377b-4ef7-b5f7-ad931b20b002}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PublicForder\Chan">
-      <UniqueIdentifier>{c648cb71-0c75-4026-ad3f-39fed23f7176}</UniqueIdentifier>
-    </Filter>
     <Filter Include="PublicForder\Soon">
       <UniqueIdentifier>{3df1a5e0-e911-4ccd-9176-64c3faa8dda3}</UniqueIdentifier>
     </Filter>
@@ -72,6 +69,9 @@
     </Filter>
     <Filter Include="MainEntry\Scene">
       <UniqueIdentifier>{48604a6e-c863-4d87-a64e-b3c534db044d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Chan">
+      <UniqueIdentifier>{c648cb71-0c75-4026-ad3f-39fed23f7176}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
