@@ -11,6 +11,7 @@ private:
 	unordered_map<string, class SceneBase*> sceneList;
 	unordered_map<string, class SceneBase*> loadingSceneList;
 	class SceneBase* nowScene;
+
 public:
 	void Update();
 	void Render();
