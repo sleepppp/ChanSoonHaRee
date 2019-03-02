@@ -76,6 +76,18 @@
     <Filter Include="System\Sound">
       <UniqueIdentifier>{46553f27-1dab-4718-9f83-bd3c96936dd7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainEntry\Scene\LoadingScene">
+      <UniqueIdentifier>{db34a1a5-0242-4177-afe6-79eaf489e4ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainEntry\Scene\TitleScene">
+      <UniqueIdentifier>{7b2ffa63-a6af-46ea-81cd-038611017869}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainEntry\Scene\TitleScene\TitleObject">
+      <UniqueIdentifier>{84d74867-be4b-42aa-bc57-1fa6ad0a9970}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainEntry\Scene\MainScene">
+      <UniqueIdentifier>{6333573b-14a4-4c59-a502-92f9f7d23916}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -165,9 +177,6 @@
     <ClInclude Include="SceneManager.h">
       <Filter>PublicForder\Soon\Module</Filter>
     </ClInclude>
-    <ClInclude Include="MainScene.h">
-      <Filter>MainEntry\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>PublicForder\Ha</Filter>
     </ClInclude>
@@ -185,6 +194,30 @@
     </ClInclude>
     <ClInclude Include="DemoMonster.h">
       <Filter>PublicForder\Soon</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingSceneBase.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingScene.h">
+      <Filter>MainEntry\Scene\LoadingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>MainEntry\Scene\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>MainEntry\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleBackground.h">
+      <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleLogo.h">
+      <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleDoor.h">
+      <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleFlowObject.h">
+      <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -239,9 +272,6 @@
     <ClCompile Include="TeamProject.cpp">
       <Filter>MainHeader</Filter>
     </ClCompile>
-    <ClCompile Include="Program.cpp">
-      <Filter>MainEntry</Filter>
-    </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>PublicForder\Soon\Module</Filter>
     </ClCompile>
@@ -262,9 +292,6 @@
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>PublicForder\Soon\Module</Filter>
-    </ClCompile>
-    <ClCompile Include="MainScene.cpp">
-      <Filter>MainEntry\Scene</Filter>
     </ClCompile>
     <ClCompile Include="imgui_demo.cpp">
       <Filter>MainHeader</Filter>
@@ -298,6 +325,33 @@
     </ClCompile>
     <ClCompile Include="DemoMonster.cpp">
       <Filter>PublicForder\Soon</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingSceneBase.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Program.cpp">
+      <Filter>MainEntry</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingScene.cpp">
+      <Filter>MainEntry\Scene\LoadingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>MainEntry\Scene\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>MainEntry\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleBackground.cpp">
+      <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleLogo.cpp">
+      <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleDoor.cpp">
+      <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleFlowObject.cpp">
+      <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

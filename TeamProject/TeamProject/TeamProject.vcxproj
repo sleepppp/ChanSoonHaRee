@@ -23,7 +23,7 @@
     <ProjectGuid>{59369EAE-E275-4010-AA30-2C70122FFA8A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>TeamProject</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -165,6 +165,8 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="LibraryHeader.h" />
     <ClInclude Include="Loading.h" />
+    <ClInclude Include="LoadingScene.h" />
+    <ClInclude Include="LoadingSceneBase.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="ModuleHeader.h" />
@@ -183,6 +185,11 @@
     <ClInclude Include="TeamProject.h" />
     <ClInclude Include="TextFile.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="TitleBackground.h" />
+    <ClInclude Include="TitleFlowObject.h" />
+    <ClInclude Include="TitleLogo.h" />
+    <ClInclude Include="TitleDoor.h" />
+    <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
@@ -205,6 +212,8 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Loading.cpp" />
+    <ClCompile Include="LoadingScene.cpp" />
+    <ClCompile Include="LoadingSceneBase.cpp" />
     <ClCompile Include="MainScene + ChanInit.cpp" />
     <ClCompile Include="MainScene + HaInit.cpp" />
     <ClCompile Include="MainScene + ReeInit.cpp" />
@@ -229,6 +238,11 @@
     <ClCompile Include="TeamProject.cpp" />
     <ClCompile Include="TextFile.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="TitleBackground.cpp" />
+    <ClCompile Include="TitleFlowObject.cpp" />
+    <ClCompile Include="TitleLogo.cpp" />
+    <ClCompile Include="TitleDoor.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>

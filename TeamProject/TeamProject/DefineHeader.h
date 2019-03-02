@@ -12,6 +12,9 @@
 #define ZeroToASC 48	//숫자 0 아스키값
 #define NineToASC 57	//숫자 9 아스키값
 
+#define PathResources(n) (wstring(L"../Resources/").append(n))
+#define PathSounds(n)(string("../Sounds/").append(n))
+
 /*************************************************************
 ## SafeRelease ##
 @@ p : Release 함수가 있는 클래스 
