@@ -10,7 +10,7 @@ Player::Player()
 	this->_size = Vector2(120, 120);
 	this->_position = Vector2(WinSizeX / 2, WinSizeY / 2);
 	this->_isActive = true;
-	this->GetLive();	//?
+	
 
 	this->_pivot = Pivot::CENTER;
 	this->UpdateMainRect();
@@ -21,7 +21,7 @@ Player::Player()
 	this->_standRate = 0.5f;		//프레임 장당 시간
 	this->_runRate = 0.082588f;		//달리기용 프레임 시간
 	this->_changeIndexX = 0.f;		//각 X프레임 개수가 달라 변경값을 쉽게 넣기 위한 변수 선언	
-	_ImageManager->AddFrameImage("Will", L"../Resources/will_dungeon.png", 10, 13);
+	_ImageManager->AddFrameImage("Will", L"../Resources/Player/will_dungeon.png", 10, 13);
 	this->_image = _ImageManager->FindImage("Will");
 
 	//첫 행동을 위한 기본값
@@ -30,7 +30,8 @@ Player::Player()
 	this->_frameIndexY = 11.f;		//11은 기본 정면을 바라보게 하기 위한 값(정면)	
 	this->_state = State::stand_D;	//최초 모션 상태 	
 
-
+	//충돌판정용 렉트 생성
+	_colliRc = RectMakeCenter(_position.x, _position.y, _size.x / 2, _size.y / 2);
 
 }
 Player::~Player()
@@ -165,10 +166,14 @@ void Player::Update()
 		//만약 프레임인덱스X가 맥스와 같거나 커지면 0으로 초기화
 		if (this->_changeIndexX <= _frameIndexX) this->_frameIndexX = 0;
 	}
+
+	_colliRc = RectMakeCenter(_position.x, _position.y, _size.x / 2, _size.y / 2);
 }
 
 void Player::Render()
 {
 	_image->SetSize(_size);
 	_image->FrameRender(_position.x, _position.y, _frameIndexX, _frameIndexY, Pivot::CENTER, true);
+	
+	_DXRenderer->DrawRectangle(_colliRc, DefaultBrush::blue, false, 2.0f);
 }
