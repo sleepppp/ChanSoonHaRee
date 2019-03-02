@@ -60,61 +60,61 @@ void Enemy::Render()
 		}
 		AttackRender();
 	}
-
+	//레프트 라이트 탑 바텀 순.
 	if (_state == StateType::Chasing && _move == MoveType::Top)
 	{
-		_golemTopMove->SetSize(_golemTopMove->GetFrameSize(0));
-		_golemTopMove->SetScale(1.0f);
-		_golemTopMove->FrameRender(_position.x, _position.y, _golemTopMoveCount, 0, Pivot::CENTER, true);
+		_golemMove->SetSize(_golemMove->GetFrameSize(0));
+		_golemMove->SetScale(1.0f);
+		_golemMove->FrameRender(_position.x, _position.y, _golemMoveCount, 2, Pivot::CENTER, true);
 	}
 
 	if (_state == StateType::Chasing &&_move == MoveType::Left)
 	{
-		_golemLeftMove->SetSize(_golemLeftMove->GetFrameSize(0));
-		_golemLeftMove->SetScale(1.0f);
-		_golemLeftMove->FrameRender(_position.x, _position.y, _golemLeftMoveCount, 0, Pivot::CENTER, true);
+		_golemMove->SetSize(_golemMove->GetFrameSize(0));
+		_golemMove->SetScale(1.0f);
+		_golemMove->FrameRender(_position.x, _position.y, _golemMoveCount, 0, Pivot::CENTER, true);
 	}
 	
 	if (_state == StateType::Chasing &&_move == MoveType::Right)
 	{
-		_golemRightMove->SetSize(_golemRightMove->GetFrameSize(0));
-		_golemRightMove->SetScale(1.0f);
-		_golemRightMove->FrameRender(_position.x, _position.y, _golemRightMoveCount, 0, Pivot::CENTER, true);
+		_golemMove->SetSize(_golemMove->GetFrameSize(0));
+		_golemMove->SetScale(1.0f);
+		_golemMove->FrameRender(_position.x, _position.y, _golemMoveCount, 1, Pivot::CENTER, true);
 	}
 	
 	if (_state == StateType::Chasing &&_move == MoveType::Bottom)
 	{
-		_golemBottomMove->SetSize(_golemBottomMove->GetFrameSize(0));
-		_golemBottomMove->SetScale(1.0f);
-		_golemBottomMove->FrameRender(_position.x, _position.y, _golemBottomMoveCount, 0, Pivot::CENTER, true);
+		_golemMove->SetSize(_golemMove->GetFrameSize(0));
+		_golemMove->SetScale(1.0f);
+		_golemMove->FrameRender(_position.x, _position.y, _golemMoveCount, 3, Pivot::CENTER, true);
 	}
 
 	if (_state == StateType::attack && _move == MoveType::Top)
 	{
-		_golemTopAttack->SetSize(_golemTopAttack->GetFrameSize(0));
-		_golemTopAttack->SetScale(1.0f);
-		_golemTopAttack->FrameRender(_position.x, _position.y, _golemTopAttackCount, 0, Pivot::CENTER, true);
+		_golemAttack->SetSize(_golemAttack->GetFrameSize(0));
+		_golemAttack->SetScale(1.0f);
+		_golemAttack->FrameRender(_position.x, _position.y, _golemAttackCount, 2, Pivot::CENTER, true);
 	}
 
 	if (_state == StateType::attack &&_move == MoveType::Left)
 	{
-		_golemLeftAttack->SetSize(_golemLeftAttack->GetFrameSize(0));
-		_golemLeftAttack->SetScale(1.0f);
-		_golemLeftAttack->FrameRender(_position.x, _position.y, _golemLeftAttackCount, 0, Pivot::CENTER, true);
+		_golemAttack->SetSize(_golemAttack->GetFrameSize(0));
+		_golemAttack->SetScale(1.0f);
+		_golemAttack->FrameRender(_position.x, _position.y, _golemAttackCount, 0, Pivot::CENTER, true);
 	}
 	
 	if (_state == StateType::attack &&_move == MoveType::Right)
 	{
-		_golemRightAttack->SetSize(_golemRightAttack->GetFrameSize(0));
-		_golemRightAttack->SetScale(1.0f);
-		_golemRightAttack->FrameRender(_position.x, _position.y, _golemRightAttackCount, 0, Pivot::CENTER, true);
+		_golemAttack->SetSize(_golemAttack->GetFrameSize(0));
+		_golemAttack->SetScale(1.0f);
+		_golemAttack->FrameRender(_position.x, _position.y, _golemAttackCount, 1, Pivot::CENTER, true);
 	}
 
 	if (_state == StateType::attack &&_move == MoveType::Bottom)
 	{
-		_golemBottomAttack->SetSize(_golemBottomAttack->GetFrameSize(0));
-		_golemBottomAttack->SetScale(1.0f);
-		_golemBottomAttack->FrameRender(_position.x, _position.y, _golemBottomAttackCount, 0, Pivot::CENTER, true);
+		_golemAttack->SetSize(_golemAttack->GetFrameSize(0));
+		_golemAttack->SetScale(1.0f);
+		_golemAttack->FrameRender(_position.x, _position.y, _golemAttackCount, 3, Pivot::CENTER, true);
 	}
 
 }
@@ -151,36 +151,11 @@ void Enemy::EnemyInit()
 //에너미 이미지 초기화 및 초기생성
 void Enemy::GolemImageInit()
 {
-	_ImageManager->AddFrameImage("GolemTopMove", L"../Resources/Enemy/Golem/GolemTopMove.png", 47, 1);
-	_ImageManager->AddFrameImage("GolemLeftMove", L"../Resources/Enemy/Golem/GolemLeftMove.png", 47, 1);
-	_ImageManager->AddFrameImage("GolemRightMove", L"../Resources/Enemy/Golem/GolemRightMove.png", 47, 1);
-	_ImageManager->AddFrameImage("GolemBottomMove", L"../Resources/Enemy/Golem/GolemBottomMove.png", 47, 1);
-
-	_ImageManager->AddFrameImage("GolemTopAttack", L"../Resources/Enemy/Golem/GolemTopAttack.png", 13, 1);
-	_ImageManager->AddFrameImage("GolemLeftAttack", L"../Resources/Enemy/Golem/GolemLeftAttack.png", 13, 1);
-	_ImageManager->AddFrameImage("GolemRightAttack", L"../Resources/Enemy/Golem/GolemRightAttack.png", 13, 1);
-	_ImageManager->AddFrameImage("GolemBottomAttack", L"../Resources/Enemy/Golem/GolemBottomAttack.png", 13, 1);
-
-	this->_golemTopMove = _ImageManager->FindImage("GolemTopMove");
-	this->_golemLeftMove = _ImageManager->FindImage("GolemLeftMove");
-	this->_golemRightMove = _ImageManager->FindImage("GolemRightMove");
-	this->_golemBottomMove = _ImageManager->FindImage("GolemBottomMove");
-
-	this->_golemTopAttack = _ImageManager->FindImage("GolemTopAttack");
-	this->_golemLeftAttack = _ImageManager->FindImage("GolemLeftAttack");
-	this->_golemRightAttack = _ImageManager->FindImage("GolemRightAttack");
-	this->_golemBottomAttack = _ImageManager->FindImage("GolemBottomAttack");
-
-
-	this->_golemTopMoveCount = 0;
-	this->_golemLeftMoveCount = 0;
-	this->_golemRightMoveCount = 0;
-	this->_golemBottomMoveCount = 0;
-
-	this->_golemTopAttackCount = 0;
-	this->_golemLeftAttackCount = 0;
-	this->_golemRightAttackCount = 0;
-	this->_golemBottomAttackCount = 0;
+	//레프트 라이트 탑 바텀 순.
+	this->_golemMove = _ImageManager->AddFrameImage("GolemMove", L"../Resources/Enemy/Golem/GolemMove.png", 8, 4);
+	this->_golemAttack = _ImageManager->AddFrameImage("GolemAttack", L"../Resources/Enemy/Golem/GolemAttack.png", 13, 4);
+	this->_golemMoveCount = 0;
+	this->_golemAttackCount = 0;
 
 	this->_state = StateType::Chasing;
 	this->_move = MoveType::Left;
@@ -193,115 +168,97 @@ void Enemy::GolemImageCount()
 	{
 		if (_count % 60 == 0)
 		{
-			_golemTopMoveCount++;
+			_golemMoveCount++;
 		}
-		if (_golemTopMoveCount > 47)
+		if (_golemMoveCount >= 8)
 		{
-			_golemTopMoveCount = 0;
+			_golemMoveCount = 0;
 		}
 	}
-	else
-		_golemTopMoveCount = 0;
 
 	if (_state == StateType::Chasing &&_move == MoveType::Left)
 	{
 		if (_count % 60 == 0)
 		{
-			_golemLeftMoveCount++;
+			_golemMoveCount++;
 		}
-		if (_golemLeftMoveCount > 47)
+		if (_golemMoveCount >= 8)
 		{
-			_golemLeftMoveCount = 0;
+			_golemMoveCount = 0;
 		}
 	}
-	else
-		_golemLeftMoveCount = 0;
+
 	if (_state == StateType::Chasing &&_move == MoveType::Right)
 	{
 		if (_count % 60 == 0)
 		{
-			_golemRightMoveCount++;
+			_golemMoveCount++;
 		}
-		if (_golemRightMoveCount > 47)
+		if (_golemMoveCount >= 8)
 		{
-			_golemRightMoveCount = 0;
+			_golemMoveCount = 0;
 		}
 	}
-	else
-		_golemRightMoveCount = 0;
 
 	if (_state == StateType::Chasing &&_move == MoveType::Bottom)
 	{
 		if (_count % 60 == 0)
 		{
-			_golemBottomMoveCount++;
+			_golemMoveCount++;
 		}
-		if (_golemBottomMoveCount > 47)
+		if (_golemMoveCount >= 8)
 		{
-			_golemBottomMoveCount = 0;
+			_golemMoveCount = 0;
 		}
 	}
-	else
-		_golemBottomMoveCount = 0;
-
 
 	if (_state == StateType::attack && _move == MoveType::Top)
 	{
 		if (_count % 60 == 0)
 		{
-			_golemTopAttackCount++;
+			_golemAttackCount++;
 		}
-		if (_golemTopAttackCount > 12)
+		if (_golemAttackCount >= 13)
 		{
-			_golemTopAttackCount = 0;
+			_golemAttackCount = 0;
 		}
 	}
-	else
-		_golemTopAttackCount = 0;
 
 	if (_state == StateType::attack &&_move == MoveType::Left)
 	{
 		if (_count % 60 == 0)
 		{
-			_golemLeftAttackCount++;
+			_golemAttackCount++;
 		}
-		if (_golemLeftAttackCount > 12)
+		if (_golemAttackCount >= 13)
 		{
-			_golemLeftAttackCount = 0;
+			_golemAttackCount = 0;
 		}
 	}
-	else
-		_golemLeftAttackCount = 0;
 
 	if (_state == StateType::attack &&_move == MoveType::Right)
 	{
 		if (_count % 60 == 0)
 		{
-			_golemRightAttackCount++;
+			_golemAttackCount++;
 		}
-		if (_golemRightAttackCount > 12)
+		if (_golemAttackCount >= 13)
 		{
-			_golemRightAttackCount = 0;
+			_golemAttackCount = 0;
 		}
 	}
-	else
-		_golemRightAttackCount = 0;
 
 	if (_state == StateType::attack &&_move == MoveType::Bottom)
 	{
 		if (_count % 60 == 0)
 		{
-			_golemBottomAttackCount++;
+			_golemAttackCount++;
 		}
-		if (_golemBottomAttackCount > 12)
+		if (_golemAttackCount >= 13)
 		{
-			_golemBottomAttackCount = 0;
+			_golemAttackCount = 0;
 		}
 	}
-	else
-		_golemBottomAttackCount = 0;
-
-
 }
 //무브 상황
 void Enemy::Move()

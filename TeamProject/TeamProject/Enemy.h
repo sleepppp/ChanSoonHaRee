@@ -17,26 +17,10 @@ private:
 	//골렘의 기본 움직임//골램의 공격 움직임
 	class Image* _mainImage;
 
-	class Image* _golemTopMove;			//47개
-	class Image* _golemLeftMove;
-	class Image* _golemRightMove;
-	class Image* _golemBottomMove;
-	
-	class Image* _golemTopAttack;		//13개
-	class Image* _golemLeftAttack;
-	class Image* _golemRightAttack;
-	class Image* _golemBottomAttack;
-
-	int _golemTopMoveCount;
-	int _golemLeftMoveCount;
-	int _golemRightMoveCount;
-	int _golemBottomMoveCount;
-
-	int _golemTopAttackCount;
-	int _golemLeftAttackCount;
-	int _golemRightAttackCount;
-	int _golemBottomAttackCount;
-
+	class Image* _golemMove;
+	class Image* _golemAttack;
+	int _golemMoveCount;
+	int _golemAttackCount;
 
 	//에너미의 몸뚱아리 변수들
 	float _speed;		//속도
