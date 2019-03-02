@@ -133,10 +133,10 @@ void Enemy::EnemyInit()
 	this->_demege = 34;
 	this->_isAttackedCount = 0;
 	//공격 판정 여부와 공격 범위, 그를위한 렉트 생성! 
-	this->_sizeLeft = Vector2(-100, 10);
-	this->_sizeRight = Vector2(100, 10);
-	this->_sizeTop = Vector2(10, -100);
-	this->_sizeBottom = Vector2(10, 100);
+	this->_sizeLeft = Vector2(-100, 20);
+	this->_sizeRight = Vector2(100, 20);
+	this->_sizeTop = Vector2(20, -100);
+	this->_sizeBottom = Vector2(20, 100);
 	this->_isAttackTop = false;
 	this->_isAttackLeft = false;
 	this->_isAttackRight = false;
@@ -191,7 +191,7 @@ void Enemy::GolemImageCount()
 {
 	if (_state == StateType::Chasing && _move == MoveType::Top)
 	{
-		if (_count % 5 == 0)
+		if (_count % 60 == 0)
 		{
 			_golemTopMoveCount++;
 		}
@@ -205,7 +205,7 @@ void Enemy::GolemImageCount()
 
 	if (_state == StateType::Chasing &&_move == MoveType::Left)
 	{
-		if (_count % 5 == 0)
+		if (_count % 60 == 0)
 		{
 			_golemLeftMoveCount++;
 		}
@@ -218,7 +218,7 @@ void Enemy::GolemImageCount()
 		_golemLeftMoveCount = 0;
 	if (_state == StateType::Chasing &&_move == MoveType::Right)
 	{
-		if (_count % 5 == 0)
+		if (_count % 60 == 0)
 		{
 			_golemRightMoveCount++;
 		}
@@ -232,7 +232,7 @@ void Enemy::GolemImageCount()
 
 	if (_state == StateType::Chasing &&_move == MoveType::Bottom)
 	{
-		if (_count % 5 == 0)
+		if (_count % 60 == 0)
 		{
 			_golemBottomMoveCount++;
 		}
@@ -247,11 +247,11 @@ void Enemy::GolemImageCount()
 
 	if (_state == StateType::attack && _move == MoveType::Top)
 	{
-		if (_count % 5 == 0)
+		if (_count % 60 == 0)
 		{
 			_golemTopAttackCount++;
 		}
-		if (_golemTopAttackCount > 13)
+		if (_golemTopAttackCount > 12)
 		{
 			_golemTopAttackCount = 0;
 		}
@@ -261,11 +261,11 @@ void Enemy::GolemImageCount()
 
 	if (_state == StateType::attack &&_move == MoveType::Left)
 	{
-		if (_count % 5 == 0)
+		if (_count % 60 == 0)
 		{
 			_golemLeftAttackCount++;
 		}
-		if (_golemLeftAttackCount > 13)
+		if (_golemLeftAttackCount > 12)
 		{
 			_golemLeftAttackCount = 0;
 		}
@@ -275,11 +275,11 @@ void Enemy::GolemImageCount()
 
 	if (_state == StateType::attack &&_move == MoveType::Right)
 	{
-		if (_count % 5 == 0)
+		if (_count % 60 == 0)
 		{
 			_golemRightAttackCount++;
 		}
-		if (_golemRightAttackCount > 13)
+		if (_golemRightAttackCount > 12)
 		{
 			_golemRightAttackCount = 0;
 		}
@@ -289,11 +289,11 @@ void Enemy::GolemImageCount()
 
 	if (_state == StateType::attack &&_move == MoveType::Bottom)
 	{
-		if (_count % 5 == 0)
+		if (_count % 60 == 0)
 		{
 			_golemBottomAttackCount++;
 		}
-		if (_golemBottomAttackCount > 13)
+		if (_golemBottomAttackCount > 12)
 		{
 			_golemBottomAttackCount = 0;
 		}
@@ -343,7 +343,7 @@ void Enemy::Attack()
 		_attackCount++;
 	}
 	//카운트가 300보다 커진다면?!
-	if (_attackCount > 300)
+	if (_attackCount > 800)
 	{
 		//난 이미 공격을 마쳤으니 카운트를 없애주고
 		_attackCount = 0;
@@ -400,28 +400,28 @@ void Enemy::CardinalPointsAttack()
 {
 	if (_state == StateType::attack)
 	{
-		if (_move == MoveType::Left && _attackCount > 280)
+		if (_move == MoveType::Left && _attackCount > 700)
 		{
 			_isAttackLeft = true;
 			this->_attackLeft = Figure::RectMakeCenter({ _position.x - 60, _position.y }, _sizeLeft);
 		}
 		else _isAttackLeft = false;
 
-		if (_move == MoveType::Right && _attackCount > 280)
+		if (_move == MoveType::Right && _attackCount > 700)
 		{
 			_isAttackRight = true;
 			this->_attackRight = Figure::RectMakeCenter({ _position.x + 60, _position.y }, _sizeRight);
 		}
 		else _isAttackRight = false;
 
-		if (_move == MoveType::Top && _attackCount > 280)
+		if (_move == MoveType::Top && _attackCount > 700)
 		{
 			_isAttackTop = true;
 			this->_attackTop = Figure::RectMakeCenter({ _position.x ,_position.y - 60 }, _sizeTop);
 		}
 		else _isAttackTop = false;
 
-		if (_move == MoveType::Bottom && _attackCount > 280)
+		if (_move == MoveType::Bottom && _attackCount > 700)
 		{
 			_isAttackBottom = true;
 			this->_attackBottom = Figure::RectMakeCenter({ _position.x, _position.y + 60 }, _sizeBottom);
