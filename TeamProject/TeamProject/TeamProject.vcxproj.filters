@@ -73,6 +73,9 @@
     <Filter Include="PublicForder\Chan">
       <UniqueIdentifier>{c648cb71-0c75-4026-ad3f-39fed23f7176}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System\Sound">
+      <UniqueIdentifier>{46553f27-1dab-4718-9f83-bd3c96936dd7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -176,6 +179,12 @@
     </ClInclude>
     <ClInclude Include="Inventory.h">
       <Filter>PublicForder\Chan</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>System\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMonster.h">
+      <Filter>PublicForder\Soon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +292,12 @@
     </ClCompile>
     <ClCompile Include="Inventory.cpp">
       <Filter>PublicForder\Chan</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>System\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMonster.cpp">
+      <Filter>PublicForder\Soon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
