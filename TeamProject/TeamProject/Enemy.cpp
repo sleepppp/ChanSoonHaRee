@@ -148,7 +148,7 @@ void Enemy::EnemyInit()
 
 	this->UpdateMainRect();						//나를 그려주고있지
 }
-
+//에너미 이미지 초기화 및 초기생성
 void Enemy::GolemImageInit()
 {
 	_ImageManager->AddFrameImage("GolemTopMove", L"../Resources/Enemy/Golem/GolemTopMove.png", 47, 1);
@@ -186,7 +186,7 @@ void Enemy::GolemImageInit()
 	this->_move = MoveType::Left;
 
 }
-
+//에너미 이미지 카운트를 위한 함수.
 void Enemy::GolemImageCount()
 {
 	if (_state == StateType::Chasing && _move == MoveType::Top)
@@ -307,9 +307,9 @@ void Enemy::GolemImageCount()
 void Enemy::Move()
 {
 	// 난 항상 플레이어를 중심으로 움직일 거야
-	this->_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
 	if (_state == StateType::Chasing)
 	{
+		this->_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
 		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
 		this->_position.y += -sinf(_angle) * _speed * _TimeManager->DeltaTime();
 		//움직일때마다 새로 그려줘
@@ -317,13 +317,13 @@ void Enemy::Move()
 	}
 	if (_state == StateType::Attacked && this->_isAttackedCount < 200)
 	{
-		this->_position.x += cosf(_angle - Math::PI) * _speed * _TimeManager->DeltaTime();
-		this->_position.y += -sinf(_angle - Math::PI) * _speed * _TimeManager->DeltaTime();
+		this->_angle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
+		this->_position.x += cosf(_angle ) * _speed * _TimeManager->DeltaTime();
+		this->_position.y += -sinf(_angle ) * _speed * _TimeManager->DeltaTime();
 		//움직일때마다 새로 그려줘
 		this->UpdateMainRect();
 	}
 }
-
 //공격 상황
 void Enemy::Attack()
 {
@@ -351,7 +351,6 @@ void Enemy::Attack()
 		_state = StateType::Chasing;
 	}
 }
-
 //공격 범위 안에 들어섰을때 어느 방향으로 공격할지의 처리.
 void Enemy::MoveType()
 {
@@ -394,7 +393,6 @@ void Enemy::AttackRender()
 		_DXRenderer->DrawRectangle(_attackBottom, DefaultBrush::red);
 	}
 }
-
 //내가 플레이어를 공격할때 의 상황들과 그에 맞는 공격설정 처리.
 void Enemy::CardinalPointsAttack()
 {
@@ -429,7 +427,7 @@ void Enemy::CardinalPointsAttack()
 		else _isAttackBottom = false;
 	}
 }
-
+//어택을 위한 공격 상황.
 void Enemy::Collision()
 {
 	RECT Temp = { 0 };
@@ -450,7 +448,7 @@ void Enemy::Collision()
 		_isAttack = true;
 	}
 }
-
+//내 뎀지를 넘기기 위한 함수.
 void Enemy::AttackedDemege(int damage)
 {
 	_hp -= damage;

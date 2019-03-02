@@ -15,6 +15,8 @@ class Enemy : public GameObject
 
 private:
 	//골렘의 기본 움직임//골램의 공격 움직임
+	class Image* _mainImage;
+
 	class Image* _golemTopMove;			//47개
 	class Image* _golemLeftMove;
 	class Image* _golemRightMove;
