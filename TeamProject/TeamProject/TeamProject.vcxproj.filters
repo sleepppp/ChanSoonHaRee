@@ -219,6 +219,9 @@
     <ClInclude Include="TitleFlowObject.h">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClInclude>
+    <ClInclude Include="Golem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -352,6 +355,9 @@
     </ClCompile>
     <ClCompile Include="TitleFlowObject.cpp">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Golem.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
