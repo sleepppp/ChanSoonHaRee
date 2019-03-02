@@ -1,6 +1,7 @@
 #include "stdafx.h"
+#include "Image.h"
 #include "Enemy.h"
-//#include "player.h"
+#include "Player.h"
 
 Enemy::Enemy()
 {
@@ -13,7 +14,9 @@ void Enemy::Init()
 {
 	EnemyInit();
 
-	this->_player = (player*)_ObjectManager->FindObject(ObjectType::Object, "player");
+	this->_player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
+	
+
 }
 
 void Enemy::Release()
@@ -23,6 +26,7 @@ void Enemy::Release()
 
 void Enemy::Update()
 {
+	_count++;
 	//난 공격상태가 아니라면 움직일 수 있어
 	if (_state == StateType::Chasing)
 	{
@@ -30,10 +34,11 @@ void Enemy::Update()
 	}
 	//하지만 공격상태라면 재자리에서 공격하지
 	this->Attack();
-
+	
 	this->CardinalPointsAttack();
 	//내가 바라보는 방향을 계산한 거지요!
 	this->MoveType();
+	this->GolemImageCount();
 }
 
 void Enemy::Render()
@@ -55,6 +60,47 @@ void Enemy::Render()
 		}
 		AttackRender();
 	}
+
+	if (_state == StateType::Chasing && _move == MoveType::Top)
+	{
+		_golemTopMove->FrameRender(_position.x, _position.y, _golemTopMoveCount, 0);
+	}
+
+	if (_state == StateType::Chasing &&_move == MoveType::Left)
+	{
+		_golemLeftMove->FrameRender(_position.x, _position.y, _golemLeftMoveCount, 0);
+	}
+	
+	if (_state == StateType::Chasing &&_move == MoveType::Right)
+	{
+		_golemRightMove->FrameRender(_position.x, _position.y, _golemRightMoveCount, 0);
+	}
+	
+	if (_state == StateType::Chasing &&_move == MoveType::Bottom)
+	{
+		_golemBottomMove->FrameRender(_position.x, _position.y, _golemBottomMoveCount, 0);
+	}
+
+	if (_state == StateType::attack && _move == MoveType::Top)
+	{
+		_golemTopAttack->FrameRender(_position.x, _position.y, _golemTopAttackCount, 0);
+	}
+
+	if (_state == StateType::attack &&_move == MoveType::Left)
+	{
+		_golemLeftAttack->FrameRender(_position.x, _position.y, _golemLeftAttackCount, 0);
+	}
+	
+	if (_state == StateType::attack &&_move == MoveType::Right)
+	{
+		_golemRightAttack->FrameRender(_position.x, _position.y, _golemRightAttackCount, 0);
+	}
+
+	if (_state == StateType::attack &&_move == MoveType::Bottom)
+	{
+		_golemBottomAttack->FrameRender(_position.x, _position.y, _golemBottomAttackCount, 0);
+	}
+
 }
 
 //에너미의 초기화상황
@@ -87,11 +133,162 @@ void Enemy::EnemyInit()
 	this->UpdateMainRect();						//나를 그려주고있지
 }
 
+void Enemy::GolemImageInit()
+{
+	_ImageManager->AddFrameImage("GolemTopMove", L"../Resources/Enemy/Golem/GolemTopMove.png", 47, 0);
+	_ImageManager->AddFrameImage("GolemLeftMove", L"../Resources/Enemy/Golem/GolemLeftMove.png", 47, 0);
+	_ImageManager->AddFrameImage("GolemRightMove", L"../Resources/Enemy/Golem/GolemRightMove.png", 47, 0);
+	_ImageManager->AddFrameImage("GolemBottomMove", L"../Resources/Enemy/Golem/GolemBottomMove.png", 47, 0);
+
+	_ImageManager->AddFrameImage("GolemTopAttack", L"../Resources/Enemy/Golem/GolemTopAttack.png", 47, 0);
+	_ImageManager->AddFrameImage("GolemLeftAttack", L"../Resources/Enemy/Golem/GolemLeftAttack.png", 47, 0);
+	_ImageManager->AddFrameImage("GolemRightAttack", L"../Resources/Enemy/Golem/GolemRightAttack.png", 47, 0);
+	_ImageManager->AddFrameImage("GolemBottomAttack", L"../Resources/Enemy/Golem/GolemBottomAttack.png", 47, 0);
+
+	this->_golemTopMove = _ImageManager->FindImage("GolemTopMove");
+	this->_golemLeftMove = _ImageManager->FindImage("GolemLeftMove");
+	this->_golemRightMove = _ImageManager->FindImage("GolemRightMove");
+	this->_golemBottomMove = _ImageManager->FindImage("GolemBottomMove");
+
+	this->_golemTopAttack = _ImageManager->FindImage("GolemTopAttack");
+	this->_golemLeftAttack = _ImageManager->FindImage("GolemLeftAttack");
+	this->_golemRightAttack = _ImageManager->FindImage("GolemRightAttack");
+	this->_golemBottomAttack = _ImageManager->FindImage("GolemBottomAttack");
+
+
+	this->_golemTopMoveCount = 0;
+	this->_golemLeftMoveCount = 0;
+	this->_golemRightMoveCount = 0;
+	this->_golemBottomMoveCount = 0;
+
+	this->_golemTopAttackCount = 0;
+	this->_golemLeftAttackCount = 0;
+	this->_golemRightAttackCount = 0;
+	this->_golemBottomAttackCount = 0;
+}
+
+void Enemy::GolemImageCount()
+{
+	if (_state == StateType::Chasing && _move == MoveType::Top)
+	{
+		if (_count % 5 == 0)
+		{
+			_golemTopMoveCount++;
+		}
+		if (_golemTopMoveCount > 47)
+		{
+			_golemTopMoveCount = 0;
+		}
+	}
+	else
+		_golemTopMoveCount = 0;
+
+	if (_state == StateType::Chasing &&_move == MoveType::Left)
+	{
+		if (_count % 5 == 0)
+		{
+			_golemLeftMoveCount++;
+		}
+		if (_golemLeftMoveCount > 47)
+		{
+			_golemLeftMoveCount = 0;
+		}
+	}
+	else
+		_golemLeftMoveCount = 0;
+	if (_state == StateType::Chasing &&_move == MoveType::Right)
+	{
+		if (_count % 5 == 0)
+		{
+			_golemRightMoveCount++;
+		}
+		if (_golemRightMoveCount > 47)
+		{
+			_golemRightMoveCount = 0;
+		}
+	}
+	else
+		_golemRightMoveCount = 0;
+
+	if (_state == StateType::Chasing &&_move == MoveType::Bottom)
+	{
+		if (_count % 5 == 0)
+		{
+			_golemBottomMoveCount++;
+		}
+		if (_golemBottomMoveCount > 47)
+		{
+			_golemBottomMoveCount = 0;
+		}
+	}
+	else
+		_golemBottomMoveCount = 0;
+
+
+	if (_state == StateType::attack && _move == MoveType::Top)
+	{
+		if (_count % 5 == 0)
+		{
+			_golemTopAttackCount++;
+		}
+		if (_golemTopAttackCount > 13)
+		{
+			_golemTopAttackCount = 0;
+		}
+	}
+	else
+		_golemTopAttackCount = 0;
+
+	if (_state == StateType::attack &&_move == MoveType::Left)
+	{
+		if (_count % 5 == 0)
+		{
+			_golemLeftAttackCount++;
+		}
+		if (_golemLeftAttackCount > 13)
+		{
+			_golemLeftAttackCount = 0;
+		}
+	}
+	else
+		_golemLeftAttackCount = 0;
+
+	if (_state == StateType::attack &&_move == MoveType::Right)
+	{
+		if (_count % 5 == 0)
+		{
+			_golemRightAttackCount++;
+		}
+		if (_golemRightAttackCount > 13)
+		{
+			_golemRightAttackCount = 0;
+		}
+	}
+	else
+		_golemRightAttackCount = 0;
+
+	if (_state == StateType::attack &&_move == MoveType::Bottom)
+	{
+		if (_count % 5 == 0)
+		{
+			_golemBottomAttackCount++;
+		}
+		if (_golemBottomAttackCount > 13)
+		{
+			_golemBottomAttackCount = 0;
+		}
+	}
+	else
+		_golemBottomAttackCount = 0;
+
+
+}
+
 //무브 상황
 void Enemy::Move()
 {
 	// 난 항상 플레이어를 중심으로 움직일 거야
-	//this->_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
+	this->_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
 	if (_state == StateType::Chasing)
 	{
 		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
@@ -112,7 +309,7 @@ void Enemy::Move()
 void Enemy::Attack()
 {
 	//플레이어와 나의 사이 거리를 재는 도구지!
-	//_distance = Math::GetDistance(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
+	_distance = Math::GetDistance(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
 
 	//만약 나와 플레이어간의 거리가 내 몸크기의 두배가 안된다면
 	if (_distance < (_size.x * 2))
@@ -216,23 +413,23 @@ void Enemy::CardinalPointsAttack()
 
 void Enemy::Collision()
 {
-	//RECT Temp = { 0 };
-	//if (IntersectRect(&Temp, &_attackLeft, &_player->GetMainRect()))
-	//{
-	//	_isAttack = true;
-	//}
-	//if (IntersectRect(&Temp, &_attackTop, &_player->GetMainRect()))
-	//{
-	//	_isAttack = true;
-	//}
-	//if (IntersectRect(&Temp, &_attackRight, &_player->GetMainRect()))
-	//{
-	//	_isAttack = true;
-	//}
-	//if (IntersectRect(&Temp, &_attackBottom, &_player->GetMainRect()))
-	//{
-	//	_isAttack = true;
-	//}
+	RECT Temp = { 0 };
+	if (IntersectRect(&Temp, &_attackLeft, &_player->GetMainRect()))
+	{
+		_isAttack = true;
+	}
+	if (IntersectRect(&Temp, &_attackTop, &_player->GetMainRect()))
+	{
+		_isAttack = true;
+	}
+	if (IntersectRect(&Temp, &_attackRight, &_player->GetMainRect()))
+	{
+		_isAttack = true;
+	}
+	if (IntersectRect(&Temp, &_attackBottom, &_player->GetMainRect()))
+	{
+		_isAttack = true;
+	}
 }
 
 void Enemy::AttackedDemege(int damage)
