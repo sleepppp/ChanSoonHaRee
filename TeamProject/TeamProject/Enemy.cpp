@@ -13,9 +13,8 @@ Enemy::~Enemy()
 void Enemy::Init()
 {
 	EnemyInit();
-
+	GolemImageInit();
 	this->_player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
-	
 
 }
 
@@ -34,10 +33,11 @@ void Enemy::Update()
 	}
 	//하지만 공격상태라면 재자리에서 공격하지
 	this->Attack();
-	
+
 	this->CardinalPointsAttack();
 	//내가 바라보는 방향을 계산한 거지요!
 	this->MoveType();
+	//골램 이미지를 돌리기 위한 함수.
 	this->GolemImageCount();
 }
 
@@ -63,42 +63,58 @@ void Enemy::Render()
 
 	if (_state == StateType::Chasing && _move == MoveType::Top)
 	{
-		_golemTopMove->FrameRender(_position.x, _position.y, _golemTopMoveCount, 0);
+		_golemTopMove->SetSize(_golemTopMove->GetFrameSize(0));
+		_golemTopMove->SetScale(1.0f);
+		_golemTopMove->FrameRender(_position.x, _position.y, _golemTopMoveCount, 0, Pivot::CENTER, true);
 	}
 
 	if (_state == StateType::Chasing &&_move == MoveType::Left)
 	{
-		_golemLeftMove->FrameRender(_position.x, _position.y, _golemLeftMoveCount, 0);
+		_golemLeftMove->SetSize(_golemLeftMove->GetFrameSize(0));
+		_golemLeftMove->SetScale(1.0f);
+		_golemLeftMove->FrameRender(_position.x, _position.y, _golemLeftMoveCount, 0, Pivot::CENTER, true);
 	}
 	
 	if (_state == StateType::Chasing &&_move == MoveType::Right)
 	{
-		_golemRightMove->FrameRender(_position.x, _position.y, _golemRightMoveCount, 0);
+		_golemRightMove->SetSize(_golemRightMove->GetFrameSize(0));
+		_golemRightMove->SetScale(1.0f);
+		_golemRightMove->FrameRender(_position.x, _position.y, _golemRightMoveCount, 0, Pivot::CENTER, true);
 	}
 	
 	if (_state == StateType::Chasing &&_move == MoveType::Bottom)
 	{
-		_golemBottomMove->FrameRender(_position.x, _position.y, _golemBottomMoveCount, 0);
+		_golemBottomMove->SetSize(_golemBottomMove->GetFrameSize(0));
+		_golemBottomMove->SetScale(1.0f);
+		_golemBottomMove->FrameRender(_position.x, _position.y, _golemBottomMoveCount, 0, Pivot::CENTER, true);
 	}
 
 	if (_state == StateType::attack && _move == MoveType::Top)
 	{
-		_golemTopAttack->FrameRender(_position.x, _position.y, _golemTopAttackCount, 0);
+		_golemTopAttack->SetSize(_golemTopAttack->GetFrameSize(0));
+		_golemTopAttack->SetScale(1.0f);
+		_golemTopAttack->FrameRender(_position.x, _position.y, _golemTopAttackCount, 0, Pivot::CENTER, true);
 	}
 
 	if (_state == StateType::attack &&_move == MoveType::Left)
 	{
-		_golemLeftAttack->FrameRender(_position.x, _position.y, _golemLeftAttackCount, 0);
+		_golemLeftAttack->SetSize(_golemLeftAttack->GetFrameSize(0));
+		_golemLeftAttack->SetScale(1.0f);
+		_golemLeftAttack->FrameRender(_position.x, _position.y, _golemLeftAttackCount, 0, Pivot::CENTER, true);
 	}
 	
 	if (_state == StateType::attack &&_move == MoveType::Right)
 	{
-		_golemRightAttack->FrameRender(_position.x, _position.y, _golemRightAttackCount, 0);
+		_golemRightAttack->SetSize(_golemRightAttack->GetFrameSize(0));
+		_golemRightAttack->SetScale(1.0f);
+		_golemRightAttack->FrameRender(_position.x, _position.y, _golemRightAttackCount, 0, Pivot::CENTER, true);
 	}
 
 	if (_state == StateType::attack &&_move == MoveType::Bottom)
 	{
-		_golemBottomAttack->FrameRender(_position.x, _position.y, _golemBottomAttackCount, 0);
+		_golemBottomAttack->SetSize(_golemBottomAttack->GetFrameSize(0));
+		_golemBottomAttack->SetScale(1.0f);
+		_golemBottomAttack->FrameRender(_position.x, _position.y, _golemBottomAttackCount, 0, Pivot::CENTER, true);
 	}
 
 }
@@ -108,7 +124,7 @@ void Enemy::EnemyInit()
 {
 	this->_name = "Enemy";						//내 이름은 Enemy야
 	this->_position = Vector2(100, 100);		//100, 100지점에서 출몰하지
-	this->_size = Vector2(50, 50);				//크기는 50, 50 정도?
+	this->_size = Vector2(100, 100);				//크기는 50, 50 정도?
 	this->_pivot = Pivot::CENTER;				//중심은 중앙이지!
 	this->_speed = 90.0f;						//90.0f의 속도로 움직인다구!
 	this->_isAttack = false;					//아직 널 공격하고 있지 않아
@@ -135,15 +151,15 @@ void Enemy::EnemyInit()
 
 void Enemy::GolemImageInit()
 {
-	_ImageManager->AddFrameImage("GolemTopMove", L"../Resources/Enemy/Golem/GolemTopMove.png", 47, 0);
-	_ImageManager->AddFrameImage("GolemLeftMove", L"../Resources/Enemy/Golem/GolemLeftMove.png", 47, 0);
-	_ImageManager->AddFrameImage("GolemRightMove", L"../Resources/Enemy/Golem/GolemRightMove.png", 47, 0);
-	_ImageManager->AddFrameImage("GolemBottomMove", L"../Resources/Enemy/Golem/GolemBottomMove.png", 47, 0);
+	_ImageManager->AddFrameImage("GolemTopMove", L"../Resources/Enemy/Golem/GolemTopMove.png", 47, 1);
+	_ImageManager->AddFrameImage("GolemLeftMove", L"../Resources/Enemy/Golem/GolemLeftMove.png", 47, 1);
+	_ImageManager->AddFrameImage("GolemRightMove", L"../Resources/Enemy/Golem/GolemRightMove.png", 47, 1);
+	_ImageManager->AddFrameImage("GolemBottomMove", L"../Resources/Enemy/Golem/GolemBottomMove.png", 47, 1);
 
-	_ImageManager->AddFrameImage("GolemTopAttack", L"../Resources/Enemy/Golem/GolemTopAttack.png", 47, 0);
-	_ImageManager->AddFrameImage("GolemLeftAttack", L"../Resources/Enemy/Golem/GolemLeftAttack.png", 47, 0);
-	_ImageManager->AddFrameImage("GolemRightAttack", L"../Resources/Enemy/Golem/GolemRightAttack.png", 47, 0);
-	_ImageManager->AddFrameImage("GolemBottomAttack", L"../Resources/Enemy/Golem/GolemBottomAttack.png", 47, 0);
+	_ImageManager->AddFrameImage("GolemTopAttack", L"../Resources/Enemy/Golem/GolemTopAttack.png", 13, 1);
+	_ImageManager->AddFrameImage("GolemLeftAttack", L"../Resources/Enemy/Golem/GolemLeftAttack.png", 13, 1);
+	_ImageManager->AddFrameImage("GolemRightAttack", L"../Resources/Enemy/Golem/GolemRightAttack.png", 13, 1);
+	_ImageManager->AddFrameImage("GolemBottomAttack", L"../Resources/Enemy/Golem/GolemBottomAttack.png", 13, 1);
 
 	this->_golemTopMove = _ImageManager->FindImage("GolemTopMove");
 	this->_golemLeftMove = _ImageManager->FindImage("GolemLeftMove");
@@ -165,6 +181,10 @@ void Enemy::GolemImageInit()
 	this->_golemLeftAttackCount = 0;
 	this->_golemRightAttackCount = 0;
 	this->_golemBottomAttackCount = 0;
+
+	this->_state = StateType::Chasing;
+	this->_move = MoveType::Left;
+
 }
 
 void Enemy::GolemImageCount()
@@ -283,7 +303,6 @@ void Enemy::GolemImageCount()
 
 
 }
-
 //무브 상황
 void Enemy::Move()
 {
