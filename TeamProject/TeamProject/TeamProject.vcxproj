@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BinaryFile.h" />
+    <ClInclude Include="Buffer.h" />
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="DefineHeader.h" />
     <ClInclude Include="DemoMonster.h" />
@@ -175,10 +176,13 @@
     <ClInclude Include="Path.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Program.h" />
+    <ClInclude Include="RenderTargetBuffer.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderBuffer.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StringHelper.h" />
@@ -197,6 +201,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BinaryFile.cpp" />
+    <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="DemoMonster.cpp" />
     <ClCompile Include="DXRenderer + Create.cpp" />
@@ -227,8 +232,10 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="RenderTargetBuffer.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -254,6 +261,14 @@
   <ItemGroup>
     <Image Include="small.ico" />
     <Image Include="TeamProject.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Deferred.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Lighting.hlsl">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

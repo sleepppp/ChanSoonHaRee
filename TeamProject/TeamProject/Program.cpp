@@ -6,10 +6,8 @@
 #include "LoadingScene.h"
 Program::Program()
 {
-
 	
 }
-
 
 Program::~Program()
 {
