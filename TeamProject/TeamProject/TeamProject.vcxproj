@@ -153,6 +153,7 @@
     <ClInclude Include="BinaryFile.h" />
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="DefineHeader.h" />
+    <ClInclude Include="DemoMonster.h" />
     <ClInclude Include="DXRenderer.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnumStructHeader.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BinaryFile.cpp" />
     <ClCompile Include="CameraManager.cpp" />
+    <ClCompile Include="DemoMonster.cpp" />
     <ClCompile Include="DXRenderer + Create.cpp" />
     <ClCompile Include="DXRenderer + Rendering.cpp" />
     <ClCompile Include="DXRenderer.cpp" />
