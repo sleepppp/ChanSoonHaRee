@@ -93,7 +93,7 @@ void GameObject::SendCallbackMessage(const TagMessage message)
 **************************************************************************/
 void GameObject::AddCallbackMessage(const string name,const function<void(struct TagMessage)> func)
 {
-	if (_callbackList.find(name) != _callbackList.end())
+	if (_callbackList.find(name) == _callbackList.end())
 	{
 		_callbackList.insert(make_pair(name, func));
 	}

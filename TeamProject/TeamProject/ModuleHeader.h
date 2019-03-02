@@ -8,6 +8,7 @@ ex) 싱글톤,유틸 클래스들 등등
 #include "Math.h"
 #include "Vector2.h"
 #include "Figure.h"
+#include "Image.h"
 //윈도우 정보 및 생성하는 클래스 
 #include "Window.h"
 //싱글톤 매니져들
