@@ -124,6 +124,7 @@ Image * ImageManager::FindImage(string key)
 	MapImageIter iter = imageList.find(key);
 	if (iter != imageList.end())
 		return iter->second;
+
 	return nullptr;
 }
 
