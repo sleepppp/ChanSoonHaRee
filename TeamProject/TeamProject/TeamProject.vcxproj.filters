@@ -171,6 +171,12 @@
     <ClInclude Include="Player.h">
       <Filter>PublicForder\Ree</Filter>
     </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>PublicForder\Chan</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>PublicForder\Chan</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -271,6 +277,12 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>PublicForder\Ree</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>PublicForder\Chan</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>PublicForder\Chan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
