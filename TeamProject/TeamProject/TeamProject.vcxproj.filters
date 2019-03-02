@@ -73,6 +73,9 @@
     <Filter Include="MainEntry\Scene">
       <UniqueIdentifier>{48604a6e-c863-4d87-a64e-b3c534db044d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System\Sound">
+      <UniqueIdentifier>{edf6e623-6153-475c-bbc6-6ccba73ed2ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -164,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="MainScene.h">
       <Filter>MainEntry\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>System\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="MainScene + ChanInit.cpp">
       <Filter>PublicForder\Chan</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>System\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

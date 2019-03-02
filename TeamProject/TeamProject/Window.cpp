@@ -199,6 +199,7 @@ void Window::CreateManager()
 	{
 		ImGui::StyleColorsClassic();
 	}
+	SoundManager::Create();
 	Input::Create();
 	CameraManager::Create();
 	Time::Create();
@@ -218,6 +219,7 @@ void Window::DeleteManager()
 	Time::Delete();
 	CameraManager::Delete();
 	Input::Delete();
+	SoundManager::Delete();
 	ImGui::Delete();
 	DXRenderer::Delete();
 }
@@ -229,6 +231,7 @@ void Window::DeleteManager()
 void Window::UpdateManager()
 {
 	Time::Get()->Update();
+	SoundManager::Get()->Update();
 	Input::Get()->Update();
 	CameraManager::Get()->Update();
 	ImGui::Update();
