@@ -86,32 +86,49 @@ void Inventory::Update()
 		//인벤토리 포지션 y 위로 800.0f 만큼 이동하기
 		_position.y -= 800.0f * _TimeManager->DeltaTime();
 
-		//만일 
+
+		//### 인벤토리가 계속 올라가는 걸 방지하기 위함 ###
+		//만일 포지션 y가 화면 중앙이거나 더 작으면  
 		if (_position.y <= WinSizeY / 2)
 		{
+			//포지션 y를 화면 중앙에 고정시키고
 			_position.y = WinSizeY / 2;
+			//인벤토리 상태 유지하기
 			_state = InventoryState::Idle;
 		}
 		this->UpdateMainRect();
+
+		//플레이어 인벤토리 슬롯 위치 잡기
 		for (UINT i = 0; i < 5; ++i)
 		{
 			_playerSlotList[i]->slotRect = Figure::RectMake(_mainRect.left + 95 + (57 + 10) * i, _mainRect.top + 58, 57, 57);
 		}
 		break;
+	//인벤토리 닫기
 	case Inventory::InventoryState::CloseSlide:
+		//인벤토리 포지션 y 아래로 800.0f 만큼 이동하기
 		_position.y += 800.0f * _TimeManager->DeltaTime();
+		
+		//### 인벤토리가 계속 내려가는 걸 방지하기 위함 ###
+		//만일 포지션 y가 화면 중앙이거나 더 작으면  
 		if (_position.y <= WinSizeY / 2)
 		{
+			//포지션 y를 화면 중앙에 고정시키고
 			_position.y = WinSizeY / 2;
+			//액티브 false 처리 (안 보이게)
 			this->SetActive(false);
 		}
 		this->UpdateMainRect();
+
+		//플레이어 인벤토리 슬롯 위치 잡기
 		for (UINT i = 0; i < 5; ++i)
 		{
 			_playerSlotList[i]->slotRect = Figure::RectMake(_mainRect.left + 95 + (57 + 10) * i, _mainRect.top + 58, 57, 57);
 		}
 		break;
+	//인벤토리 상태 유지
 	case Inventory::InventoryState::Idle:
+		//만일 f1 누르면 인벤토리 닫기
 		if (_Input->GetKeyDown(VK_F1))
 		{
 			_state = InventoryState::CloseSlide;
@@ -125,18 +142,21 @@ void Inventory::Update()
 
 void Inventory::Render()
 {
-
+	//만일 인벤토리 이미지에 값이 없지 않으면 (=값이 있으면) 렌더하기
 	if (_inventoryImage != nullptr)
 		_inventoryImage->Render(_mainRect.left, _mainRect.top, Pivot::LEFT_TOP, false);
 
 	_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, false);
 
+	// 
 	for (UINT i = 0; i < _playerSlotList.size(); ++i)
 	{
 		_DXRenderer->DrawRectangle(_playerSlotList[i]->slotRect, DefaultBrush::red, false);
 
+		//슬롯에 아이템이 들어왔다면
 		if(_playerSlotList[i]->data.image)
 		{
+			//아이템 이미지 크기를 슬롯 렉트에 맞춰서 슬롯 렉트에 담기
 			Vector2 size = Vector2(_playerSlotList[i]->slotRect.right - _playerSlotList[i]->slotRect.left,
 				_playerSlotList[i]->slotRect.bottom - _playerSlotList[i]->slotRect.top);
 			_playerSlotList[i]->data.image->SetSize(size);
