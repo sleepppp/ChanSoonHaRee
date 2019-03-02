@@ -159,6 +159,7 @@
     <ClInclude Include="EnumStructHeader.h" />
     <ClInclude Include="Figure.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Golem.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Inventory.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Figure.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Golem.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="imgui_demo.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

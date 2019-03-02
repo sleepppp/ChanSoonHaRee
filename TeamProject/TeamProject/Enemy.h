@@ -2,79 +2,42 @@
 #include "GameObject.h"
 class Enemy : public GameObject
 {
+protected:
 	//움직임의 타입.
 	enum class MoveType
 	{
 		Top = 0, Left, Right, Bottom, End
 	};
-
 	enum class StateType
 	{
 		Chasing = 0, Attacked, attack
 	};
 
-private:
-	//골렘의 기본 움직임//골램의 공격 움직임
-	class Image* _mainImage;
-
-	class Image* _golemMove;
-	class Image* _golemAttack;
-	int _golemMoveCount;
-	int _golemAttackCount;
-
-	//에너미의 몸뚱아리 변수들
+protected:
 	float _speed;		//속도
+	float _distance;	//직선거리를 구하기 위한 변수
 	float _angle;		//앵글
-	bool _isAttack;		//공격
-	bool _isAttacked;	//피격
-	int _attackCount;	//공격 시간
-	int _demege;		//공격력
+	int _demage;		//공격력
 	int _hp;			//체력
-	int _isAttackedCount;
-	int _count;
-	//에너미의 공격범위 변수들
-	float _distance;
-	RECT _attackRc;
-	//공격 범위 렉트
-	RECT _attackTop;
-	RECT _attackLeft;
-	RECT _attackRight;
-	RECT _attackBottom;
-	//공격 범위 크기 렉트
-	Vector2 _sizeTop;
-	Vector2 _sizeLeft;
-	Vector2 _sizeRight;
-	Vector2 _sizeBottom;
-	//공격 장소 트루펄스
-	bool _isAttackTop;
-	bool _isAttackLeft;
-	bool _isAttackRight;
-	bool _isAttackBottom;
+	RECT _renderRect;	//이미지를 위해서 만든 렉트
 
-	bool _isEnemyPlayerCollisiton;
 	//에너미 방향상태 변수
-	MoveType _move;
-	StateType _state;
+	MoveType _move;		//방향에 관련된 이넘을 불러오기 위한 함수
+	StateType _state;	//상태와 관련된 이넘을 불러오기 위한 함수
+
 	//다른 사람의 클래스 불러오기
 	class Player* _player;
 
 public:
-	//움직임 함수
-	void GolemImageInit();
-	void GolemImageCount();
-	void Move();
-	void Attack();
-	void MoveType();
-	void CardinalPointsAttack();
-	void EnemyInit();
-	void AttackRender();
-	void Collision();
 	void AttackedDemege(int damage);
+	void UpdateRect(RECT rc, Vector2 position, Vector2 size, Pivot::Enum _pivot);
+	void MoveType();
+
 public:
-	void Init()override;
-	void Release()override;
-	void Update()override;
-	void Render()override;
+	virtual void Init();
+	virtual void Release();
+	virtual void Update();
+	virtual void Render();
 
 public:
 	Enemy();

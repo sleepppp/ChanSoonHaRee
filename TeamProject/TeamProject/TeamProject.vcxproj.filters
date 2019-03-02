@@ -186,6 +186,9 @@
     <ClInclude Include="DemoMonster.h">
       <Filter>PublicForder\Soon</Filter>
     </ClInclude>
+    <ClInclude Include="Golem.h">
+      <Filter>PublicForder\Ha</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -298,6 +301,9 @@
     </ClCompile>
     <ClCompile Include="DemoMonster.cpp">
       <Filter>PublicForder\Soon</Filter>
+    </ClCompile>
+    <ClCompile Include="Golem.cpp">
+      <Filter>PublicForder\Ha</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
