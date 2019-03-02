@@ -17,7 +17,8 @@ Loading::Loading(function<void()> func)
 Loading::~Loading()
 {
 	//쓰레드 끝날때까지 대기시키기
-	loadingThread->join();
+	if(loadingThread)
+		loadingThread->join();
 	//여기까지 왔다면 쓰레딩이 끝났다는 뜻이므로 메모리 해제해준다. 
 	SafeDelete(loadingThread);
 }

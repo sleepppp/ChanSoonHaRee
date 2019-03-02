@@ -30,7 +30,7 @@ public:
 
 	void UpdateFrame();
 
-	void Start();
+	void Play();
 	void Stop();
 	void Pause();
 

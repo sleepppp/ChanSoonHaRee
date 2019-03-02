@@ -84,7 +84,6 @@ void ObjectManager::Update()
 				iter->second.erase(iter->second.begin() + i--);
 				continue; 
 			}
-
 			if (iter->second[i]->GetActive())
 			{
 				iter->second[i]->Update();

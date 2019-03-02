@@ -2,6 +2,8 @@
 #include "Program.h"
 
 #include "MainScene.h"
+#include "TitleScene.h"
+#include "LoadingScene.h"
 Program::Program()
 {
 
@@ -16,7 +18,14 @@ Program::~Program()
 void Program::Init()
 {
 	_SceneManager->AddScene("MainScene", new MainScene);
-	_SceneManager->LoadScene("MainScene");
+	_SceneManager->AddScene("TitleScene", new TitleScene);
+	
+	LoadingScene* loadScene = new LoadingScene;
+	loadScene->SetNextSceneName("MainScene");
+	loadScene->SetLoadingFunc([this]() {_SceneManager->FindScene("MainScene")->Init(); });
+	_SceneManager->AddScene("LoadingScene", loadScene);
+
+	_SceneManager->LoadScene("TitleScene");
 }
 
 void Program::Release()

@@ -159,12 +159,15 @@
     <ClInclude Include="EnumStructHeader.h" />
     <ClInclude Include="Figure.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Golem.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="LibraryHeader.h" />
     <ClInclude Include="Loading.h" />
+    <ClInclude Include="LoadingScene.h" />
+    <ClInclude Include="LoadingSceneBase.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="ModuleHeader.h" />
@@ -183,6 +186,11 @@
     <ClInclude Include="TeamProject.h" />
     <ClInclude Include="TextFile.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="TitleBackground.h" />
+    <ClInclude Include="TitleFlowObject.h" />
+    <ClInclude Include="TitleLogo.h" />
+    <ClInclude Include="TitleDoor.h" />
+    <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
@@ -197,6 +205,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Figure.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Golem.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="imgui_demo.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -205,6 +214,8 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Loading.cpp" />
+    <ClCompile Include="LoadingScene.cpp" />
+    <ClCompile Include="LoadingSceneBase.cpp" />
     <ClCompile Include="MainScene + ChanInit.cpp" />
     <ClCompile Include="MainScene + HaInit.cpp" />
     <ClCompile Include="MainScene + ReeInit.cpp" />
@@ -229,6 +240,11 @@
     <ClCompile Include="TeamProject.cpp" />
     <ClCompile Include="TextFile.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="TitleBackground.cpp" />
+    <ClCompile Include="TitleFlowObject.cpp" />
+    <ClCompile Include="TitleLogo.cpp" />
+    <ClCompile Include="TitleDoor.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
