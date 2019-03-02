@@ -88,24 +88,6 @@
     <Filter Include="MainEntry\Scene\MainScene">
       <UniqueIdentifier>{6333573b-14a4-4c59-a502-92f9f7d23916}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shading">
-      <UniqueIdentifier>{6eba9935-a887-4f5a-b66e-19cd01b8958e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shading\Buffer">
-      <UniqueIdentifier>{895700de-9c89-4ad6-8134-78559f7bf2a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shading\ShaderBuffer">
-      <UniqueIdentifier>{972034c9-3071-462d-9454-26522871d1bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shading\HLSL">
-      <UniqueIdentifier>{e94cad5a-7c2a-4a65-8169-709613a98bfa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shading\RenderTargetBuffer">
-      <UniqueIdentifier>{ef291e3a-3007-457d-8503-5263e65ef772}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shading\ShaderLoader">
-      <UniqueIdentifier>{0fffce3b-f3c6-4eb3-8081-e00346f3dd09}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -238,19 +220,7 @@
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClInclude>
     <ClInclude Include="Golem.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Buffer.h">
-      <Filter>Shading\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderBuffer.h">
-      <Filter>Shading\ShaderBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderTargetBuffer.h">
-      <Filter>Shading\RenderTargetBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Shading\ShaderLoader</Filter>
+      <Filter>PublicForder\Ha</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -387,16 +357,7 @@
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClCompile>
     <ClCompile Include="Golem.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Buffer.cpp">
-      <Filter>Shading\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderTargetBuffer.cpp">
-      <Filter>Shading\RenderTargetBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Shading\ShaderLoader</Filter>
+      <Filter>PublicForder\Ha</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -411,13 +372,5 @@
     <Image Include="TeamProject.ico">
       <Filter>리소스 파일</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Deferred.hlsl">
-      <Filter>Shading\HLSL</Filter>
-    </None>
-    <None Include="Lighting.hlsl">
-      <Filter>Shading\HLSL</Filter>
-    </None>
   </ItemGroup>
 </Project>
