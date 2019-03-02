@@ -220,7 +220,7 @@
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClInclude>
     <ClInclude Include="Golem.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>PublicForder\Ha</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -357,7 +357,7 @@
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClCompile>
     <ClCompile Include="Golem.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>PublicForder\Ha</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
