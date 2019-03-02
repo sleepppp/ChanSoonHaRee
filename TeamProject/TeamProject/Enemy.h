@@ -14,7 +14,30 @@ class Enemy : public GameObject
 	};
 
 private:
-	int a;
+	//골렘의 기본 움직임//골램의 공격 움직임
+	class Image* _mainImage;
+
+	class Image* _golemTopMove;			//47개
+	class Image* _golemLeftMove;
+	class Image* _golemRightMove;
+	class Image* _golemBottomMove;
+	
+	class Image* _golemTopAttack;		//13개
+	class Image* _golemLeftAttack;
+	class Image* _golemRightAttack;
+	class Image* _golemBottomAttack;
+
+	int _golemTopMoveCount;
+	int _golemLeftMoveCount;
+	int _golemRightMoveCount;
+	int _golemBottomMoveCount;
+
+	int _golemTopAttackCount;
+	int _golemLeftAttackCount;
+	int _golemRightAttackCount;
+	int _golemBottomAttackCount;
+
+
 	//에너미의 몸뚱아리 변수들
 	float _speed;		//속도
 	float _angle;		//앵글
@@ -24,6 +47,7 @@ private:
 	int _demege;		//공격력
 	int _hp;			//체력
 	int _isAttackedCount;
+	int _count;
 	//에너미의 공격범위 변수들
 	float _distance;
 	RECT _attackRc;
@@ -48,10 +72,12 @@ private:
 	MoveType _move;
 	StateType _state;
 	//다른 사람의 클래스 불러오기
-	class player* _player;
+	class Player* _player;
 
 public:
 	//움직임 함수
+	void GolemImageInit();
+	void GolemImageCount();
 	void Move();
 	void Attack();
 	void MoveType();
