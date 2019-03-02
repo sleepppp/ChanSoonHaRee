@@ -18,29 +18,39 @@ class Player : public GameObject
 
 
 
-	//플레이어 움직임을 위한 enum값
-	enum class State
+	//상하좌우 모션용 enum
+	enum class StateMove
 	{
-		stand_L,
-		stand_R,
-		stand_U,
-		stand_D,
-		run_L,
-		run_R,
-		run_U,
-		run_D,
-		//rolling_L,
+		stand_L, stand_R, stand_U, stand_D,
+		run_L, run_R, run_U, run_D,
 		end
 	};
+	StateMove _stateMove;
 
-	State _state;
+	//구르기 공격하기 모션용 enum 
+	//0301:검,방패만 추가함
+	enum class StateAction
+	{
+		roll_L, roll_R, roll_U, roll_D,
+		sword_L, sword_R, sword_U, sword_D,
+		shield_L, shield_R, shield_U, shield_D,
+		end
+	};
+	StateAction _stateAction;
+	
 public:
 	void Init()override;
 	void Release()override;
 	void Update()override;
 	void Render()override;
 
-	RECT getPlayerCollisitionRc() { return _colliRc; }
+	void State(StateMove stateMove);	//상태값 변경 함수
+
+
+	RECT getPlayerCollisitionRc() { return _colliRc; }	//전달용
+
+
+
 
 	Player();
 	~Player();
