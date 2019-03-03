@@ -30,6 +30,15 @@ void Weeds::Release() {}
 void Weeds::Update()
 {
 	this->Move();
+
+	//RECT collisionRc;
+	//if (IntersectRect(&collisionRc, &_renderRect, &_player->GetMainRect()))
+	//{
+	//	_state = StateType::attack;
+	//}
+	//else
+	//	_state = StateType::Chasing;
+	//this->_renderRect = UpdateRect(_renderRect, _position, _size, _pivot);
 }
 void Weeds::Render()
 {

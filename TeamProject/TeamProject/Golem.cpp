@@ -95,51 +95,15 @@ void Golem::ImageCount()
 	//이미지 프레임돌리기(쫒는상태)
 	if (_state == StateType::Chasing)
 	{
-		if (_move == MoveType::Left)
-		{
-			if (_moveCount >= 8)
-				_moveCount = 0;
-		}
-		if (_move == MoveType::Right)
-		{
-			if (_moveCount >= 8)
-				_moveCount = 0;
-		}
-		if (_move == MoveType::Top)
-		{
-			if (_moveCount >= 8)
-				_moveCount = 0;
-		}
-		if (_move == MoveType::Bottom)
-		{
-			if (_moveCount >= 8)
-				_moveCount = 0;
-		}
+		if (_moveCount >= 8)
+			_moveCount = 0;
 	}
 
 	//이미지 프레임 돌리기 (공격상태)
 	if (_state == StateType::attack)
 	{
-		if (_move == MoveType::Left)
-		{
-			if (_attackCount > 14)
-				_attackCount = 0;
-		}
-		if (_move == MoveType::Right)
-		{
-			if (_attackCount > 14)
-				_attackCount = 0;
-		}
-		if (_move == MoveType::Top)
-		{
-			if (_attackCount > 14)
-				_attackCount = 0;
-		}
-		if (_move == MoveType::Bottom)
-		{
-			if (_attackCount > 14)
-				_attackCount = 0;
-		}
+		if (_attackCount > 14)
+			_attackCount = 0;
 	}
 }
 
