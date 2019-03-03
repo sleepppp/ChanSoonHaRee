@@ -23,7 +23,7 @@
     <ProjectGuid>{59369EAE-E275-4010-AA30-2C70122FFA8A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>TeamProject</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -154,7 +154,6 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="DefineHeader.h" />
-    <ClInclude Include="DemoMonster.h" />
     <ClInclude Include="DXRenderer.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnumStructHeader.h" />
@@ -190,6 +189,7 @@
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TeamProject.h" />
+    <ClInclude Include="TestPlayer.h" />
     <ClInclude Include="TextFile.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Timer.h" />
@@ -208,7 +208,6 @@
     <ClCompile Include="BinaryFile.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="CameraManager.cpp" />
-    <ClCompile Include="DemoMonster.cpp" />
     <ClCompile Include="DXRenderer + Create.cpp" />
     <ClCompile Include="DXRenderer + Rendering.cpp" />
     <ClCompile Include="DXRenderer.cpp" />
@@ -253,6 +252,7 @@
     </ClCompile>
     <ClCompile Include="StringHelper.cpp" />
     <ClCompile Include="TeamProject.cpp" />
+    <ClCompile Include="TestPlayer.cpp" />
     <ClCompile Include="TextFile.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Timer.cpp" />
