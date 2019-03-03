@@ -168,7 +168,7 @@ void Golem::Attack()
 {
 	_distance = Math::GetDistance(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
 
-	if (_distance < (_size.x * 1.5f))
+	if (_distance < (_size.x * 1.2f))
 	{
 		_state = StateType::attack;
 	}
@@ -197,26 +197,26 @@ void Golem::AttackPosition()
 
 	if (_state == StateType::attack)
 	{
-  		if (_move == MoveType::Left && _attackCount > 11)
+  		if (_move == MoveType::Left && _attackCount > 9)
 		{
 			this->_isAttackLeft = true;
 			this->_attackLeft = UpdateRect(_attackLeft, _positionLeft, _sizeLeft, Pivot::LEFT_TOP);
 		}
 		else _isAttackLeft = false;
 
-		if (_move == MoveType::Right && _attackCount > 11)
+		if (_move == MoveType::Right && _attackCount > 9)
 		{
 			this->_isAttackRight = true;
 			this->_attackRight = UpdateRect(_attackRight, _positionRight, _sizeRight, Pivot::LEFT_TOP);
 		}
 		else _isAttackRight = false;
-		if (_move == MoveType::Top && _attackCount > 11)
+		if (_move == MoveType::Top && _attackCount > 9)
 		{
 			this->_isAttackTop = true;
 			this->_attackTop = UpdateRect(_attackTop, _positionTop, _sizeTop, Pivot::BOTTOM);
 		}
 		else _isAttackTop = false;
-		if (_move == MoveType::Bottom && _attackCount > 11)
+		if (_move == MoveType::Bottom && _attackCount > 9)
 		{
 			this->_isAttackBottom = true;
 			this->_attackBottom = UpdateRect(_attackBottom, _positionBottom, _sizeBottom, Pivot::BOTTOM);
@@ -276,11 +276,11 @@ void Golem::RectRender()
 		_DXRenderer->DrawRectangle(_renderRect, DefaultBrush::gray);
 		if (_state == StateType::Chasing)
 		{
-			_DXRenderer->DrawEllipse(_position, (_size.x * 1.5f), DefaultBrush::blue);
+			_DXRenderer->DrawEllipse(_position, (_size.x * 1.2f), DefaultBrush::blue);
 		}
 		if (_state == StateType::attack)
 		{
-			_DXRenderer->DrawEllipse(_position, (_size.x * 1.5f), DefaultBrush::red);
+			_DXRenderer->DrawEllipse(_position, (_size.x * 1.2f), DefaultBrush::red);
 		}
 		this->AttackRender();
 	}
