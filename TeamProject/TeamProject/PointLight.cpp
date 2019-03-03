@@ -13,4 +13,5 @@ PointLight::~PointLight()
 
 void PointLight::Update()
 {
+	
 }

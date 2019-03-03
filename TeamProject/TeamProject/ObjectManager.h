@@ -31,3 +31,4 @@ private:
 	void ZOrder();
 };
 #define _ObjectManager ObjectManager::Get()
+#define _LightingSystem ObjectManager::Get()->GetLightSystem()

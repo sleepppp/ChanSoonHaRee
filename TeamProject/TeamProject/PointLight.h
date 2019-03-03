@@ -2,11 +2,9 @@
 #include "GameObject.h"
 class PointLight : public GameObject
 {
-private:
-	class RectTransform* transform;
-	GameColor color;
-	float originRange;
-	float intensity;
+	GameColor _color;
+	float _originRange;
+	float _intensity;
 public:
 	PointLight();
 	~PointLight();
