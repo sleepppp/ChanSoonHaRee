@@ -22,6 +22,10 @@ class Player : public GameObject
 	bool _isRolling;
 	int _rollCount;
 
+	int _demage;		//공격력
+	int _hp;			//체력
+
+
 	//상하좌우 모션용 enum
 	enum class StateMove
 	{
@@ -43,10 +47,13 @@ public:
 
 	void Move(StateMove _move);	//상태값 변경 함수
 
-
 	RECT getPlayerCollisitionRc() { return _colliRc; }	//전달용
 	//void PlayerAtk();									//무기와 에너미 충돌 판정
-														//에너미 무기와 내 몸 충돌 판정
+		
+												//에너미 무기와 내 몸 충돌 판정
+	
+	
+	//void AttackedDemege(int damage);		//여기따 쓰거라
 
 	Player();
 	~Player();

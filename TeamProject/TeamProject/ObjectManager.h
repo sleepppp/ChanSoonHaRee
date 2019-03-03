@@ -29,6 +29,10 @@ public:
 	class LightSystem* GetLightSystem()const { return this->_lightSystem; }
 private:
 	void ZOrder();
+
+	void ObjectRender();
+	void Lighting();
+	void UIRender();
 };
 #define _ObjectManager ObjectManager::Get()
 #define _LightingSystem ObjectManager::Get()->GetLightSystem()

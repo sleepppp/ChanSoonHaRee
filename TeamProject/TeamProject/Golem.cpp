@@ -7,17 +7,6 @@
 
 Golem::Golem()
 {
-}
-
-
-Golem::~Golem()
-{
-}
-
-void Golem::Init()
-{
-
-	Enemy::Init();
 	this->_name = "Golem";					//내이름은 골램이여
 	this->_position = Vector2(100, 100);	//100, 100 지점에서 시작하지
 	this->_size = Vector2(100, 100);		//크기도 100, 100이야
@@ -25,9 +14,18 @@ void Golem::Init()
 	this->_speed = 90.0f;					//속도는 90.0f
 	this->_hp = 200;						//200의 체력
 	this->_demage = 34;						//34의 뎀지
-	this->_count = 0;						//카운트 초기화
+}
+
+Golem::~Golem()
+{
+}
+void Golem::Init()
+{
+
+	Enemy::Init();
+	
 	this->_isAttack = false;				//공격은 처음에는 안하고있지
-	this->UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
+	this->_renderRect = UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
 
 	//내 이미지 찾기!
 	this->_golemMove = _ImageManager->AddFrameImage("GolemMove", L"../Resources/Enemy/Golem/GolemMove.png", 8, 4);
@@ -36,22 +34,29 @@ void Golem::Init()
 	//각종 카운트 초기화
 	this->_moveCount = 0;
 	this->_attackCount = 0;
-	this->_attackImageCount = 0;
 	this->_attackedCount = 0;
+	this->_countMove = 0.f;
+	this->_countAttack = 0.f;
 
-	//
-	this->_sizeLeft = Vector2(-100, 20);
+	this->_positionLeft = Vector2(_position.x - 110, _position.y + 10);
+	this->_positionRight = Vector2(_position.x + 10, _position.y + 15);
+	this->_positionTop = Vector2(_position.x, _position.y - 10);
+	this->_positionBottom = Vector2(_position.x, _position.y + 110);
+
+	this->_sizeLeft = Vector2(100, 20);
 	this->_sizeRight = Vector2(100, 20);
-	this->_sizeTop = Vector2(20, -100);
-	this->_sizeBottom = Vector2(20, 100);
+	this->_sizeTop = Vector2(20, 70);
+	this->_sizeBottom = Vector2(20, 80);
+
 	this->_isAttackTop = false;
 	this->_isAttackLeft = false;
 	this->_isAttackRight = false;
 	this->_isAttackBottom = false;
-	this->UpdateRect(_attackLeft, _position, _sizeLeft, Pivot::LEFT_TOP);
-	this->UpdateRect(_attackRight, _position, _sizeRight, Pivot::LEFT_TOP);
-	this->UpdateRect(_attackTop, _position, _sizeTop, Pivot::LEFT_TOP);
-	this->UpdateRect(_attackBottom, _position, _sizeBottom, Pivot::LEFT_TOP);
+
+	this->_attackLeft = UpdateRect(_attackLeft, _positionLeft, _sizeLeft, Pivot::LEFT_TOP);
+	this->_attackRight = UpdateRect(_attackRight, _positionRight, _sizeRight, Pivot::LEFT_TOP);
+	this->_attackTop = UpdateRect(_attackTop, _positionTop, _sizeTop, Pivot::BOTTOM);
+	this->_attackBottom = UpdateRect(_attackBottom, _positionBottom, _sizeBottom, Pivot::BOTTOM);
 
 }
 void Golem::Release()
@@ -61,7 +66,12 @@ void Golem::Release()
 
 void Golem::Update()
 {
-	_count++;
+	_countMove +=_TimeManager->DeltaTime();
+	if (_countMove >= 1.f /6.0f)
+	{
+		_countMove = 0;
+		_moveCount++;
+	}
 	if (_state == StateType::Chasing)
 	{
 		this->Move();
@@ -79,6 +89,7 @@ void Golem::Render()
 	this->ImageRender();
 }
 
+//프레임 돌리기 위한 함수.
 void Golem::ImageCount()
 {
 	//이미지 프레임돌리기(쫒는상태)
@@ -86,116 +97,94 @@ void Golem::ImageCount()
 	{
 		if (_move == MoveType::Left)
 		{
-			if (_count % 60 == 0)
-			{
-				_moveCount++;
-			}
 			if (_moveCount >= 8)
 				_moveCount = 0;
 		}
 		if (_move == MoveType::Right)
 		{
-			if (_count % 60 == 0)
-			{
-				_moveCount++;
-			}
 			if (_moveCount >= 8)
 				_moveCount = 0;
 		}
 		if (_move == MoveType::Top)
 		{
-			if (_count % 60 == 0)
-			{
-				_moveCount++;
-			}
 			if (_moveCount >= 8)
 				_moveCount = 0;
 		}
 		if (_move == MoveType::Bottom)
 		{
-			if (_count % 60 == 0)
-			{
-				_moveCount++;
-			}
 			if (_moveCount >= 8)
 				_moveCount = 0;
 		}
 	}
+
 	//이미지 프레임 돌리기 (공격상태)
 	if (_state == StateType::attack)
 	{
 		if (_move == MoveType::Left)
 		{
-			if (_attackCount % 10 == 0)
-			{
-				_attackImageCount++;
-			}
-			if (_attackImageCount >= 13)
-				_attackImageCount = 0;
+			if (_attackCount > 14)
+				_attackCount = 0;
 		}
 		if (_move == MoveType::Right)
 		{
-			if (_attackCount % 10 == 0)
-			{
-				_attackImageCount++;
-			}
-			if (_attackImageCount >= 13)
-				_attackImageCount = 0;
+			if (_attackCount > 14)
+				_attackCount = 0;
 		}
 		if (_move == MoveType::Top)
 		{
-			if (_attackCount % 10 == 0)
-			{
-				_attackImageCount++;
-			}
-			if (_attackImageCount >= 13)
-				_attackImageCount = 0;
+			if (_attackCount > 14)
+				_attackCount = 0;
 		}
 		if (_move == MoveType::Bottom)
 		{
-			if (_attackCount % 10 == 0)
-			{
-				_attackImageCount++;
-			}
-			if (_attackImageCount >= 13)
-				_attackImageCount = 0;
+			if (_attackCount > 14)
+				_attackCount = 0;
 		}
 	}
 }
 
+//쫒거나 피격당했을 시 움직이기 위한 함수.
 void Golem::Move()
 {
 	//쫒을대상 추격을 위한 앵글값계산과 이동을 위한 변수들
 	if (_state == StateType::Chasing)
 	{
+		//쫒기위한 앵글값.
 		this->_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
 		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
 		this->_position.y += -sinf(_angle)*_speed * _TimeManager->DeltaTime();
-		this->UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
+		this->_renderRect = UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
 	}
 	//피격시 대상의 반대방향으로 날아가기 위한 변수들.
-	if (_state == StateType::Attacked && this->_attackedCount < 200)
+	if (_state == StateType::Attacked && this->_attackedCount < 100)
 	{
+		//췽겨져나가는 앵글값
 		this->_angle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
 		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
 		this->_position.y += -sinf(_angle) * _speed * _TimeManager->DeltaTime();
-		this->UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
+		this->_renderRect = UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
 	}
 }
+
 //공격 사거리를 계산하기 위해서 직선거리계산 및 판정 범위 안일경우 상태 변경
 void Golem::Attack()
 {
 	_distance = Math::GetDistance(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
 
-	if (_distance < (_size.x * 1.5f))
+	if (_distance < (_size.x * 1.2f))
 	{
 		_state = StateType::attack;
 	}
 	if (_state == StateType::attack)
 	{
-		_attackCount++;
+		_countAttack +=_TimeManager->DeltaTime();
+		if (_countAttack >= 1.f / 8.0f)
+		{
+			_countAttack = 0;
+			_attackCount++;
+		}
 	}
-	if (_distance > 800)
+	if (_attackCount > 12)
 	{
 		_attackCount = 0;
 		_state = StateType::Chasing;
@@ -204,33 +193,36 @@ void Golem::Attack()
 
 void Golem::AttackPosition()
 {
-	if (_state == StateType::attack && _attackCount > 700)
+	this->_positionLeft = Vector2(_position.x - 110, _position.y + 10);
+	this->_positionRight = Vector2(_position.x + 10, _position.y + 15);
+	this->_positionTop = Vector2(_position.x, _position.y - 10);
+	this->_positionBottom = Vector2(_position.x, _position.y + 110);
+
+	if (_state == StateType::attack)
 	{
-  		if (_move == MoveType::Left)
+  		if (_move == MoveType::Left && _attackCount > 9)
 		{
 			this->_isAttackLeft = true;
-			this->UpdateRect(_attackLeft, _position, _sizeLeft, Pivot::LEFT_TOP);
+			this->_attackLeft = UpdateRect(_attackLeft, _positionLeft, _sizeLeft, Pivot::LEFT_TOP);
 		}
 		else _isAttackLeft = false;
 
-		if (_move == MoveType::Right)
+		if (_move == MoveType::Right && _attackCount > 9)
 		{
 			this->_isAttackRight = true;
-			this->UpdateRect(_attackLeft, _position, _sizeRight, Pivot::LEFT_TOP);
+			this->_attackRight = UpdateRect(_attackRight, _positionRight, _sizeRight, Pivot::LEFT_TOP);
 		}
 		else _isAttackRight = false;
-
-		if (_move == MoveType::Top)
+		if (_move == MoveType::Top && _attackCount > 9)
 		{
 			this->_isAttackTop = true;
-			this->UpdateRect(_attackTop, _position, _sizeTop, Pivot::LEFT_TOP);
+			this->_attackTop = UpdateRect(_attackTop, _positionTop, _sizeTop, Pivot::BOTTOM);
 		}
 		else _isAttackTop = false;
-
-		if (_move == MoveType::Bottom)
+		if (_move == MoveType::Bottom && _attackCount > 9)
 		{
 			this->_isAttackBottom = true;
-			this->UpdateRect(_attackBottom, _position, _sizeBottom, Pivot::LEFT_TOP);
+			this->_attackBottom = UpdateRect(_attackBottom, _positionBottom, _sizeBottom, Pivot::BOTTOM);
 		}
 		else _isAttackBottom = false;
 	}
@@ -278,6 +270,13 @@ void Golem::Collision()
 	{
 		_isAttack = true;
 	}
+	//공격에 성공했으면?
+	if (_isAttack == true)
+	{
+		//내 뎀지를 넘겨줘라.
+		//_player->AttackedDemege(0);
+		_isAttack = false;
+	}
 }
 
 void Golem::RectRender()
@@ -287,11 +286,11 @@ void Golem::RectRender()
 		_DXRenderer->DrawRectangle(_renderRect, DefaultBrush::gray);
 		if (_state == StateType::Chasing)
 		{
-			_DXRenderer->DrawEllipse(_position, (_size.x * 1.5f), DefaultBrush::blue);
+			_DXRenderer->DrawEllipse(_position, (_size.x * 1.2f), DefaultBrush::blue);
 		}
 		if (_state == StateType::attack)
 		{
-			_DXRenderer->DrawEllipse(_position, (_size.x * 1.5f), DefaultBrush::red);
+			_DXRenderer->DrawEllipse(_position, (_size.x * 1.2f), DefaultBrush::red);
 		}
 		this->AttackRender();
 	}
@@ -327,19 +326,19 @@ void Golem::ImageRender()
 		_golemAttack->SetScale(1.0f);
 		if (_move == MoveType::Left)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackImageCount, 0, Pivot::CENTER, true);
+			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 0, Pivot::CENTER, true);
 		}
 		if (_move == MoveType::Right)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackImageCount, 1, Pivot::CENTER, true);
+			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 1, Pivot::CENTER, true);
 		}
 		if (_move == MoveType::Top)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackImageCount, 2, Pivot::CENTER, true);
+			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 2, Pivot::CENTER, true);
 		}
 		if (_move == MoveType::Bottom)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackImageCount, 3, Pivot::CENTER, true);
+			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 3, Pivot::CENTER, true);
 		}
 	}
 }
