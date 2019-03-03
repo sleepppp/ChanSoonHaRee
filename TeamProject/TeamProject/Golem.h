@@ -11,11 +11,17 @@ private:
 	RECT		_attackRight;
 	RECT		_attackBottom;
 
-	//공격 범위 크기 렉트
+	//공격 범위 크기
 	Vector2		_sizeTop;
 	Vector2		_sizeLeft;
 	Vector2		_sizeRight;
 	Vector2		_sizeBottom;
+
+	//공격 범의 좌표
+	Vector2 _positionLeft;
+	Vector2 _positionRight;
+	Vector2 _positionTop;
+	Vector2 _positionBottom;
 
 	//공격 장소 트루펄스
 	bool		_isAttackTop;
