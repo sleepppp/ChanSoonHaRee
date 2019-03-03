@@ -184,6 +184,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderBuffer.h" />
+    <ClInclude Include="Slime.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StringHelper.h" />
@@ -243,6 +244,7 @@
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Slime.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

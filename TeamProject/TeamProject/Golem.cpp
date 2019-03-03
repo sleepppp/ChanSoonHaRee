@@ -7,17 +7,6 @@
 
 Golem::Golem()
 {
-}
-
-
-Golem::~Golem()
-{
-}
-
-void Golem::Init()
-{
-
-	Enemy::Init();
 	this->_name = "Golem";					//내이름은 골램이여
 	this->_position = Vector2(100, 100);	//100, 100 지점에서 시작하지
 	this->_size = Vector2(100, 100);		//크기도 100, 100이야
@@ -25,6 +14,16 @@ void Golem::Init()
 	this->_speed = 90.0f;					//속도는 90.0f
 	this->_hp = 200;						//200의 체력
 	this->_demage = 34;						//34의 뎀지
+}
+
+Golem::~Golem()
+{
+}
+void Golem::Init()
+{
+
+	Enemy::Init();
+	
 	this->_isAttack = false;				//공격은 처음에는 안하고있지
 	this->_renderRect = UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
 
@@ -36,7 +35,7 @@ void Golem::Init()
 	this->_moveCount = 0;
 	this->_attackCount = 0;
 	this->_attackedCount = 0;
-	this->_countMove = 0.f;						//카운트 초기화
+	this->_countMove = 0.f;
 	this->_countAttack = 0.f;
 
 	this->_positionLeft = Vector2(_position.x - 110, _position.y + 10);
@@ -272,10 +271,10 @@ void Golem::Collision()
 		_isAttack = true;
 	}
 	//공격에 성공했으면?
-	if (_isAttack = true)
+	if (_isAttack == true)
 	{
 		//내 뎀지를 넘겨줘라.
-		_player->AttackedDemege(_demage);
+		//_player->AttackedDemege(0);
 		_isAttack = false;
 	}
 }
