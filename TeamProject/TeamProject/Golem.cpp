@@ -5,25 +5,17 @@
 #include "Golem.h"
 
 
-Golem::Golem()
+Golem::Golem(Vector2 pos)
 {
+	//에너미의 자시자신 기본 설정.
 	this->_name = "Golem";					//내이름은 골램이여
-	this->_position = Vector2(100, 100);	//100, 100 지점에서 시작하지
+	this->_position = pos;					//100, 100 지점에서 시작하지
 	this->_size = Vector2(100, 100);		//크기도 100, 100이야
 	this->_pivot = Pivot::CENTER;			//내 기준은 중심에있어
 	this->_speed = 90.0f;					//속도는 90.0f
 	this->_hp = 200;						//200의 체력
 	this->_demage = 34;						//34의 뎀지
-}
 
-Golem::~Golem()
-{
-}
-void Golem::Init()
-{
-
-	Enemy::Init();
-	
 	this->_isAttack = false;				//공격은 처음에는 안하고있지
 	this->_renderRect = UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
 
@@ -37,28 +29,37 @@ void Golem::Init()
 	this->_attackedCount = 0;
 	this->_countMove = 0.f;
 	this->_countAttack = 0.f;
-
+	//공격 렉트를 위한 포지션 초기화
 	this->_positionLeft = Vector2(_position.x - 110, _position.y + 10);
 	this->_positionRight = Vector2(_position.x + 10, _position.y + 15);
 	this->_positionTop = Vector2(_position.x, _position.y - 10);
 	this->_positionBottom = Vector2(_position.x, _position.y + 110);
-
+	//공격 렉트를 위한 사이즈 설정 및 초기화
 	this->_sizeLeft = Vector2(100, 20);
 	this->_sizeRight = Vector2(100, 20);
 	this->_sizeTop = Vector2(20, 70);
 	this->_sizeBottom = Vector2(20, 80);
-
+	//공격여부확인을 위한 불변수 초기화
 	this->_isAttackTop = false;
 	this->_isAttackLeft = false;
 	this->_isAttackRight = false;
 	this->_isAttackBottom = false;
-
+	//공격렉트 초기화
 	this->_attackLeft = UpdateRect(_attackLeft, _positionLeft, _sizeLeft, Pivot::LEFT_TOP);
 	this->_attackRight = UpdateRect(_attackRight, _positionRight, _sizeRight, Pivot::LEFT_TOP);
 	this->_attackTop = UpdateRect(_attackTop, _positionTop, _sizeTop, Pivot::BOTTOM);
 	this->_attackBottom = UpdateRect(_attackBottom, _positionBottom, _sizeBottom, Pivot::BOTTOM);
-
 }
+
+Golem::~Golem()
+{
+}
+
+void Golem::Init()
+{
+	Enemy::Init();
+}
+
 void Golem::Release()
 {
 
@@ -72,10 +73,9 @@ void Golem::Update()
 		_countMove = 0;
 		_moveCount++;
 	}
-	if (_state == StateType::Chasing)
-	{
-		this->Move();
-	}
+
+	this->Move();
+
 	this->Attack();
 	this->EnemyMoveType();
 	this->ImageCount();
@@ -140,29 +140,6 @@ void Golem::ImageCount()
 			if (_attackCount > 14)
 				_attackCount = 0;
 		}
-	}
-}
-
-//쫒거나 피격당했을 시 움직이기 위한 함수.
-void Golem::Move()
-{
-	//쫒을대상 추격을 위한 앵글값계산과 이동을 위한 변수들
-	if (_state == StateType::Chasing)
-	{
-		//쫒기위한 앵글값.
-		this->_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
-		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
-		this->_position.y += -sinf(_angle)*_speed * _TimeManager->DeltaTime();
-		this->_renderRect = UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
-	}
-	//피격시 대상의 반대방향으로 날아가기 위한 변수들.
-	if (_state == StateType::Attacked && this->_attackedCount < 100)
-	{
-		//췽겨져나가는 앵글값
-		this->_angle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
-		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
-		this->_position.y += -sinf(_angle) * _speed * _TimeManager->DeltaTime();
-		this->_renderRect = UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
 	}
 }
 

@@ -289,7 +289,10 @@
       <Filter>PublicForder\Soon\Module\Timer</Filter>
     </ClInclude>
     <ClInclude Include="Slime.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>PublicForder\Ha</Filter>
+    </ClInclude>
+    <ClInclude Include="Weeds.h">
+      <Filter>PublicForder\Ha</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -456,7 +459,10 @@
       <Filter>PublicForder\Soon</Filter>
     </ClCompile>
     <ClCompile Include="Slime.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>PublicForder\Ha</Filter>
+    </ClCompile>
+    <ClCompile Include="Weeds.cpp">
+      <Filter>PublicForder\Ha</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

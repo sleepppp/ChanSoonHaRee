@@ -42,14 +42,20 @@ private:
 
 	bool _isAttack;			//공격여부를 확인하기 위한 불변수
 public:
-	void Move();
+	//공격실행판만들 위해서 만들어놓은 함수.
 	void Attack();
+	//어느방향으로 공격할지 결정해주는 함수.
 	void AttackPosition();
+	//공격렉트를 랜더해주는 함수.
 	void AttackRender();
+	//공격 충돌판정을 해주는 함수.
 	void Collision();
+	//이미지를 돌리기 위해서 빼놓은 함수.
 	void ImageCount();
 
+	//렉트를 렌더링하기위해 만들어 놓은 함수.
 	void RectRender();
+	//이미지를 렌더링하기위해 만들어 놓은 함수.
 	void ImageRender();
 public:
 	void Init()override;
@@ -58,6 +64,6 @@ public:
 	void Render()override;
 
 public:
-	Golem();
+	Golem(Vector2 pos);
 	~Golem();
 };

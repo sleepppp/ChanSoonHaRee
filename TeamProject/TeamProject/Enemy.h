@@ -29,15 +29,19 @@ protected:
 	class Player* _player;
 
 public:
+	
 	void AttackedDemege(int damage);
+	//렉트 생성을 위한 변수
 	RECT UpdateRect(RECT rc, Vector2 position, Vector2 size, Pivot::Enum _pivot);
+	//에너미 움직이는 타입.
 	void EnemyMoveType();
-
+	//움직이기 위한 함수.
+	void Move();
 public:
 	virtual void Init();
-	virtual void Release();
-	virtual void Update();
-	virtual void Render();
+	virtual void Release() {}
+	virtual void Update() {}
+	virtual void Render() {}
 
 public:
 	Enemy();
