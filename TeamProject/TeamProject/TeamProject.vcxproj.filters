@@ -210,9 +210,6 @@
     <ClInclude Include="SoundManager.h">
       <Filter>System\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="DemoMonster.h">
-      <Filter>PublicForder\Soon</Filter>
-    </ClInclude>
     <ClInclude Include="LoadingSceneBase.h">
       <Filter>PublicForder\Soon\Module</Filter>
     </ClInclude>
@@ -267,8 +264,13 @@
     <ClInclude Include="PointLight.h">
       <Filter>PublicForder\Soon\Module</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="MoveItem.h">
       <Filter>PublicForder\Chan</Filter>
+=======
+    <ClInclude Include="TestPlayer.h">
+      <Filter>PublicForder\Soon</Filter>
+>>>>>>> 35f5941482673c908a7d4ec05332dfbd41f3369c
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -371,9 +373,6 @@
     <ClCompile Include="SoundManager.cpp">
       <Filter>System\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="DemoMonster.cpp">
-      <Filter>PublicForder\Soon</Filter>
-    </ClCompile>
     <ClCompile Include="LoadingSceneBase.cpp">
       <Filter>PublicForder\Soon\Module</Filter>
     </ClCompile>
@@ -431,8 +430,13 @@
     <ClCompile Include="PointLight.cpp">
       <Filter>PublicForder\Soon\Module</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="MoveItem.cpp">
       <Filter>PublicForder\Chan</Filter>
+=======
+    <ClCompile Include="TestPlayer.cpp">
+      <Filter>PublicForder\Soon</Filter>
+>>>>>>> 35f5941482673c908a7d4ec05332dfbd41f3369c
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

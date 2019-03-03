@@ -2,6 +2,7 @@
 #include "TownScene.h"
 
 #include "StaticObject.h"
+#include "TestPlayer.h"
 TownScene::TownScene()
 {
 }
@@ -34,6 +35,8 @@ void TownScene::Init()
 	_ObjectManager->AddObject(ObjectType::Object, new StaticObject("build_Bottom2", Vector2(1725, 1545)));
 	_ObjectManager->AddObject(ObjectType::Object, new StaticObject("build_Forge", Vector2(2298, 786)));
 	_ObjectManager->AddObject(ObjectType::Object, new StaticObject("build_Bottom3", Vector2(2369, 1405)));
+
+	_ObjectManager->AddObject(ObjectType::Object, new TestPlayer);
 
 	_ObjectManager->Init();
 	_ObjectManager->ChangeZOrdering(true);

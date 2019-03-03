@@ -9,6 +9,7 @@ Player::Player()
 {	
 	_ImageManager->AddFrameImage("Will", L"../Resources/Player/will_dungeon.png", 10, 13);
 	this->_image = _ImageManager->FindImage("Will");	
+
 	this->_name = "Will";
 	this->_size = Vector2(120, 120);
 	this->_position = Vector2(WinSizeX / 2, WinSizeY / 2);
@@ -36,7 +37,7 @@ Player::Player()
 	this->_frameIndexX = 0.f;				//프레임가로X
 	this->_frameIndexY = 11.f;				//11은 기본 정면을 바라보게 하기 위한 값(정면)	
 	this->Move(StateMove::stand_D);			//최초 모션 상태 (정면보기)		
-	this -> _rate = _standRate;
+	this ->_rate = _standRate;
 
 	//충돌판정으로 받아서 결과를 줄지 받을지 협의할것
 	//공격을 위한 렉트(사이즈와 위치를 위한 변수를 새로 생성할 것)
@@ -66,7 +67,7 @@ void Player::Update()
 	{
 		if (_stateMove==StateMove::stand_L || _stateMove == StateMove::run_L)
 		{
-			this->Move(StateMove::roll_L);			
+			this->Move(StateMove::roll_L);
 		}
 	}
 	//구르기:완료 후 스탠드 동작으로 돌아가기
@@ -97,7 +98,7 @@ void Player::Update()
 		if (_isRolling)
 		{
 			_rollCount++;
-			_position.x -= _speed;
+			//_position.x -= _speed;
 		}
 		
 		//프레임값이 커져서 넘어왔으니 다시 값을 빼준다.
@@ -105,17 +106,14 @@ void Player::Update()
 		
 		//만약 프레임인덱스X가 맥스와 같거나 커지면 0으로 초기화
 		if (this->_changeIndexX <= this->_frameIndexX)
-		{
+		{			
+			this->_frameIndexX = 0;
+
 			if (_rollCount == 6)
 			{
-				this->_frameIndexX = 0;
 				_rollCount = 0;
 				_isRolling = false;
 			}
-			else
-			{
-				this->_frameIndexX = 0;
-			}			
 		}
 		
 		
