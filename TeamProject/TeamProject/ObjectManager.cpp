@@ -103,20 +103,9 @@ void ObjectManager::Update()
 **********************************************************************/
 void ObjectManager::Render()
 {
-	if(_isZorder)
-		this->ZOrder();
-
-	ObjectContainerIter iter = _objectContainer.begin();
-	for (; iter != _objectContainer.end(); ++iter)
-	{
-		for (UINT i = 0; i < iter->second.size(); ++i)
-		{
-			if (iter->second[i]->GetActive())
-			{
-				iter->second[i]->Render();
-			}
-		}
-	}
+	this->ObjectRender();
+	this->Lighting();
+	this->UIRender();
 }
 /*********************************************************************
 ## AddObject ##
