@@ -5,6 +5,7 @@ class TitleBackground : public GameObject
 private:
 	class Animation* _animation;
 	class Image* _image;
+
 public:
 	TitleBackground();
 	~TitleBackground();
