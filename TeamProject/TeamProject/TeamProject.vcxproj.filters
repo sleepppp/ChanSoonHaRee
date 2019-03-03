@@ -109,6 +109,24 @@
     <Filter Include="MainEntry\Scene\TownScene\TownObject">
       <UniqueIdentifier>{6ccbaaad-78f2-475b-a3f2-44776af172fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PublicForder\Soon\Module\Animation">
+      <UniqueIdentifier>{bb3ce8fa-0c9b-4255-8e62-ea77c839c462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Soon\Module\GameObject">
+      <UniqueIdentifier>{b607e4c0-d641-47d4-9d1b-4f072a7baca8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Soon\Module\Light">
+      <UniqueIdentifier>{a3362a9f-aabf-4067-9a51-a3715e6557ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Soon\Module\Loading">
+      <UniqueIdentifier>{76134e5e-c0c2-481b-82e6-fcf1944f0543}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Soon\Module\Scene">
+      <UniqueIdentifier>{1e293258-f702-4ce8-b888-b4aae2f90c95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Soon\Module\Timer">
+      <UniqueIdentifier>{1a9cff39-28db-4e00-bcca-89b4342cd1c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -177,26 +195,8 @@
     <ClInclude Include="stdafx.h">
       <Filter>MainHeader</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneBase.h">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClInclude>
     <ClInclude Include="TextFile.h">
       <Filter>Utility\File</Filter>
-    </ClInclude>
-    <ClInclude Include="Loading.h">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>PublicForder\Soon\Module</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>PublicForder\Ha</Filter>
@@ -209,9 +209,6 @@
     </ClInclude>
     <ClInclude Include="SoundManager.h">
       <Filter>System\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadingSceneBase.h">
-      <Filter>PublicForder\Soon\Module</Filter>
     </ClInclude>
     <ClInclude Include="LoadingScene.h">
       <Filter>MainEntry\Scene\LoadingScene</Filter>
@@ -249,26 +246,47 @@
     <ClInclude Include="Shader.h">
       <Filter>Shading\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClInclude>
     <ClInclude Include="TownScene.h">
       <Filter>MainEntry\Scene\TownScene</Filter>
     </ClInclude>
     <ClInclude Include="StaticObject.h">
       <Filter>MainEntry\Scene\TownScene\TownObject</Filter>
     </ClInclude>
-    <ClInclude Include="LightSystem.h">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClInclude>
-    <ClInclude Include="PointLight.h">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClInclude>
     <ClInclude Include="TestPlayer.h">
       <Filter>PublicForder\Soon</Filter>
     </ClInclude>
     <ClInclude Include="MoveItem.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>PublicForder\Soon\Module\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>PublicForder\Soon\Module\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>PublicForder\Soon\Module\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="LightSystem.h">
+      <Filter>PublicForder\Soon\Module\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>PublicForder\Soon\Module\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Loading.h">
+      <Filter>PublicForder\Soon\Module\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingSceneBase.h">
+      <Filter>PublicForder\Soon\Module\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBase.h">
+      <Filter>PublicForder\Soon\Module\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>PublicForder\Soon\Module\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>PublicForder\Soon\Module\Timer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -323,32 +341,11 @@
     <ClCompile Include="TeamProject.cpp">
       <Filter>MainHeader</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneBase.cpp">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClCompile>
     <ClCompile Include="TextFile.cpp">
       <Filter>Utility\File</Filter>
     </ClCompile>
-    <ClCompile Include="Loading.cpp">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClCompile>
     <ClCompile Include="imgui_demo.cpp">
       <Filter>MainHeader</Filter>
-    </ClCompile>
-    <ClCompile Include="MainScene + SoonInit.cpp">
-      <Filter>PublicForder\Soon</Filter>
     </ClCompile>
     <ClCompile Include="MainScene + ReeInit.cpp">
       <Filter>PublicForder\Ree</Filter>
@@ -370,9 +367,6 @@
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>System\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="LoadingSceneBase.cpp">
-      <Filter>PublicForder\Soon\Module</Filter>
     </ClCompile>
     <ClCompile Include="Program.cpp">
       <Filter>MainEntry</Filter>
@@ -410,29 +404,53 @@
     <ClCompile Include="Shader.cpp">
       <Filter>Shading\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClCompile>
     <ClCompile Include="TownScene.cpp">
       <Filter>MainEntry\Scene\TownScene</Filter>
     </ClCompile>
     <ClCompile Include="StaticObject.cpp">
       <Filter>MainEntry\Scene\TownScene\TownObject</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectManager + PrivateFunc.cpp">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClCompile>
-    <ClCompile Include="LightSystem.cpp">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClCompile>
-    <ClCompile Include="PointLight.cpp">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClCompile>
     <ClCompile Include="TestPlayer.cpp">
       <Filter>PublicForder\Soon</Filter>
     </ClCompile>
     <ClCompile Include="MoveItem.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene + SoonInit.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>PublicForder\Soon\Module\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>PublicForder\Soon\Module\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>PublicForder\Soon\Module\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="LightSystem.cpp">
+      <Filter>PublicForder\Soon\Module\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLight.cpp">
+      <Filter>PublicForder\Soon\Module\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Loading.cpp">
+      <Filter>PublicForder\Soon\Module\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingSceneBase.cpp">
+      <Filter>PublicForder\Soon\Module\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager + PrivateFunc.cpp">
+      <Filter>PublicForder\Soon\Module\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneBase.cpp">
+      <Filter>PublicForder\Soon\Module\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>PublicForder\Soon\Module\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>PublicForder\Soon\Module\Timer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
