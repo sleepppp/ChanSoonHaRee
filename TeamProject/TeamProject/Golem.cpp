@@ -27,7 +27,7 @@ void Golem::Init()
 	this->_demage = 34;						//34의 뎀지
 	this->_count = 0;						//카운트 초기화
 	this->_isAttack = false;				//공격은 처음에는 안하고있지
-	this->UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
+	this->_renderRect = UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
 
 	//내 이미지 찾기!
 	this->_golemMove = _ImageManager->AddFrameImage("GolemMove", L"../Resources/Enemy/Golem/GolemMove.png", 8, 4);
@@ -48,10 +48,10 @@ void Golem::Init()
 	this->_isAttackLeft = false;
 	this->_isAttackRight = false;
 	this->_isAttackBottom = false;
-	this->UpdateRect(_attackLeft, _position, _sizeLeft, Pivot::LEFT_TOP);
-	this->UpdateRect(_attackRight, _position, _sizeRight, Pivot::LEFT_TOP);
-	this->UpdateRect(_attackTop, _position, _sizeTop, Pivot::LEFT_TOP);
-	this->UpdateRect(_attackBottom, _position, _sizeBottom, Pivot::LEFT_TOP);
+	this->_attackLeft = UpdateRect(_attackLeft, _position, _sizeLeft, Pivot::LEFT_TOP);
+	this->_attackRight = UpdateRect(_attackRight, _position, _sizeRight, Pivot::LEFT_TOP);
+	this->_attackTop = UpdateRect(_attackTop, _position, _sizeTop, Pivot::LEFT_TOP);
+	this->_attackBottom = UpdateRect(_attackBottom, _position, _sizeBottom, Pivot::LEFT_TOP);
 
 }
 void Golem::Release()
@@ -121,12 +121,13 @@ void Golem::ImageCount()
 				_moveCount = 0;
 		}
 	}
+
 	//이미지 프레임 돌리기 (공격상태)
 	if (_state == StateType::attack)
 	{
 		if (_move == MoveType::Left)
 		{
-			if (_attackCount % 10 == 0)
+			if (_attackCount % 30 == 0)
 			{
 				_attackImageCount++;
 			}
@@ -135,7 +136,7 @@ void Golem::ImageCount()
 		}
 		if (_move == MoveType::Right)
 		{
-			if (_attackCount % 10 == 0)
+			if (_attackCount % 30 == 0)
 			{
 				_attackImageCount++;
 			}
@@ -144,7 +145,7 @@ void Golem::ImageCount()
 		}
 		if (_move == MoveType::Top)
 		{
-			if (_attackCount % 10 == 0)
+			if (_attackCount % 30 == 0)
 			{
 				_attackImageCount++;
 			}
@@ -153,7 +154,7 @@ void Golem::ImageCount()
 		}
 		if (_move == MoveType::Bottom)
 		{
-			if (_attackCount % 10 == 0)
+			if (_attackCount % 30 == 0)
 			{
 				_attackImageCount++;
 			}
@@ -171,7 +172,7 @@ void Golem::Move()
 		this->_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
 		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
 		this->_position.y += -sinf(_angle)*_speed * _TimeManager->DeltaTime();
-		this->UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
+		this->_renderRect = UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
 	}
 	//피격시 대상의 반대방향으로 날아가기 위한 변수들.
 	if (_state == StateType::Attacked && this->_attackedCount < 200)
@@ -179,9 +180,10 @@ void Golem::Move()
 		this->_angle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
 		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
 		this->_position.y += -sinf(_angle) * _speed * _TimeManager->DeltaTime();
-		this->UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
+		this->_renderRect = UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
 	}
 }
+
 //공격 사거리를 계산하기 위해서 직선거리계산 및 판정 범위 안일경우 상태 변경
 void Golem::Attack()
 {
@@ -195,7 +197,7 @@ void Golem::Attack()
 	{
 		_attackCount++;
 	}
-	if (_distance > 800)
+	if (_attackCount > 400)
 	{
 		_attackCount = 0;
 		_state = StateType::Chasing;
@@ -204,33 +206,33 @@ void Golem::Attack()
 
 void Golem::AttackPosition()
 {
-	if (_state == StateType::attack && _attackCount > 700)
+	if (_state == StateType::attack && _attackCount > 300)
 	{
   		if (_move == MoveType::Left)
 		{
 			this->_isAttackLeft = true;
-			this->UpdateRect(_attackLeft, _position, _sizeLeft, Pivot::LEFT_TOP);
+			this->_attackLeft = UpdateRect(_attackLeft, _position, _sizeLeft, Pivot::CENTER);
 		}
 		else _isAttackLeft = false;
 
 		if (_move == MoveType::Right)
 		{
 			this->_isAttackRight = true;
-			this->UpdateRect(_attackLeft, _position, _sizeRight, Pivot::LEFT_TOP);
+			this->_attackRight = UpdateRect(_attackRight, _position, _sizeRight, Pivot::CENTER);
 		}
 		else _isAttackRight = false;
 
 		if (_move == MoveType::Top)
 		{
 			this->_isAttackTop = true;
-			this->UpdateRect(_attackTop, _position, _sizeTop, Pivot::LEFT_TOP);
+			this->_attackTop = UpdateRect(_attackTop, _position, _sizeTop, Pivot::CENTER);
 		}
 		else _isAttackTop = false;
 
 		if (_move == MoveType::Bottom)
 		{
 			this->_isAttackBottom = true;
-			this->UpdateRect(_attackBottom, _position, _sizeBottom, Pivot::LEFT_TOP);
+			this->_attackBottom = UpdateRect(_attackBottom, _position, _sizeBottom, Pivot::CENTER);
 		}
 		else _isAttackBottom = false;
 	}
