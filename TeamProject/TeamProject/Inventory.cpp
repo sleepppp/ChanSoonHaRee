@@ -76,6 +76,20 @@ void Inventory::Init()
 		}
 	}
 
+	//인벤토리 타겟 이미지 추가
+	this->_invenTargetImg = _ImageManager->AddImage("InventoryTarget", L"../Resources/UI/invenSlot.png", false);
+
+	//인벤 타겟 포지션은 항상 시작은 플레이어 슬롯 첫번째 칸부터 시작
+	_invenTargetPosition = _playerSlotList[0]->slotRect.left, _playerSlotList[0]->slotRect.top;
+
+	//인벤토리 인덱스
+	_invenIndex = 0;
+
+	//인벤 슬롯 상태 변경위한 bool
+	_isInvenSlot = false;
+
+
+
 	//인벤토리 상태 초기화
 	_state = InventoryState::OpenSlide;
 }
@@ -181,6 +195,63 @@ void Inventory::Update()
 	default:
 		break;
 	}
+
+	//왼쪽 칸으로 이동
+	if (_Input->GetKeyDown('A'))
+	{
+		if (_playerSlotList[_invenIndex] != nullptr)
+		{
+			--_invenIndex;
+
+			//만일 인덱스가 0보다 낮아지면 우측으로 이동시키기. ※ 추후 캐릭터 장비 인벤이 추가되면 그 칸으로 변경 예정
+			if (_invenIndex < 0) 
+			{
+				_invenIndex = 4;
+			}
+		}
+		// 나중에 장비쪽 칸으로 이동하게 하기 --- 장비쪽에서는 다시 캐릭터 인덱스로~
+		else
+		{
+			
+		}
+	}
+
+	if (_Input->GetKeyDown('D')) 
+	{
+		if (_playerSlotList[_invenIndex] != nullptr)
+		{
+			++_invenIndex;
+
+			//만일 인덱스가 4보다 커지면 왼쪽으로 이동시키기. ※ 추후 캐릭터 장비 인벤이 추가되면 그 칸으로 변경 예정
+			if (_invenIndex > 4) 
+			{
+				_invenIndex = 0;
+			}
+		}
+		// 나중에 장비쪽 칸으로 이동하게 하기 --- 장비쪽에서는 다시 캐릭터 인덱스로~
+		else 
+		{
+			//
+		}
+	}
+
+	//인벤토리 타겟 아래로 이동
+	if (_isInvenSlot == false) 
+	{
+		if (_Input->GetKeyDown('S'))
+		{
+			_isInvenSlot = true;
+		}
+	}
+
+	if (_isInvenSlot == true) 
+	{
+		if (_Input->GetKeyDown('S')) 
+		{
+			_invenIndex += 5;
+		}
+	}
+	
 }
 
 void Inventory::Render()
@@ -188,6 +259,22 @@ void Inventory::Render()
 	//만일 인벤토리 이미지에 값이 없지 않으면 (=값이 있으면) 렌더하기
 	if (_inventoryImage != nullptr)
 		_inventoryImage->Render(_mainRect.left, _mainRect.top, Pivot::LEFT_TOP, false);
+
+	//만일 인벤토리 타겟 이미지 값이 없지 않으면(=값이 있으면) 렌더하기
+	if (_invenTargetImg != nullptr) 
+	{
+		//캐릭터 인벤토리 상태, _isInvenSlot false
+		if (_isInvenSlot == false) 
+		{
+			_invenTargetImg->Render(_playerSlotList[_invenIndex]->slotRect.left - 7, _playerSlotList[_invenIndex]->slotRect.top - 1, Pivot::LEFT_TOP, false);
+		}
+		
+		//가방 인벤토리 상태, _isInvenSlot true
+		if(_isInvenSlot == true)
+		{
+			_invenTargetImg->Render(_bagSlotList[_invenIndex]->slotRect.left - 7, _bagSlotList[_invenIndex]->slotRect.top - 1, Pivot::LEFT_TOP, false);
+		}
+	}
 
 	_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, false);
 
@@ -202,9 +289,10 @@ void Inventory::Render()
 			//아이템 이미지 크기를 슬롯 렉트에 맞춰서 슬롯 렉트에 담기
 			Vector2 size = Vector2(_playerSlotList[i]->slotRect.right - _playerSlotList[i]->slotRect.left,
 				_playerSlotList[i]->slotRect.bottom - _playerSlotList[i]->slotRect.top);
+
 			_playerSlotList[i]->data.image->SetSize(size);
-			_playerSlotList[i]->data.image->Render(_playerSlotList[i]->slotRect.left,
-				_playerSlotList[i]->slotRect.top, Pivot::LEFT_TOP, false);
+
+			_playerSlotList[i]->data.image->Render(_playerSlotList[i]->slotRect.left, _playerSlotList[i]->slotRect.top, Pivot::LEFT_TOP, false);
 		}
 	}
 
@@ -220,12 +308,11 @@ void Inventory::Render()
 			_bagSlotList[i]->data.image->SetSize(size);
 
 			_bagSlotList[i]->data.image->Render(_bagSlotList[i]->slotRect.left, _bagSlotList[i]->slotRect.top, Pivot::LEFT_TOP, false);
-
 		}
 	}
 }
 
-//
+//습득한 아이템 정보 추가 
 bool Inventory::AddItem(string name)
 {
 	if (name == "item_brench")

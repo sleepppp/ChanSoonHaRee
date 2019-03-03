@@ -268,7 +268,7 @@
       <Filter>PublicForder\Soon</Filter>
     </ClInclude>
     <ClInclude Include="MoveItem.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>PublicForder\Chan</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -432,7 +432,7 @@
       <Filter>PublicForder\Soon</Filter>
     </ClCompile>
     <ClCompile Include="MoveItem.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>PublicForder\Chan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
