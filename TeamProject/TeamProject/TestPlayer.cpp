@@ -235,25 +235,25 @@ void TestPlayer::ChangeAnimation(State state)
 void TestPlayer::CreateAnimation()
 {
 	Animation* leftIdle = new Animation;
-	leftIdle->SetStartEndFrame(0, 9, 10, 9, false);
+	leftIdle->SetStartEndFrame(0, 9, 9, 9, false);
 	leftIdle->SetIsLoop(true);
 	leftIdle->SetFrameUpdateTime(0.5f);
 	_animationList.insert(make_pair(State::LeftIdle, leftIdle));
 
 	Animation* rightIdle = new Animation;
-	rightIdle->SetStartEndFrame(0, 8, 10, 8, false);
+	rightIdle->SetStartEndFrame(0, 8, 9, 8, false);
 	rightIdle->SetIsLoop(true);
 	rightIdle->SetFrameUpdateTime(0.5f);
 	_animationList.insert(make_pair(State::RightIdle, rightIdle));
 
 	Animation* upIdle = new Animation;
-	upIdle->SetStartEndFrame(0, 10, 10, 10, false);
+	upIdle->SetStartEndFrame(0, 10, 9, 10, false);
 	upIdle->SetIsLoop(true);
 	upIdle->SetFrameUpdateTime(0.5f);
 	_animationList.insert(make_pair(State::UpIdle, upIdle));
 
 	Animation* downIdle = new Animation;
-	downIdle->SetStartEndFrame(0, 11, 10, 11, false);
+	downIdle->SetStartEndFrame(0, 11, 9, 11, false);
 	downIdle->SetIsLoop(true);
 	downIdle->SetFrameUpdateTime(0.5f);
 	_animationList.insert(make_pair(State::DownIdle, downIdle));
