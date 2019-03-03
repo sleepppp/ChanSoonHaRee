@@ -106,6 +106,9 @@
     <Filter Include="MainEntry\Scene\TownScene">
       <UniqueIdentifier>{bf152be9-e145-4db3-86f5-1a81e18fe6aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainEntry\Scene\TownScene\TownObject">
+      <UniqueIdentifier>{6ccbaaad-78f2-475b-a3f2-44776af172fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -258,6 +261,15 @@
     <ClInclude Include="TownScene.h">
       <Filter>MainEntry\Scene\TownScene</Filter>
     </ClInclude>
+    <ClInclude Include="StaticObject.h">
+      <Filter>MainEntry\Scene\TownScene\TownObject</Filter>
+    </ClInclude>
+    <ClInclude Include="LightSystem.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -409,6 +421,18 @@
     </ClCompile>
     <ClCompile Include="TownScene.cpp">
       <Filter>MainEntry\Scene\TownScene</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticObject.cpp">
+      <Filter>MainEntry\Scene\TownScene\TownObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager + PrivateFunc.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="LightSystem.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLight.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

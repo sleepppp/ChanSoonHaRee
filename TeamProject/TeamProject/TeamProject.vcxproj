@@ -166,6 +166,7 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="LibraryHeader.h" />
+    <ClInclude Include="LightSystem.h" />
     <ClInclude Include="Loading.h" />
     <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="LoadingSceneBase.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Path.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="RenderTargetBuffer.h" />
     <ClInclude Include="Resource.h" />
@@ -196,6 +198,7 @@
     <ClInclude Include="TitleLogo.h" />
     <ClInclude Include="TitleDoor.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="StaticObject.h" />
     <ClInclude Include="TownScene.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Window.h" />
@@ -220,6 +223,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="LightSystem.cpp" />
     <ClCompile Include="Loading.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="LoadingSceneBase.cpp" />
@@ -229,9 +233,11 @@
     <ClCompile Include="MainScene + SoonInit.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="Math.cpp" />
+    <ClCompile Include="ObjectManager + PrivateFunc.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Path.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="RenderTargetBuffer.cpp" />
@@ -255,6 +261,7 @@
     <ClCompile Include="TitleLogo.cpp" />
     <ClCompile Include="TitleDoor.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="TownScene.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Window.cpp" />

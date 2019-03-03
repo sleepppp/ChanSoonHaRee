@@ -6,6 +6,8 @@
 #include "stdafx.h"
 #include "TeamProject.h"
 
+bool _isDebug = false;
+
 int APIENTRY WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR param, int command)
 {
 	//윈도우 정보 구조체 
