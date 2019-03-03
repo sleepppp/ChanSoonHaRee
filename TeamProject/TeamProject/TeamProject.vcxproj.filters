@@ -264,13 +264,11 @@
     <ClInclude Include="PointLight.h">
       <Filter>PublicForder\Soon\Module</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="MoveItem.h">
-      <Filter>PublicForder\Chan</Filter>
-=======
     <ClInclude Include="TestPlayer.h">
       <Filter>PublicForder\Soon</Filter>
->>>>>>> 35f5941482673c908a7d4ec05332dfbd41f3369c
+    </ClInclude>
+    <ClInclude Include="MoveItem.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -430,13 +428,11 @@
     <ClCompile Include="PointLight.cpp">
       <Filter>PublicForder\Soon\Module</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="MoveItem.cpp">
-      <Filter>PublicForder\Chan</Filter>
-=======
     <ClCompile Include="TestPlayer.cpp">
       <Filter>PublicForder\Soon</Filter>
->>>>>>> 35f5941482673c908a7d4ec05332dfbd41f3369c
+    </ClCompile>
+    <ClCompile Include="MoveItem.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
