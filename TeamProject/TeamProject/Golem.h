@@ -22,8 +22,8 @@ private:
 	bool		_isAttackBottom;
 
 	//기본 움직이는것과 공격하는 것 이미지
-	class Image* _move;
-	class Image* _attack;
+	class Image* _golemMove;
+	class Image* _golemAttack;
 
 	//각종 카운트
 	int _moveCount;
@@ -31,10 +31,18 @@ private:
 	int _attackedCount;
 
 	int _count;
+
+	bool _isAttack;
 public:
 	void Move();
 	void Attack();
 	void AttackPosition();
+	void AttackRender();
+	void Collision();
+	void ImageCount();
+
+	void RectRender();
+	void ImageRender();
 public:
 	void Init();
 	void Release();
@@ -45,4 +53,3 @@ public:
 	Golem();
 	~Golem();
 };
-

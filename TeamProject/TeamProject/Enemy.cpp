@@ -64,7 +64,7 @@ void Enemy::UpdateRect(RECT rc, Vector2 position, Vector2 size, Pivot::Enum _piv
 }
 
 //앵글값에 따라서 무브 타입을 결정.
-void Enemy::MoveType()
+void Enemy::EnemyMoveType()
 {
 	if (_angle > Math::PI / 4 && _angle < ((3 * Math::PI) / 4))
 	{
