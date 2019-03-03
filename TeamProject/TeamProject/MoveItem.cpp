@@ -137,8 +137,8 @@ void MoveItem::Render()
 	_itemBrenchImg->Render(_position.x, _position.y, Pivot::LEFT_TOP, false);
 
 	//렉트 렌더 토글키
-	if (_Input->IsToggleKey(VK_F10)) 
-	{
-		_DXRenderer->FillRectangle(this->_mainRect, DefaultBrush::yello, false);
-	}
+	//if (_Input->IsToggleKey(VK_F10)) 
+	//{
+	//	_DXRenderer->FillRectangle(this->_mainRect, DefaultBrush::yello, false);
+	//}
 }
