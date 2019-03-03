@@ -90,6 +90,7 @@ void Golem::Render()
 	this->ImageRender();
 }
 
+//프레임 돌리기 위한 함수.
 void Golem::ImageCount()
 {
 	//이미지 프레임돌리기(쫒는상태)
@@ -143,11 +144,13 @@ void Golem::ImageCount()
 	}
 }
 
+//쫒거나 피격당했을 시 움직이기 위한 함수.
 void Golem::Move()
 {
 	//쫒을대상 추격을 위한 앵글값계산과 이동을 위한 변수들
 	if (_state == StateType::Chasing)
 	{
+		//쫒기위한 앵글값.
 		this->_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
 		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
 		this->_position.y += -sinf(_angle)*_speed * _TimeManager->DeltaTime();
@@ -156,6 +159,7 @@ void Golem::Move()
 	//피격시 대상의 반대방향으로 날아가기 위한 변수들.
 	if (_state == StateType::Attacked && this->_attackedCount < 100)
 	{
+		//췽겨져나가는 앵글값
 		this->_angle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
 		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
 		this->_position.y += -sinf(_angle) * _speed * _TimeManager->DeltaTime();
@@ -266,6 +270,13 @@ void Golem::Collision()
 	if (IntersectRect(&CollisionRc, &_attackBottom, &_player->GetMainRect()))
 	{
 		_isAttack = true;
+	}
+	//공격에 성공했으면?
+	if (_isAttack = true)
+	{
+		//내 뎀지를 넘겨줘라.
+		_player->AttackedDemege(_demage);
+		_isAttack = false;
 	}
 }
 
