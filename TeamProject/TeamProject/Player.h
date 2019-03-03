@@ -43,7 +43,6 @@ public:
 
 	void Move(StateMove _move);	//상태값 변경 함수
 
-
 	RECT getPlayerCollisitionRc() { return _colliRc; }	//전달용
 	//void PlayerAtk();									//무기와 에너미 충돌 판정
 														//에너미 무기와 내 몸 충돌 판정
