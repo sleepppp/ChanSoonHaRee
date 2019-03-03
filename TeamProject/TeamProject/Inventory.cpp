@@ -60,6 +60,22 @@ void Inventory::Init()
 		_playerSlotList.push_back(slot);
 	}
 
+	//가방 슬롯 렉트 생성
+	//가방 슬롯은 15칸
+	for (UINT i = 0; i < 3; ++i) 
+	{
+		for (UINT j = 0; j < 5; ++j) 
+		{
+			InventorySlot* bagSlot = new InventorySlot;
+
+			bagSlot->slotRect = Figure::RectMake(_mainRect.left + 95 + (57 + 10) * j, _mainRect.top + 144 + (58 + 10) * i, 57, 57);
+
+			bagSlot->isEmpty = true;
+
+			_bagSlotList.push_back(bagSlot);
+		}
+	}
+
 	//인벤토리 상태 초기화
 	_state = InventoryState::OpenSlide;
 }
@@ -71,6 +87,12 @@ void Inventory::Release()
 	for (UINT i = 0; i < _playerSlotList.size(); ++i)
 	{
 		SafeDelete(_playerSlotList[i]);
+	}
+
+	//가방 슬롯 생성한 만큼(size) SafeDelete 해주기
+	for (UINT i = 0; i < _bagSlotList.size(); ++i) 
+	{
+		SafeDelete(_bagSlotList[i]);
 	}
 }
 
@@ -103,6 +125,16 @@ void Inventory::Update()
 		{
 			_playerSlotList[i]->slotRect = Figure::RectMake(_mainRect.left + 95 + (57 + 10) * i, _mainRect.top + 58, 57, 57);
 		}
+
+		//가방 인벤토리 슬롯 위치 잡기
+		for (UINT i = 0; i < 3; ++i) 
+		{
+			for (UINT j = 0; j < 5; ++j) 
+			{
+				_bagSlotList[i + j]->slotRect = Figure::RectMake(_mainRect.left + 95 + (57 + 10) * j, _mainRect.top + 144  + (58 + 10) * i, 57, 57);
+			}
+		}
+
 		break;
 	//인벤토리 닫기
 	case Inventory::InventoryState::CloseSlide:
@@ -124,6 +156,15 @@ void Inventory::Update()
 		for (UINT i = 0; i < 5; ++i)
 		{
 			_playerSlotList[i]->slotRect = Figure::RectMake(_mainRect.left + 95 + (57 + 10) * i, _mainRect.top + 58, 57, 57);
+		}
+
+		//가방 인벤토리 슬롯 위치 잡기
+		for (UINT i = 0; i < 3; ++i)
+		{
+			for (UINT j = 0; j < 5; ++j)
+			{
+				_bagSlotList[i + j]->slotRect = Figure::RectMake(_mainRect.left + 95  * j + (57 + 10), _mainRect.top + 144 + (58 + 10) * i, 57, 57);
+			}
 		}
 		break;
 	//인벤토리 상태 유지
@@ -164,8 +205,27 @@ void Inventory::Render()
 				_playerSlotList[i]->slotRect.top, Pivot::LEFT_TOP, false);
 		}
 	}
+
+	for (UINT i = 0; i < _bagSlotList.size(); ++i) 
+	{
+		_DXRenderer->DrawRectangle(_bagSlotList[i]->slotRect, DefaultBrush::blue, false);
+
+		if (_bagSlotList[i]->data.image) 
+		{
+			Vector2 size = Vector2(_bagSlotList[i]->slotRect.right - _bagSlotList[i]->slotRect.left,
+				_bagSlotList[i]->slotRect.bottom - _bagSlotList[i]->slotRect.top);
+
+			_bagSlotList[i]->data.image->SetSize(size);
+
+			_bagSlotList[i]->data.image->Render(_bagSlotList[i]->slotRect.left, _bagSlotList[i]->slotRect.top, Pivot::LEFT_TOP, false);
+
+		}
+
+
+	}
 }
 
+//
 bool Inventory::AddItem(string name)
 {
 	if (name == "brench")
