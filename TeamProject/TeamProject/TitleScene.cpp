@@ -26,7 +26,7 @@ void TitleScene::Init()
 	_ImageManager->AddFrameImage("door_light", PathResources(L"Scene/door_light.png"),30,1,false);
 
 	_SoundManager->AddSound("DoorOpen", PathSounds("door.wav"));
-	_SoundManager->AddSound("introBGM", PathSounds("introBGM.mp3"));
+	_SoundManager->AddSound("introBGM", PathSounds("introBGM.mp3"),true,true);
 	_SoundManager->SetMusicVolume(0.1f);
 
 	_ObjectManager->AddObject(ObjectType::BackGround, new TitleBackground);

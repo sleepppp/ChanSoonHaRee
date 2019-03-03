@@ -17,6 +17,7 @@ TitleFlowObject::TitleFlowObject()
 	{ 
 		_SoundManager->Stop("introBGM");
 		_SceneManager->LoadScene("LoadingScene"); 
+
 	});
 	_selectorList[1] = new TitleSelector(L"³ª°¡±â", Figure::RectMakeCenter(WinSizeX / 2, WinSizeY / 2 + 200, 200, 100), []() { exit(0); });
 
