@@ -16,7 +16,7 @@ Player::Player()
 	this->_isActive = true;
 	this->_pivot = Pivot::CENTER;
 	this->UpdateMainRect();
-	this->_speed = 0.5f;
+	this->_speed = 0.8515611f;
 	
 	this->_standRate = 0.5f;				//프레임 장당 시간
 	this->_runRate = 0.082588f;				//달리기용 프레임 시간
@@ -41,9 +41,9 @@ Player::Player()
 
 	//충돌판정으로 받아서 결과를 줄지 받을지 협의할것
 	//공격을 위한 렉트(사이즈와 위치를 위한 변수를 새로 생성할 것)
-	//_weaponRc = RectMakeCenter(_position.x, _position.y, 100, 100);	//무기용 렉트 생성
+	_weaponRc = RectMakeCenter(_position.x, _position.y, 100, 100);	//무기용 렉트 생성
 	//_shieldRc = RectMakeCenter(_position.x, _position.y, 100, 100); //방패용 렉트 생성		
-	//_colliRc = RectMakeCenter(_position.x, _position.y, _size.x / 2, _size.y / 2); //충돌판정용 렉트 생성
+	_colliRc = RectMakeCenter(_position.x, _position.y, _size.x / 2, _size.y / 2); //충돌판정용 렉트 생성
 	//검Rc와 화살Rc를 따로 만들지, 상황에 사이즈만 변경할지 생각해 보기
 }
 Player::~Player() {}
@@ -56,6 +56,8 @@ void Player::Release()
 
 void Player::Update()
 {		
+	this->Move(_stateMove);
+
 	//구르기명령
 	if (_Input->GetKeyDown(VK_SPACE))	
 	{		
@@ -67,40 +69,77 @@ void Player::Update()
 	{
 		if (_stateMove==StateMove::stand_L || _stateMove == StateMove::run_L)
 		{
-			this->Move(StateMove::roll_L);
+			_stateMove = StateMove::roll_L;
+		}
+		if (_stateMove == StateMove::stand_R || _stateMove == StateMove::run_R)
+		{			
+			_stateMove = StateMove::roll_R;
+		}
+		if (_stateMove == StateMove::stand_U || _stateMove == StateMove::run_U)
+		{
+			_stateMove = StateMove::roll_U;
+		}
+		if (_stateMove == StateMove::stand_D || _stateMove == StateMove::run_D)
+		{
+			_stateMove = StateMove::roll_D;
 		}
 	}
+
 	//구르기:완료 후 스탠드 동작으로 돌아가기
 	if (!_isRolling)
-	{
+	{		
 		if (_stateMove == StateMove::roll_L)
 		{
-			this->Move(StateMove::stand_L);
+			_stateMove = StateMove::stand_L;
+		}
+		if (_stateMove == StateMove::roll_R)
+		{
+			_stateMove = StateMove::stand_R;
+		}
+		if (_stateMove == StateMove::roll_U)
+		{
+			_stateMove = StateMove::stand_U;
+		}
+		if (_stateMove == StateMove::roll_D)
+		{
+			_stateMove = StateMove::stand_D;
 		}
 	}
 
 	//기본동작
-	if (_Input->GetKeyUp(VK_LEFT))
-	{
-		this->Move(StateMove::stand_L);
-	}
-	if (_Input->GetKeyDown(VK_LEFT))
-	{
-		this->Move(StateMove::run_L);
-	}
+	if (_Input->GetKeyUp(VK_LEFT))  _stateMove = StateMove::stand_L;
+	if (_Input->GetKeyUp(VK_RIGHT))  _stateMove = StateMove::stand_R;
+	if (_Input->GetKeyUp(VK_UP))  _stateMove = StateMove::stand_U;
+	if (_Input->GetKeyUp(VK_DOWN))  _stateMove = StateMove::stand_D;
+
+	if (_Input->GetKeyDown(VK_LEFT)) _stateMove = StateMove::run_L;
+	if (_Input->GetKeyDown(VK_RIGHT)) _stateMove = StateMove::run_R;
+	if (_Input->GetKeyDown(VK_UP)) _stateMove = StateMove::run_U;
+	if (_Input->GetKeyDown(VK_DOWN)) _stateMove = StateMove::run_D;
 
 	//애니메이션 동작	
 	this->_frameCount += _TimeManager->DeltaTime();		//리얼타임을 프레임시간에 더해준다
+	
+	//움직임
+	if (_stateMove == StateMove::run_L)		_position.x -= _speed;
+	if (_stateMove == StateMove::run_R)		_position.x += _speed;
+	if (_stateMove == StateMove::run_U)		_position.y -= _speed;
+	if (_stateMove == StateMove::run_D)		_position.y += _speed;
 
-	if (_frameCount >= _rate)						//프레임카운트당 인덱스 한장씩 플러스
+	if (_stateMove == StateMove::roll_L)	_position.x -= _speed *2;
+	if (_stateMove == StateMove::roll_R)	_position.x += _speed *2;
+	if (_stateMove == StateMove::roll_U)	_position.y -= _speed *2;
+	if (_stateMove == StateMove::roll_D)	_position.y += _speed *2;
+
+	//장당 지정시간 rate보다 값이 커질때 프레임을 넘긴다
+	if (_frameCount >= _rate)
 	{
 		this->_frameIndexX++;	//다음프레임으로 이동
+		
 		if (_isRolling)
 		{
 			_rollCount++;
-			//_position.x -= _speed;
 		}
-		
 		//프레임값이 커져서 넘어왔으니 다시 값을 빼준다.
 		while (_frameCount >= _rate) this->_frameCount -= this->_rate;
 		
@@ -108,146 +147,30 @@ void Player::Update()
 		if (this->_changeIndexX <= this->_frameIndexX)
 		{			
 			this->_frameIndexX = 0;
-
-			if (_rollCount == 6)
-			{
-				_rollCount = 0;
-				_isRolling = false;
-			}
 		}
-		
-		
-	}
-	//this->UpdateMainRect();
-	cout << "_frameCount:" << _frameCount << endl;
-	cout << "_changeIndexX:" << _changeIndexX << endl;
-	cout << "_frameIndexX: " << _frameIndexX << endl;
-	cout << "_isRolling: " << _isRolling << endl;
-
-
-
-
-	
-	//_isRolling = false;
-
-	/*	
-	if (_Input->GetKeyUp(VK_RIGHT))
-	{
-		if (_isRolling)
+		if (_rollCount == 7)
 		{
-			this->Move(StateMove::roll_R);
-		}
-		if (!_isRolling)
-		{
-			this->Move(StateMove::stand_R);
-			//_position.x += _speed;
+			_rollCount = 0;
+			_isRolling = false;
 		}
 	}
 
-	if (_Input->GetKeyUp(VK_UP))
-	{
-		if (_isRolling)
-		{
-			this->Move(StateMove::roll_U);
-		}
-		if (!_isRolling)
-		{
-			this->Move(StateMove::stand_U);
-			//_position.y -= _speed;
-		}
-	}
-	if (_Input->GetKeyUp(VK_DOWN))
-	{
-		if (_isRolling)
-		{
-			this->Move(StateMove::roll_D);
-
-		}
-		if (!_isRolling)
-		{
-			this->Move(StateMove::stand_D);
-			//_position.y -= _speed;
-		}
-	}
-	//switch:상태처리는 ok, 이동값 등은 no
-	if (_Input->GetKey(VK_LEFT))
-	{
-		if (_isRolling)
-		{
-			this->Move(StateMove::roll_L);
-		}
-		if (!_isRolling)
-		{
-			this->Move(StateMove::run_L);
-			_position.x -= _speed;
-		}
-	}
-	if (_Input->GetKey(VK_RIGHT))
-	{
-		if (_isRolling)
-		{
-			this->Move(StateMove::roll_R);
-		}
-		if (!_isRolling)
-		{
-			this->Move(StateMove::run_R);
-			_position.x += _speed;
-		}
-	}
-	if (_Input->GetKey(VK_UP))
-	{
-		if (_isRolling)
-		{
-			this->Move(StateMove::roll_U);
-		}
-		if (!_isRolling)
-		{
-			this->Move(StateMove::run_U);
-			_position.y -= _speed;
-		}
-	}
-	if (_Input->GetKey(VK_DOWN))
-	{
-		if (_isRolling)
-		{
-			this->Move(StateMove::roll_D);
-		}
-		if (!_isRolling)
-		{
-			this->Move(StateMove::run_D);
-			_position.y += _speed;
-		}
-	}
-
-
-	
-
-	
-
-	
 	//충돌판정렉트
 	_colliRc = RectMakeCenter(_position.x, _position.y, _size.x / 2, _size.y / 2);
 	//무기용 렉트 생성(사이즈와 위치를 위한 변수를 새로 생성할 것)
 	_weaponRc = RectMakeCenter(_position.x, _position.y, 100, 100);
-	*/
+	
 }
-//롤링중일때 _frameIndexX가 끝에 다다르면 _isRolling true
+
 void Player::Render()
-{
-	if(_isRolling == true)
-	{
-		_image->SetSize(_size);
-		_image->FrameRender(_position.x, _position.y, _animation->GetNowFrameX(), _animation->GetNowFrameY(), Pivot::CENTER);
-	}
-	if(_isRolling==false)
-	{
+{	
 		_image->SetSize(_size);
 		_image->FrameRender(_position.x, _position.y, _frameIndexX, _frameIndexY, Pivot::CENTER);
-	}
+	
 	//충돌판정렉트 확인용(확인후 삭제할 것)
-	//_DXRenderer->DrawRectangle(_colliRc, DefaultBrush::blue, false, 2.0f);
+	_DXRenderer->DrawRectangle(_colliRc, DefaultBrush::blue, false, 2.0f);
 	//무기용 렉트 확인용(확인후 삭제할 것)
-	//_DXRenderer->DrawRectangle(_weaponRc, DefaultBrush::red, false, 2.0f);
+	_DXRenderer->DrawRectangle(_weaponRc, DefaultBrush::red, false, 2.0f);
 }
 
 //추가함수:상하좌우(스탠드, 달리기)
@@ -279,8 +202,7 @@ void Player::Move(StateMove _move)
 		this->_rate = _standRate;
 		break;
 
-	case StateMove::run_L:
-		//this->_frameIndexX = 0;		//먹힘?
+	case StateMove::run_L:		
 		this->_frameIndexY = 3;
 		this->_changeIndexX = 7;
 		this->_standRate = _runRate;
@@ -308,8 +230,6 @@ void Player::Move(StateMove _move)
 		this->_frameIndexY = 5;
 		this->_changeIndexX = 7;
 		this->_standRate = _runRate;
-		//_animation->UpdateFrame();
-		//_animation->SetStartEndFrame(0, 5, 7, 5, false);
 		break;
 
 	case StateMove::roll_R:
@@ -334,5 +254,22 @@ void Player::Move(StateMove _move)
 
 	default:
 		break;
+	}
+}
+
+
+
+
+//뎀지 넘기기내 뎀지를 넘기기 위한 함수.
+void Player::AttackedDemege(int damage)
+{
+	_hp -= damage;
+	if (_hp <= 0)
+	{
+		this->Destroy();
+	}
+	else
+	{
+
 	}
 }
