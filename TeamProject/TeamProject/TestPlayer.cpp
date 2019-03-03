@@ -3,6 +3,8 @@
 
 #include "Image.h"
 #include "Animation.h"
+
+
 TestPlayer::TestPlayer()
 {
 }
@@ -17,9 +19,10 @@ TestPlayer::~TestPlayer()
 ************************************************************************************/
 void TestPlayer::Init()
 {
+	//이미지 추가 및 매니져로부터 찾아온다. 
 	_ImageManager->AddFrameImage("Will", L"../Resources/Player/will_dungeon.png", 10, 13);
 	this->_image = _ImageManager->FindImage("Will");
-
+	//기본 변수들 초기화 
 	this->_name = "Will";
 	this->_size = Vector2(120, 120);
 	this->_position = Vector2(WinSizeX / 2 + 300, WinSizeY / 2);
@@ -27,13 +30,16 @@ void TestPlayer::Init()
 	this->_pivot = Pivot::CENTER;
 	this->_speed = 300.0f;
 	this->UpdateMainRect();
-
+	//정밀 충돌용 렉트 위치 초기화d
+	this->_collisionRect = Figure::RectMakeCenter(_position, Vector2(60.f, 60.f));
+	//상태별로 애니메이션 전부 생성해서 맵에 담아둔다. 
 	this->CreateAnimation();
-
+	//처음 시작 상태는 DownIdle로 
 	this->ChangeState(State::DownIdle);
 }
 /***********************************************************************************
 ## Release ##
+애니메이션은 이 객체가 생성했고 관리하므로 이곳에서 삭제해주어야 한다. 
 ************************************************************************************/
 void TestPlayer::Release()
 {
@@ -46,14 +52,17 @@ void TestPlayer::Release()
 }
 /***********************************************************************************
 ## Update ##
+
 ************************************************************************************/
 void TestPlayer::Update()
 {
+	//이동량 측정할 변수
 	Vector2 moveValue(0,0);
-
+	//상태에 따라 다르게 업데이트
 	switch (_state)
 	{
 	case TestPlayer::State::LeftIdle:
+		//키 입력에 따라 
 		this->IdleKeyInput();
 		break;
 	case TestPlayer::State::RightIdle:
@@ -113,7 +122,9 @@ void TestPlayer::Update()
 	default:
 		break;
 	}
-	this->Move(moveValue);
+	
+	if(FLOAT_EQUAL(moveValue.x,0.f) == false || FLOAT_EQUAL(moveValue.y,0.f) == false)
+		this->Move(moveValue);
 	_mainAnimation->UpdateFrame();
 }
 /***********************************************************************************
@@ -124,6 +135,12 @@ void TestPlayer::Render()
 	_image->SetSize(_size);
 	_image->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(),
 		_mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
+
+	if (_isDebug)
+	{
+		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, true);
+		_DXRenderer->DrawRectangle(_collisionRect, DefaultBrush::red, true);
+	}
 }
 /***********************************************************************************
 ## ChangeState ##
@@ -164,6 +181,7 @@ void TestPlayer::ChangeState(State state)
 void TestPlayer::Move(Vector2 direction)
 {
 	this->_position += direction.Normalize() * _speed * _TimeManager->DeltaTime();
+	_collisionRect = Figure::RectMakeCenter(_position, Vector2(60.f, 60.f));
 	this->UpdateMainRect();
 }
 /***********************************************************************************

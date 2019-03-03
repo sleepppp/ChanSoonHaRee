@@ -204,9 +204,6 @@
     <ClInclude Include="Player.h">
       <Filter>PublicForder\Ree</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>PublicForder\Chan</Filter>
-    </ClInclude>
     <ClInclude Include="Inventory.h">
       <Filter>PublicForder\Chan</Filter>
     </ClInclude>
@@ -269,6 +266,9 @@
     </ClInclude>
     <ClInclude Include="TestPlayer.h">
       <Filter>PublicForder\Soon</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveItem.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -365,9 +365,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>PublicForder\Ree</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>PublicForder\Chan</Filter>
-    </ClCompile>
     <ClCompile Include="Inventory.cpp">
       <Filter>PublicForder\Chan</Filter>
     </ClCompile>
@@ -433,6 +430,9 @@
     </ClCompile>
     <ClCompile Include="TestPlayer.cpp">
       <Filter>PublicForder\Soon</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveItem.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

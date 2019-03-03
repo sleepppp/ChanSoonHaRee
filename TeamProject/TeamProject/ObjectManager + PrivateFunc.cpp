@@ -11,7 +11,7 @@ void ObjectManager::ZOrder()
 	sort(_objectContainer[ObjectType::Object].begin(), _objectContainer[ObjectType::Object].end(),
 		[this](GameObject* object1, GameObject* object2)
 	{
-		if (object1->GetMainRect().bottom < object2->GetMainRect().bottom)
+		if (object1->GetCollisionRect().bottom < object2->GetCollisionRect().bottom)
 			return true;
 		return false;
 	});
