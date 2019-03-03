@@ -16,7 +16,7 @@ Player::Player()
 	this->_isActive = true;
 	this->_pivot = Pivot::CENTER;
 	this->UpdateMainRect();
-	this->_speed = 10.0f;
+	this->_speed = 0.8f;
 	
 	this->_standRate = 0.5f;				//프레임 장당 시간
 	this->_runRate = 0.082588f;				//달리기용 프레임 시간
@@ -119,6 +119,17 @@ void Player::Update()
 
 	//애니메이션 동작	
 	this->_frameCount += _TimeManager->DeltaTime();		//리얼타임을 프레임시간에 더해준다
+	
+														//움직임
+	if (_stateMove == StateMove::run_L)		_position.x -= _speed;
+	if (_stateMove == StateMove::run_R)		_position.x += _speed;
+	if (_stateMove == StateMove::run_U)		_position.y -= _speed;
+	if (_stateMove == StateMove::run_D)		_position.y += _speed;
+
+	if (_stateMove == StateMove::roll_L)	_position.x -= _speed *2;
+	if (_stateMove == StateMove::roll_R)	_position.x += _speed *2;
+	if (_stateMove == StateMove::roll_U)	_position.y -= _speed *2;
+	if (_stateMove == StateMove::roll_D)	_position.y += _speed *2;
 
 	//장당 지정시간 rate보다 값이 커질때 프레임을 넘긴다
 	if (_frameCount >= _rate)
@@ -130,18 +141,6 @@ void Player::Update()
 			_rollCount++;
 			//_position.x -= _speed;
 		}
-		
-		//움직임
-		if (_stateMove == StateMove::run_L)		_position.x -= _speed;
-		if (_stateMove == StateMove::run_R)		_position.x += _speed;
-		if (_stateMove == StateMove::run_U)		_position.y -= _speed;
-		if (_stateMove == StateMove::run_D)		_position.y += _speed;
-
-		if (_stateMove == StateMove::roll_L)	_position.x -= _speed * 64;
-		if (_stateMove == StateMove::roll_R)	_position.x += _speed * 64;
-		if (_stateMove == StateMove::roll_U)	_position.y -= _speed * 64;
-		if (_stateMove == StateMove::roll_D)	_position.y += _speed * 64;
-
 		//프레임값이 커져서 넘어왔으니 다시 값을 빼준다.
 		while (_frameCount >= _rate) this->_frameCount -= this->_rate;
 		
