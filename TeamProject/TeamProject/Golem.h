@@ -34,11 +34,11 @@ private:
 	class Image* _golemAttack;		//공격하는 이미지
 
 	//각종 카운트
-	int _count;				//타이밍을 맞추기 위해 넣어놓은 상시 카운트
-	int _moveCount;			//이미지를 움직이기 위한 카운트
-	int _attackCount;		//공격의 시작과 끝을 알려주기 위한 카운트 
-	int _attackImageCount;	//데미지가 들어가는 타이밍을 주기위한 카운트
-	int _attackedCount;		//피격시 뒤로 밀리는 타이밍을 재기 위한 카운트
+	float _countMove;				//타이밍을 맞추기 위해 넣어놓은 상시 카운트
+	float _countAttack;				//공격 타이밍을 맞추기 위래 넣어놓은 카운트
+	float _moveCount;			//이미지를 움직이기 위한 카운트
+	float _attackCount;			//공격의 시작과 끝을 알려주기 위한 카운트 
+	float _attackedCount;		//피격시 뒤로 밀리는 타이밍을 재기 위한 카운트
 
 	bool _isAttack;			//공격여부를 확인하기 위한 불변수
 public:

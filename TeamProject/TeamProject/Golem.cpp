@@ -25,7 +25,6 @@ void Golem::Init()
 	this->_speed = 90.0f;					//속도는 90.0f
 	this->_hp = 200;						//200의 체력
 	this->_demage = 34;						//34의 뎀지
-	this->_count = 0;						//카운트 초기화
 	this->_isAttack = false;				//공격은 처음에는 안하고있지
 	this->_renderRect = UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
 
@@ -36,8 +35,9 @@ void Golem::Init()
 	//각종 카운트 초기화
 	this->_moveCount = 0;
 	this->_attackCount = 0;
-	this->_attackImageCount = 0;
 	this->_attackedCount = 0;
+	this->_countMove = 0.f;						//카운트 초기화
+	this->_countAttack = 0.f;
 
 	this->_positionLeft = Vector2(_position.x - 110, _position.y);
 	this->_positionRight = Vector2(_position.x + 10, _position.y);
@@ -67,7 +67,12 @@ void Golem::Release()
 
 void Golem::Update()
 {
-	_count++;
+	_countMove +=_TimeManager->DeltaTime();
+	if (_countMove >= 1.f /6.0f)
+	{
+		_countMove = 0;
+		_moveCount++;
+	}
 	if (_state == StateType::Chasing)
 	{
 		this->Move();
@@ -92,37 +97,21 @@ void Golem::ImageCount()
 	{
 		if (_move == MoveType::Left)
 		{
-			if (_count % 60 == 0)
-			{
-				_moveCount++;
-			}
 			if (_moveCount >= 8)
 				_moveCount = 0;
 		}
 		if (_move == MoveType::Right)
 		{
-			if (_count % 60 == 0)
-			{
-				_moveCount++;
-			}
 			if (_moveCount >= 8)
 				_moveCount = 0;
 		}
 		if (_move == MoveType::Top)
 		{
-			if (_count % 60 == 0)
-			{
-				_moveCount++;
-			}
 			if (_moveCount >= 8)
 				_moveCount = 0;
 		}
 		if (_move == MoveType::Bottom)
 		{
-			if (_count % 60 == 0)
-			{
-				_moveCount++;
-			}
 			if (_moveCount >= 8)
 				_moveCount = 0;
 		}
@@ -133,39 +122,23 @@ void Golem::ImageCount()
 	{
 		if (_move == MoveType::Left)
 		{
-			if (_attackCount % 30 == 0)
-			{
-				_attackImageCount++;
-			}
-			if (_attackImageCount >= 13)
-				_attackImageCount = 0;
+			if (_attackCount > 14)
+				_attackCount = 0;
 		}
 		if (_move == MoveType::Right)
 		{
-			if (_attackCount % 30 == 0)
-			{
-				_attackImageCount++;
-			}
-			if (_attackImageCount >= 13)
-				_attackImageCount = 0;
+			if (_attackCount > 14)
+				_attackCount = 0;
 		}
 		if (_move == MoveType::Top)
 		{
-			if (_attackCount % 30 == 0)
-			{
-				_attackImageCount++;
-			}
-			if (_attackImageCount >= 13)
-				_attackImageCount = 0;
+			if (_attackCount > 14)
+				_attackCount = 0;
 		}
 		if (_move == MoveType::Bottom)
 		{
-			if (_attackCount % 30 == 0)
-			{
-				_attackImageCount++;
-			}
-			if (_attackImageCount >= 13)
-				_attackImageCount = 0;
+			if (_attackCount > 14)
+				_attackCount = 0;
 		}
 	}
 }
@@ -201,9 +174,14 @@ void Golem::Attack()
 	}
 	if (_state == StateType::attack)
 	{
-		_attackCount++;
+		_countAttack +=_TimeManager->DeltaTime();
+		if (_countAttack >= 1.f / 8.0f)
+		{
+			_countAttack = 0;
+			_attackCount++;
+		}
 	}
-	if (_attackCount > 400)
+	if (_attackCount > 12)
 	{
 		_attackCount = 0;
 		_state = StateType::Chasing;
@@ -212,28 +190,33 @@ void Golem::Attack()
 
 void Golem::AttackPosition()
 {
-	if (_state == StateType::attack && _attackCount > 300)
+	this->_positionLeft = Vector2(_position.x - 110, _position.y);
+	this->_positionRight = Vector2(_position.x + 10, _position.y);
+	this->_positionTop = Vector2(_position.x, _position.y - 10);
+	this->_positionBottom = Vector2(_position.x, _position.y + 110);
+
+	if (_state == StateType::attack)
 	{
-  		if (_move == MoveType::Left)
+  		if (_move == MoveType::Left && _attackCount > 11)
 		{
 			this->_isAttackLeft = true;
 			this->_attackLeft = UpdateRect(_attackLeft, _positionLeft, _sizeLeft, Pivot::LEFT_TOP);
 		}
 		else _isAttackLeft = false;
 
-		if (_move == MoveType::Right)
+		if (_move == MoveType::Right && _attackCount > 11)
 		{
 			this->_isAttackRight = true;
 			this->_attackRight = UpdateRect(_attackRight, _positionRight, _sizeRight, Pivot::LEFT_TOP);
 		}
 		else _isAttackRight = false;
-		if (_move == MoveType::Top)
+		if (_move == MoveType::Top && _attackCount > 11)
 		{
 			this->_isAttackTop = true;
 			this->_attackTop = UpdateRect(_attackTop, _positionTop, _sizeTop, Pivot::BOTTOM);
 		}
 		else _isAttackTop = false;
-		if (_move == MoveType::Bottom)
+		if (_move == MoveType::Bottom && _attackCount > 11)
 		{
 			this->_isAttackBottom = true;
 			this->_attackBottom = UpdateRect(_attackBottom, _positionBottom, _sizeBottom, Pivot::BOTTOM);
@@ -333,19 +316,19 @@ void Golem::ImageRender()
 		_golemAttack->SetScale(1.0f);
 		if (_move == MoveType::Left)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackImageCount, 0, Pivot::CENTER, true);
+			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 0, Pivot::CENTER, true);
 		}
 		if (_move == MoveType::Right)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackImageCount, 1, Pivot::CENTER, true);
+			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 1, Pivot::CENTER, true);
 		}
 		if (_move == MoveType::Top)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackImageCount, 2, Pivot::CENTER, true);
+			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 2, Pivot::CENTER, true);
 		}
 		if (_move == MoveType::Bottom)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackImageCount, 3, Pivot::CENTER, true);
+			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 3, Pivot::CENTER, true);
 		}
 	}
 }
