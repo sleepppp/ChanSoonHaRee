@@ -32,14 +32,6 @@ TitleFlowObject::~TitleFlowObject()
 	}
 }
 
-void TitleFlowObject::Init()
-{
-}
-
-void TitleFlowObject::Release()
-{
-}
-
 void TitleFlowObject::Update()
 {
 	GameObject::Update();

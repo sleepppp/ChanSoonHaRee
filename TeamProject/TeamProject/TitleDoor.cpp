@@ -31,7 +31,6 @@ void TitleDoor::Update()
 	case TitleDoor::State::OpenSlide0:
 		_position.x += _direction.x * _speed * _TimeManager->DeltaTime();
 		_moveRange += Math::Abs(_direction.x * _speed * _TimeManager->DeltaTime());
-		//_position.y += CastingFloat(Math::Random(-1, 1)) * 1.0f;
 		this->UpdateMainRect();
 
 		if (_moveRange >= 100.0f)
@@ -45,16 +44,14 @@ void TitleDoor::Update()
 		break;
 	case TitleDoor::State::OpenSlide1:
 		_delayTime += _TimeManager->DeltaTime();
-		if (_delayTime >= 0.1f)
+		if (_delayTime >= 0.2f)
 		{
 			_state = State::OpenSlide2;
-
 		}
 		break;
 	case TitleDoor::State::OpenSlide2:
 		_position.x += _direction.x * _speed * _TimeManager->DeltaTime();
 		_moveRange += Math::Abs(_direction.x * _speed * _TimeManager->DeltaTime());
-		//_position.y += CastingFloat(Math::Random(-1, 1)) * 1.0f;
 		this->UpdateMainRect();
 
 		if (_moveRange >= 300.0f)

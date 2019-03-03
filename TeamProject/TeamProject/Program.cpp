@@ -43,10 +43,10 @@ void Program::Render()
 	//Direct2D 렌더타겟도 바인딩 여기까지 왔으면 렌더링 해도 된다. 
 	_DXRenderer->Direct2DBeginDraw();
 	{
-		_TimeManager->Render();
 		{
 			_SceneManager->Render();
 		}
+		_TimeManager->Render();
 	}
 	//Direct2D 렌더타겟 언바인딩 
 	_DXRenderer->Direct2DEndDraw();

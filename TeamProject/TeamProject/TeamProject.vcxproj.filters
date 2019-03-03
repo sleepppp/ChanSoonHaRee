@@ -103,6 +103,9 @@
     <Filter Include="Shading\Shader">
       <UniqueIdentifier>{56cc062a-e20f-4fd5-ae3f-8f102a0cc900}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainEntry\Scene\TownScene">
+      <UniqueIdentifier>{bf152be9-e145-4db3-86f5-1a81e18fe6aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -249,6 +252,12 @@
     <ClInclude Include="Shader.h">
       <Filter>Shading\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="TownScene.h">
+      <Filter>MainEntry\Scene\TownScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -394,6 +403,12 @@
     </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Shading\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="TownScene.cpp">
+      <Filter>MainEntry\Scene\TownScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

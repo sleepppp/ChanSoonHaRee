@@ -28,7 +28,7 @@ public:
 	Animation();
 	~Animation();
 
-	void UpdateFrame();
+	bool UpdateFrame();
 
 	void Play();
 	void Stop();
