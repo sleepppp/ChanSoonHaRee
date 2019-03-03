@@ -36,7 +36,7 @@ void Program::Release()
 
 void Program::Update()
 {
-	if (_Input->GetKeyDown(VK_F5))
+	if (_Input->GetKeyDown(VK_F1))
 		_isDebug = !_isDebug;
 
 	_SceneManager->Update();

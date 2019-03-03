@@ -64,6 +64,8 @@ public:
 	void SendCallbackMessage(const struct TagMessage message);
 	//해당 객체에 미리 메세지를 받았을 때 실행할 함수를 등록
 	void AddCallbackMessage(const string name, const function<void(struct TagMessage)> func);
+
+	virtual RECT GetCollisionRect()const { return this->_mainRect; }
 public:
 	//접근자며 설정자들
 	string GetName()const { return this->_name; }
