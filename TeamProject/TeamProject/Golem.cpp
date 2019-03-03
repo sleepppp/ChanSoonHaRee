@@ -18,25 +18,28 @@ void Golem::Init()
 {
 
 	Enemy::Init();
-	this->_name = "Golem";
-	this->_position = Vector2(100, 100);
-	this->_size = Vector2(100, 100);
-	this->_pivot = Pivot::CENTER;
-	this->_speed = 90.0f;
-	this->_hp = 200;
-	this->_demage = 34;
-	this->_count = 0;
-	this->_isAttack = false;
+	this->_name = "Golem";					//내이름은 골램이여
+	this->_position = Vector2(100, 100);	//100, 100 지점에서 시작하지
+	this->_size = Vector2(100, 100);		//크기도 100, 100이야
+	this->_pivot = Pivot::CENTER;			//내 기준은 중심에있어
+	this->_speed = 90.0f;					//속도는 90.0f
+	this->_hp = 200;						//200의 체력
+	this->_demage = 34;						//34의 뎀지
+	this->_count = 0;						//카운트 초기화
+	this->_isAttack = false;				//공격은 처음에는 안하고있지
 	this->UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
 
+	//내 이미지 찾기!
 	this->_golemMove = _ImageManager->AddFrameImage("GolemMove", L"../Resources/Enemy/Golem/GolemMove.png", 8, 4);
 	this->_golemAttack = _ImageManager->AddFrameImage("GolemAttack", L"../Resources/Enemy/Golem/GolemAttack.png", 13, 4);
 
+	//각종 카운트 초기화
 	this->_moveCount = 0;
 	this->_attackCount = 0;
 	this->_attackImageCount = 0;
 	this->_attackedCount = 0;
 
+	//
 	this->_sizeLeft = Vector2(-100, 20);
 	this->_sizeRight = Vector2(100, 20);
 	this->_sizeTop = Vector2(20, -100);
@@ -78,6 +81,7 @@ void Golem::Render()
 
 void Golem::ImageCount()
 {
+	//이미지 프레임돌리기(쫒는상태)
 	if (_state == StateType::Chasing)
 	{
 		if (_move == MoveType::Left)
@@ -117,7 +121,7 @@ void Golem::ImageCount()
 				_moveCount = 0;
 		}
 	}
-
+	//이미지 프레임 돌리기 (공격상태)
 	if (_state == StateType::attack)
 	{
 		if (_move == MoveType::Left)
@@ -161,6 +165,7 @@ void Golem::ImageCount()
 
 void Golem::Move()
 {
+	//쫒을대상 추격을 위한 앵글값계산과 이동을 위한 변수들
 	if (_state == StateType::Chasing)
 	{
 		this->_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
@@ -168,6 +173,7 @@ void Golem::Move()
 		this->_position.y += -sinf(_angle)*_speed * _TimeManager->DeltaTime();
 		this->UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
 	}
+	//피격시 대상의 반대방향으로 날아가기 위한 변수들.
 	if (_state == StateType::Attacked && this->_attackedCount < 200)
 	{
 		this->_angle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
@@ -176,7 +182,7 @@ void Golem::Move()
 		this->UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
 	}
 }
-
+//공격 사거리를 계산하기 위해서 직선거리계산 및 판정 범위 안일경우 상태 변경
 void Golem::Attack()
 {
 	_distance = Math::GetDistance(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
@@ -276,7 +282,7 @@ void Golem::Collision()
 
 void Golem::RectRender()
 {
-	if (_Input->IsToggleKey('1'))
+	if (_isDebug == true)
 	{
 		_DXRenderer->DrawRectangle(_renderRect, DefaultBrush::gray);
 		if (_state == StateType::Chasing)

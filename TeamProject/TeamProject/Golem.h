@@ -10,11 +10,13 @@ private:
 	RECT		_attackLeft;
 	RECT		_attackRight;
 	RECT		_attackBottom;
+
 	//공격 범위 크기 렉트
 	Vector2		_sizeTop;
 	Vector2		_sizeLeft;
 	Vector2		_sizeRight;
 	Vector2		_sizeBottom;
+
 	//공격 장소 트루펄스
 	bool		_isAttackTop;
 	bool		_isAttackLeft;
@@ -22,18 +24,17 @@ private:
 	bool		_isAttackBottom;
 
 	//기본 움직이는것과 공격하는 것 이미지
-	class Image* _golemMove;
-	class Image* _golemAttack;
+	class Image* _golemMove;		//걷는 이미지
+	class Image* _golemAttack;		//공격하는 이미지
 
 	//각종 카운트
-	int _moveCount;
-	int _attackCount;
-	int _attackImageCount;
-	int _attackedCount;
+	int _count;				//타이밍을 맞추기 위해 넣어놓은 상시 카운트
+	int _moveCount;			//이미지를 움직이기 위한 카운트
+	int _attackCount;		//공격의 시작과 끝을 알려주기 위한 카운트 
+	int _attackImageCount;	//데미지가 들어가는 타이밍을 주기위한 카운트
+	int _attackedCount;		//피격시 뒤로 밀리는 타이밍을 재기 위한 카운트
 
-	int _count;
-
-	bool _isAttack;
+	bool _isAttack;			//공격여부를 확인하기 위한 불변수
 public:
 	void Move();
 	void Attack();
