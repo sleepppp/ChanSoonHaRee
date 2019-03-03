@@ -16,7 +16,7 @@ Player::Player()
 	this->_isActive = true;
 	this->_pivot = Pivot::CENTER;
 	this->UpdateMainRect();
-	this->_speed = 0.8f;
+	this->_speed = 0.8515611f;
 	
 	this->_standRate = 0.5f;				//프레임 장당 시간
 	this->_runRate = 0.082588f;				//달리기용 프레임 시간
@@ -41,7 +41,7 @@ Player::Player()
 
 	//충돌판정으로 받아서 결과를 줄지 받을지 협의할것
 	//공격을 위한 렉트(사이즈와 위치를 위한 변수를 새로 생성할 것)
-	//_weaponRc = RectMakeCenter(_position.x, _position.y, 100, 100);	//무기용 렉트 생성
+	_weaponRc = RectMakeCenter(_position.x, _position.y, 100, 100);	//무기용 렉트 생성
 	//_shieldRc = RectMakeCenter(_position.x, _position.y, 100, 100); //방패용 렉트 생성		
 	_colliRc = RectMakeCenter(_position.x, _position.y, _size.x / 2, _size.y / 2); //충돌판정용 렉트 생성
 	//검Rc와 화살Rc를 따로 만들지, 상황에 사이즈만 변경할지 생각해 보기
@@ -120,7 +120,7 @@ void Player::Update()
 	//애니메이션 동작	
 	this->_frameCount += _TimeManager->DeltaTime();		//리얼타임을 프레임시간에 더해준다
 	
-														//움직임
+	//움직임
 	if (_stateMove == StateMove::run_L)		_position.x -= _speed;
 	if (_stateMove == StateMove::run_R)		_position.x += _speed;
 	if (_stateMove == StateMove::run_U)		_position.y -= _speed;
@@ -139,7 +139,6 @@ void Player::Update()
 		if (_isRolling)
 		{
 			_rollCount++;
-			//_position.x -= _speed;
 		}
 		//프레임값이 커져서 넘어왔으니 다시 값을 빼준다.
 		while (_frameCount >= _rate) this->_frameCount -= this->_rate;
@@ -255,5 +254,22 @@ void Player::Move(StateMove _move)
 
 	default:
 		break;
+	}
+}
+
+
+
+
+//뎀지 넘기기내 뎀지를 넘기기 위한 함수.
+void Player::AttackedDemege(int damage)
+{
+	_hp -= damage;
+	if (_hp <= 0)
+	{
+		this->Destroy();
+	}
+	else
+	{
+
 	}
 }
