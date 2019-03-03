@@ -196,6 +196,7 @@
     <ClInclude Include="TitleLogo.h" />
     <ClInclude Include="TitleDoor.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="TownObject.h" />
     <ClInclude Include="TownScene.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Window.h" />
@@ -255,6 +256,7 @@
     <ClCompile Include="TitleLogo.cpp" />
     <ClCompile Include="TitleDoor.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="TownObject.cpp" />
     <ClCompile Include="TownScene.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Window.cpp" />

@@ -68,6 +68,7 @@ public:
 
 	UINT GetWidth() { return bitmap->GetPixelSize().width; }
 	UINT GetHeight() { return bitmap->GetPixelSize().height; }
+	Vector2 GetSize()const { return this->size; }
 	Vector2 GetFrameSize(int frame) { return Vector2(frameInfo[frame].Width, frameInfo[frame].Height); }
 	bool IsFrameImage()
 	{

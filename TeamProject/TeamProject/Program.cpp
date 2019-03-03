@@ -4,6 +4,8 @@
 #include "MainScene.h"
 #include "TitleScene.h"
 #include "LoadingScene.h"
+#include "TownScene.h"
+
 Program::Program()
 {
 	
@@ -17,10 +19,11 @@ void Program::Init()
 {
 	_SceneManager->AddScene("MainScene", new MainScene);
 	_SceneManager->AddScene("TitleScene", new TitleScene);
-	
+	_SceneManager->AddScene("TownScene", new TownScene);
+
 	LoadingScene* loadScene = new LoadingScene;
-	loadScene->SetNextSceneName("MainScene");
-	loadScene->SetLoadingFunc([this]() {_SceneManager->FindScene("MainScene")->Init(); });
+	loadScene->SetNextSceneName("TownScene");
+	loadScene->SetLoadingFunc([this]() {_SceneManager->FindScene("TownScene")->Init(); });
 	_SceneManager->AddScene("LoadingScene", loadScene);
 
 	_SceneManager->LoadScene("TitleScene");
@@ -33,6 +36,9 @@ void Program::Release()
 
 void Program::Update()
 {
+	if (_Input->GetKeyDown(VK_F5))
+		_isDebug = !_isDebug;
+
 	_SceneManager->Update();
 }
 

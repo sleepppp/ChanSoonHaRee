@@ -3,7 +3,7 @@
 class TownScene : public SceneBase
 {
 private:
-
+	class Image* _townBackgroundImage;
 public:
 	TownScene();
 	~TownScene();
