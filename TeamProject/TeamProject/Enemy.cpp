@@ -45,7 +45,7 @@ void Enemy::AttackedDemege(int damage)
 }
 
 //렉트업데이트를 위한 변수
-void Enemy::UpdateRect(RECT rc, Vector2 position, Vector2 size, Pivot::Enum _pivot)
+RECT Enemy::UpdateRect(RECT rc, Vector2 position, Vector2 size, Pivot::Enum _pivot)
 {
 	switch (_pivot)
 	{
@@ -61,6 +61,8 @@ void Enemy::UpdateRect(RECT rc, Vector2 position, Vector2 size, Pivot::Enum _piv
 	default:
 		break;
 	}
+
+	return rc;
 }
 
 //앵글값에 따라서 무브 타입을 결정.

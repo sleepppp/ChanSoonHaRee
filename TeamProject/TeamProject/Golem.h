@@ -28,6 +28,7 @@ private:
 	//각종 카운트
 	int _moveCount;
 	int _attackCount;
+	int _attackImageCount;
 	int _attackedCount;
 
 	int _count;

@@ -29,11 +29,12 @@ void Golem::Init()
 	this->_isAttack = false;
 	this->UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
 
-	this->_golemMove = _ImageManager->AddFrameImage("GolemMove", L"../Resources/Enemy/Golem/GolemMove.pmg", 8, 4);
+	this->_golemMove = _ImageManager->AddFrameImage("GolemMove", L"../Resources/Enemy/Golem/GolemMove.png", 8, 4);
 	this->_golemAttack = _ImageManager->AddFrameImage("GolemAttack", L"../Resources/Enemy/Golem/GolemAttack.png", 13, 4);
 
 	this->_moveCount = 0;
 	this->_attackCount = 0;
+	this->_attackImageCount = 0;
 	this->_attackedCount = 0;
 
 	this->_sizeLeft = Vector2(-100, 20);
@@ -83,37 +84,37 @@ void Golem::ImageCount()
 		{
 			if (_count % 60 == 0)
 			{
-				_attackCount++;
-				if (_attackCount >= 8)
-					_attackCount = 0;
+				_moveCount++;
 			}
+			if (_moveCount >= 8)
+				_moveCount = 0;
 		}
 		if (_move == MoveType::Right)
 		{
 			if (_count % 60 == 0)
 			{
-				_attackCount++;
-				if (_attackCount >= 8)
-					_attackCount = 0;
+				_moveCount++;
 			}
+			if (_moveCount >= 8)
+				_moveCount = 0;
 		}
 		if (_move == MoveType::Top)
 		{
 			if (_count % 60 == 0)
 			{
-				_attackCount++;
-				if (_attackCount >= 8)
-					_attackCount = 0;
+				_moveCount++;
 			}
+			if (_moveCount >= 8)
+				_moveCount = 0;
 		}
 		if (_move == MoveType::Bottom)
 		{
 			if (_count % 60 == 0)
 			{
-				_attackCount++;
-				if (_attackCount >= 8)
-					_attackCount = 0;
+				_moveCount++;
 			}
+			if (_moveCount >= 8)
+				_moveCount = 0;
 		}
 	}
 
@@ -121,39 +122,39 @@ void Golem::ImageCount()
 	{
 		if (_move == MoveType::Left)
 		{
-			if (_count % 60 == 0)
+			if (_attackCount % 10 == 0)
 			{
-				_attackCount++;
-				if (_attackCount >= 13)
-					_attackCount = 0;
+				_attackImageCount++;
 			}
+			if (_attackImageCount >= 13)
+				_attackImageCount = 0;
 		}
 		if (_move == MoveType::Right)
 		{
-			if (_count % 60 == 0)
+			if (_attackCount % 10 == 0)
 			{
-				_moveCount++;
-				if (_moveCount >= 13)
-					_moveCount = 0;
+				_attackImageCount++;
 			}
+			if (_attackImageCount >= 13)
+				_attackImageCount = 0;
 		}
 		if (_move == MoveType::Top)
 		{
-			if (_count % 60 == 0)
+			if (_attackCount % 10 == 0)
 			{
-				_moveCount++;
-				if (_moveCount >= 13)
-					_moveCount = 0;
+				_attackImageCount++;
 			}
+			if (_attackImageCount >= 13)
+				_attackImageCount = 0;
 		}
 		if (_move == MoveType::Bottom)
 		{
-			if (_count % 60 == 0)
+			if (_attackCount % 10 == 0)
 			{
-				_moveCount++;
-				if (_moveCount >= 13)
-					_moveCount = 0;
+				_attackImageCount++;
 			}
+			if (_attackImageCount >= 13)
+				_attackImageCount = 0;
 		}
 	}
 }
@@ -199,7 +200,7 @@ void Golem::AttackPosition()
 {
 	if (_state == StateType::attack && _attackCount > 700)
 	{
-		if (_move == MoveType::Left)
+  		if (_move == MoveType::Left)
 		{
 			this->_isAttackLeft = true;
 			this->UpdateRect(_attackLeft, _position, _sizeLeft, Pivot::LEFT_TOP);
@@ -320,19 +321,19 @@ void Golem::ImageRender()
 		_golemAttack->SetScale(1.0f);
 		if (_move == MoveType::Left)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 0, Pivot::CENTER, true);
+			_golemAttack->FrameRender(_position.x, _position.y, _attackImageCount, 0, Pivot::CENTER, true);
 		}
 		if (_move == MoveType::Right)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 1, Pivot::CENTER, true);
+			_golemAttack->FrameRender(_position.x, _position.y, _attackImageCount, 1, Pivot::CENTER, true);
 		}
 		if (_move == MoveType::Top)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 2, Pivot::CENTER, true);
+			_golemAttack->FrameRender(_position.x, _position.y, _attackImageCount, 2, Pivot::CENTER, true);
 		}
 		if (_move == MoveType::Bottom)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 3, Pivot::CENTER, true);
+			_golemAttack->FrameRender(_position.x, _position.y, _attackImageCount, 3, Pivot::CENTER, true);
 		}
 	}
 }

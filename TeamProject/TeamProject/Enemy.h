@@ -30,7 +30,7 @@ protected:
 
 public:
 	void AttackedDemege(int damage);
-	void UpdateRect(RECT rc, Vector2 position, Vector2 size, Pivot::Enum _pivot);
+	RECT UpdateRect(RECT rc, Vector2 position, Vector2 size, Pivot::Enum _pivot);
 	void EnemyMoveType();
 
 public:
