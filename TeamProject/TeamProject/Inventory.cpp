@@ -127,11 +127,12 @@ void Inventory::Update()
 		}
 
 		//가방 인벤토리 슬롯 위치 잡기
-		for (UINT i = 0; i < 3; ++i) 
+		for (UINT i = 0, index = 0; i < 3; ++i)
 		{
-			for (UINT j = 0; j < 5; ++j) 
+			for (UINT j = 0; j < 5; ++j)
 			{
-				_bagSlotList[i + j]->slotRect = Figure::RectMake(_mainRect.left + 95 + (57 + 10) * j, _mainRect.top + 144  + (58 + 10) * i, 57, 57);
+				_bagSlotList[index]->slotRect = Figure::RectMake(_mainRect.left + 95 + (57 + 10) * j, _mainRect.top + 144 + (58 + 10) * i, 57, 57);
+				index++;
 			}
 		}
 
@@ -159,18 +160,19 @@ void Inventory::Update()
 		}
 
 		//가방 인벤토리 슬롯 위치 잡기
-		for (UINT i = 0; i < 3; ++i)
+		for (UINT i = 0, index = 0; i < 3; ++i)
 		{
 			for (UINT j = 0; j < 5; ++j)
 			{
-				_bagSlotList[i + j]->slotRect = Figure::RectMake(_mainRect.left + 95  * j + (57 + 10), _mainRect.top + 144 + (58 + 10) * i, 57, 57);
+				_bagSlotList[index]->slotRect = Figure::RectMake(_mainRect.left + 95 + (57 + 10) * j, _mainRect.top + 144 + (58 + 10) * i, 57, 57);
+				index++;
 			}
 		}
 		break;
 	//인벤토리 상태 유지
 	case Inventory::InventoryState::Idle:
-		//만일 f1 누르면 인벤토리 닫기
-		if (_Input->GetKeyDown(VK_F1))
+		//만일 f4 누르면 인벤토리 닫기
+		if (_Input->GetKeyDown(VK_F4))
 		{
 			_state = InventoryState::CloseSlide;
 		}
@@ -189,7 +191,7 @@ void Inventory::Render()
 
 	_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, false);
 
-	// 
+	//플레이어 슬롯 사이즈만큼 
 	for (UINT i = 0; i < _playerSlotList.size(); ++i)
 	{
 		_DXRenderer->DrawRectangle(_playerSlotList[i]->slotRect, DefaultBrush::red, false);
@@ -220,15 +222,13 @@ void Inventory::Render()
 			_bagSlotList[i]->data.image->Render(_bagSlotList[i]->slotRect.left, _bagSlotList[i]->slotRect.top, Pivot::LEFT_TOP, false);
 
 		}
-
-
 	}
 }
 
 //
 bool Inventory::AddItem(string name)
 {
-	if (name == "brench")
+	if (name == "item_brench")
 	{
 		for (UINT i = 0; i < _playerSlotList.size(); ++i)
 		{
