@@ -82,7 +82,7 @@ void Enemy::Move()
 	//피격시 대상의 반대방향으로 날아가기 위한 변수들.
 	if (_state == StateType::Attacked)
 	{
-		//췽겨져나가는 앵글값
+		//튕겨져나가는 앵글값
 		this->_angle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
 		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
 		this->_position.y += -sinf(_angle) * _speed * _TimeManager->DeltaTime();
