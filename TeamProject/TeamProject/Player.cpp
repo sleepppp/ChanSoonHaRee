@@ -24,7 +24,9 @@ Player::Player()
 	this->_changeIndexX = 0.f;				//각 X프레임 개수가 달라 변경값을 쉽게 넣기 위한 변수 선언	
 	this->_isRolling = false;				//구르는 중인지 판단 bool값
 	
-	_rollCount = 0;
+	_rollCount = 0;							//
+	_hp = 100;								//
+	_demage = 10;							//
 
 	//애니메이션클래스 사용
 	_animation = new Animation;
@@ -260,16 +262,16 @@ void Player::Move(StateMove _move)
 
 
 
-//뎀지 넘기기내 뎀지를 넘기기 위한 함수.
-void Player::AttackedDemege(int damage)
-{
-	_hp -= damage;
-	if (_hp <= 0)
-	{
-		this->Destroy();
-	}
-	else
-	{
-
-	}
-}
+//뎀지 넘기기
+//void Player::AttackedDemege(int damage)
+//{
+//	_hp -= damage;
+//	if (_hp <= 0)
+//	{
+//		this->Destroy();
+//	}
+//	else
+//	{
+//
+//	}
+//}

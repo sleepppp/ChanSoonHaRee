@@ -121,11 +121,11 @@
     <Filter Include="PublicForder\Soon\Module\Loading">
       <UniqueIdentifier>{76134e5e-c0c2-481b-82e6-fcf1944f0543}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PublicForder\Soon\Module\Scene">
-      <UniqueIdentifier>{1e293258-f702-4ce8-b888-b4aae2f90c95}</UniqueIdentifier>
-    </Filter>
     <Filter Include="PublicForder\Soon\Module\Timer">
       <UniqueIdentifier>{1a9cff39-28db-4e00-bcca-89b4342cd1c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Soon\Module\Scene">
+      <UniqueIdentifier>{1e293258-f702-4ce8-b888-b4aae2f90c95}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -293,6 +293,9 @@
     </ClInclude>
     <ClInclude Include="Weeds.h">
       <Filter>PublicForder\Ha</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleDoorParticle.h">
+      <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -463,6 +466,9 @@
     </ClCompile>
     <ClCompile Include="Weeds.cpp">
       <Filter>PublicForder\Ha</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleDoorParticle.cpp">
+      <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

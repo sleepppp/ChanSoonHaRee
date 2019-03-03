@@ -47,6 +47,12 @@ class Inventory :public GameObject
 	};
 
 private:
+	class Image* _invenTargetImg;				//인벤토리 선택 이미지
+	Vector2 _invenTargetPosition;				//인벤 타겟 포지션
+	int _invenIndex;							//인벤 인덱스
+
+	bool _isInvenSlot;							//인벤 슬롯 구분위한 bool
+
 	class Image* _inventoryImage;				//인벤토리 이미지 변수 선언
 	vector<InventorySlot*> _playerSlotList;		//벡터 >> 플레이어 슬롯 리스트 변수 선언
 	vector<InventorySlot*> _bagSlotList;		//벡터 >> 가방 슬롯 리스트 변수 선언
