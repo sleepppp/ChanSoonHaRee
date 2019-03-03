@@ -39,19 +39,25 @@ void Golem::Init()
 	this->_attackImageCount = 0;
 	this->_attackedCount = 0;
 
-	//
-	this->_sizeLeft = Vector2(-100, 20);
+	this->_positionLeft = Vector2(_position.x - 110, _position.y);
+	this->_positionRight = Vector2(_position.x + 10, _position.y);
+	this->_positionTop = Vector2(_position.x, _position.y -10);
+	this->_positionBottom = Vector2(_position.x, _position.y + 110);
+
+	this->_sizeLeft = Vector2(100, 20);
 	this->_sizeRight = Vector2(100, 20);
-	this->_sizeTop = Vector2(20, -100);
+	this->_sizeTop = Vector2(20, 100);
 	this->_sizeBottom = Vector2(20, 100);
+
 	this->_isAttackTop = false;
 	this->_isAttackLeft = false;
 	this->_isAttackRight = false;
 	this->_isAttackBottom = false;
-	this->_attackLeft = UpdateRect(_attackLeft, _position, _sizeLeft, Pivot::LEFT_TOP);
-	this->_attackRight = UpdateRect(_attackRight, _position, _sizeRight, Pivot::LEFT_TOP);
-	this->_attackTop = UpdateRect(_attackTop, _position, _sizeTop, Pivot::LEFT_TOP);
-	this->_attackBottom = UpdateRect(_attackBottom, _position, _sizeBottom, Pivot::LEFT_TOP);
+
+	this->_attackLeft = UpdateRect(_attackLeft, _positionLeft, _sizeLeft, Pivot::LEFT_TOP);
+	this->_attackRight = UpdateRect(_attackRight, _positionRight, _sizeRight, Pivot::LEFT_TOP);
+	this->_attackTop = UpdateRect(_attackTop, _positionTop, _sizeTop, Pivot::BOTTOM);
+	this->_attackBottom = UpdateRect(_attackBottom, _positionBottom, _sizeBottom, Pivot::BOTTOM);
 
 }
 void Golem::Release()
@@ -211,28 +217,26 @@ void Golem::AttackPosition()
   		if (_move == MoveType::Left)
 		{
 			this->_isAttackLeft = true;
-			this->_attackLeft = UpdateRect(_attackLeft, _position, _sizeLeft, Pivot::CENTER);
+			this->_attackLeft = UpdateRect(_attackLeft, _positionLeft, _sizeLeft, Pivot::LEFT_TOP);
 		}
 		else _isAttackLeft = false;
 
 		if (_move == MoveType::Right)
 		{
 			this->_isAttackRight = true;
-			this->_attackRight = UpdateRect(_attackRight, _position, _sizeRight, Pivot::CENTER);
+			this->_attackRight = UpdateRect(_attackRight, _positionRight, _sizeRight, Pivot::LEFT_TOP);
 		}
 		else _isAttackRight = false;
-
 		if (_move == MoveType::Top)
 		{
 			this->_isAttackTop = true;
-			this->_attackTop = UpdateRect(_attackTop, _position, _sizeTop, Pivot::CENTER);
+			this->_attackTop = UpdateRect(_attackTop, _positionTop, _sizeTop, Pivot::BOTTOM);
 		}
 		else _isAttackTop = false;
-
 		if (_move == MoveType::Bottom)
 		{
 			this->_isAttackBottom = true;
-			this->_attackBottom = UpdateRect(_attackBottom, _position, _sizeBottom, Pivot::CENTER);
+			this->_attackBottom = UpdateRect(_attackBottom, _positionBottom, _sizeBottom, Pivot::BOTTOM);
 		}
 		else _isAttackBottom = false;
 	}
