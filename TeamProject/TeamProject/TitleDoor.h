@@ -13,6 +13,8 @@ private:
 	float _delayTime;
 	float _speed;
 	class Image* _image;
+
+	vector<class TitleDoorParticle*> _particles;
 public:
 	TitleDoor(string key,Vector2 direction,Vector2 pos,Vector2 size);
 	~TitleDoor();

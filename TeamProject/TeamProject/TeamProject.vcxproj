@@ -23,7 +23,7 @@
     <ProjectGuid>{59369EAE-E275-4010-AA30-2C70122FFA8A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>TeamProject</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -195,6 +195,7 @@
     <ClInclude Include="Time.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TitleBackground.h" />
+    <ClInclude Include="TitleDoorParticle.h" />
     <ClInclude Include="TitleFlowObject.h" />
     <ClInclude Include="TitleLogo.h" />
     <ClInclude Include="TitleDoor.h" />
@@ -259,6 +260,7 @@
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TitleBackground.cpp" />
+    <ClCompile Include="TitleDoorParticle.cpp" />
     <ClCompile Include="TitleFlowObject.cpp" />
     <ClCompile Include="TitleLogo.cpp" />
     <ClCompile Include="TitleDoor.cpp" />

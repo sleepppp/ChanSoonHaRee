@@ -23,6 +23,7 @@ void TitleScene::Init()
 	_ImageManager->AddImage("RightDoor", PathResources(L"Scene/door_right.png"));
 	_ImageManager->AddImage("TitleImage", PathResources(L"Scene/logo.png"));
 	_ImageManager->AddImage("Selector", PathResources(L"Scene/Selector.png"));
+	_ImageManager->AddFrameImage("door_light", PathResources(L"Scene/door_light.png"),30,1,false);
 
 	_SoundManager->AddSound("DoorOpen", PathSounds("door.wav"));
 	_SoundManager->AddSound("introBGM", PathSounds("introBGM.mp3"));

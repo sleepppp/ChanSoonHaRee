@@ -41,6 +41,7 @@ public:
 	void SetCallbackFunc(function<void()> func);
 	void SetIsLoop(bool b) { this->isLoop = b; }
 	void SetFrameUpdateTime(float frameRate) { this->frameUpdateTime = frameRate; }
+	void SetCurrentFrameX(int i) { currentFrameIndex = i; }
 public:
 	float GetFrameUpdateTime()const { return this->frameUpdateTime; }
 	bool getIsLoop()const { return this->isLoop; }
