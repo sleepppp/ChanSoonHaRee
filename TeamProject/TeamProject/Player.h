@@ -2,7 +2,8 @@
 #include "GameObject.h"
 class Player : public GameObject
 {
-	RECT _colliRc;	//충돌판정용 네모
+	//RECT _colliRc;	//충돌판정용 네모
+	RECT _collisionRect;
 	RECT _weaponRc;	//공격(무기) 네모
 	RECT _shieldRc;	//방패 네모
 
@@ -45,9 +46,11 @@ public:
 	void Render()override;
 	//void Animation()override;
 
+	void Move(Vector2 direction);
 	void Move(StateMove _move);	//상태값 변경 함수
+	void DefaultMove(); //기본 움직임
 
-	RECT getPlayerCollisitionRc() { return _colliRc; }	//전달용
+	//RECT getPlayerCollisitionRc() { return _colliRc; }	//전달용
 	//void PlayerAtk();									//무기와 에너미 충돌 판정
 		
 												//에너미 무기와 내 몸 충돌 판정

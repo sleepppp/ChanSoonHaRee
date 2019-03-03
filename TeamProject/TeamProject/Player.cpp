@@ -45,8 +45,10 @@ Player::Player()
 	//공격을 위한 렉트(사이즈와 위치를 위한 변수를 새로 생성할 것)
 	_weaponRc = RectMakeCenter(_position.x, _position.y, 100, 100);	//무기용 렉트 생성
 	//_shieldRc = RectMakeCenter(_position.x, _position.y, 100, 100); //방패용 렉트 생성		
-	_colliRc = RectMakeCenter(_position.x, _position.y, _size.x / 2, _size.y / 2); //충돌판정용 렉트 생성
+	//_colliRc = RectMakeCenter(_position.x, _position.y, _size.x / 2, _size.y / 2); //충돌판정용 렉트 생성
 	//검Rc와 화살Rc를 따로 만들지, 상황에 사이즈만 변경할지 생각해 보기
+	//정밀 충돌용 렉트 위치 초기화d
+	this->_collisionRect = Figure::RectMakeCenter(_position, Vector2(60.f, 60.f));
 }
 Player::~Player() {}
 void Player::Init() {}
@@ -59,6 +61,9 @@ void Player::Release()
 void Player::Update()
 {		
 	this->Move(_stateMove);
+	
+	//이동량 측정할 변수
+	Vector2 moveValue(0, 0);
 
 	//구르기명령
 	if (_Input->GetKeyDown(VK_SPACE))	
@@ -89,49 +94,64 @@ void Player::Update()
 
 	//구르기:완료 후 스탠드 동작으로 돌아가기
 	if (!_isRolling)
+	{				
+		this->DefaultMove(); //기본동작
+		if (_stateMove == StateMove::roll_L) this->DefaultMove();	
+		if (_stateMove == StateMove::roll_R) this->DefaultMove();
+		if (_stateMove == StateMove::roll_U) this->DefaultMove();
+		if (_stateMove == StateMove::roll_D) this->DefaultMove();			
+	}	
+		
+	//속도값
+	if (_stateMove == StateMove::run_L)
 	{		
-		if (_stateMove == StateMove::roll_L)
+		if (_Input->GetKey(VK_LEFT))
 		{
-			_stateMove = StateMove::stand_L;
+			_position.x -= _speed;
 		}
-		if (_stateMove == StateMove::roll_R)
+		else if (_Input->GetKey(VK_UP))
 		{
-			_stateMove = StateMove::stand_R;
+			_position.x -= _speed;
+			_position.y -= _speed;
+			//_position.x -= direction.Normalize() * _speed * _TimeManager->DeltaTime();
+			//Vector2 moveValue(-1.0f, -1.0f);
+			//_position += moveValue.Normalize() * _speed * _TimeManager->DeltaTime();
 		}
-		if (_stateMove == StateMove::roll_U)
+		else if (_Input->GetKeyUp(VK_DOWN))
 		{
-			_stateMove = StateMove::stand_U;
+			//Vector2 moveValue(-1.0f, 1.0f);
+			//_position += moveValue.Normalize() * _speed * _TimeManager->DeltaTime();
+			_position.x -= _speed;
+			_position.y += _speed;
 		}
-		if (_stateMove == StateMove::roll_D)
-		{
-			_stateMove = StateMove::stand_D;
-		}
+		//this->_position += direction.Normalize() * _speed * _TimeManager->DeltaTime();
+		//_position += Vector2(-1.f, 0.f);
+	}
+	
+
+	if (_stateMove == StateMove::run_R)
+	{
+		_position.x += _speed;
 	}
 
-	//기본동작
-	if (_Input->GetKeyUp(VK_LEFT))  _stateMove = StateMove::stand_L;
-	if (_Input->GetKeyUp(VK_RIGHT))  _stateMove = StateMove::stand_R;
-	if (_Input->GetKeyUp(VK_UP))  _stateMove = StateMove::stand_U;
-	if (_Input->GetKeyUp(VK_DOWN))  _stateMove = StateMove::stand_D;
+	if (_stateMove == StateMove::run_U)
+	{
+		_position.y -= _speed;
+	}
 
-	if (_Input->GetKeyDown(VK_LEFT)) _stateMove = StateMove::run_L;
-	if (_Input->GetKeyDown(VK_RIGHT)) _stateMove = StateMove::run_R;
-	if (_Input->GetKeyDown(VK_UP)) _stateMove = StateMove::run_U;
-	if (_Input->GetKeyDown(VK_DOWN)) _stateMove = StateMove::run_D;
-
-	//애니메이션 동작	
-	this->_frameCount += _TimeManager->DeltaTime();		//리얼타임을 프레임시간에 더해준다
-	
-	//움직임
-	if (_stateMove == StateMove::run_L)		_position.x -= _speed;
-	if (_stateMove == StateMove::run_R)		_position.x += _speed;
-	if (_stateMove == StateMove::run_U)		_position.y -= _speed;
-	if (_stateMove == StateMove::run_D)		_position.y += _speed;
+	if (_stateMove == StateMove::run_D)
+	{
+		_position.y += _speed;
+	}
 
 	if (_stateMove == StateMove::roll_L)	_position.x -= _speed *2;
 	if (_stateMove == StateMove::roll_R)	_position.x += _speed *2;
 	if (_stateMove == StateMove::roll_U)	_position.y -= _speed *2;
 	if (_stateMove == StateMove::roll_D)	_position.y += _speed *2;
+
+
+	//애니메이션 동작	
+	this->_frameCount += _TimeManager->DeltaTime();		//리얼타임을 프레임시간에 더해준다
 
 	//장당 지정시간 rate보다 값이 커질때 프레임을 넘긴다
 	if (_frameCount >= _rate)
@@ -158,7 +178,7 @@ void Player::Update()
 	}
 
 	//충돌판정렉트
-	_colliRc = RectMakeCenter(_position.x, _position.y, _size.x / 2, _size.y / 2);
+	//_colliRc = RectMakeCenter(_position.x, _position.y, _size.x / 2, _size.y / 2);
 	//무기용 렉트 생성(사이즈와 위치를 위한 변수를 새로 생성할 것)
 	_weaponRc = RectMakeCenter(_position.x, _position.y, 100, 100);
 	
@@ -166,14 +186,16 @@ void Player::Update()
 
 void Player::Render()
 {	
-		_image->SetSize(_size);
-		_image->FrameRender(_position.x, _position.y, _frameIndexX, _frameIndexY, Pivot::CENTER);
+	_image->SetSize(_size);
+	_image->FrameRender(_position.x, _position.y, _frameIndexX, _frameIndexY, Pivot::CENTER);
 	
 	//충돌판정렉트 확인용(확인후 삭제할 것)
-	_DXRenderer->DrawRectangle(_colliRc, DefaultBrush::blue, false, 2.0f);
+	//_DXRenderer->DrawRectangle(_colliRc, DefaultBrush::blue, false, 2.0f);
 	//무기용 렉트 확인용(확인후 삭제할 것)
 	_DXRenderer->DrawRectangle(_weaponRc, DefaultBrush::red, false, 2.0f);
 }
+
+
 
 //추가함수:상하좌우(스탠드, 달리기)
 void Player::Move(StateMove _move)
@@ -259,7 +281,18 @@ void Player::Move(StateMove _move)
 	}
 }
 
+void Player::DefaultMove()
+{
+	if (_Input->GetKeyUp(VK_LEFT))  _stateMove = StateMove::stand_L;
+	if (_Input->GetKeyUp(VK_RIGHT))  _stateMove = StateMove::stand_R;
+	if (_Input->GetKeyUp(VK_UP))  _stateMove = StateMove::stand_U;
+	if (_Input->GetKeyUp(VK_DOWN))  _stateMove = StateMove::stand_D;
 
+	if (_Input->GetKey(VK_LEFT)) _stateMove = StateMove::run_L;
+	if (_Input->GetKey(VK_RIGHT)) _stateMove = StateMove::run_R;
+	if (_Input->GetKey(VK_UP)) _stateMove = StateMove::run_U;
+	if (_Input->GetKey(VK_DOWN)) _stateMove = StateMove::run_D;
+}
 
 
 //뎀지 넘기기
