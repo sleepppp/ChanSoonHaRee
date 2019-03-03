@@ -416,9 +416,6 @@
     <ClCompile Include="MoveItem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="MainScene + SoonInit.cpp">
-      <Filter>PublicForder\Soon\Module</Filter>
-    </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>PublicForder\Soon\Module\Animation</Filter>
     </ClCompile>
@@ -451,6 +448,9 @@
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>PublicForder\Soon\Module\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene + SoonInit.cpp">
+      <Filter>PublicForder\Soon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
