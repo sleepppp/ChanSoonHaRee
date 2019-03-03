@@ -39,15 +39,15 @@ void Golem::Init()
 	this->_countMove = 0.f;						//카운트 초기화
 	this->_countAttack = 0.f;
 
-	this->_positionLeft = Vector2(_position.x - 110, _position.y);
-	this->_positionRight = Vector2(_position.x + 10, _position.y);
-	this->_positionTop = Vector2(_position.x, _position.y -10);
+	this->_positionLeft = Vector2(_position.x - 110, _position.y + 10);
+	this->_positionRight = Vector2(_position.x + 10, _position.y + 15);
+	this->_positionTop = Vector2(_position.x, _position.y - 10);
 	this->_positionBottom = Vector2(_position.x, _position.y + 110);
 
 	this->_sizeLeft = Vector2(100, 20);
 	this->_sizeRight = Vector2(100, 20);
-	this->_sizeTop = Vector2(20, 100);
-	this->_sizeBottom = Vector2(20, 100);
+	this->_sizeTop = Vector2(20, 70);
+	this->_sizeBottom = Vector2(20, 80);
 
 	this->_isAttackTop = false;
 	this->_isAttackLeft = false;
@@ -154,7 +154,7 @@ void Golem::Move()
 		this->_renderRect = UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
 	}
 	//피격시 대상의 반대방향으로 날아가기 위한 변수들.
-	if (_state == StateType::Attacked && this->_attackedCount < 200)
+	if (_state == StateType::Attacked && this->_attackedCount < 100)
 	{
 		this->_angle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
 		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
@@ -190,8 +190,8 @@ void Golem::Attack()
 
 void Golem::AttackPosition()
 {
-	this->_positionLeft = Vector2(_position.x - 110, _position.y);
-	this->_positionRight = Vector2(_position.x + 10, _position.y);
+	this->_positionLeft = Vector2(_position.x - 110, _position.y + 10);
+	this->_positionRight = Vector2(_position.x + 10, _position.y + 15);
 	this->_positionTop = Vector2(_position.x, _position.y - 10);
 	this->_positionBottom = Vector2(_position.x, _position.y + 110);
 
