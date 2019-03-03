@@ -52,10 +52,10 @@ public:
 	void RectRender();
 	void ImageRender();
 public:
-	void Init();
-	void Release();
-	void Update();
-	void Render();
+	void Init()override;
+	void Release()override;
+	void Update()override;
+	void Render()override;
 
 public:
 	Golem();

@@ -127,6 +127,12 @@
     <Filter Include="PublicForder\Soon\Module\Timer">
       <UniqueIdentifier>{1a9cff39-28db-4e00-bcca-89b4342cd1c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PublicForder\Ha\Golem">
+      <UniqueIdentifier>{6dbf0802-b2bb-492c-b3b5-46fa7c6fd5e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Ha\Slime">
+      <UniqueIdentifier>{efe44e59-874c-466f-85de-0dc9b5fb5a7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -231,9 +237,6 @@
     <ClInclude Include="TitleFlowObject.h">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClInclude>
-    <ClInclude Include="Golem.h">
-      <Filter>PublicForder\Ha</Filter>
-    </ClInclude>
     <ClInclude Include="Buffer.h">
       <Filter>Shading\Buffer</Filter>
     </ClInclude>
@@ -287,6 +290,12 @@
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>PublicForder\Soon\Module\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Golem.h">
+      <Filter>PublicForder\Ha\Golem</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>PublicForder\Ha\Slime</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -392,9 +401,6 @@
     <ClCompile Include="TitleFlowObject.cpp">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClCompile>
-    <ClCompile Include="Golem.cpp">
-      <Filter>PublicForder\Ha</Filter>
-    </ClCompile>
     <ClCompile Include="Buffer.cpp">
       <Filter>Shading\Buffer</Filter>
     </ClCompile>
@@ -451,6 +457,12 @@
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>PublicForder\Soon\Module\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Golem.cpp">
+      <Filter>PublicForder\Ha\Golem</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>PublicForder\Ha\Slime</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -36,7 +36,7 @@ void Golem::Init()
 	this->_moveCount = 0;
 	this->_attackCount = 0;
 	this->_attackedCount = 0;
-	this->_countMove = 0.f;						//카운트 초기화
+	this->_countMove = 0.f;
 	this->_countAttack = 0.f;
 
 	this->_positionLeft = Vector2(_position.x - 110, _position.y + 10);
@@ -275,7 +275,7 @@ void Golem::Collision()
 	if (_isAttack = true)
 	{
 		//내 뎀지를 넘겨줘라.
-		_player->AttackedDemege(_demage);
+		_player->AttackedDemege(0);
 		_isAttack = false;
 	}
 }
