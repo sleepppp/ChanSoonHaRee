@@ -203,6 +203,7 @@
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="TownScene.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Weeds.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
@@ -268,6 +269,7 @@
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="TownScene.cpp" />
     <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="Weeds.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
