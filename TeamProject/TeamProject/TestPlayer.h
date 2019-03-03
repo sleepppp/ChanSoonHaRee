@@ -8,6 +8,14 @@ class TestPlayer : public GameObject
 		LeftIdle = 0 ,RightIdle,UpIdle,DownIdle, 
 		LeftRun,RightRun,UpRun,DownRun
 	};
+	struct TestBullet
+	{
+		Vector2 pos; 
+		Vector2 direction; 
+		float speed; 
+		bool bFire; 
+	};
+
 private:
 	//애니메이션 담을 맵의 반복자 
 	typedef map<State, class Animation*>::iterator AnimationIter;
@@ -30,6 +38,7 @@ public:
 	void Release()override;
 	void Update()override;
 	void Render()override;
+	
 private:
 	void Move(Vector2 direction);
 	void ChangeAnimation(State state);

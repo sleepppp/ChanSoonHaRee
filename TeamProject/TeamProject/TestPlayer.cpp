@@ -4,6 +4,7 @@
 #include "Image.h"
 #include "Animation.h"
 
+#include "Timer.h"
 
 TestPlayer::TestPlayer()
 {
@@ -23,7 +24,7 @@ void TestPlayer::Init()
 	_ImageManager->AddFrameImage("Will", L"../Resources/Player/will_dungeon.png", 10, 13);
 	this->_image = _ImageManager->FindImage("Will");
 	//기본 변수들 초기화 
-	this->_name = "Will";
+	this->_name = "TestPlayer";
 	this->_size = Vector2(120, 120);
 	this->_position = Vector2(WinSizeX / 2 + 300, WinSizeY / 2);
 	this->_isActive = true;
@@ -36,6 +37,7 @@ void TestPlayer::Init()
 	this->CreateAnimation();
 	//처음 시작 상태는 DownIdle로 
 	this->ChangeState(State::DownIdle);
+
 }
 /***********************************************************************************
 ## Release ##
@@ -135,6 +137,7 @@ void TestPlayer::Update()
 	this->Move(moveValue);
 	//현재 애니메이션 Udpate시켜준다.
 	_mainAnimation->UpdateFrame();
+
 }
 /***********************************************************************************
 ## Render ##
@@ -146,12 +149,14 @@ void TestPlayer::Render()
 	//렌더링
 	_image->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(),
 		_mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
+
 	//디버그 모드라면 디버그 렉트들 렌더링(F1누르면 껐다 켜졌다 됌) 
 	if (_isDebug)
 	{
 		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, true);
 		_DXRenderer->DrawRectangle(_collisionRect, DefaultBrush::red, true);
 	}
+
 }
 /***********************************************************************************
 ## ChangeState ##

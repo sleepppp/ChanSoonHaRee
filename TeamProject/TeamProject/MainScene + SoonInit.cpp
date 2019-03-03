@@ -4,5 +4,5 @@
 #include "TestPlayer.h"
 void MainScene::SoonInit()
 {
-	//_ObjectManager->AddObject(ObjectType::Object, new TestPlayer);
+	_ObjectManager->AddObject(ObjectType::Object, new TestPlayer);
 }
