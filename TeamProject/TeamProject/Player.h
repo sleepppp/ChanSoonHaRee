@@ -13,13 +13,14 @@ class Player : public GameObject
 	float _frameIndexX;		//애니 프레임 가로
 	float _frameIndexY;		//애니 프레임 세로
 	float _speed;			//
-
+	
+	float _rate;
 	float _standRate;
 	float _runRate;
 
 	float _changeIndexX;
 	bool _isRolling;
-
+	int _rollCount;
 
 	//상하좌우 모션용 enum
 	enum class StateMove
