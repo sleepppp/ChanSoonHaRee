@@ -2,7 +2,9 @@
 #include "ObjectManager.h"
 
 #include "GameObject.h"
+#include "LightSystem.h"
 
+#include <algorithm>
 #include <unordered_map> 
 
 SingletonCpp(ObjectManager)
@@ -12,11 +14,14 @@ SingletonCpp(ObjectManager)
 미리 카테고리 별로 벡터 넣어논다. 
 **********************************************************************/
 ObjectManager::ObjectManager()
+	:_isZorder(false)
 {
 	for (UINT i = 0; i < ObjectType::End; ++i)
 	{
 		_objectContainer.insert(make_pair((ObjectType::Enum)i, vector<GameObject*>()));
 	}
+	_lightSystem = new LightSystem;
+
 }
 /*********************************************************************
 ## ~ObjectManager ##
@@ -24,6 +29,8 @@ ObjectManager::ObjectManager()
 **********************************************************************/
 ObjectManager::~ObjectManager()
 {
+	SafeDelete(_lightSystem);
+
 	ObjectContainerIter iter = _objectContainer.begin();
 	for (; iter != _objectContainer.end(); ++iter)
 	{
@@ -96,6 +103,9 @@ void ObjectManager::Update()
 **********************************************************************/
 void ObjectManager::Render()
 {
+	if(_isZorder)
+		this->ZOrder();
+
 	ObjectContainerIter iter = _objectContainer.begin();
 	for (; iter != _objectContainer.end(); ++iter)
 	{

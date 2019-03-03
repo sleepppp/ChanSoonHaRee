@@ -4,6 +4,7 @@ class TownScene : public SceneBase
 {
 private:
 	class Image* _townBackgroundImage;
+	class GameObject* object;
 public:
 	TownScene();
 	~TownScene();

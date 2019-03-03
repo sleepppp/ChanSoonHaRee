@@ -261,8 +261,14 @@
     <ClInclude Include="TownScene.h">
       <Filter>MainEntry\Scene\TownScene</Filter>
     </ClInclude>
-    <ClInclude Include="TownObject.h">
+    <ClInclude Include="StaticObject.h">
       <Filter>MainEntry\Scene\TownScene\TownObject</Filter>
+    </ClInclude>
+    <ClInclude Include="LightSystem.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>PublicForder\Soon\Module</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -416,8 +422,17 @@
     <ClCompile Include="TownScene.cpp">
       <Filter>MainEntry\Scene\TownScene</Filter>
     </ClCompile>
-    <ClCompile Include="TownObject.cpp">
+    <ClCompile Include="StaticObject.cpp">
       <Filter>MainEntry\Scene\TownScene\TownObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager + PrivateFunc.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="LightSystem.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLight.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
