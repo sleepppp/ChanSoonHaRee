@@ -7,6 +7,8 @@ class Player : public GameObject
 	RECT _shieldRc;	//방패 네모
 
 	class Image* _image;	//플레이어 이미지스프라이트
+	class Animation* _animation;
+
 	float _frameCount;		//애니 프레임시간용
 	float _frameIndexX;		//애니 프레임 가로
 	float _frameIndexY;		//애니 프레임 세로
@@ -30,12 +32,13 @@ class Player : public GameObject
 		end
 	};
 	StateMove _stateMove;
-		
+
 public:
 	void Init()override;
 	void Release()override;
 	void Update()override;
 	void Render()override;
+	//void Animation()override;
 
 	void Move(StateMove _move);	//상태값 변경 함수
 
@@ -47,4 +50,9 @@ public:
 	Player();
 	~Player();
 };
+
+
+
+
+
 

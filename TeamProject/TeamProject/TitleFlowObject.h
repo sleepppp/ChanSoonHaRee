@@ -16,8 +16,6 @@ public:
 	TitleFlowObject();
 	~TitleFlowObject();
 
-	void Init()override;
-	void Release()override; 
 	void Update()override; 
 	void Render()override; 
 

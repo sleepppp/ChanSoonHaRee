@@ -88,6 +88,24 @@
     <Filter Include="MainEntry\Scene\MainScene">
       <UniqueIdentifier>{6333573b-14a4-4c59-a502-92f9f7d23916}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shading">
+      <UniqueIdentifier>{e01f40a6-e07c-439c-ae5d-4266801c7e4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shading\HLSL">
+      <UniqueIdentifier>{b10e9770-1f36-4a7b-8212-53ee66cdcbc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shading\Buffer">
+      <UniqueIdentifier>{bb757a73-9a5e-40e7-9cdc-d9a1bce7cac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shading\RenderTargetBuffer">
+      <UniqueIdentifier>{c4afa543-4f5e-46ea-8cbd-4f7f3268e972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shading\Shader">
+      <UniqueIdentifier>{56cc062a-e20f-4fd5-ae3f-8f102a0cc900}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainEntry\Scene\TownScene">
+      <UniqueIdentifier>{bf152be9-e145-4db3-86f5-1a81e18fe6aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -221,6 +239,24 @@
     </ClInclude>
     <ClInclude Include="Golem.h">
       <Filter>PublicForder\Ha</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer.h">
+      <Filter>Shading\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderBuffer.h">
+      <Filter>Shading\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTargetBuffer.h">
+      <Filter>Shading\RenderTargetBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Shading\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="TownScene.h">
+      <Filter>MainEntry\Scene\TownScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -359,6 +395,21 @@
     <ClCompile Include="Golem.cpp">
       <Filter>PublicForder\Ha</Filter>
     </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>Shading\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetBuffer.cpp">
+      <Filter>Shading\RenderTargetBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Shading\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>PublicForder\Soon\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="TownScene.cpp">
+      <Filter>MainEntry\Scene\TownScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TeamProject.rc">
@@ -372,5 +423,13 @@
     <Image Include="TeamProject.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Deferred.hlsl">
+      <Filter>Shading\HLSL</Filter>
+    </None>
+    <None Include="Lighting.hlsl">
+      <Filter>Shading\HLSL</Filter>
+    </None>
   </ItemGroup>
 </Project>

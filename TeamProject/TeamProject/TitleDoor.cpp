@@ -38,11 +38,13 @@ void TitleDoor::Update()
 			_state = State::OpenSlide1;
 			_speed = 550.0f; 
 			_moveRange = 0.f;
+			_position.y = 0.f;
+			this->UpdateMainRect();
 		}
 		break;
 	case TitleDoor::State::OpenSlide1:
 		_delayTime += _TimeManager->DeltaTime();
-		if (_delayTime >= 0.1f)
+		if (_delayTime >= 0.2f)
 		{
 			_state = State::OpenSlide2;
 		}
@@ -58,6 +60,8 @@ void TitleDoor::Update()
 			GameObject* flowObject = _ObjectManager->FindObject(ObjectType::Object, "TitleFlowObject");
 			if (flowObject)
 				flowObject->SendCallbackMessage(TagMessage("DoorOpened",1.0f));
+			_position.y = 0.f;
+			this->UpdateMainRect();
 		}
 		break;
 	case TitleDoor::State::Open:
