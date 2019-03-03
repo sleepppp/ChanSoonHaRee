@@ -298,19 +298,3 @@ void TestPlayer::IdleKeyInput()
 	else if (_Input->GetKeyDown('S'))
 		this->ChangeState(State::DownRun);
 }
-
-
-
-//뎀지 넘기기내 뎀지를 넘기기 위한 함수.
-void Enemy::AttackedDemege(int damage)
-{
-	_hp -= damage;
-	if (_hp <= 0)
-	{
-		this->Destroy();
-	}
-	else
-	{
-
-	}
-}
