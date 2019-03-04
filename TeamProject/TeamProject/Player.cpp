@@ -21,13 +21,18 @@ void Player::Init()
 	this->_position = Vector2(WinSizeX / 2, WinSizeY / 2);
 	this->_isActive = true;
 	this->_pivot = Pivot::CENTER;
-	this->_speed = 600.0f;
+	this->_speed = 400.0f;
 	//this->_speed = Vector2(300.0f, 300.0f);
 	this->UpdateMainRect();
 
 	//시간을 한번에!
 	_frameRun = 0.1f;
 	_frameIdle = 0.1f;
+	//left = 0.05f;
+	//	right = 0.05f;
+	//	up = 0.05f;
+	//	down = 0.05f;
+
 
 	//정밀 충돌용 렉트 위치 초기화
 	this->_collisionRect = RectMakeCenter(_position, Vector2(60.f, 60.f));
@@ -66,82 +71,148 @@ void Player::Update()
 	switch (_state)
 	{
 	case Player::State::LeftIdle:
-		//if (_Input->GetKeyDown('A')) this->ChangeState(State::LeftRun);
-		//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
-		//
-		//else if (_Input->GetKeyDown('D')) this->ChangeState(State::RightRun);
-		//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
-		//
-		//else if (_Input->GetKeyDown('W')) this->ChangeState(State::UpRun);
-		//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
-		//
-		//else if (_Input->GetKeyDown('S'))
-		//{
-		//	this->ChangeState(State::DownRun);
-		//}
-
-
-
-
-
-
-		this->IdleKeyInput();
+		if (_Input->GetKeyDown('A')) this->ChangeState(State::LeftRun);		
+		else if (_Input->GetKeyDown('D')) this->ChangeState(State::RightRun);		
+		else if (_Input->GetKeyDown('W')) this->ChangeState(State::UpRun);		
+		else if (_Input->GetKeyDown('S')) this->ChangeState(State::DownRun);
+		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
+		//this->IdleKeyInput();
 		break;
 
 	case Player::State::RightIdle:
-		this->IdleKeyInput();
+		if (_Input->GetKeyDown('A')) this->ChangeState(State::LeftRun);
+		else if (_Input->GetKeyDown('D')) this->ChangeState(State::RightRun);
+		else if (_Input->GetKeyDown('W')) this->ChangeState(State::UpRun);
+		else if (_Input->GetKeyDown('S')) this->ChangeState(State::DownRun);
+		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
+		//this->IdleKeyInput();
 		break;
 
 	case Player::State::UpIdle:
-		this->IdleKeyInput();
+		if (_Input->GetKeyDown('A')) this->ChangeState(State::LeftRun);
+		else if (_Input->GetKeyDown('D')) this->ChangeState(State::RightRun);
+		else if (_Input->GetKeyDown('W')) this->ChangeState(State::UpRun);
+		else if (_Input->GetKeyDown('S')) this->ChangeState(State::DownRun);
+		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
+		//this->IdleKeyInput();
 		break;
 
 	case Player::State::DownIdle:
-		this->IdleKeyInput();
+		if (_Input->GetKeyDown('A')) this->ChangeState(State::LeftRun);
+		else if (_Input->GetKeyDown('D')) this->ChangeState(State::RightRun);
+		else if (_Input->GetKeyDown('W')) this->ChangeState(State::UpRun);
+		else if (_Input->GetKeyDown('S')) this->ChangeState(State::DownRun);
+		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
+		//this->IdleKeyInput();
 		break;
 
+		//대각선일경우 이미지 무조건 상하로 변경됨
+		//롤링도 대각선으로 감
 
-	case Player::State::LeftRun:
+	case Player::State::LeftRun:		
 		if (_Input->GetKey('A')) moveValue += Vector2(-1.0f, 0.0f);	//왼누르기
 		else if (_Input->GetKeyUp('A')) this->ChangeState(State::LeftIdle); //왼떼기
-
-		if (_Input->GetKey('W')) moveValue += Vector2(0.0f, -1.0f);	//위
-		else if (_Input->GetKey('S')) moveValue += Vector2(0.0f, 1.0f);	//아래
-		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
+		
+		//대각선 시작		
+		if (_Input->GetKey('W'))				//대각선 위 누르기
+		{
+			ChangeAnimation(Player::State::UpRun);
+			moveValue += Vector2(0.0f, -1.0f);
+		}
+		else if (_Input->GetKey('S'))			//대각선 아래 누르기
+		{
+			moveValue += Vector2(0.0f, 1.0f);
+			ChangeAnimation(Player::State::DownRun);
+		}
+		else if (_Input->GetKeyUp('W'))			//대각선 위 떼기
+		{			
+			ChangeAnimation(Player::State::LeftRun);
+			moveValue += Vector2(-1.0f, 0.0f);
+			//this->ChangeState(State::LeftRun);
+		}		
+		else if (_Input->GetKeyUp('S'))			//대각선 아래 떼기
+		{			
+			//this->ChangeState(State::LeftRun);
+			ChangeAnimation(Player::State::LeftRun);
+			moveValue += Vector2(-1.0f, 0.0f);
+		}	
+		
+		if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
+		
 		break;
-
+		//=====================================================================================
 	case Player::State::RightRun:
 		if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
 		else if (_Input->GetKeyUp('D')) this->ChangeState(State::RightIdle);
+		
+		
+		
+		//대각선 시작
+		if (_Input->GetKey('D') && _Input->GetKey('W'))	//대각선 위
+		{
+			ChangeAnimation(Player::State::UpRun);
+			moveValue += Vector2(0.0f, -1.0f);
+		}
+		else if (_Input->GetKey('S'))	//대각선 아래
+		{
+			moveValue += Vector2(0.0f, 1.0f);
+			ChangeAnimation(Player::State::DownRun);
+		}
 
-		if (_Input->GetKey('W')) moveValue += Vector2(0.0f, -1.0f);
-		else if (_Input->GetKey('S')) moveValue += Vector2(0.0f, 1.0f);
-		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
+		if (_Input->GetKeyUp('W'))
+		{
+			ChangeAnimation(Player::State::RightRun);
+			moveValue += Vector2(1.0f, 0.0f);
+		}
+		else if (_Input->GetKeyUp('S'))
+		{
+			ChangeAnimation(Player::State::RightRun);
+			moveValue += Vector2(1.0f, 0.0f);
+		}
+		
+		if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
+		
 		break;
-
+		//=====================================================================================
 	case Player::State::UpRun:
 		if (_Input->GetKey('W')) moveValue += Vector2(0.0f, -1.0f);
-		else if (_Input->GetKeyUp('W')) this->ChangeState(State::UpIdle);
+		else if (_Input->GetKeyUp('W')) this->ChangeState(State::UpIdle);		
 
 		if (_Input->GetKey('A')) moveValue += Vector2(-1.0f, 0.0f);
 		else if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
-		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
-		break;
+		
+		if (_Input->GetKeyUp('A'))
+		{
+			ChangeAnimation(Player::State::UpRun);
+			moveValue += Vector2(0.0f, -1.0f);
+		}
+		else if (_Input->GetKeyUp('D'))
+		{
+			ChangeAnimation(Player::State::UpRun);
+			moveValue += Vector2(0.0f, 1.0f);
+		}
 
-	case Player::State::DownRun:
-		if (_Input->GetKey('S')) moveValue += Vector2(0.0f, 1.0f);
+		if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
+		
+		break; 		 	  	  
+		//=====================================================================================
+	case Player::State::DownRun:		
+		if (_Input->GetKey('S')) moveValue += Vector2(0.0f, 1.0f);		
 		else if (_Input->GetKeyUp('S')) this->ChangeState(State::DownIdle);
 
-		if (_Input->GetKey('A')) moveValue += Vector2(-1.0f, 0.0f);
+		if (_Input->GetKey('A')) moveValue += Vector2(-1.0f, 0.0f);		
 		else if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
-		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
+
+		if (_Input->GetKeyUp('A')) ChangeAnimation(Player::State::DownRun);
+		else if (_Input->GetKeyUp('D')) ChangeAnimation(Player::State::DownRun);
+
+		if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
+
+		
 		break;
-
+		//=====================================================================================
 	case Player::State::LeftRoll:
-		if(_mainAnimation->UpdateFrame()) moveValue += Vector2(-2.0f, 0.0f);
-		if (!_mainAnimation->UpdateFrame()) moveValue += Vector2(0.0f, 0.0f);
-
-		if(this->CreateAnimation->upRun)
+		moveValue += Vector2(-2.0f, 0.0f);
 		break;
 
 	case Player::State::RightRoll:
@@ -209,7 +280,7 @@ void Player::ChangeState(State state)
 	case Player::State::DownIdle:
 		break;
 	case Player::State::LeftRun:
-		_speed = 300.0f;
+		//_speed = 300.0f;
 		break;
 	case Player::State::RightRun:
 		break;
@@ -256,9 +327,12 @@ void Player::ChangeAnimation(State state)
 	//만약 끝이 아니면 찾은 것이니 현 애니메이션을 바꿀 애니메이션으로 교체한다.
 	if (iter != _animationList.end())
 	{
-		_mainAnimation = iter->second;
-		_mainAnimation->Stop();
-		_mainAnimation->Play();
+		if (iter->second != _mainAnimation)
+		{
+			_mainAnimation = iter->second;
+			_mainAnimation->Stop();
+			_mainAnimation->Play();
+		}
 	}
 }
 
@@ -345,7 +419,7 @@ void Player::CreateAnimation()
 	_animationList.insert(make_pair(State::DownRoll, downRoll));
 }
 
-
+//해당 상태 종료 후 변경할 상태 
 void Player::EndAnimation()
 {
 	switch (_state)
@@ -367,13 +441,20 @@ void Player::EndAnimation()
 	case Player::State::DownRun:
 		break;
 	case Player::State::LeftRoll:
-		this->ChangeState(State::LeftIdle);
+		if(_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+		else					this->ChangeState(State::LeftIdle);		
 		break;
 	case Player::State::RightRoll:
+		if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+		else					this->ChangeState(State::RightIdle);
 		break;
 	case Player::State::UpRoll:
+		if (_Input->GetKey('D')) this->ChangeState(State::UpRun);
+		else					this->ChangeState(State::UpIdle);
 		break;
 	case Player::State::DownRoll:
+		if (_Input->GetKey('D')) this->ChangeState(State::DownRun);
+		else					this->ChangeState(State::DownIdle);
 		break;
 	default:
 		break;
