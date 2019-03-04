@@ -29,6 +29,11 @@ private:
 	RECT _collisionRect;
 	float _speed;
 	//Vector2 _speed;
+	float _frameRun;
+	float _frameIdle;
+	float _frameRoll;
+
+
 
 public:
 	Player() {}
@@ -39,6 +44,8 @@ public:
 	void Update()override;
 	void Render()override;
 
+
+	void EndAnimation();
 private:
 	void Move(Vector2 direction);
 	void ChangeAnimation(State state);

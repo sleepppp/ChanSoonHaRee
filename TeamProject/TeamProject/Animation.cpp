@@ -11,7 +11,7 @@
 ******************************************************************************/
 Animation::Animation()
 	:isPlay(false), isLoop(true), currentFrameIndex(0),
-	currentFrameTime(0.f), frameUpdateTime(0.3f),func(nullptr)
+	currentFrameTime(0.f), frameUpdateTime(0.3f),func(nullptr), isEnd(false)
 {
 
 }
@@ -30,6 +30,7 @@ Animation::~Animation()
 ******************************************************************************/
 bool Animation::UpdateFrame()
 {
+	isEnd = false;
 	//만약 플레이했다면
 	if (this->isPlay)
 	{
@@ -53,10 +54,10 @@ bool Animation::UpdateFrame()
 				//만약 루프 가 아니라면 플레이 상태 꺼주고 
 				if (isLoop == false)
 					isPlay = false;
-				//만약 실행시킬 함수가 있다면 실행시켜라 
-				if (func)
+				//만약 실행시킬 함수가 있다면 실행시켜라 //람다식 함수호출을 위한 함수 값
+				if (func != nullptr)
 					func();
-				
+				isEnd = true;
 				return true;
 			}
 		}

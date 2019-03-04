@@ -16,6 +16,7 @@ public:
 private:
 	bool isPlay;						//플레이 불값
 	bool isLoop;						//루프돌리느냐
+	bool isEnd;
 
 	int currentFrameIndex;				//현재 프레임 정보 벡터 인덱스
 
@@ -23,11 +24,12 @@ private:
 	float frameUpdateTime;				//프레임 카운트 증가 시킬 시간 
 	
 	vector<pair<int, int>> frameList;	//프레임 데이터 담아둔 벡터 
-	function<void()> func;				//프레임 다 감기면 실행 시킬 함수 포인터 
+	function<void(void)> func;			//프레임 다 감기면 실행 시킬 함수 포인터 
 public:
 	Animation();
 	~Animation();
 
+	bool GetIsEnd(){return isEnd;}
 	bool UpdateFrame();
 
 	void Play();

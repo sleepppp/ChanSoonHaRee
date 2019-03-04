@@ -21,9 +21,13 @@ void Player::Init()
 	this->_position = Vector2(WinSizeX / 2, WinSizeY / 2);
 	this->_isActive = true;
 	this->_pivot = Pivot::CENTER;
-	this->_speed = 300.0f;
+	this->_speed = 600.0f;
 	//this->_speed = Vector2(300.0f, 300.0f);
 	this->UpdateMainRect();
+
+	//시간을 한번에!
+	_frameRun = 0.1f;
+	_frameIdle = 0.1f;
 
 	//정밀 충돌용 렉트 위치 초기화
 	this->_collisionRect = RectMakeCenter(_position, Vector2(60.f, 60.f));
@@ -32,6 +36,9 @@ void Player::Init()
 
 	// 처음 시작 상태를 위한 세팅
 	this->ChangeState(State::DownIdle);
+
+
+	//_frameRoll = 0.1f;
 }
 
 /********************************************************************************/
@@ -59,6 +66,25 @@ void Player::Update()
 	switch (_state)
 	{
 	case Player::State::LeftIdle:
+		//if (_Input->GetKeyDown('A')) this->ChangeState(State::LeftRun);
+		//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
+		//
+		//else if (_Input->GetKeyDown('D')) this->ChangeState(State::RightRun);
+		//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
+		//
+		//else if (_Input->GetKeyDown('W')) this->ChangeState(State::UpRun);
+		//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
+		//
+		//else if (_Input->GetKeyDown('S'))
+		//{
+		//	this->ChangeState(State::DownRun);
+		//}
+
+
+
+
+
+
 		this->IdleKeyInput();
 		break;
 
@@ -112,7 +138,10 @@ void Player::Update()
 		break;
 
 	case Player::State::LeftRoll:
-		moveValue += Vector2(-2.0f, 0.0f);
+		if(_mainAnimation->UpdateFrame()) moveValue += Vector2(-2.0f, 0.0f);
+		if (!_mainAnimation->UpdateFrame()) moveValue += Vector2(0.0f, 0.0f);
+
+		if(this->CreateAnimation->upRun)
 		break;
 
 	case Player::State::RightRoll:
@@ -167,6 +196,8 @@ void Player::ChangeState(State state)
 	//상태가 바뀌면서 애니메이션도 변경한다
 	this->ChangeAnimation(state);
 
+
+	//상태가 바뀌는 순간 처리할 ..사항을 적기 위함
 	switch (_state)
 	{
 	case Player::State::LeftIdle:
@@ -178,6 +209,7 @@ void Player::ChangeState(State state)
 	case Player::State::DownIdle:
 		break;
 	case Player::State::LeftRun:
+		_speed = 300.0f;
 		break;
 	case Player::State::RightRun:
 		break;
@@ -239,74 +271,113 @@ void Player::CreateAnimation()
 	Animation* leftIdle = new Animation;
 	leftIdle->SetStartEndFrame(0, 9, 9, 9, false);
 	leftIdle->SetIsLoop(true);
-	leftIdle->SetFrameUpdateTime(0.5f);
+	leftIdle->SetFrameUpdateTime(_frameIdle);
 	_animationList.insert(make_pair(State::LeftIdle, leftIdle));
 
 	Animation* rightIdle = new Animation;
 	rightIdle->SetStartEndFrame(0, 8, 9, 8, false);
 	rightIdle->SetIsLoop(true);
-	rightIdle->SetFrameUpdateTime(0.5f);
+	rightIdle->SetFrameUpdateTime(_frameIdle);
 	_animationList.insert(make_pair(State::RightIdle, rightIdle));
 
 	Animation* upIdle = new Animation;
 	upIdle->SetStartEndFrame(0, 10, 9, 10, false);
 	upIdle->SetIsLoop(true);
-	upIdle->SetFrameUpdateTime(0.5f);
+	upIdle->SetFrameUpdateTime(_frameIdle);
 	_animationList.insert(make_pair(State::UpIdle, upIdle));
 
 	Animation* downIdle = new Animation;
 	downIdle->SetStartEndFrame(0, 11, 9, 11, false);
 	downIdle->SetIsLoop(true);
-	downIdle->SetFrameUpdateTime(0.5f);
+	downIdle->SetFrameUpdateTime(_frameIdle);
 	_animationList.insert(make_pair(State::DownIdle, downIdle));
 
 	Animation* leftRun = new Animation;
-	leftRun->SetStartEndFrame(0, 2, 7, 2, false);
+	leftRun->SetStartEndFrame(0, 3, 7, 3, false);
 	leftRun->SetIsLoop(true);
-	leftRun->SetFrameUpdateTime(0.5f);
+	leftRun->SetFrameUpdateTime(_frameRun);
 	_animationList.insert(make_pair(State::LeftRun, leftRun));
 
 	Animation* rightRun = new Animation;
 	rightRun->SetStartEndFrame(0, 2, 7, 2, false);
 	rightRun->SetIsLoop(true);
-	rightRun->SetFrameUpdateTime(0.5f);
+	rightRun->SetFrameUpdateTime(_frameRun);
 	_animationList.insert(make_pair(State::RightRun, rightRun));
 
 	Animation* upRun = new Animation;
 	upRun->SetStartEndFrame(0, 0, 7, 0, false);
 	upRun->SetIsLoop(true);
-	upRun->SetFrameUpdateTime(0.5f);
+	upRun->SetFrameUpdateTime(0.1f);
 	_animationList.insert(make_pair(State::UpRun, upRun));
 
 	Animation* downRun = new Animation;
 	downRun->SetStartEndFrame(0, 1, 7, 1, false);
 	downRun->SetIsLoop(true);
-	downRun->SetFrameUpdateTime(0.5f);
+	downRun->SetFrameUpdateTime(_frameRun);
 	_animationList.insert(make_pair(State::DownRun, downRun));
 
 	Animation* leftRoll = new Animation;
 	leftRoll->SetStartEndFrame(0, 5, 7, 5, false);
 	leftRoll->SetIsLoop(false);
-	leftRoll->SetFrameUpdateTime(0.5f);
+	leftRoll->SetFrameUpdateTime(_frameRun);	
+	leftRoll->SetCallbackFunc([this]() {this->EndAnimation(); });	
 	_animationList.insert(make_pair(State::LeftRoll, leftRoll));
 
 	Animation* rightRoll = new Animation;
 	rightRoll->SetStartEndFrame(0, 4, 7, 4, false);
 	rightRoll->SetIsLoop(false);
-	rightRoll->SetFrameUpdateTime(0.5f);
+	rightRoll->SetFrameUpdateTime(_frameRun);
+	rightRoll->SetCallbackFunc([this]() {this->EndAnimation(); });	//람다식 함수 호출
 	_animationList.insert(make_pair(State::RightRoll, rightRoll));
 
 	Animation* upRoll = new Animation;
 	upRoll->SetStartEndFrame(0, 6, 7, 6, false);
 	upRoll->SetIsLoop(false);
-	upRoll->SetFrameUpdateTime(0.5f);
+	upRoll->SetFrameUpdateTime(_frameRun);
+	upRoll->SetCallbackFunc([this]() {this->EndAnimation(); });		//프레임이 다 돌면 종료한다
 	_animationList.insert(make_pair(State::UpRoll, upRoll));
 
 	Animation* downRoll = new Animation;
 	downRoll->SetStartEndFrame(0, 7, 7, 7, false);
 	downRoll->SetIsLoop(false);
-	downRoll->SetFrameUpdateTime(0.5f);
+	downRoll->SetFrameUpdateTime(_frameRun);
+	downRoll->SetCallbackFunc([this]() {this->EndAnimation(); });	//이 방식은 public에 선언된 애만 가능해!
 	_animationList.insert(make_pair(State::DownRoll, downRoll));
+}
+
+
+void Player::EndAnimation()
+{
+	switch (_state)
+	{
+	case Player::State::LeftIdle:
+		break;
+	case Player::State::RightIdle:
+		break;
+	case Player::State::UpIdle:
+		break;
+	case Player::State::DownIdle:
+		break;
+	case Player::State::LeftRun:
+		break;
+	case Player::State::RightRun:
+		break;
+	case Player::State::UpRun:
+		break;
+	case Player::State::DownRun:
+		break;
+	case Player::State::LeftRoll:
+		this->ChangeState(State::LeftIdle);
+		break;
+	case Player::State::RightRoll:
+		break;
+	case Player::State::UpRoll:
+		break;
+	case Player::State::DownRoll:
+		break;
+	default:
+		break;
+	}
 }
 
 /********************************************************************************/
