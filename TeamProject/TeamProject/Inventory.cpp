@@ -104,9 +104,26 @@ void Inventory::Init()
 		//인벤토리 슬롯 new 선언
 		InventorySlot* equipSlot = new InventorySlot;
 
+		//장비 슬롯 렉트 세로로 3칸 생성
 		equipSlot->slotRect = Figure::RectMake(_mainRect.left + 600 + 57, _mainRect.top + 144 + (58 + 10) * i, 57, 57);
+
+		//장비 슬롯은 처음에 비었으므로 isEmpty는 true
+		equipSlot->isEmpty = true;
+
+		//생성한 장비 슬롯을 장비 슬롯 리스트에 push_back담기
+		_equipSlotList.push_back(equipSlot);
 	}
 
+	//포션 슬롯 렉트 생성
+	//포션 슬롯은 1칸
+	//인벤토리 슬롯 new선언
+	InventorySlot* potionSlot = new InventorySlot;
+	//포션 슬롯 렉트 1칸 생성
+	potionSlot->slotRect = Figure::RectMake(_mainRect.left + 667 + 57, _mainRect.top + 200 + 58, 57, 57);
+	//포션 슬롯은 처음에 비었으므로 isEmpty는 true
+	potionSlot->isEmpty = true;
+	//생성한 포션 슬롯을 포션 슬롯 리스트에 push_back담기
+	_potionSlotList.push_back(potionSlot);
 
 	//인벤토리 타겟 이미지 추가
 	this->_invenTargetImg = _ImageManager->AddImage("InventoryTarget", L"../Resources/UI/invenSlot.png", false);
@@ -161,18 +178,37 @@ void Inventory::Render()
 	//만일 인벤토리 타겟 이미지 값이 없지 않으면(=값이 있으면) 렌더하기
 	if (_invenTargetImg != nullptr) 
 	{
-		//캐릭터 인벤토리 상태, _isInvenSlot false
-		if (_isInvenSlot == false) 
+		//캐릭터 슬롯 인벤토리 상태, PlayerTarget
+		if (_targetState == InvenTargetState::PlayerTarget) 
 		{
-			_invenTargetImg->Render(_playerSlotList[_invenIndex]->slotRect.left - 7, _playerSlotList[_invenIndex]->slotRect.top - 1, Pivot::LEFT_TOP, false);
+			_invenTargetImg->Render(_playerSlotList[_invenIndex]->slotRect.left - 6, _playerSlotList[_invenIndex]->slotRect.top - 4, Pivot::LEFT_TOP, false);
 		}
 		
-		//가방 인벤토리 상태, _isInvenSlot true
-		if(_isInvenSlot == true)
+		//가방 슬롯 인벤토리 상태, BagTarget
+		if (_targetState == InvenTargetState::BagTarget)
 		{
-			_invenTargetImg->Render(_bagSlotList[_invenIndex]->slotRect.left - 7, _bagSlotList[_invenIndex]->slotRect.top - 1, Pivot::LEFT_TOP, false);
+			_invenTargetImg->Render(_bagSlotList[_invenIndex]->slotRect.left - 6, _bagSlotList[_invenIndex]->slotRect.top - 4, Pivot::LEFT_TOP, false);
+		}
+
+		//무기 슬롯 인벤토리 상태, WeaponTarget
+		if (_targetState == InvenTargetState::WeaponTarget) 
+		{
+			_invenTargetImg->Render(_weponSlotList[_invenIndex]->slotRect.left - 6, _weponSlotList[_invenIndex]->slotRect.top - 4, Pivot::LEFT_TOP, false);
+		}
+
+		//장비(방어구) 슬롯 인벤토리 상태, EquipTarget
+		if (_targetState == InvenTargetState::EquipTarget) 
+		{
+			_invenTargetImg->Render(_equipSlotList[_invenIndex]->slotRect.left - 6, _equipSlotList[_invenIndex]->slotRect.top - 4, Pivot::LEFT_TOP, false);
+		}
+
+		//포션 슬롯 인벤토리 상태
+		if (_targetState == InvenTargetState::PotionTarget) 
+		{
+			_invenTargetImg->Render(_potionSlotList[_invenIndex]->slotRect.left - 6, _potionSlotList[_invenIndex]->slotRect.top - 4, Pivot::LEFT_TOP, false);
 		}
 	}
+	//렉트 토글 F1
 	if (_isDebug)
 	{
 		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, false);
@@ -180,6 +216,7 @@ void Inventory::Render()
 	//플레이어 슬롯 사이즈만큼 
 	for (UINT i = 0; i < _playerSlotList.size(); ++i)
 	{
+		//렉트 토글 F1
 		if (_isDebug)
 			_DXRenderer->DrawRectangle(_playerSlotList[i]->slotRect, DefaultBrush::red, false);
 
@@ -196,22 +233,104 @@ void Inventory::Render()
 		}
 	}
 
+	//가방 슬롯 사이즈만큼
 	for (UINT i = 0; i < _bagSlotList.size(); ++i) 
 	{
+		//렉트 토글 F1
 		if (_isDebug)
 			_DXRenderer->DrawRectangle(_bagSlotList[i]->slotRect, DefaultBrush::blue, false);
 
+		//가방 슬롯 그리기
 		if (_bagSlotList[i]->data.image) 
 		{
+			//슬롯 오른쪽에서 왼쪽 빼기, 슬롯 밑에서 위 빼기 해서 슬롯 렉트 사이즈 구하기
 			Vector2 size = Vector2(_bagSlotList[i]->slotRect.right - _bagSlotList[i]->slotRect.left,
 				_bagSlotList[i]->slotRect.bottom - _bagSlotList[i]->slotRect.top);
 
+			//구한 사이즈를 data.image의 SetSize에 담아주기
 			_bagSlotList[i]->data.image->SetSize(size);
 
+			//담은 size크기에 맞춰 data.image 렌더해주기
 			_bagSlotList[i]->data.image->Render(_bagSlotList[i]->slotRect.left, _bagSlotList[i]->slotRect.top, Pivot::LEFT_TOP, false);
 		}
 	}
+
+	//무기 슬롯 사이즈만큼
+	for (UINT i = 0; i < _weponSlotList.size(); ++i) 
+	{
+		//렉트 토글 F1
+		if (_isDebug) 
+		{
+			_DXRenderer->DrawRectangle(_weponSlotList[i]->slotRect, DefaultBrush::green, false);
+		}
+
+		//무기 슬롯 그리기
+		if (_weponSlotList[i]->data.image) 
+		{
+			//슬롯 렉트 사이즈 구하기
+			Vector2 size = Vector2(_weponSlotList[i]->slotRect.right - _weponSlotList[i]->slotRect.left,
+				_weponSlotList[i]->slotRect.bottom - _weponSlotList[i]->slotRect.top);
+
+			//구한 사이즈를 data.image의 SetSize에 담아주기
+			_weponSlotList[i]->data.image->SetSize(size);
+
+			//담은 size 크기에 맞춰 data.image 렌더해주기
+			_weponSlotList[i]->data.image->Render(_weponSlotList[i]->slotRect.left, _weponSlotList[i]->slotRect.top, Pivot::LEFT_TOP, false);
+		}
+	}
+
+	//장비 슬롯 사이즈만큼
+	for (UINT i = 0; i < _equipSlotList.size(); ++i) 
+	{
+		//렉트 토글 F1
+		if (_isDebug) 
+		{
+			_DXRenderer->DrawRectangle(_equipSlotList[i]->slotRect, DefaultBrush::yello, false);
+		}
+
+		//장비 슬롯 그리기
+		if (_equipSlotList[i]->data.image) 
+		{
+			//슬롯 렉트 사이즈 구하기
+			Vector2 size = Vector2(_equipSlotList[i]->slotRect.right - _equipSlotList[i]->slotRect.left,
+				_equipSlotList[i]->slotRect.bottom - _equipSlotList[i]->slotRect.top);
+
+			//구한 사이즈를 data.image의 SetSize에 담기
+			_equipSlotList[i]->data.image->SetSize(size);
+
+			//담은 size 크기에 맞춰 data.image 렌더해주기
+			_equipSlotList[i]->data.image->Render(_equipSlotList[i]->slotRect.left, _equipSlotList[i]->slotRect.top, Pivot::LEFT_TOP, false);
+		}
+	}
+
+	//포션 슬롯 사이즈만큼
+	for (UINT i = 0; i < _potionSlotList.size(); ++i)
+	{
+		//렉트 토글 F1
+		if (_isDebug)
+		{
+			_DXRenderer->DrawRectangle(_potionSlotList[i]->slotRect, DefaultBrush::gray, false);
+		}
+
+		//장비 슬롯 그리기
+		if (_potionSlotList[i]->data.image)
+		{
+			//슬롯 렉트 사이즈 구하기
+			Vector2 size = Vector2(_potionSlotList[i]->slotRect.right - _potionSlotList[i]->slotRect.left,
+				_potionSlotList[i]->slotRect.bottom - _potionSlotList[i]->slotRect.top);
+
+			//구한 사이즈를 data.image의 SetSize에 담기
+			_potionSlotList[i]->data.image->SetSize(size);
+
+			//담은 size 크기에 맞춰 data.image 렌더해주기
+			_potionSlotList[i]->data.image->Render(_potionSlotList[i]->slotRect.left, _potionSlotList[i]->slotRect.top, Pivot::LEFT_TOP, false);
+		}
+	}
+
+
 }
+
+
 
 //습득한 아이템 정보 추가 
 bool Inventory::AddItem(string name)
@@ -280,7 +399,25 @@ void Inventory::InvenState()
 			}
 		}
 
+		//무기 인벤토리 슬롯 위치 잡기
+		for (UINT i = 0; i < 2; ++i)
+		{
+			_weponSlotList[i]->slotRect = Figure::RectMake(_mainRect.left + 596 + (73 + 95) * i, _mainRect.top + 57, 57, 57);
+		}
+
+		//장비(방어구) 인벤토리 슬롯 위치 잡기
+		for (UINT i = 0; i < 3; ++i) 
+		{
+			_equipSlotList[i]->slotRect = Figure::RectMake(_mainRect.left + 460 + 57, _mainRect.top + 144 + (58 + 10) * i, 57, 57);
+		}
+
+		//포션 인벤토리 슬롯 위치 잡기
+		for (UINT i = 0; i < 1; ++i)
+		{
+			_potionSlotList[i]->slotRect = Figure::RectMake(_mainRect.left + 460 + 57, _mainRect.top + 299 + 58, 57, 57);
+		}
 		break;
+
 		//인벤토리 닫기
 	case Inventory::InventoryState::CloseSlide:
 		//인벤토리 포지션 y 아래로 800.0f 만큼 이동하기
@@ -309,7 +446,7 @@ void Inventory::InvenState()
 		{
 			_playerSlotList[i]->slotRect = Figure::RectMake(_mainRect.left + 95 + (57 + 10) * i, _mainRect.top + 58, 57, 57);
 		}
-
+		
 		//가방 인벤토리 슬롯 위치 잡기
 		for (UINT i = 0, index = 0; i < 3; ++i)
 		{
@@ -319,6 +456,25 @@ void Inventory::InvenState()
 				index++;
 			}
 		}
+
+		//무기 인벤토리 슬롯 위치 잡기
+		for (UINT i = 0; i < 2; ++i)
+		{
+			_weponSlotList[i]->slotRect = Figure::RectMake(_mainRect.left + 596 + (73 + 95) * i, _mainRect.top + 57, 57, 57);
+		}
+
+		//장비(방어구) 인벤토리 슬롯 위치 잡기
+		for (UINT i = 0; i < 3; ++i)
+		{
+			_equipSlotList[i]->slotRect = Figure::RectMake(_mainRect.left + 460 + 57, _mainRect.top + 144 + (58 + 10) * i, 57, 57);
+		}
+
+		//포션 인벤토리 슬롯 위치 잡기
+		for (UINT i = 0; i < 1; ++i)
+		{
+			_potionSlotList[i]->slotRect = Figure::RectMake(_mainRect.left + 460 + 57, _mainRect.top + 299 + 58, 57, 57);
+		}
+
 		break;
 		//인벤토리 상태 유지
 	case Inventory::InventoryState::Idle:
@@ -340,82 +496,31 @@ void Inventory::InvenTarget()
 	switch (_targetState)
 	{
 	case Inventory::InvenTargetState::PlayerTarget:
-		//인벤토리 타겟 왼쪽으로 이동
-		if (_Input->GetKeyDown('A'))
-		{
-			--_invenIndex;
 
-			//만일 인덱스가 0보다 낮아지면 우측으로 이동시키기. ※ 추후 캐릭터 장비 인벤이 추가되면 그 칸으로 변경 예정
-			if (_invenIndex < 0)
-			{	//0보다 낮아지면 무기 칸으로 변경
-				_targetState = InvenTargetState::WeaponTarget;
-			}
-			// 나중에 장비쪽 칸으로 이동하게 하기 --- 장비쪽에서는 다시 캐릭터 인덱스로~
-			else
-			{
+		//키 이동 함수
+		KeyMove();
 
-			}
-		}
-
-		//인벤토리 타겟 오른쪽으로 이동
-		if (_Input->GetKeyDown('D'))
-		{
-			++_invenIndex;
-
-			//만일 인덱스가 4보다 커지면 왼쪽으로 이동시키기. ※ 추후 캐릭터 장비 인벤이 추가되면 그 칸으로 변경 예정
-			if (_invenIndex > 4)
-			{
-				_invenIndex = 0;
-			}
-			// 나중에 장비쪽 칸으로 이동하게 하기 --- 장비쪽에서는 다시 캐릭터 인덱스로~
-			else
-			{
-				//
-			}
-		}
-
-		//인벤토리 타겟 위로 이동
-		if (_Input->GetKeyDown('W') && _invenIndex == 0)
-		{
-			_isInvenSlot = false;
-		}
-		else if (_isInvenSlot == true && _Input->GetKeyDown('W'))
-		{
-			_invenIndex -= 5;
-		}
-
-		//인벤토리 타겟 아래로 이동
-		if (_Input->GetKeyDown('S') && _invenIndex >= 0)
-		{
-			_isInvenSlot = true;
-		}
-		else if (_isInvenSlot == true && _Input->GetKeyDown('S'))
-		{
-			_invenIndex += 5;
-		}
-
-
-		if (_isInvenSlot == false)
-		{
-
-
-			//else if (_Input->GetKeyDown('S')) 
-			//{
-			//	_invenIndex += 5;
-			//}
-		}
 		break;
 	case Inventory::InvenTargetState::BagTarget:
+		//키 이동 함수
+		KeyMove();
+
 
 		break;
 	case Inventory::InvenTargetState::WeaponTarget:
+		//키 이동 함수
+		KeyMove();
 
 		break;
 	case Inventory::InvenTargetState::EquipTarget:
+		//키 이동 함수
+		KeyMove();
 
 		break;
 
 	case Inventory::InvenTargetState::PotionTarget:
+		//키 이동 함수
+		KeyMove();
 
 		break;
 	default:
@@ -426,4 +531,503 @@ void Inventory::InvenTarget()
 void Inventory::Enable()
 {
 	this->_state = InventoryState::OpenSlide;
+}
+
+void Inventory::KeyMove()
+{
+	//인벤토리 타겟 왼쪽으로 이동
+	if (_Input->GetKeyDown('A'))
+	{
+		--_invenIndex;
+
+		/****************************
+				플레이어 타겟
+		*****************************/
+		//만일 인벤 타겟이 플레이어인 경우
+		if (_targetState == InvenTargetState::PlayerTarget) 
+		{
+			//만일 인덱스가 -1이면 좌측으로 이동시키기.  ※ 좌측으로 이동 시 칸이 없으면, 반대편 칸으로 이동
+			if (_invenIndex == -1) 
+			{
+				//0보다 낮아지면 무기 칸으로 변경
+				_targetState = InvenTargetState::WeaponTarget;
+				_invenIndex = 1;
+			}
+		}
+		/****************************
+				  가방 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::BagTarget)
+		{
+			//만일 인덱스가 -1이면 좌측으로 이동시키기. ※ 좌측으로 이동 시 칸이 없으면, 반대편 칸으로 이동
+			if (_invenIndex == -1)
+			{
+				//0보다 낮아지면 장비 칸으로 변경
+				_targetState = InvenTargetState::EquipTarget;
+				_invenIndex = 0;
+			}
+
+			//만일 인덱스가 4이면 좌측으로 이동시키기. ※ 추후 캐릭터 장비 인벤이 추가되면 그 칸으로 변경 예정
+			else if (_invenIndex == 4) 
+			{
+				_targetState = InvenTargetState::EquipTarget;
+				_invenIndex = 1;
+			}
+			//만일 인덱스가 9이면 좌측으로 이동시키기. ※ 추후 캐릭터 장비 인벤이 추가되면 그 칸으로 변경 예정
+			else if (_invenIndex == 9) 
+			{
+				_targetState = InvenTargetState::EquipTarget;
+				_invenIndex = 2;
+			}
+		}
+		/****************************
+				  무기 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::WeaponTarget) 
+		{
+			//만일 인덱스가 -1이면 좌측 캐릭터 칸으로 이동시키기.
+			if (_invenIndex == -1) 
+			{
+				//0보다 낮아지면 캐릭터 칸으로 변경
+				_targetState = InvenTargetState::PlayerTarget;
+				_invenIndex = 4;
+			}
+		}
+
+		/****************************
+			   장비(방어구) 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::EquipTarget)
+		{
+			//만일 인덱스가 -1이면 가방 칸으로 이동시키기.
+			if (_invenIndex == -1)
+			{
+				//0보다 낮아지면 가방 칸으로 변경
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 4;
+			}
+
+			//만일 인덱스가 0이면 가방 칸으로 이동시키기.
+			else if (_invenIndex == 0)
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 9;
+			}
+
+			//만일 인덱스가 1이면 가방 칸으로 이동시키기.
+			else if (_invenIndex == 1)
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 14;
+			}
+		}
+
+		/****************************
+			      포션 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::PotionTarget) 
+		{
+			//만일 인덱스가 -1이면 가방 칸으로 이동시키기.
+			if (_invenIndex == -1)
+			{
+				//0보다 낮아지면 가방 칸으로 변경
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 14;
+			}
+		}
+	}
+
+	//인벤토리 타겟 오른쪽으로 이동
+	if (_Input->GetKeyDown('D'))
+	{
+		++_invenIndex;
+
+		/****************************
+				플레이어 타겟
+		*****************************/
+		//만일 인벤 타겟이 플레이어인 경우
+		if (_targetState == InvenTargetState::PlayerTarget)
+		{
+			//만일 인덱스가 5 이면 무기 타겟으로 이동
+			if (_invenIndex == 5)
+			{
+				_targetState = InvenTargetState::WeaponTarget;
+				_invenIndex = 0;
+			}
+		}
+		/****************************
+				  가방 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::BagTarget)
+		{
+			//만일 인덱스가 5인 경우, 타겟 상태는 장비 타겟으로 넘어가기
+			if (_invenIndex == 5)
+			{
+				_targetState = InvenTargetState::EquipTarget;
+				_invenIndex = 0;
+			}
+
+			//만일 인덱스가 10인 경우, 타겟 상태는 장비 타겟으로 넘어가기
+			else if (_invenIndex == 10)
+			{
+				_targetState = InvenTargetState::EquipTarget;
+				_invenIndex = 1;
+				cout << "in" << endl;
+			}
+
+			//만일 인덱스가 15인 경우, 타겟 상태는 장비 타겟으로 넘어가기
+			else if (_invenIndex == 15)
+			{
+				_targetState = InvenTargetState::EquipTarget;
+				_invenIndex = 2;
+			}
+		}
+		/****************************
+				  무기 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::WeaponTarget)
+		{
+			//만일 인덱스가 2인 경우, 캐릭터 칸으로 이동시키기.
+			if (_invenIndex == 2) 
+			{
+				//1보다 커지면 캐릭터 칸으로 변경
+				_targetState = InvenTargetState::PlayerTarget;
+				_invenIndex = 0;
+			}
+		}
+
+		/****************************
+			   장비(방어구) 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::EquipTarget)
+		{
+			//만일 인덱스가 1인 경우 가방 칸으로 이동하기 
+			if (_invenIndex == 1)
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 0;
+			}
+
+			//만일 인덱스가 2인 경우 가방 칸으로 이동하기 
+			else if (_invenIndex == 2)
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 5;
+			}
+
+			//만일 인덱스가 2인 경우 가방 칸으로 이동하기 
+			else if (_invenIndex == 3)
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 10;
+			}
+		}
+
+		/****************************
+			      포션 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::PotionTarget)
+		{
+			//만일 인덱스가 1인 경우, 가방 칸으로 이동시키기.
+			if (_invenIndex == 1)
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 10;
+			}
+		}
+	}
+
+	//인벤토리 타겟 위로 이동
+	if (_Input->GetKeyDown('W'))
+	{
+		_invenIndex -= 5;
+
+		/****************************
+				플레이어 타겟
+		*****************************/
+		//만일 인벤 타겟이 플레이어인 경우
+		if (_targetState == InvenTargetState::PlayerTarget)
+		{
+			//만일 인덱스가 -5이면 위로 이동시키기. ※ 최대 높이에서 위로 누르면 반대편 아래 칸으로 이동
+			if (_invenIndex == -5)	//-5
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 10;
+			}
+
+			//만일 인덱스가 -4이면 위로 이동시키기. ※ 최대 높이에서 위로 누르면 반대편 아래 칸으로 이동
+			if (_invenIndex == -4)	//
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 11;
+			}
+
+			//만일 인덱스가 -3이면 위로 이동시키기. ※ 최대 높이에서 위로 누르면 반대편 아래 칸으로 이동
+			if (_invenIndex == -3)	//-3
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 12;
+			}
+
+			//만일 인덱스가 -2이면 위로 이동시키기. ※ 최대 높이에서 위로 누르면 반대편 아래 칸으로 이동
+			if (_invenIndex == -2)		//-2
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 13;
+			}
+
+			//만일 인덱스가 -1이면 위로 이동시키기. ※ 최대 높이에서 위로 누르면 반대편 아래 칸으로 이동
+			if (_invenIndex == -1)		//-1
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 14;
+			}
+		}
+		/****************************
+				  가방 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::BagTarget)
+		{
+			//만일 인덱스가 -5이면 위로 이동시키기
+			if (_invenIndex == -5)
+			{
+				_targetState = InvenTargetState::PlayerTarget;
+				_invenIndex = 0;
+			}
+
+			//만일 인덱스가 -4이면 위로 이동시키기
+			if (_invenIndex == -4)
+			{
+				_targetState = InvenTargetState::PlayerTarget;
+				_invenIndex = 1;
+			}
+
+			//만일 인덱스가 -3이면 위로 이동시키기
+			if (_invenIndex == -3)
+			{
+				_targetState = InvenTargetState::PlayerTarget;
+				_invenIndex = 2;
+			}
+
+			//만일 인덱스가 -2이면 위로 이동시키기
+			if (_invenIndex == -2)
+			{
+				_targetState = InvenTargetState::PlayerTarget;
+				_invenIndex = 3;
+			}
+
+			//만일 인덱스가 -1이면 위로 이동시키기
+			if (_invenIndex == -1)
+			{
+				_targetState = InvenTargetState::PlayerTarget;
+				_invenIndex = 4;
+			}
+		}
+		/****************************
+				  무기 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::WeaponTarget)
+		{
+			//만일 인덱스가 -5이면 위로 이동시키기. ※ 최대 높이에서 위로 누르면 반대편 아래 칸으로 이동
+			if (_invenIndex == -5)
+			{
+				_targetState = InvenTargetState::PotionTarget;
+				_invenIndex = 0;
+			}
+
+			//만일 인덱스가 -4이면 위로 이동시키기. ※ 최대 높이에서 위로 누르면 반대편 아래 칸으로 이동
+			if (_invenIndex == -4)
+			{
+				_targetState = InvenTargetState::PotionTarget;
+				_invenIndex = 0;
+			}
+		}
+
+		/****************************
+			   장비(방어구) 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::EquipTarget)
+		{
+			//만일 인덱스가 -5이면 위로 이동시키기
+			if (_invenIndex == -5)
+			{
+				_targetState = InvenTargetState::WeaponTarget;
+				_invenIndex = 0;
+			}
+
+			//만일 인덱스가 -4이면 위로 이동시키기
+			if (_invenIndex == -4)
+			{
+				_targetState = InvenTargetState::EquipTarget;
+				_invenIndex = 0;
+			}
+
+			//만일 인덱스가 -3이면 위로 이동시키기
+			if (_invenIndex == -3)
+			{
+				_targetState = InvenTargetState::EquipTarget;
+				_invenIndex = 1;
+			}
+		}
+
+		/****************************
+				  포션 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::PotionTarget)
+		{
+			//만일 인덱스가 -5이면 위로 이동시키기
+			if (_invenIndex == -5)
+			{
+				_targetState = InvenTargetState::EquipTarget;
+				_invenIndex = 2;
+			}
+		}
+	}
+
+	//인벤토리 타겟 아래로 이동
+	if (_Input->GetKeyDown('S'))
+	{
+		_invenIndex += 5;
+
+		/****************************
+				플레이어 타겟
+		*****************************/
+		//만일 인벤 타겟이 플레이어인 경우
+		if (_targetState == InvenTargetState::PlayerTarget)
+		{
+			//만일 인덱스가 5이면 아래로 이동시키기.
+			if (_invenIndex == 5)
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 0;
+			}
+
+			//만일 인덱스가 6이면 아래로 이동시키기.
+			if (_invenIndex == 6)
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 1;
+			}
+
+			//만일 인덱스가 7이면 아래로 이동시키기.
+			if (_invenIndex == 7)
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 2;
+			}
+
+			//만일 인덱스가 8이면 아래로 이동시키기.
+			if (_invenIndex == 8)
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 3;
+			}
+
+			//만일 인덱스가 9이면 아래로 이동시키기.
+			if (_invenIndex == 9)
+			{
+				_targetState = InvenTargetState::BagTarget;
+				_invenIndex = 4;
+			}
+		}
+		/****************************
+				  가방 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::BagTarget)
+		{
+			//만일 인덱스가 15이면 아래로 이동시키기. ※ 최저 저점에서 아래 누르면 반대편 위 칸으로 이동
+			if (_invenIndex == 15)
+			{
+				_targetState = InvenTargetState::PlayerTarget;
+				_invenIndex = 0;
+			}
+
+			//만일 인덱스가 16이면 아래로 이동시키기. ※ 최저 저점에서 아래 누르면 반대편 위 칸으로 이동
+			if (_invenIndex == 16)
+			{
+				_targetState = InvenTargetState::PlayerTarget;
+				_invenIndex = 1;
+			}
+
+			//만일 인덱스가 17이면 아래로 이동시키기. ※ 최저 저점에서 아래 누르면 반대편 위 칸으로 이동
+			if (_invenIndex == 17)
+			{
+				_targetState = InvenTargetState::PlayerTarget;
+				_invenIndex = 2;
+			}
+
+			//만일 인덱스가 18이면 아래로 이동시키기. ※ 최저 저점에서 아래 누르면 반대편 위 칸으로 이동
+			if (_invenIndex == 18)
+			{
+				_targetState = InvenTargetState::PlayerTarget;
+				_invenIndex = 3;
+			}
+
+			//만일 인덱스가 19이면 아래로 이동시키기. ※ 최저 저점에서 아래 누르면 반대편 위 칸으로 이동
+			if (_invenIndex == 19)
+			{
+				_targetState = InvenTargetState::PlayerTarget;
+				_invenIndex = 4;
+			}
+		}
+		/****************************
+				  무기 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::WeaponTarget)
+		{
+			//만일 인덱스가 5이면 아래로 이동시키기.
+			if (_invenIndex == 5)
+			{
+				_targetState = InvenTargetState::EquipTarget;
+				_invenIndex = 0;
+			}
+
+			//만일 인덱스가 6이면 아래로 이동시키기.
+			if (_invenIndex == 6)
+			{
+				_targetState = InvenTargetState::EquipTarget;
+				_invenIndex = 0;
+			}
+		}
+
+		/****************************
+			   장비(방어구) 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::EquipTarget)
+		{
+			//만일 인덱스가 5이면 아래로 이동시키기.
+			if (_invenIndex == 5)
+			{
+				_targetState = InvenTargetState::EquipTarget;
+				_invenIndex = 1;
+			}
+
+			//만일 인덱스가 6이면 아래로 이동시키기.
+			if (_invenIndex == 6)
+			{
+				_targetState = InvenTargetState::EquipTarget;
+				_invenIndex = 2;
+			}
+
+			//만일 인덱스가 7이면 아래로 이동시키기.
+			if (_invenIndex == 7)
+			{
+				_targetState = InvenTargetState::PotionTarget;
+				_invenIndex = 0;
+			}
+		}
+
+		/****************************
+				  포션 타겟
+		*****************************/
+		else if (_targetState == InvenTargetState::PotionTarget)
+		{
+			//만일 인덱스가 5이면 아래로 이동시키기.  ※ 최저 저점에서 아래 누르면 반대편 위 칸으로 이동
+			if (_invenIndex == 5)
+			{
+				_targetState = InvenTargetState::WeaponTarget;
+				_invenIndex = 0;
+			}
+		}
+	}
 }

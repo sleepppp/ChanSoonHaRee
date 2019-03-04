@@ -37,7 +37,7 @@ void TestInventorySlot::UpdatePosition(Vector2 parentPos)
  ***********************************************************/
 void TestInventorySlot::Render()
 {
-	//아이팀이 있다면
+	//아이템이 있다면 
 	if (_itemCount > 0)
 	{
 		//이미지 그려라
