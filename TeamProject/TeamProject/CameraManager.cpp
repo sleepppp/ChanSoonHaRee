@@ -33,9 +33,9 @@ void CameraManager::Update()
 	//TODO 타겟 카메라하고 카메라 보간 추가
 	switch (state)
 	{
-	case CameraManager::FollowTarget:
-		break;
+	case CameraManager::None:
 	case CameraManager::MoveToTarget:
+		this->UpdateTargetCameraMode();
 		break;
 	case CameraManager::FreeCamera:
 		this->UpdateFreeCameraMode();
@@ -179,6 +179,17 @@ void CameraManager::UpdateFreeCameraMode()
 			}
 		}
 		saveMouse = currentMouse;
+	}
+}
+/***************************************************************************
+## UpdateTargetCameraMode ##
+
+***************************************************************************/
+void CameraManager::UpdateTargetCameraMode()
+{
+	if (pTarget)
+	{
+
 	}
 }
 

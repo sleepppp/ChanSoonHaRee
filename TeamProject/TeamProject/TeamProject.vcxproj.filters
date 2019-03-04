@@ -25,9 +25,6 @@
     <Filter Include="Utility\String">
       <UniqueIdentifier>{5b979675-d9f4-4db1-bf17-20f13e552321}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainHeader">
-      <UniqueIdentifier>{ceba5b2f-d487-4c5b-ae04-c120837460bb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="PublicForder">
       <UniqueIdentifier>{52365358-4a56-4dc5-8c6b-dccd74e6f7b4}</UniqueIdentifier>
     </Filter>
@@ -106,9 +103,6 @@
     <Filter Include="MainEntry\Scene\TownScene">
       <UniqueIdentifier>{bf152be9-e145-4db3-86f5-1a81e18fe6aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainEntry\Scene\TownScene\TownObject">
-      <UniqueIdentifier>{6ccbaaad-78f2-475b-a3f2-44776af172fa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="PublicForder\Soon\Module\Animation">
       <UniqueIdentifier>{bb3ce8fa-0c9b-4255-8e62-ea77c839c462}</UniqueIdentifier>
     </Filter>
@@ -126,6 +120,18 @@
     </Filter>
     <Filter Include="PublicForder\Soon\Module\Scene">
       <UniqueIdentifier>{1e293258-f702-4ce8-b888-b4aae2f90c95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Soon\Tutorial">
+      <UniqueIdentifier>{0ec844e8-5418-4d4f-9af2-5f626ed15d6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainEntry\Scene\TownScene\Object">
+      <UniqueIdentifier>{6ccbaaad-78f2-475b-a3f2-44776af172fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainEntry\Scene\TownScene\FrameObject">
+      <UniqueIdentifier>{d571bb10-8728-4998-a26b-63a4f73f76ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainEntry\MainHeader">
+      <UniqueIdentifier>{ceba5b2f-d487-4c5b-ae04-c120837460bb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -181,19 +187,19 @@
       <Filter>System\Resource</Filter>
     </ClInclude>
     <ClInclude Include="DefineHeader.h">
-      <Filter>MainHeader</Filter>
+      <Filter>MainEntry\MainHeader</Filter>
     </ClInclude>
     <ClInclude Include="EnumStructHeader.h">
-      <Filter>MainHeader</Filter>
+      <Filter>MainEntry\MainHeader</Filter>
     </ClInclude>
     <ClInclude Include="LibraryHeader.h">
-      <Filter>MainHeader</Filter>
+      <Filter>MainEntry\MainHeader</Filter>
     </ClInclude>
     <ClInclude Include="ModuleHeader.h">
-      <Filter>MainHeader</Filter>
+      <Filter>MainEntry\MainHeader</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>MainHeader</Filter>
+      <Filter>MainEntry\MainHeader</Filter>
     </ClInclude>
     <ClInclude Include="TextFile.h">
       <Filter>Utility\File</Filter>
@@ -250,10 +256,7 @@
       <Filter>MainEntry\Scene\TownScene</Filter>
     </ClInclude>
     <ClInclude Include="StaticObject.h">
-      <Filter>MainEntry\Scene\TownScene\TownObject</Filter>
-    </ClInclude>
-    <ClInclude Include="TestPlayer.h">
-      <Filter>PublicForder\Soon</Filter>
+      <Filter>MainEntry\Scene\TownScene\Object</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>PublicForder\Soon\Module\Animation</Filter>
@@ -301,13 +304,25 @@
       <Filter>PublicForder\Chan</Filter>
     </ClInclude>
     <ClInclude Include="TestInventory.h">
-      <Filter>PublicForder\Soon</Filter>
+      <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClInclude>
     <ClInclude Include="TestInventorySlot.h">
-      <Filter>PublicForder\Soon</Filter>
+      <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClInclude>
     <ClInclude Include="TestItem.h">
-      <Filter>PublicForder\Soon</Filter>
+      <Filter>PublicForder\Soon\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="TestPlayer.h">
+      <Filter>PublicForder\Soon\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugCollider.h">
+      <Filter>MainEntry\Scene\TownScene</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameObject.h">
+      <Filter>MainEntry\Scene\TownScene\FrameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>MainEntry\Scene\TownScene\FrameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -360,13 +375,13 @@
       <Filter>System\Resource</Filter>
     </ClCompile>
     <ClCompile Include="TeamProject.cpp">
-      <Filter>MainHeader</Filter>
+      <Filter>MainEntry\MainHeader</Filter>
     </ClCompile>
     <ClCompile Include="TextFile.cpp">
       <Filter>Utility\File</Filter>
     </ClCompile>
     <ClCompile Include="imgui_demo.cpp">
-      <Filter>MainHeader</Filter>
+      <Filter>MainEntry\MainHeader</Filter>
     </ClCompile>
     <ClCompile Include="MainScene + ReeInit.cpp">
       <Filter>PublicForder\Ree</Filter>
@@ -429,10 +444,7 @@
       <Filter>MainEntry\Scene\TownScene</Filter>
     </ClCompile>
     <ClCompile Include="StaticObject.cpp">
-      <Filter>MainEntry\Scene\TownScene\TownObject</Filter>
-    </ClCompile>
-    <ClCompile Include="TestPlayer.cpp">
-      <Filter>PublicForder\Soon</Filter>
+      <Filter>MainEntry\Scene\TownScene\Object</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>PublicForder\Soon\Module\Animation</Filter>
@@ -486,13 +498,25 @@
       <Filter>PublicForder\Chan</Filter>
     </ClCompile>
     <ClCompile Include="TestInventory.cpp">
-      <Filter>PublicForder\Soon</Filter>
+      <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClCompile>
     <ClCompile Include="TestInventorySlot.cpp">
-      <Filter>PublicForder\Soon</Filter>
+      <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClCompile>
     <ClCompile Include="TestItem.cpp">
-      <Filter>PublicForder\Soon</Filter>
+      <Filter>PublicForder\Soon\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="TestPlayer.cpp">
+      <Filter>PublicForder\Soon\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugCollider.cpp">
+      <Filter>MainEntry\Scene\TownScene</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameObject.cpp">
+      <Filter>MainEntry\Scene\TownScene\FrameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>MainEntry\Scene\TownScene\FrameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

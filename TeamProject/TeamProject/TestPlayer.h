@@ -39,6 +39,7 @@ public:
 	void Update()override;
 	void Render()override;
 	
+	virtual RECT GetCollisionRect()const override {return  _collisionRect; }
 private:
 	void Move(Vector2 direction);
 	void ChangeAnimation(State state);

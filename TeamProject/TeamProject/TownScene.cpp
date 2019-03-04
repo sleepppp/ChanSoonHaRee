@@ -3,6 +3,10 @@
 
 #include "StaticObject.h"
 #include "TestPlayer.h"
+#include "DebugCollider.h"
+#include "FrameObject.h"
+#include "Tree.h"
+
 TownScene::TownScene()
 {
 }
@@ -24,17 +28,60 @@ void TownScene::Init()
 	_ImageManager->AddImage("build_Bottom2", PathResources(L"Object/build_Bottom2.png"));
 	_ImageManager->AddImage("build_Forge", PathResources(L"object/build_Forge.png"));
 	_ImageManager->AddImage("build_Bottom3", PathResources(L"Object/build_Bottom3.png"));
+	_ImageManager->AddFrameImage("tree", PathResources(L"Object/tree.png"),4,1);
 
-	_ObjectManager->AddObject(ObjectType::Object, new StaticObject("build_Retaile", Vector2(20, 290)));
-	_ObjectManager->AddObject(ObjectType::Object, new StaticObject("build_Enchant", Vector2(50, 1298)));
-	_ObjectManager->AddObject(ObjectType::Object, new StaticObject("build_fountain", Vector2(413, 842)));
-	_ObjectManager->AddObject(ObjectType::Object, new StaticObject("build_Top1", Vector2(1092, 236)));
-	_ObjectManager->AddObject(ObjectType::Object, new StaticObject("build_Shop", Vector2(1488, 194)));
-	_ObjectManager->AddObject(ObjectType::Object, new StaticObject("build_Board", Vector2(1574, 1078)));
-	_ObjectManager->AddObject(ObjectType::Object, new StaticObject("build_Bottom1", Vector2(762, 1652)));
-	_ObjectManager->AddObject(ObjectType::Object, new StaticObject("build_Bottom2", Vector2(1725, 1545)));
-	_ObjectManager->AddObject(ObjectType::Object, new StaticObject("build_Forge", Vector2(2298, 786)));
-	_ObjectManager->AddObject(ObjectType::Object, new StaticObject("build_Bottom3", Vector2(2369, 1405)));
+	StaticObject* tempObject = nullptr;
+	tempObject = new StaticObject("build_Retaile", Vector2(20, 290));
+	tempObject->SetCollisionRect({314,312,650,676});
+	_ObjectManager->AddObject(ObjectType::Object, tempObject);
+
+	tempObject = new StaticObject("build_Enchant", Vector2(50, 1298));
+	tempObject->SetCollisionRect({ 85,1580,641,2050});
+	_ObjectManager->AddObject(ObjectType::Object, tempObject);
+
+	tempObject = new StaticObject("build_fountain", Vector2(413, 842));
+	tempObject->SetCollisionRect({410,872,521,965});
+	_ObjectManager->AddObject(ObjectType::Object, tempObject);
+
+	tempObject = new StaticObject("build_Top1", Vector2(1092, 236));
+	tempObject->SetCollisionRect({ 1100,306,1417,622 });
+	_ObjectManager->AddObject(ObjectType::Object, tempObject);
+
+	tempObject = new StaticObject("build_Shop", Vector2(1620, 194));
+	tempObject->SetCollisionRect({1619,303,2148,626});
+	_ObjectManager->AddObject(ObjectType::Object, tempObject);
+
+	tempObject = new StaticObject("build_Board", Vector2(1574, 1078));
+	tempObject->SetCollisionRect({1599,1100,1759,1214});
+	_ObjectManager->AddObject(ObjectType::Object, tempObject);
+
+	tempObject = new StaticObject("build_Bottom1", Vector2(762, 1652));
+	tempObject->SetCollisionRect({909,1678,1229,1981});
+	_ObjectManager->AddObject(ObjectType::Object, tempObject);
+
+	tempObject = new StaticObject("build_Bottom2", Vector2(1725, 1545));
+	tempObject->SetCollisionRect({1737,1619,2057,1927});
+	_ObjectManager->AddObject(ObjectType::Object, tempObject);
+
+	tempObject = new StaticObject("build_Forge", Vector2(2298, 786));
+	tempObject->SetCollisionRect({2328,876,2934,1270});
+	_ObjectManager->AddObject(ObjectType::Object, tempObject);
+
+	tempObject = new StaticObject("build_Bottom3", Vector2(2369, 1405));
+	_ObjectManager->AddObject(ObjectType::Object, tempObject);
+
+	Tree* tempFrameObject = nullptr;
+
+	tempFrameObject = new Tree(Vector2(912,306));
+	_ObjectManager->AddObject(ObjectType::Object, tempFrameObject);
+
+	tempFrameObject = new Tree(Vector2(912, 606));
+	_ObjectManager->AddObject(ObjectType::Object, tempFrameObject);
+
+	tempFrameObject = new Tree(Vector2(442, 306));
+	_ObjectManager->AddObject(ObjectType::Object, tempFrameObject);
+
+	_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
 
 	_ObjectManager->AddObject(ObjectType::Object, new TestPlayer);
 

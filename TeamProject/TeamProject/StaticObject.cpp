@@ -7,6 +7,7 @@ StaticObject::StaticObject(string imagekey, Vector2 pos,float angle)
 	_image = _ImageManager->FindImage(imagekey);
 	_size = _image->GetSize();
 	this->UpdateMainRect();
+	_collisionRect = _mainRect;
 }
 
 StaticObject::~StaticObject()
@@ -24,4 +25,10 @@ void StaticObject::Render()
 		_image->SetAngle(_angle);
 	}
 	_image->Render((int)_position.x, (int)_position.y, Pivot::LEFT_TOP, true);
+
+	if (_isDebug)
+	{
+		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, true);
+		_DXRenderer->DrawRectangle(_collisionRect, DefaultBrush::red, true);
+	}
 }
