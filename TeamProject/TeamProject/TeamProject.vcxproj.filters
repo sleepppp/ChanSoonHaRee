@@ -297,6 +297,15 @@
     <ClInclude Include="TitleDoorParticle.h">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClInclude>
+    <ClInclude Include="TestItem.h">
+      <Filter>PublicForder\Soon</Filter>
+    </ClInclude>
+    <ClInclude Include="TestInventory.h">
+      <Filter>PublicForder\Soon</Filter>
+    </ClInclude>
+    <ClInclude Include="TestInventorySlot.h">
+      <Filter>PublicForder\Soon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -469,6 +478,15 @@
     </ClCompile>
     <ClCompile Include="TitleDoorParticle.cpp">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
+    </ClCompile>
+    <ClCompile Include="TestItem.cpp">
+      <Filter>PublicForder\Soon</Filter>
+    </ClCompile>
+    <ClCompile Include="TestInventory.cpp">
+      <Filter>PublicForder\Soon</Filter>
+    </ClCompile>
+    <ClCompile Include="TestInventorySlot.cpp">
+      <Filter>PublicForder\Soon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

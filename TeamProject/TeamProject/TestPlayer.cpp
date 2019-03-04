@@ -37,7 +37,6 @@ void TestPlayer::Init()
 	this->CreateAnimation();
 	//처음 시작 상태는 DownIdle로 
 	this->ChangeState(State::DownIdle);
-
 }
 /***********************************************************************************
 ## Release ##
