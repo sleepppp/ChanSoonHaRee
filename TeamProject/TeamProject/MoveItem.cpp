@@ -24,7 +24,7 @@ void MoveItem::Init()
 	this->_mainRect = Figure::RectMake(_position.x, _position.y, _size.x, _size.y);
 
 	_angle = 0.f;		//아이템 흔들림을 위한 앵글 변수
-	_speed = 1.5f;	//아이템 흔들림 속도를 위한 속도 변수
+	_speed = 1.5f;		//아이템 흔들림 속도를 위한 속도 변수
 
 	_itemState = ItemState::Follow;
 
@@ -33,8 +33,6 @@ void MoveItem::Init()
 
 void MoveItem::Release()
 {
-	//_itemBrenchImg->Release();
-	//SafeDelete(_itemBrenchImg);
 }
 
 void MoveItem::Update()
