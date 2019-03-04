@@ -19,7 +19,7 @@ class CameraManager
 	//싱글톤으로 생성
 	SingletonHeader(CameraManager)
 private:
-	enum MoveState {FollowTarget,MoveToTarget,FreeCamera,End};		//카메라 상태 값
+	enum MoveState {None,MoveToTarget,FreeCamera,End};		//카메라 상태 값
 private:
 	MoveState state;								//카메라 상태
 	float zoomFactor;								//카메라 줌 
@@ -46,6 +46,7 @@ public:
 private:
 	void UpdateRenderRect();
 	void UpdateFreeCameraMode();
+	void UpdateTargetCameraMode();
 };
 
 #define _Camera CameraManager::Get()
