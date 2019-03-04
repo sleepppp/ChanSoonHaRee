@@ -104,9 +104,26 @@ void Inventory::Init()
 		//인벤토리 슬롯 new 선언
 		InventorySlot* equipSlot = new InventorySlot;
 
+		//장비 슬롯 렉트 세로로 3칸 생성
 		equipSlot->slotRect = Figure::RectMake(_mainRect.left + 600 + 57, _mainRect.top + 144 + (58 + 10) * i, 57, 57);
+
+		//장비 슬롯은 처음에 비었으므로 isEmpty는 true
+		equipSlot->isEmpty = true;
+
+		//생성한 장비 슬롯을 장비 슬롯 리스트에 push_back담기
+		_equipSlotList.push_back(equipSlot);
 	}
 
+	//포션 슬롯 렉트 생성
+	//포션 슬롯은 1칸
+	//인벤토리 슬롯 new선언
+	InventorySlot* potionSlot = new InventorySlot;
+	//포션 슬롯 렉트 1칸 생성
+	potionSlot->slotRect = Figure::RectMake(_mainRect.left + 667 + 57, _mainRect.top + 200 + 58, 57, 57);
+	//포션 슬롯은 처음에 비었으므로 isEmpty는 true
+	potionSlot->isEmpty = true;
+	//생성한 포션 슬롯을 포션 슬롯 리스트에 push_back담기
+	_potionSlotList.push_back(potionSlot);
 
 	//인벤토리 타겟 이미지 추가
 	this->_invenTargetImg = _ImageManager->AddImage("InventoryTarget", L"../Resources/UI/invenSlot.png", false);
@@ -173,6 +190,7 @@ void Inventory::Render()
 			_invenTargetImg->Render(_bagSlotList[_invenIndex]->slotRect.left - 7, _bagSlotList[_invenIndex]->slotRect.top - 1, Pivot::LEFT_TOP, false);
 		}
 	}
+	//렉트 토글 F1
 	if (_isDebug)
 	{
 		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, false);
@@ -180,6 +198,7 @@ void Inventory::Render()
 	//플레이어 슬롯 사이즈만큼 
 	for (UINT i = 0; i < _playerSlotList.size(); ++i)
 	{
+		//렉트 토글 F1
 		if (_isDebug)
 			_DXRenderer->DrawRectangle(_playerSlotList[i]->slotRect, DefaultBrush::red, false);
 
@@ -196,19 +215,48 @@ void Inventory::Render()
 		}
 	}
 
+	//가방 슬롯 사이즈만큼
 	for (UINT i = 0; i < _bagSlotList.size(); ++i) 
 	{
+		//렉트 토글 F1
 		if (_isDebug)
 			_DXRenderer->DrawRectangle(_bagSlotList[i]->slotRect, DefaultBrush::blue, false);
 
+		//가방 슬롯 그리기
 		if (_bagSlotList[i]->data.image) 
 		{
+			//슬롯 오른쪽에서 왼쪽 빼기, 슬롯 밑에서 위 빼기 해서 슬롯 렉트 사이즈 구하기
 			Vector2 size = Vector2(_bagSlotList[i]->slotRect.right - _bagSlotList[i]->slotRect.left,
 				_bagSlotList[i]->slotRect.bottom - _bagSlotList[i]->slotRect.top);
 
+			//구한 사이즈를 data.image의 SetSize에 담아주기
 			_bagSlotList[i]->data.image->SetSize(size);
 
+			//담은 size크기에 맞춰 data.image 렌더해주기
 			_bagSlotList[i]->data.image->Render(_bagSlotList[i]->slotRect.left, _bagSlotList[i]->slotRect.top, Pivot::LEFT_TOP, false);
+		}
+	}
+
+	//무기 슬롯 사이즈만큼
+	for (UINT i = 0; i < _weponSlotList.size(); ++i) 
+	{
+		//렉트 토글 F1
+		if (_isDebug) 
+		{
+			_DXRenderer->DrawRectangle(_weponSlotList[i]->slotRect, DefaultBrush::green, false);
+		}
+
+		//무기 슬롯 그리기
+		if (_weponSlotList[i]->data.image) 
+		{
+			//슬롯 렉트 사이즈 구하기
+			Vector2 size = Vector2(_weponSlotList[i]->slotRect.right - _weponSlotList[i]->slotRect.left,
+				_weponSlotList[i]->slotRect.bottom - _weponSlotList[i]->slotRect.top);
+
+			//구한 사이즈를 data.image의 SetSize에 담아주기
+			_weponSlotList[i]->data.image->SetSize(size);
+
+			//담은 size
 		}
 	}
 }
