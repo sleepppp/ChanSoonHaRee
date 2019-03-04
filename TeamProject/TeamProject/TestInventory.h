@@ -23,8 +23,8 @@ public:
 
 	bool AddItem(string name);
 
-	void MoveIndex(int i);
 private:
+	void MoveIndex(int i);
 	void UpdateSlotPosition();
 	TestInventorySlot* FindSlot(string name);
 };

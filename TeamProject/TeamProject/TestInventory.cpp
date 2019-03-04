@@ -179,7 +179,6 @@ bool TestInventory::AddItem(string name)
 		}
 	}
 
-
 	return false;
 }
 /***********************************************************
