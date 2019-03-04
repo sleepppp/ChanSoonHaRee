@@ -1,309 +1,407 @@
 #include "stdafx.h"
 #include "Player.h"
+
 #include "Image.h"
 #include "Animation.h"
+#include "Timer.h"
 
 using namespace Figure;
-
-Player::Player()
-{	
+/********************************************************************************/
+//## Init ##
+/********************************************************************************/
+void Player::Init()
+{
+	//이미지 추가, 매니저에서 FInd 하여 찾아옴
 	_ImageManager->AddFrameImage("Will", L"../Resources/Player/will_dungeon.png", 10, 13);
-	this->_image = _ImageManager->FindImage("Will");	
+	this->_image = _ImageManager->FindImage("Will");
 
+	//기본 변수 초기화
 	this->_name = "Will";
 	this->_size = Vector2(120, 120);
 	this->_position = Vector2(WinSizeX / 2, WinSizeY / 2);
 	this->_isActive = true;
 	this->_pivot = Pivot::CENTER;
+	this->_speed = 600.0f;
+	//this->_speed = Vector2(300.0f, 300.0f);
 	this->UpdateMainRect();
-	this->_speed = 0.8515611f;
-	
-	this->_standRate = 0.5f;				//프레임 장당 시간
-	this->_runRate = 0.082588f;				//달리기용 프레임 시간
-	this->_frameCount = 0.f;				//프레임타이머를 위한 변수
-	this->_changeIndexX = 0.f;				//각 X프레임 개수가 달라 변경값을 쉽게 넣기 위한 변수 선언	
-	this->_isRolling = false;				//구르는 중인지 판단 bool값
-	
-	_rollCount = 0;							//
-	_hp = 100;								//
-	_demage = 10;							//
 
-	//애니메이션클래스 사용
-	_animation = new Animation;
-	_animation->SetStartEndFrame(0, 9, 10, 9, false);
-	_animation->SetFrameUpdateTime(0.1f);
-	_animation->SetIsLoop(false);
-	_animation->Play();
+	//시간을 한번에!
+	_frameRun = 0.1f;
+	_frameIdle = 0.1f;
 
-	//첫 행동을 위한 기본값
-	this->_frameIndexX = 0.f;				//프레임가로X
-	this->_frameIndexY = 11.f;				//11은 기본 정면을 바라보게 하기 위한 값(정면)	
-	this->Move(StateMove::stand_D);			//최초 모션 상태 (정면보기)		
-	this ->_rate = _standRate;
+	//정밀 충돌용 렉트 위치 초기화
+	this->_collisionRect = RectMakeCenter(_position, Vector2(60.f, 60.f));
+	//상태별 애니메이션 전부 생성하여 맵에 담아둔다.
+	this->CreateAnimation();
 
-	//충돌판정으로 받아서 결과를 줄지 받을지 협의할것
-	//공격을 위한 렉트(사이즈와 위치를 위한 변수를 새로 생성할 것)
-	_weaponRc = RectMakeCenter(_position.x, _position.y, 100, 100);	//무기용 렉트 생성
-	//_shieldRc = RectMakeCenter(_position.x, _position.y, 100, 100); //방패용 렉트 생성		
-	//_colliRc = RectMakeCenter(_position.x, _position.y, _size.x / 2, _size.y / 2); //충돌판정용 렉트 생성
-	//검Rc와 화살Rc를 따로 만들지, 상황에 사이즈만 변경할지 생각해 보기
-	//정밀 충돌용 렉트 위치 초기화d
-	this->_collisionRect = Figure::RectMakeCenter(_position, Vector2(60.f, 60.f));
+	// 처음 시작 상태를 위한 세팅
+	this->ChangeState(State::DownIdle);
+
+
+	//_frameRoll = 0.1f;
 }
-Player::~Player() {}
-void Player::Init() {}
-void Player::Release() 
+
+/********************************************************************************/
+//## Release ##
+/********************************************************************************/
+void Player::Release()
 {
-	//SafeDelete(_image);
-	//SafeDelete(_animation);
+	AnimationIter iter = _animationList.begin();
+	for (; iter != _animationList.end(); ++iter)
+	{
+		SafeDelete(iter->second);
+	}
+	_animationList.clear();
 }
 
+/********************************************************************************/
+//## Update ##
+/********************************************************************************/
 void Player::Update()
-{		
-	this->Move(_stateMove);
-	
+{
 	//이동량 측정할 변수
 	Vector2 moveValue(0, 0);
 
-	//구르기명령
-	if (_Input->GetKeyDown(VK_SPACE))	
-	{		
-		_isRolling = true;
-	}
-
-	//구르기:조건시작
-	if (_isRolling)
+	//상태에 따라 다르게 업데이트
+	switch (_state)
 	{
-		if (_stateMove==StateMove::stand_L || _stateMove == StateMove::run_L)
-		{
-			_stateMove = StateMove::roll_L;
-		}
-		if (_stateMove == StateMove::stand_R || _stateMove == StateMove::run_R)
-		{			
-			_stateMove = StateMove::roll_R;
-		}
-		if (_stateMove == StateMove::stand_U || _stateMove == StateMove::run_U)
-		{
-			_stateMove = StateMove::roll_U;
-		}
-		if (_stateMove == StateMove::stand_D || _stateMove == StateMove::run_D)
-		{
-			_stateMove = StateMove::roll_D;
-		}
-	}
-
-	//구르기:완료 후 스탠드 동작으로 돌아가기
-	if (!_isRolling)
-	{				
-		this->DefaultMove(); //기본동작
-		if (_stateMove == StateMove::roll_L) this->DefaultMove();	
-		if (_stateMove == StateMove::roll_R) this->DefaultMove();
-		if (_stateMove == StateMove::roll_U) this->DefaultMove();
-		if (_stateMove == StateMove::roll_D) this->DefaultMove();			
-	}	
-		
-	//속도값
-	if (_stateMove == StateMove::run_L)
-	{		
-		if (_Input->GetKey(VK_LEFT))
-		{
-			_position.x -= _speed;
-		}
-		else if (_Input->GetKey(VK_UP))
-		{
-			_position.x -= _speed;
-			_position.y -= _speed;
-			//_position.x -= direction.Normalize() * _speed * _TimeManager->DeltaTime();
-			//Vector2 moveValue(-1.0f, -1.0f);
-			//_position += moveValue.Normalize() * _speed * _TimeManager->DeltaTime();
-		}
-		else if (_Input->GetKeyUp(VK_DOWN))
-		{
-			//Vector2 moveValue(-1.0f, 1.0f);
-			//_position += moveValue.Normalize() * _speed * _TimeManager->DeltaTime();
-			_position.x -= _speed;
-			_position.y += _speed;
-		}
-		//this->_position += direction.Normalize() * _speed * _TimeManager->DeltaTime();
-		//_position += Vector2(-1.f, 0.f);
-	}
-	
-
-	if (_stateMove == StateMove::run_R)
-	{
-		_position.x += _speed;
-	}
-
-	if (_stateMove == StateMove::run_U)
-	{
-		_position.y -= _speed;
-	}
-
-	if (_stateMove == StateMove::run_D)
-	{
-		_position.y += _speed;
-	}
-
-	if (_stateMove == StateMove::roll_L)	_position.x -= _speed *2;
-	if (_stateMove == StateMove::roll_R)	_position.x += _speed *2;
-	if (_stateMove == StateMove::roll_U)	_position.y -= _speed *2;
-	if (_stateMove == StateMove::roll_D)	_position.y += _speed *2;
-
-
-	//애니메이션 동작	
-	this->_frameCount += _TimeManager->DeltaTime();		//리얼타임을 프레임시간에 더해준다
-
-	//장당 지정시간 rate보다 값이 커질때 프레임을 넘긴다
-	if (_frameCount >= _rate)
-	{
-		this->_frameIndexX++;	//다음프레임으로 이동
-		
-		if (_isRolling)
-		{
-			_rollCount++;
-		}
-		//프레임값이 커져서 넘어왔으니 다시 값을 빼준다.
-		while (_frameCount >= _rate) this->_frameCount -= this->_rate;
-		
-		//만약 프레임인덱스X가 맥스와 같거나 커지면 0으로 초기화
-		if (this->_changeIndexX <= this->_frameIndexX)
-		{			
-			this->_frameIndexX = 0;
-		}
-		if (_rollCount == 7)
-		{
-			_rollCount = 0;
-			_isRolling = false;
-		}
-	}
-
-	//충돌판정렉트
-	//_colliRc = RectMakeCenter(_position.x, _position.y, _size.x / 2, _size.y / 2);
-	//무기용 렉트 생성(사이즈와 위치를 위한 변수를 새로 생성할 것)
-	_weaponRc = RectMakeCenter(_position.x, _position.y, 100, 100);	
-}
-
-void Player::Render()
-{	
-	_image->SetSize(_size);
-	_image->FrameRender(_position.x, _position.y, _frameIndexX, _frameIndexY, Pivot::CENTER);
-	
-	//충돌판정렉트 확인용(확인후 삭제할 것)
-	//_DXRenderer->DrawRectangle(_colliRc, DefaultBrush::blue, false, 2.0f);
-	//무기용 렉트 확인용(확인후 삭제할 것)
-	_DXRenderer->DrawRectangle(_weaponRc, DefaultBrush::red, false, 2.0f);
-}
+	case Player::State::LeftIdle:
+		//if (_Input->GetKeyDown('A')) this->ChangeState(State::LeftRun);
+		//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
+		//
+		//else if (_Input->GetKeyDown('D')) this->ChangeState(State::RightRun);
+		//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
+		//
+		//else if (_Input->GetKeyDown('W')) this->ChangeState(State::UpRun);
+		//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
+		//
+		//else if (_Input->GetKeyDown('S'))
+		//{
+		//	this->ChangeState(State::DownRun);
+		//}
 
 
 
-//추가함수:상하좌우(스탠드, 달리기)
-void Player::Move(StateMove _move)
-{
-	switch (_move)
-	{
-	case StateMove::stand_L:
-		this->_frameIndexY = 9;
-		this->_changeIndexX = 10;
-		this->_rate=_standRate;
+
+
+
+		this->IdleKeyInput();
 		break;
 
-	case StateMove::stand_R:
-		this->_frameIndexY = 8;
-		this->_changeIndexX = 10;
-		this->_rate = _standRate;
+	case Player::State::RightIdle:
+		this->IdleKeyInput();
 		break;
 
-	case StateMove::stand_U:
-		this->_frameIndexY = 10;
-		this->_changeIndexX = 10;
-		this->_rate = _standRate;
+	case Player::State::UpIdle:
+		this->IdleKeyInput();
 		break;
 
-	case StateMove::stand_D:
-		this->_frameIndexY = 11;
-		this->_changeIndexX = 10;
-		this->_rate = _standRate;
+	case Player::State::DownIdle:
+		this->IdleKeyInput();
 		break;
 
-	case StateMove::run_L:		
-		this->_frameIndexY = 3;
-		this->_changeIndexX = 7;
-		this->_standRate = _runRate;
+
+	case Player::State::LeftRun:
+		if (_Input->GetKey('A')) moveValue += Vector2(-1.0f, 0.0f);	//왼누르기
+		else if (_Input->GetKeyUp('A')) this->ChangeState(State::LeftIdle); //왼떼기
+
+		if (_Input->GetKey('W')) moveValue += Vector2(0.0f, -1.0f);	//위
+		else if (_Input->GetKey('S')) moveValue += Vector2(0.0f, 1.0f);	//아래
+		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
 		break;
 
-	case StateMove::run_R:
-		this->_frameIndexY = 2;
-		this->_changeIndexX = 7;
-		this->_standRate = _runRate;
+	case Player::State::RightRun:
+		if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
+		else if (_Input->GetKeyUp('D')) this->ChangeState(State::RightIdle);
+
+		if (_Input->GetKey('W')) moveValue += Vector2(0.0f, -1.0f);
+		else if (_Input->GetKey('S')) moveValue += Vector2(0.0f, 1.0f);
+		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
 		break;
 
-	case StateMove::run_U:
-		this->_frameIndexY = 0;
-		this->_changeIndexX = 7;
-		this->_standRate = _runRate;
+	case Player::State::UpRun:
+		if (_Input->GetKey('W')) moveValue += Vector2(0.0f, -1.0f);
+		else if (_Input->GetKeyUp('W')) this->ChangeState(State::UpIdle);
+
+		if (_Input->GetKey('A')) moveValue += Vector2(-1.0f, 0.0f);
+		else if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
+		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
 		break;
 
-	case StateMove::run_D:
-		this->_frameIndexY = 1;
-		this->_changeIndexX = 7;
-		this->_standRate = _runRate;
+	case Player::State::DownRun:
+		if (_Input->GetKey('S')) moveValue += Vector2(0.0f, 1.0f);
+		else if (_Input->GetKeyUp('S')) this->ChangeState(State::DownIdle);
+
+		if (_Input->GetKey('A')) moveValue += Vector2(-1.0f, 0.0f);
+		else if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
+		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
 		break;
 
-	case StateMove::roll_L:		
-		this->_frameIndexY = 5;
-		this->_changeIndexX = 7;
-		this->_standRate = _runRate;
+	case Player::State::LeftRoll:
+		if(_mainAnimation->UpdateFrame()) moveValue += Vector2(-2.0f, 0.0f);
+		if (!_mainAnimation->UpdateFrame()) moveValue += Vector2(0.0f, 0.0f);
+
+		if(this->CreateAnimation->upRun)
 		break;
 
-	case StateMove::roll_R:
-		//_position.x += _speed * 2;
-		this->_frameIndexY = 4;
-		this->_changeIndexX = 7;
-		this->_standRate = _runRate;
+	case Player::State::RightRoll:
+		moveValue += Vector2(2.0f, 0.0f);
 		break;
 
-	case StateMove::roll_U:
-		//_position.y -= _speed * 2;
-		this->_frameIndexY = 6;
-		this->_changeIndexX = 7;
-		this->_standRate = _runRate;
+	case Player::State::UpRoll:
+		moveValue += Vector2(0.0f, -2.0f);
 		break;
 
-	case StateMove::roll_D:
-		this->_frameIndexY = 7;
-		this->_changeIndexX = 7;
-		this->_standRate = _runRate;
+	case Player::State::DownRoll:
+		moveValue += Vector2(0.0f, 2.0f);
 		break;
 
 	default:
 		break;
 	}
+	this->Move(moveValue);
+	_mainAnimation->UpdateFrame();
 }
 
-void Player::DefaultMove()
+/********************************************************************************/
+//## Render ##
+/********************************************************************************/
+void Player::Render()
 {
-	if (_Input->GetKeyUp(VK_LEFT))  _stateMove = StateMove::stand_L;
-	if (_Input->GetKeyUp(VK_RIGHT))  _stateMove = StateMove::stand_R;
-	if (_Input->GetKeyUp(VK_UP))  _stateMove = StateMove::stand_U;
-	if (_Input->GetKeyUp(VK_DOWN))  _stateMove = StateMove::stand_D;
+	//이미지 사이즈 지정
+	_image->SetSize(_size);
+	//렌더링
+	_image->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
 
-	if (_Input->GetKey(VK_LEFT)) _stateMove = StateMove::run_L;
-	if (_Input->GetKey(VK_RIGHT)) _stateMove = StateMove::run_R;
-	if (_Input->GetKey(VK_UP)) _stateMove = StateMove::run_U;
-	if (_Input->GetKey(VK_DOWN)) _stateMove = StateMove::run_D;
+	//디버그 모드라면 디버그 렉트들 렌더링 (F1)
+	if (_isDebug)
+	{
+		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, true);
+		_DXRenderer->DrawRectangle(_collisionRect, DefaultBrush::red, true);
+	}
+}
+
+/********************************************************************************/
+//## ChangeState ##
+//상태를 바꿀 때는 _state=state; 보다는 직접 함수를 통해서 변경하면 
+//디버깅 및 코드 관리가 쉬워진다.
+/********************************************************************************/
+void Player::ChangeState(State state)
+{
+	//현 상태와 동일하다면 실행시키지 않고 빠져나간다
+	if (_state == state) return;
+
+	//현 상태와 동일하지 않다면 변경한다.
+	_state = state;
+	//상태가 바뀌면서 애니메이션도 변경한다
+	this->ChangeAnimation(state);
+
+
+	//상태가 바뀌는 순간 처리할 ..사항을 적기 위함
+	switch (_state)
+	{
+	case Player::State::LeftIdle:
+		break;
+	case Player::State::RightIdle:
+		break;
+	case Player::State::UpIdle:
+		break;
+	case Player::State::DownIdle:
+		break;
+	case Player::State::LeftRun:
+		_speed = 300.0f;
+		break;
+	case Player::State::RightRun:
+		break;
+	case Player::State::UpRun:
+		break;
+	case Player::State::DownRun:
+		break;
+	case Player::State::LeftRoll:
+		break;
+	case Player::State::RightRoll:
+		break;
+	case Player::State::UpRoll:
+		break;
+	case Player::State::DownRoll:
+		break;
+	default:
+		break;
+	}
+}
+
+/********************************************************************************/
+//## Move ##
+//Vector2 direction:방향
+/********************************************************************************/
+void Player::Move(Vector2 direction)
+{
+	//현 좌표는 방향*스피드*델타타임
+	this->_position += direction.Normalize()*_speed*_TimeManager->DeltaTime();
+	//이동했으니 정밀 충돌 렉트 위치도 갱신한다.
+	_collisionRect = RectMakeCenter(_position, Vector2(60.0f, 60.0f));
+	//mainRect의 위치도 갱신
+	this->UpdateMainRect();
+}
+
+/********************************************************************************/
+//## ChangeAnimation ##
+//상태에 따라 애니메이션을 바꿔준다. (키값은 State state)
+/********************************************************************************/
+void Player::ChangeAnimation(State state)
+{
+	//반복자를 통해 맵에서 해당 키값의 애니메이션을 찾는다.
+	AnimationIter iter = _animationList.find(state);
+
+	//만약 끝이 아니면 찾은 것이니 현 애니메이션을 바꿀 애니메이션으로 교체한다.
+	if (iter != _animationList.end())
+	{
+		_mainAnimation = iter->second;
+		_mainAnimation->Stop();
+		_mainAnimation->Play();
+	}
+}
+
+/********************************************************************************/
+//## CreateAnimation ##
+//애니메이션 전부 미리 생성 및 초기화 해준 후 맵에 담아서 관리
+/********************************************************************************/
+void Player::CreateAnimation()
+{
+	Animation* leftIdle = new Animation;
+	leftIdle->SetStartEndFrame(0, 9, 9, 9, false);
+	leftIdle->SetIsLoop(true);
+	leftIdle->SetFrameUpdateTime(_frameIdle);
+	_animationList.insert(make_pair(State::LeftIdle, leftIdle));
+
+	Animation* rightIdle = new Animation;
+	rightIdle->SetStartEndFrame(0, 8, 9, 8, false);
+	rightIdle->SetIsLoop(true);
+	rightIdle->SetFrameUpdateTime(_frameIdle);
+	_animationList.insert(make_pair(State::RightIdle, rightIdle));
+
+	Animation* upIdle = new Animation;
+	upIdle->SetStartEndFrame(0, 10, 9, 10, false);
+	upIdle->SetIsLoop(true);
+	upIdle->SetFrameUpdateTime(_frameIdle);
+	_animationList.insert(make_pair(State::UpIdle, upIdle));
+
+	Animation* downIdle = new Animation;
+	downIdle->SetStartEndFrame(0, 11, 9, 11, false);
+	downIdle->SetIsLoop(true);
+	downIdle->SetFrameUpdateTime(_frameIdle);
+	_animationList.insert(make_pair(State::DownIdle, downIdle));
+
+	Animation* leftRun = new Animation;
+	leftRun->SetStartEndFrame(0, 3, 7, 3, false);
+	leftRun->SetIsLoop(true);
+	leftRun->SetFrameUpdateTime(_frameRun);
+	_animationList.insert(make_pair(State::LeftRun, leftRun));
+
+	Animation* rightRun = new Animation;
+	rightRun->SetStartEndFrame(0, 2, 7, 2, false);
+	rightRun->SetIsLoop(true);
+	rightRun->SetFrameUpdateTime(_frameRun);
+	_animationList.insert(make_pair(State::RightRun, rightRun));
+
+	Animation* upRun = new Animation;
+	upRun->SetStartEndFrame(0, 0, 7, 0, false);
+	upRun->SetIsLoop(true);
+	upRun->SetFrameUpdateTime(0.1f);
+	_animationList.insert(make_pair(State::UpRun, upRun));
+
+	Animation* downRun = new Animation;
+	downRun->SetStartEndFrame(0, 1, 7, 1, false);
+	downRun->SetIsLoop(true);
+	downRun->SetFrameUpdateTime(_frameRun);
+	_animationList.insert(make_pair(State::DownRun, downRun));
+
+	Animation* leftRoll = new Animation;
+	leftRoll->SetStartEndFrame(0, 5, 7, 5, false);
+	leftRoll->SetIsLoop(false);
+	leftRoll->SetFrameUpdateTime(_frameRun);	
+	leftRoll->SetCallbackFunc([this]() {this->EndAnimation(); });	
+	_animationList.insert(make_pair(State::LeftRoll, leftRoll));
+
+	Animation* rightRoll = new Animation;
+	rightRoll->SetStartEndFrame(0, 4, 7, 4, false);
+	rightRoll->SetIsLoop(false);
+	rightRoll->SetFrameUpdateTime(_frameRun);
+	rightRoll->SetCallbackFunc([this]() {this->EndAnimation(); });	//람다식 함수 호출
+	_animationList.insert(make_pair(State::RightRoll, rightRoll));
+
+	Animation* upRoll = new Animation;
+	upRoll->SetStartEndFrame(0, 6, 7, 6, false);
+	upRoll->SetIsLoop(false);
+	upRoll->SetFrameUpdateTime(_frameRun);
+	upRoll->SetCallbackFunc([this]() {this->EndAnimation(); });		//프레임이 다 돌면 종료한다
+	_animationList.insert(make_pair(State::UpRoll, upRoll));
+
+	Animation* downRoll = new Animation;
+	downRoll->SetStartEndFrame(0, 7, 7, 7, false);
+	downRoll->SetIsLoop(false);
+	downRoll->SetFrameUpdateTime(_frameRun);
+	downRoll->SetCallbackFunc([this]() {this->EndAnimation(); });	//이 방식은 public에 선언된 애만 가능해!
+	_animationList.insert(make_pair(State::DownRoll, downRoll));
 }
 
 
-//뎀지 넘기기
-//void Player::AttackedDemege(int damage)
-//{
-//	_hp -= damage;
-//	if (_hp <= 0)
-//	{
-//		this->Destroy();
-//	}
-//	else
-//	{
-//
-//	}
-//}
+void Player::EndAnimation()
+{
+	switch (_state)
+	{
+	case Player::State::LeftIdle:
+		break;
+	case Player::State::RightIdle:
+		break;
+	case Player::State::UpIdle:
+		break;
+	case Player::State::DownIdle:
+		break;
+	case Player::State::LeftRun:
+		break;
+	case Player::State::RightRun:
+		break;
+	case Player::State::UpRun:
+		break;
+	case Player::State::DownRun:
+		break;
+	case Player::State::LeftRoll:
+		this->ChangeState(State::LeftIdle);
+		break;
+	case Player::State::RightRoll:
+		break;
+	case Player::State::UpRoll:
+		break;
+	case Player::State::DownRoll:
+		break;
+	default:
+		break;
+	}
+}
+
+/********************************************************************************/
+//## IdleKeyInut ##
+//Idle 상태일 때 키 입력 처리
+/********************************************************************************/
+void Player::IdleKeyInput()
+{
+	if (_Input->GetKeyDown('A'))
+	{
+		this->ChangeState(State::LeftRun);
+	}
+	else if (_Input->GetKeyDown('D'))
+	{
+		this->ChangeState(State::RightRun);
+	}
+	else if (_Input->GetKeyDown('W'))
+	{
+		this->ChangeState(State::UpRun);
+	}
+	else if (_Input->GetKeyDown('S'))
+	{
+		this->ChangeState(State::DownRun);
+	}
+}
+
+
