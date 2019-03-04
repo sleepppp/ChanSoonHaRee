@@ -42,25 +42,25 @@ void MoveItem::Update()
 	GameObject* _player = _ObjectManager->FindObject(ObjectType::Object,"Will");
 
 	//움직임 카운트 증가
-	_moveCount++;
-	_angle += 50;
+	//_moveCount++;
+	//_angle += 50;
 
-	if (_moveCount > 0 && _moveCount < 50)
-	{
-		//_position.y += sinf(_angle) * _speed * _TimeManager->DeltaTime();
-		_mainRect.bottom += 1;
-		_mainRect.top += 1;
-	}
-	if (_moveCount >= 50 && _moveCount < 100)
-	{
-		//_position.y += sinf(_angle) * _speed * _TimeManager->DeltaTime();
-		_mainRect.bottom -= 1;
-		_mainRect.top -= 1;
-	}
-	if (_moveCount >= 100)
-	{
-		_moveCount = 0;
-	}
+	//if (_moveCount > 0 && _moveCount < 50)
+	//{
+	//	//_position.y += sinf(_angle) * _speed * _TimeManager->DeltaTime();
+	//	_mainRect.bottom += 1;
+	//	_mainRect.top += 1;
+	//}
+	//if (_moveCount >= 50 && _moveCount < 100)
+	//{
+	//	//_position.y += sinf(_angle) * _speed * _TimeManager->DeltaTime();
+	//	_mainRect.bottom -= 1;
+	//	_mainRect.top -= 1;
+	//}
+	//if (_moveCount >= 100)
+	//{
+	//	_moveCount = 0;
+	//}
 
 	RECT temp;
 	//상태가 따라가기 상태이면
@@ -134,7 +134,7 @@ void MoveItem::Update()
 
 void MoveItem::Render()
 {
-	_itemBrenchImg->Render(_position.x, _position.y, Pivot::LEFT_TOP, false);
+	_itemBrenchImg->Render(_position.x, _position.y, Pivot::LEFT_TOP, true);
 
 	//렉트 렌더 토글키
 	//if (_Input->IsToggleKey(VK_F10)) 
