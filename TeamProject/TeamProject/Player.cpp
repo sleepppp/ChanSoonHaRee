@@ -180,8 +180,7 @@ void Player::Update()
 	//충돌판정렉트
 	//_colliRc = RectMakeCenter(_position.x, _position.y, _size.x / 2, _size.y / 2);
 	//무기용 렉트 생성(사이즈와 위치를 위한 변수를 새로 생성할 것)
-	_weaponRc = RectMakeCenter(_position.x, _position.y, 100, 100);
-	
+	_weaponRc = RectMakeCenter(_position.x, _position.y, 100, 100);	
 }
 
 void Player::Render()
