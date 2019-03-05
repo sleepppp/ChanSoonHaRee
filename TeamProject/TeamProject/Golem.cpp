@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Image.h"
-#include "Enemy.h"
 #include "Player.h"
 #include "Golem.h"
 
@@ -17,7 +16,7 @@ Golem::Golem(Vector2 pos)
 	this->_demage = 34;						//34의 뎀지
 
 	this->_isAttack = false;				//공격은 처음에는 안하고있지
-	this->_renderRect = UpdateRect(_renderRect, _position, _size, Pivot::CENTER);
+	this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
 
 	//내 이미지 찾기!
 	this->_golemMove = _ImageManager->AddFrameImage("GolemMove", L"../Resources/Enemy/Golem/GolemMove.png", 8, 4);
@@ -45,10 +44,10 @@ Golem::Golem(Vector2 pos)
 	this->_isAttackRight = false;
 	this->_isAttackBottom = false;
 	//공격렉트 초기화
-	this->_attackLeft = UpdateRect(_attackLeft, _positionLeft, _sizeLeft, Pivot::LEFT_TOP);
-	this->_attackRight = UpdateRect(_attackRight, _positionRight, _sizeRight, Pivot::LEFT_TOP);
-	this->_attackTop = UpdateRect(_attackTop, _positionTop, _sizeTop, Pivot::BOTTOM);
-	this->_attackBottom = UpdateRect(_attackBottom, _positionBottom, _sizeBottom, Pivot::BOTTOM);
+	this->_attackLeft = UpdateRect(_positionLeft, _sizeLeft, Pivot::LEFT_TOP);
+	this->_attackRight = UpdateRect(_positionRight, _sizeRight, Pivot::LEFT_TOP);
+	this->_attackTop = UpdateRect(_positionTop, _sizeTop, Pivot::BOTTOM);
+	this->_attackBottom = UpdateRect(_positionBottom, _sizeBottom, Pivot::BOTTOM);
 }
 
 Golem::~Golem()
@@ -144,26 +143,26 @@ void Golem::AttackPosition()
   		if (_move == MoveType::Left && _attackCount > 9)
 		{
 			this->_isAttackLeft = true;
-			this->_attackLeft = UpdateRect(_attackLeft, _positionLeft, _sizeLeft, Pivot::LEFT_TOP);
+			this->_attackLeft = UpdateRect(_positionLeft, _sizeLeft, Pivot::LEFT_TOP);
 		}
 		else _isAttackLeft = false;
 
 		if (_move == MoveType::Right && _attackCount > 9)
 		{
 			this->_isAttackRight = true;
-			this->_attackRight = UpdateRect(_attackRight, _positionRight, _sizeRight, Pivot::LEFT_TOP);
+			this->_attackRight = UpdateRect(_positionRight, _sizeRight, Pivot::LEFT_TOP);
 		}
 		else _isAttackRight = false;
 		if (_move == MoveType::Top && _attackCount > 9)
 		{
 			this->_isAttackTop = true;
-			this->_attackTop = UpdateRect(_attackTop, _positionTop, _sizeTop, Pivot::BOTTOM);
+			this->_attackTop = UpdateRect(_positionTop, _sizeTop, Pivot::BOTTOM);
 		}
 		else _isAttackTop = false;
 		if (_move == MoveType::Bottom && _attackCount > 9)
 		{
 			this->_isAttackBottom = true;
-			this->_attackBottom = UpdateRect(_attackBottom, _positionBottom, _sizeBottom, Pivot::BOTTOM);
+			this->_attackBottom = UpdateRect(_positionBottom, _sizeBottom, Pivot::BOTTOM);
 		}
 		else _isAttackBottom = false;
 	}

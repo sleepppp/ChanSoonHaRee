@@ -297,6 +297,9 @@
     <ClInclude Include="TitleDoorParticle.h">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClInclude>
+    <ClInclude Include="BigSlime.h">
+      <Filter>PublicForder\Ha</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -469,6 +472,9 @@
     </ClCompile>
     <ClCompile Include="TitleDoorParticle.cpp">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BigSlime.cpp">
+      <Filter>PublicForder\Ha</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
