@@ -150,6 +150,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="DebugCollider.h" />
+    <ClInclude Include="FrameObject.h" />
+    <ClInclude Include="Tree.h" />
     <ClInclude Include="UIBag.h" />
     <ClInclude Include="BinaryFile.h" />
     <ClInclude Include="Buffer.h" />
@@ -212,6 +215,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="DebugCollider.cpp" />
+    <ClCompile Include="FrameObject.cpp" />
+    <ClCompile Include="Tree.cpp" />
     <ClCompile Include="UIBag.cpp" />
     <ClCompile Include="BinaryFile.cpp" />
     <ClCompile Include="Buffer.cpp" />

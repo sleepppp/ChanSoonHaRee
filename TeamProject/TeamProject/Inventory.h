@@ -87,5 +87,8 @@ public:
 	void InvenTarget();							//타겟 상태 변경을 위한 함수
 
 	void Enable()override;						//인벤토리 켜기 함수
+
+
+	void KeyMove();								//방향 키 함수
 };
 

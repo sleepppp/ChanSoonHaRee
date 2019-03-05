@@ -213,6 +213,8 @@ void Player::Update()
 		//=====================================================================================
 	case Player::State::LeftRoll:
 		moveValue += Vector2(-2.0f, 0.0f);
+
+		//if(this->CreateAnimation->upRun)
 		break;
 
 	case Player::State::RightRoll:
