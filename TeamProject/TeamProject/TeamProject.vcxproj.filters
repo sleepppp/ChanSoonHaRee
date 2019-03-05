@@ -327,6 +327,9 @@
     <ClInclude Include="BigSlime.h">
       <Filter>PublicForder\Ha</Filter>
     </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>PublicForder\Ha</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -522,6 +525,9 @@
       <Filter>MainEntry\Scene\TownScene\FrameObject</Filter>
     </ClCompile>
     <ClCompile Include="BigSlime.cpp">
+      <Filter>PublicForder\Ha</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
       <Filter>PublicForder\Ha</Filter>
     </ClCompile>
   </ItemGroup>

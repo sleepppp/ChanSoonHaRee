@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BigSlime.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="DebugCollider.h" />
     <ClInclude Include="FrameObject.h" />
     <ClInclude Include="Tree.h" />
@@ -217,6 +218,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BigSlime.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="DebugCollider.cpp" />
     <ClCompile Include="FrameObject.cpp" />
     <ClCompile Include="Tree.cpp" />
