@@ -81,14 +81,14 @@ public:
 
 	void operator +=(Vector2 v)
 	{
-		(*this).x += v.x;
-		(*this).y += v.y;
+		this->x += v.x;
+		this->y += v.y;
 	}
 
 	void operator -=(Vector2 v)
 	{
-		(*this).x -= v.x;
-		(*this).y -= v.y;
+		this->x -= v.x;
+		this->y -= v.y;
 	}
 
 	//현재 벡터를 정규화시킨 값을 반환한다.

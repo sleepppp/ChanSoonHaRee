@@ -1,10 +1,24 @@
 #pragma once
+#define _MaxRayRange 1000.f
 /*******************************************************************************
 ## Figure ##
 도형들 관련된 함수들 편하게 쓰기 위해서 구현
 *******************************************************************************/
 namespace Figure
 {
+
+
+	struct TagLine
+	{
+		Vector2 start;
+		Vector2 end;
+
+		TagLine() {}
+		TagLine(Vector2 start, Vector2 end);
+		TagLine(Vector2 start, float angle, float dist = _MaxRayRange);
+	};
+	bool IntersectLineToLine(Vector2 * pCollision, TagLine lineA, TagLine lineB);
+	bool IntersectLineToRect(Vector2* pCollision, TagLine line, RECT rc);
 
 	/*******************************************************************************
 	## TagFloat ##
