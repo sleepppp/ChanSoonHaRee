@@ -26,7 +26,7 @@ void TestPlayer::Init()
 	//기본 변수들 초기화 
 	this->_name = "TestPlayer";
 	this->_size = Vector2(120, 120);
-	this->_position = Vector2(WinSizeX / 2 + 300, WinSizeY / 2);
+	this->_position = Vector2(957,935);
 	this->_isActive = true;
 	this->_pivot = Pivot::CENTER;
 	this->_speed = 300.0f;
@@ -37,7 +37,6 @@ void TestPlayer::Init()
 	this->CreateAnimation();
 	//처음 시작 상태는 DownIdle로 
 	this->ChangeState(State::DownIdle);
-
 }
 /***********************************************************************************
 ## Release ##

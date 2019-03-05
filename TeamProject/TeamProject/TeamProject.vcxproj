@@ -150,7 +150,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
-    <ClInclude Include="BigSlime.h" />
+    <ClInclude Include="DebugCollider.h" />
+    <ClInclude Include="FrameObject.h" />
+    <ClInclude Include="Tree.h" />
+    <ClInclude Include="UIBag.h" />
     <ClInclude Include="BinaryFile.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="CameraManager.h" />
@@ -191,6 +194,9 @@
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TeamProject.h" />
+    <ClInclude Include="TestInventory.h" />
+    <ClInclude Include="TestInventorySlot.h" />
+    <ClInclude Include="TestItem.h" />
     <ClInclude Include="TestPlayer.h" />
     <ClInclude Include="TextFile.h" />
     <ClInclude Include="Time.h" />
@@ -209,7 +215,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="BigSlime.cpp" />
+    <ClCompile Include="DebugCollider.cpp" />
+    <ClCompile Include="FrameObject.cpp" />
+    <ClCompile Include="Tree.cpp" />
+    <ClCompile Include="UIBag.cpp" />
     <ClCompile Include="BinaryFile.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="CameraManager.cpp" />
@@ -258,6 +267,9 @@
     </ClCompile>
     <ClCompile Include="StringHelper.cpp" />
     <ClCompile Include="TeamProject.cpp" />
+    <ClCompile Include="TestInventory.cpp" />
+    <ClCompile Include="TestInventorySlot.cpp" />
+    <ClCompile Include="TestItem.cpp" />
     <ClCompile Include="TestPlayer.cpp" />
     <ClCompile Include="TextFile.cpp" />
     <ClCompile Include="Time.cpp" />

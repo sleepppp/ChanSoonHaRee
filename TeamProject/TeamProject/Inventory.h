@@ -45,6 +45,16 @@ class Inventory :public GameObject
 		CloseSlide,								//인벤 닫기
 		Idle									//인벤 유지
 	};
+	
+	enum class InvenTargetState 
+	{
+		PlayerTarget = 0,						//플레이어 타겟 상태
+		BagTarget,								//가방 타겟 상태
+		WeaponTarget,							//무기 타겟 상태
+		EquipTarget,							//장비(방어구) 타겟 상태
+		PotionTarget							//포션 타겟 상태
+	};
+
 
 private:
 	class Image* _invenTargetImg;				//인벤토리 선택 이미지
@@ -56,7 +66,12 @@ private:
 	class Image* _inventoryImage;				//인벤토리 이미지 변수 선언
 	vector<InventorySlot*> _playerSlotList;		//벡터 >> 플레이어 슬롯 리스트 변수 선언
 	vector<InventorySlot*> _bagSlotList;		//벡터 >> 가방 슬롯 리스트 변수 선언
+	vector<InventorySlot*> _weponSlotList;		//벡터 >> 무기 슬롯 리스트 변수 선언		
+	vector<InventorySlot*> _equipSlotList;		//벡터 >> 장비 슬롯 리스트 변수 선언
+	vector<InventorySlot*> _potionSlotList;		//벡터 >> 포션 슬롯 리스트 변수 선언
+
 	InventoryState _state;						//인벤토리 상태 변수 선언
+	InvenTargetState _targetState;				//인벤토리 타겟 상태 변수 선언
 public:
 	Inventory();
 	~Inventory();
@@ -68,6 +83,12 @@ public:
 
 	bool AddItem(string name);					//반환형 bool 값, 인벤토리에 아이템 추가하기 위한 함수, 인자로 아이템 이름을 받음
 
+	void InvenState();							//인벤토리 상태 함수
+	void InvenTarget();							//타겟 상태 변경을 위한 함수
+
 	void Enable()override;						//인벤토리 켜기 함수
+
+
+	void KeyMove();								//방향 키 함수
 };
 
