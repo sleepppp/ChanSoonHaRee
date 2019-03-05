@@ -59,7 +59,7 @@
 //void BigSlime::Render()
 //{
 //	//렉트보여주기.
-//	/*if (_isDebug == true)
+/*if (_isDebug == true)
 	{
 		_DXRenderer->DrawRectangle(_renderRect, DefaultBrush::black);
 		_DXRenderer->DrawEllipse(_position, (_size.x * 1.2f), DefaultBrush::red);
