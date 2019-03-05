@@ -324,6 +324,9 @@
     <ClInclude Include="Tree.h">
       <Filter>MainEntry\Scene\TownScene\FrameObject</Filter>
     </ClInclude>
+    <ClInclude Include="BigSlime.h">
+      <Filter>PublicForder\Ha</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -517,6 +520,9 @@
     </ClCompile>
     <ClCompile Include="Tree.cpp">
       <Filter>MainEntry\Scene\TownScene\FrameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BigSlime.cpp">
+      <Filter>PublicForder\Ha</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="BigSlime.h" />
     <ClInclude Include="DebugCollider.h" />
     <ClInclude Include="FrameObject.h" />
     <ClInclude Include="Tree.h" />
@@ -215,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="BigSlime.cpp" />
     <ClCompile Include="DebugCollider.cpp" />
     <ClCompile Include="FrameObject.cpp" />
     <ClCompile Include="Tree.cpp" />

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Weeds.h"
 #include "Image.h"
-#include "Enemy.h"
 #include "Player.h"
 
 Weeds::Weeds(Vector2 pos)
@@ -10,7 +9,7 @@ Weeds::Weeds(Vector2 pos)
 	this->_position = pos;
 	this->_size = Vector2(70, 70);
 	this->_pivot = Pivot::CENTER;
-	this->_renderRect = UpdateRect(_renderRect, _position, _size, _pivot);
+	this->_renderRect = UpdateRect(_position, _size, _pivot);
 	this->_speed = 70.0f;
 	this->_hp = 100;
 	this->_demage = 16;
@@ -50,7 +49,7 @@ void Weeds::Update()
 	}
 
 	_count += _TimeManager->DeltaTime();
-	if (_count >= 1.f / 3.0f)
+	if (_count >= 1.f / 2.0f)
 	{
 		_count = 0;
 		_imageCount++;
