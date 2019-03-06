@@ -133,6 +133,9 @@
     <Filter Include="System\Camera">
       <UniqueIdentifier>{27f13dd8-5c4d-4b76-aea4-dad90a752984}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainEntry\Scene\DungeonScene">
+      <UniqueIdentifier>{fd930b90-a7b0-4d3c-bcea-2d3e62269519}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -329,6 +332,9 @@
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>PublicForder\Ha</Filter>
+    </ClInclude>
+    <ClInclude Include="Dungeon_Map_01.h">
+      <Filter>MainEntry\Scene\DungeonScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -529,6 +535,9 @@
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>PublicForder\Ha</Filter>
+    </ClCompile>
+    <ClCompile Include="Dungeon_Map_01.cpp">
+      <Filter>MainEntry\Scene\DungeonScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

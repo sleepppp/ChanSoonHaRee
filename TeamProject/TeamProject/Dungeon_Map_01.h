@@ -6,15 +6,16 @@ private:
 	RECT collisionRc;
 	class Image* map;
 	class GameObject* _object;
+private:
+	void HaInit();
+	void SoonInit();
 public:
 	void Init()override;
 	void Release()override;
 	void Update()override;
 	void Render()override;
 public:
-	RECT Collision(RECT rc);
-public:
-	Dungeon_Map_01(Vector2 pos, Vector2 size);
+	Dungeon_Map_01();
 	~Dungeon_Map_01();
 };
 
