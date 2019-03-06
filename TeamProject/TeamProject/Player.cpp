@@ -13,8 +13,13 @@ void Player::Init()
 {
 	//이미지 추가, 매니저에서 FInd 하여 찾아옴
 	_ImageManager->AddFrameImage("Will", L"../Resources/Player/will_dungeon.png", 10, 13);
-	this->_image = _ImageManager->FindImage("Will");
+	this->_imgMove = _ImageManager->FindImage("Will");
+	_ImageManager->AddFrameImage("Will_Sword1", L"../Resources/Player/will_sword1.png", 8, 4);
+	this->_imgAtkSword1 = _ImageManager->FindImage("Will_Sword1");
+	_ImageManager->AddFrameImage("Will_Sword2", L"../Resources/Player/will_sword2.png", 8, 4);
+	this->_imgAtkSword2 = _ImageManager->FindImage("Will_Sword2");
 
+	
 	//기본 변수 초기화
 	this->_name = "Will";
 	this->_size = Vector2(120, 120);
@@ -241,9 +246,12 @@ void Player::Update()
 void Player::Render()
 {
 	//이미지 사이즈 지정
-	_image->SetSize(_size);
+	_imgMove->SetSize(_size);
+	_imgAtkSword1->SetSize(_size);
+	_imgAtkSword2->SetSize(_size);
+
 	//렌더링
-	_image->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
+	_imgMove->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
 
 	//디버그 모드라면 디버그 렉트들 렌더링 (F1)
 	if (_isDebug)
