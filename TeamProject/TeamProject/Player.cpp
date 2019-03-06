@@ -71,38 +71,41 @@ void Player::Update()
 	switch (_state)
 	{
 	case Player::State::LeftIdle:
-		if (_Input->GetKeyDown('A')) this->ChangeState(State::LeftRun);		
-		else if (_Input->GetKeyDown('D')) this->ChangeState(State::RightRun);		
-		else if (_Input->GetKeyDown('W')) this->ChangeState(State::UpRun);		
-		else if (_Input->GetKeyDown('S')) this->ChangeState(State::DownRun);
+		if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);		
+		else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);		
+		else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);		
+		else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
 		//this->IdleKeyInput();
+		cout << "LeftIdle" << endl;
 		break;
-
 	case Player::State::RightIdle:
-		if (_Input->GetKeyDown('A')) this->ChangeState(State::LeftRun);
-		else if (_Input->GetKeyDown('D')) this->ChangeState(State::RightRun);
-		else if (_Input->GetKeyDown('W')) this->ChangeState(State::UpRun);
-		else if (_Input->GetKeyDown('S')) this->ChangeState(State::DownRun);
+		if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+		else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+		else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
+		else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
+		cout << "RightIdle" << endl;
 		//this->IdleKeyInput();
 		break;
 
 	case Player::State::UpIdle:
-		if (_Input->GetKeyDown('A')) this->ChangeState(State::LeftRun);
-		else if (_Input->GetKeyDown('D')) this->ChangeState(State::RightRun);
-		else if (_Input->GetKeyDown('W')) this->ChangeState(State::UpRun);
-		else if (_Input->GetKeyDown('S')) this->ChangeState(State::DownRun);
+		if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+		else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+		else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
+		else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
+		cout << "UpIdle" << endl;
 		//this->IdleKeyInput();
 		break;
 
 	case Player::State::DownIdle:
-		if (_Input->GetKeyDown('A')) this->ChangeState(State::LeftRun);
-		else if (_Input->GetKeyDown('D')) this->ChangeState(State::RightRun);
-		else if (_Input->GetKeyDown('W')) this->ChangeState(State::UpRun);
-		else if (_Input->GetKeyDown('S')) this->ChangeState(State::DownRun);
+		if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+		else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+		else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
+		else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
+		cout << "DownIdle" << endl;
 		//this->IdleKeyInput();
 		break;
 
@@ -111,7 +114,7 @@ void Player::Update()
 
 	case Player::State::LeftRun:		
 		if (_Input->GetKey('A')) moveValue += Vector2(-1.0f, 0.0f);	//왼누르기
-		else if (_Input->GetKeyUp('A')) this->ChangeState(State::LeftIdle); //왼떼기
+		if (_Input->GetKeyUp('A')) this->ChangeState(State::LeftIdle); //왼떼기
 		
 		//대각선 시작		
 		if (_Input->GetKey('W'))				//대각선 위 누르기
@@ -124,31 +127,33 @@ void Player::Update()
 			moveValue += Vector2(0.0f, 1.0f);
 			ChangeAnimation(Player::State::DownRun);
 		}
-		else if (_Input->GetKeyUp('W'))			//대각선 위 떼기
+
+		if (_Input->GetKeyUp('W'))			//대각선 위 떼기
 		{			
 			ChangeAnimation(Player::State::LeftRun);
-			moveValue += Vector2(-1.0f, 0.0f);
+			//moveValue += Vector2(-1.0f, 0.0f);
 			//this->ChangeState(State::LeftRun);
 		}		
 		else if (_Input->GetKeyUp('S'))			//대각선 아래 떼기
 		{			
-			//this->ChangeState(State::LeftRun);
-			ChangeAnimation(Player::State::LeftRun);
-			moveValue += Vector2(-1.0f, 0.0f);
+			this->ChangeState(State::LeftRun);
+			//ChangeAnimation(Player::State::LeftRun);
+		//	moveValue += Vector2(-1.0f, 0.0f);
 		}	
 		
 		if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
-		
+		cout << "LeftRun" << endl;
+
 		break;
 		//=====================================================================================
 	case Player::State::RightRun:
 		if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
-		else if (_Input->GetKeyUp('D')) this->ChangeState(State::RightIdle);
+		if (_Input->GetKeyUp('D')) this->ChangeState(State::RightIdle);
 		
 		
 		
 		//대각선 시작
-		if (_Input->GetKey('D') && _Input->GetKey('W'))	//대각선 위
+		if ( _Input->GetKey('W'))	//대각선 위
 		{
 			ChangeAnimation(Player::State::UpRun);
 			moveValue += Vector2(0.0f, -1.0f);
@@ -162,52 +167,39 @@ void Player::Update()
 		if (_Input->GetKeyUp('W'))
 		{
 			ChangeAnimation(Player::State::RightRun);
-			moveValue += Vector2(1.0f, 0.0f);
+			//moveValue += Vector2(1.0f, 0.0f);
 		}
 		else if (_Input->GetKeyUp('S'))
 		{
 			ChangeAnimation(Player::State::RightRun);
-			moveValue += Vector2(1.0f, 0.0f);
+			//moveValue += Vector2(1.0f, 0.0f);
 		}
 		
 		if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
-		
+		cout << "RightRun" << endl;
 		break;
 		//=====================================================================================
 	case Player::State::UpRun:
 		if (_Input->GetKey('W')) moveValue += Vector2(0.0f, -1.0f);
-		else if (_Input->GetKeyUp('W')) this->ChangeState(State::UpIdle);		
+		if (_Input->GetKeyUp('W')) this->ChangeState(State::UpIdle);		
 
 		if (_Input->GetKey('A')) moveValue += Vector2(-1.0f, 0.0f);
 		else if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
 		
-		if (_Input->GetKeyUp('A'))
-		{
-			ChangeAnimation(Player::State::UpRun);
-			moveValue += Vector2(0.0f, -1.0f);
-		}
-		else if (_Input->GetKeyUp('D'))
-		{
-			ChangeAnimation(Player::State::UpRun);
-			moveValue += Vector2(0.0f, 1.0f);
-		}
 
 		if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
-		
+		cout << "UpRun" << endl;
 		break; 		 	  	  
 		//=====================================================================================
 	case Player::State::DownRun:		
 		if (_Input->GetKey('S')) moveValue += Vector2(0.0f, 1.0f);		
-		else if (_Input->GetKeyUp('S')) this->ChangeState(State::DownIdle);
+		if (_Input->GetKeyUp('S')) this->ChangeState(State::DownIdle);
 
 		if (_Input->GetKey('A')) moveValue += Vector2(-1.0f, 0.0f);		
 		else if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
 
-		if (_Input->GetKeyUp('A')) ChangeAnimation(Player::State::DownRun);
-		else if (_Input->GetKeyUp('D')) ChangeAnimation(Player::State::DownRun);
-
 		if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
-
+		cout << "DownRun" << endl;
 		
 		break;
 		//=====================================================================================
@@ -383,7 +375,7 @@ void Player::CreateAnimation()
 	Animation* upRun = new Animation;
 	upRun->SetStartEndFrame(0, 0, 7, 0, false);
 	upRun->SetIsLoop(true);
-	upRun->SetFrameUpdateTime(0.1f);
+	upRun->SetFrameUpdateTime(_frameRun);
 	_animationList.insert(make_pair(State::UpRun, upRun));
 
 	Animation* downRun = new Animation;
