@@ -95,21 +95,23 @@ void MoveItem::Update()
 		//만일 아이템(_moveItem)이 있으면 
 		if (_moveItem)
 		{
+			Vector2 moveItemPos(_moveItem->GetMainRect().left, _moveItem->GetMainRect().top);
+			moveItemPos = _Camera->GetWorldVector2(moveItemPos);
 			//거리 구하기
-			float _distanceItemBag = Math::GetDistance(_position.x, _position.y, _moveItem->GetMainRect().left, _moveItem->GetMainRect().top);
+			float distanceItemBag = Math::GetDistance(_position.x, _position.y, moveItemPos.x, moveItemPos.y);
 
 			//각도 구하기
-			float _angleItemBag = Math::GetAngle(_position.x, _position.y, _moveItem->GetMainRect().left, _moveItem->GetMainRect().top);
+			float angleItemBag = Math::GetAngle(_position.x, _position.y, moveItemPos.x, moveItemPos.y);
 
 			//아이템 이동 속도
-			float _moveItemSpd = 950.0f;
+			float moveItemSpd = 950.0f;
 
 			//구한 각도와 아이템 속도로 포지션을 이동시키기
-			this->_position.x += cosf(_angleItemBag) * _moveItemSpd * _TimeManager->DeltaTime();
-			this->_position.y -= sinf(_angleItemBag) * _moveItemSpd * _TimeManager->DeltaTime();
+			this->_position.x += cosf(angleItemBag) * moveItemSpd * _TimeManager->DeltaTime();
+			this->_position.y -= sinf(angleItemBag) * moveItemSpd * _TimeManager->DeltaTime();
 			this->UpdateMainRect();
 
-			if (_distanceItemBag <= 20)
+			if (distanceItemBag <= 20)
 			{
 				//아이템 상태는 인벤 상태로 변환
 				_itemState = ItemState::Inven;
@@ -145,4 +147,11 @@ void MoveItem::Render()
 	//{
 	//	_DXRenderer->FillRectangle(this->_mainRect, DefaultBrush::yello, false);
 	//}
+
+	if (_isDebug)
+	{
+		ImGui::Begin("Chan");
+		ImGui::Text("X : %d , Y : %d", (int)_Input->GetMousePosition().x,(int) _Input->GetMousePosition().y);
+		ImGui::End();
+	}
 }

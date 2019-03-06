@@ -300,9 +300,6 @@
     <ClInclude Include="MoveItem.h">
       <Filter>PublicForder\Chan</Filter>
     </ClInclude>
-    <ClInclude Include="UIBag.h">
-      <Filter>PublicForder\Chan</Filter>
-    </ClInclude>
     <ClInclude Include="TestInventory.h">
       <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClInclude>
@@ -329,6 +326,15 @@
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>PublicForder\Ha</Filter>
+    </ClInclude>
+    <ClInclude Include="Dungeon_Map_01.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TestDeadman.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UIWeaponAndBag.h">
+      <Filter>PublicForder\Chan</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -500,9 +506,6 @@
     <ClCompile Include="MoveItem.cpp">
       <Filter>PublicForder\Chan</Filter>
     </ClCompile>
-    <ClCompile Include="UIBag.cpp">
-      <Filter>PublicForder\Chan</Filter>
-    </ClCompile>
     <ClCompile Include="TestInventory.cpp">
       <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClCompile>
@@ -529,6 +532,15 @@
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>PublicForder\Ha</Filter>
+    </ClCompile>
+    <ClCompile Include="Dungeon_Map_01.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TestDeadman.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UIWeaponAndBag.cpp">
+      <Filter>PublicForder\Chan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

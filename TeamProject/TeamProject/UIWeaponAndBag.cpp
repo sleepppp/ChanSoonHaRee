@@ -21,7 +21,7 @@ void UIWeaponAndBag::Init()
 
 	//클래스 이름
 	this->_name = "UIWeaponAndBag";
-	this->_mainRect = Figure::RectMake(1185, 201, 40, 40);
+	this->_mainRect = Figure::RectMake(1057, 160, 40, 40);
 	
 	this->_FrameX = 0;
 	this->_FrameY = 0;
@@ -57,13 +57,13 @@ void UIWeaponAndBag::Render()
 	{
 		//SetSize에 uiWeaponSwapIMG의 프레임을 담는다.
 		_uIWeaponSwapIMG->SetSize(_uIWeaponSwapIMG->GetFrameSize(0));
-		_uIWeaponSwapIMG->FrameRender(1050, 60, _FrameX, _FrameY, Pivot::LEFT_TOP, false);
+		_uIWeaponSwapIMG->FrameRender(922, 19, _FrameX, _FrameY, Pivot::LEFT_TOP, false);
 	}
 
 	//UI 가방 이미지 렌더
 	if (_uIBagIMG != nullptr)
 	{
-		_uIBagIMG->Render(1146, 181, Pivot::LEFT_TOP, false);
+		_uIBagIMG->Render(1018, 140, Pivot::LEFT_TOP, false);
 	}
 
 	if (_isDebug)
