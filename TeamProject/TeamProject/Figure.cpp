@@ -7,7 +7,7 @@
 @@ RECT rc : 렉트
 @@ POINT pt : 포인트 
 ******************************************************************************/
-bool Figure::checkPointInRect(const RECT& rc, const POINT& pt)
+bool Figure::CheckPointInRect(const RECT& rc, const POINT& pt)
 {
 	if ((rc.left <= pt.x && pt.x <= rc.right) && (rc.top <= pt.y && pt.y <= rc.bottom)) return true;
 	return false;
@@ -19,7 +19,7 @@ bool Figure::checkPointInRect(const RECT& rc, const POINT& pt)
 @@ int x : 점 x좌표
 @@ int y : 점 y좌표
 ************************************************************************/
-bool Figure::checkPointInRect(const RECT& rc, int x, int y)
+bool Figure::CheckPointInRect(const RECT& rc, int x, int y)
 {
 	if ((rc.left <= x && x <= rc.right) && (rc.top <= y && y <= rc.bottom)) return true;
 	return false;
@@ -30,7 +30,7 @@ bool Figure::checkPointInRect(const RECT& rc, int x, int y)
 @@ float x : 점 x
 @@ float y : 점 y 
 ************************************************************************/
-bool Figure::checkPointInRect(const MYRECT& rc, float x, float y)
+bool Figure::CheckPointInRect(const MYRECT& rc, float x, float y)
 {
 	if ((rc.left <= x && x <= rc.right) && (rc.top <= y && y <= rc.bottom)) return true;
 	return false;
@@ -40,7 +40,7 @@ bool Figure::checkPointInRect(const MYRECT& rc, float x, float y)
 @@ MYRECT rc : 렉트
 @ MYFLOATPOINT : 포인트
 ************************************************************************/
-bool Figure::checkPointInRect(const MYRECT& rc, const MYFLOATPOINT& pt)
+bool Figure::CheckPointInRect(const MYRECT& rc, const MYFLOATPOINT& pt)
 {
 	if ((rc.left <= pt.x && pt.x <= rc.right) && (rc.top <= pt.y && pt.y <= rc.bottom)) return true;
 	return false;
@@ -54,7 +54,7 @@ bool Figure::checkPointInRect(const MYRECT& rc, const MYFLOATPOINT& pt)
 @@ float cR : 원 반지름 
 @@ MYFLOATPOINT pt : 점
 ************************************************************************/
-bool Figure::checkPointInCircle(float cX, float cY, float cR, const MYFLOATPOINT& pt)
+bool Figure::CheckPointInCircle(float cX, float cY, float cR, const MYFLOATPOINT& pt)
 {
 	float deltaX = pt.x - cX;
 	float deltaY = pt.y - cY;
@@ -76,7 +76,7 @@ bool Figure::checkPointInCircle(float cX, float cY, float cR, const MYFLOATPOINT
 @@ float x : 점 X
 @@ float y : 점 Y
 ************************************************************************/
-bool Figure::checkPointInCircle(float cX, float cY, float cR, float x, float y)
+bool Figure::CheckPointInCircle(float cX, float cY, float cR, float x, float y)
 {
 	float deltaX = x - cX;
 	float deltaY = y - cY;
@@ -93,7 +93,7 @@ bool Figure::checkPointInCircle(float cX, float cY, float cR, float x, float y)
 ## CheckPointInCircle ##
 주석 달기 귀찮다 . . . 여기까지 했으면 대충 아래는 뭔지 알겠지???
 ************************************************************************/
-bool Figure::checkPointInCircle(const MYCIRCLE& rc, float x, float y)
+bool Figure::CheckPointInCircle(const MYCIRCLE& rc, float x, float y)
 {
 	float deltaX = x - rc.x;
 	float deltaY = y - rc.y;
@@ -107,7 +107,7 @@ bool Figure::checkPointInCircle(const MYCIRCLE& rc, float x, float y)
 	return true;
 }
 
-bool Figure::checkPointInCircle(const MYCIRCLE& rc, const MYFLOATPOINT& pt)
+bool Figure::CheckPointInCircle(const MYCIRCLE& rc, const MYFLOATPOINT& pt)
 {
 	float deltaX = pt.x - rc.x;
 	float deltaY = pt.y - rc.y;
@@ -121,7 +121,7 @@ bool Figure::checkPointInCircle(const MYCIRCLE& rc, const MYFLOATPOINT& pt)
 	return true;
 }
 
-bool Figure::isCollision(const MYRECT& rc1, const MYRECT& rc2)
+bool Figure::IsCollision(const MYRECT& rc1, const MYRECT& rc2)
 {
 	if ((rc1.left <= rc2.right && rc1.right >= rc2.left) &&
 		(rc1.top <= rc2.bottom && rc1.bottom >= rc2.top)) return true;
@@ -129,7 +129,7 @@ bool Figure::isCollision(const MYRECT& rc1, const MYRECT& rc2)
 	return false;
 }
 
-bool Figure::isCollision(const RECT& rc1, const RECT& rc2)
+bool Figure::IsCollision(const RECT& rc1, const RECT& rc2)
 {
 	if ((rc1.left <= rc2.right && rc1.right >= rc2.left) &&
 		(rc1.top <= rc2.bottom && rc1.bottom >= rc2.top)) return true;
@@ -138,7 +138,7 @@ bool Figure::isCollision(const RECT& rc1, const RECT& rc2)
 }
 
 
-bool Figure::isCollision(const MYCIRCLE& cir1, const MYCIRCLE& cir2)
+bool Figure::IsCollision(const MYCIRCLE& cir1, const MYCIRCLE& cir2)
 {
 	float deltaX = cir2.x - cir1.x;
 	float deltaY = cir2.y - cir1.y;
@@ -153,7 +153,7 @@ bool Figure::isCollision(const MYCIRCLE& cir1, const MYCIRCLE& cir2)
 	return true;
 }
 
-bool Figure::isCollision(const MYCIRCLE& cir1, const RECT& rc)
+bool Figure::IsCollision(const MYCIRCLE& cir1, const RECT& rc)
 {
 	int centerX = FLOAT_TO_INT(cir1.x);
 	int centerY = FLOAT_TO_INT(cir1.y);
@@ -180,16 +180,16 @@ bool Figure::isCollision(const MYCIRCLE& cir1, const RECT& rc)
 	else
 	{
 		//4꼭지점에 대한 원과의 충돌을 실시한다.
-		if (checkPointInCircle(cir1, (float)rc.left, (float)rc.top)) return true;
-		if (checkPointInCircle(cir1, (float)rc.right, (float)rc.top)) return true;
-		if (checkPointInCircle(cir1, (float)rc.left, (float)rc.bottom)) return true;
-		if (checkPointInCircle(cir1, (float)rc.right, (float)rc.bottom)) return true;
+		if (CheckPointInCircle(cir1, (float)rc.left, (float)rc.top)) return true;
+		if (CheckPointInCircle(cir1, (float)rc.right, (float)rc.top)) return true;
+		if (CheckPointInCircle(cir1, (float)rc.left, (float)rc.bottom)) return true;
+		if (CheckPointInCircle(cir1, (float)rc.right, (float)rc.bottom)) return true;
 	}
 
 	return false;
 }
 
-bool Figure::isCollision(const MYCIRCLE& cir, const MYRECT& rc)
+bool Figure::IsCollision(const MYCIRCLE& cir, const MYRECT& rc)
 {
 	int centerX = FLOAT_TO_INT(cir.x);
 	int centerY = FLOAT_TO_INT(cir.y);
@@ -212,21 +212,21 @@ bool Figure::isCollision(const MYCIRCLE& cir, const MYRECT& rc)
 	}
 	else
 	{
-		if (checkPointInCircle(cir, (float)rc.left, (float)rc.top)) return true;
-		if (checkPointInCircle(cir, (float)rc.right, (float)rc.top)) return true;
-		if (checkPointInCircle(cir, (float)rc.left, (float)rc.bottom)) return true;
-		if (checkPointInCircle(cir, (float)rc.right, (float)rc.bottom)) return true;
+		if (CheckPointInCircle(cir, (float)rc.left, (float)rc.top)) return true;
+		if (CheckPointInCircle(cir, (float)rc.right, (float)rc.top)) return true;
+		if (CheckPointInCircle(cir, (float)rc.left, (float)rc.bottom)) return true;
+		if (CheckPointInCircle(cir, (float)rc.right, (float)rc.bottom)) return true;
 	}
 
 	return false;
 }
 
 
-bool Figure::isCollisionReaction(const RECT& rcHold, RECT& rcMove)
+bool Figure::IsCollisionReaction(RECT& rcMove,const RECT& rcHold)
 {
 	RECT rcInter;
 
-	if (!IntersectRect(&rcInter, &rcHold, &rcMove)) return false;
+	if (IntersectRect(&rcInter, &rcHold, &rcMove) == false) return false;
 
 	int interW = rcInter.right - rcInter.left;
 	int interH = rcInter.bottom - rcInter.top;
@@ -259,7 +259,7 @@ bool Figure::isCollisionReaction(const RECT& rcHold, RECT& rcMove)
 	return true;
 }
 
-bool Figure::isCollisionReaction(const MYRECT& mrcHold, MYRECT& mrcMove)
+bool Figure::IsCollisionReaction(const MYRECT& mrcHold, MYRECT& mrcMove)
 {
 	RECT rcHold;
 	rcHold.left = FLOAT_TO_INT(mrcHold.left);
@@ -311,7 +311,7 @@ bool Figure::isCollisionReaction(const MYRECT& mrcHold, MYRECT& mrcMove)
 	return true;
 }
 
-bool Figure::isCollisionReaction(const MYCIRCLE& cirHold, MYCIRCLE& cirMove)
+bool Figure::IsCollisionReaction(const MYCIRCLE& cirHold, MYCIRCLE& cirMove)
 {
 	float deltaX = cirMove.x - cirHold.x;
 	float deltaY = cirMove.y - cirHold.y;

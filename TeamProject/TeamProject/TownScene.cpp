@@ -18,6 +18,7 @@ TownScene::~TownScene()
 
 void TownScene::Init()
 {
+	_ImageManager->AddImage("Shadow", PathResources(L"Object/Shadow.png"));
 	_ImageManager->AddImage("build_Retaile", PathResources(L"Object/build_Retaile.png"));
 	_ImageManager->AddImage("build_Enchant", PathResources(L"Object/build_Enchant.png"));
 	_ImageManager->AddImage("build_fountain", PathResources(L"Object/build_fountain.png"));
@@ -69,7 +70,7 @@ void TownScene::Init()
 
 	tempObject = new StaticObject("build_Bottom3", Vector2(2369, 1405));
 	_ObjectManager->AddObject(ObjectType::Object, tempObject);
-
+	
 	Tree* tempFrameObject = nullptr;
 
 	tempFrameObject = new Tree(Vector2(912,306));
@@ -81,17 +82,35 @@ void TownScene::Init()
 	tempFrameObject = new Tree(Vector2(442, 306));
 	_ObjectManager->AddObject(ObjectType::Object, tempFrameObject);
 
-	_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
+	tempFrameObject = new Tree(Vector2(990, 1000));
+	_ObjectManager->AddObject(ObjectType::Object, tempFrameObject);
+	
+	tempFrameObject = new Tree(Vector2(990, 1460));
+	_ObjectManager->AddObject(ObjectType::Object, tempFrameObject);
+	//2014,1000
+	tempFrameObject = new Tree(Vector2(2014, 1000));
+	_ObjectManager->AddObject(ObjectType::Object, tempFrameObject);
 
-	TestPlayer* player = new TestPlayer;
-	_ObjectManager->AddObject(ObjectType::Object, player);
+	tempFrameObject = new Tree(Vector2(2014, 1460));
+	_ObjectManager->AddObject(ObjectType::Object, tempFrameObject);
+	//2368 556
+	tempFrameObject = new Tree(Vector2(2368, 556));
+	_ObjectManager->AddObject(ObjectType::Object, tempFrameObject);
+	//2201,1868
+	tempFrameObject = new Tree(Vector2(2201, 1868));
+	_ObjectManager->AddObject(ObjectType::Object, tempFrameObject);
+
+	//_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
+
+	//TestPlayer* player = new TestPlayer;
+	//_ObjectManager->AddObject(ObjectType::Object, player);
 
 	_ObjectManager->Init();
 	_ObjectManager->ChangeZOrdering(true);
 
 	_townBackgroundImage = _ImageManager->AddImage("TownBackground", PathResources(L"Town/map.bmp"));
 	_Camera->SetMapSize(Vector2((float)_townBackgroundImage->GetWidth(),(float) _townBackgroundImage->GetHeight()));
-	_Camera->SetTarget(player);
+	_Camera->SetTarget(_ObjectManager->FindObject(ObjectType::Object,"Will"));
 }
 
 void TownScene::Release()
@@ -111,3 +130,4 @@ void TownScene::Render()
 	_ObjectManager->Render();
 
 }
+
