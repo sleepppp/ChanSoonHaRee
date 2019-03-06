@@ -151,7 +151,7 @@ void Image::Render(int x, int y, Pivot::Enum pivot, bool isRelativePos)
 @@ int y : 렌더링 할 y좌표 
 @@ int frameX : 가로 프레임
 @@ int frameY : 세로 프레임 
-@@ Pivot::Enum pivot : 렌더링 할 피봇 
+@@ Pivot::Enum pivot : 렌더링 할 피봇		
 @@ bool isRelativePos : 카메라 보정 유무 
 ********************************************************************************/
 void Image::FrameRender(int x, int y, int frameX, int frameY, Pivot::Enum pivot, bool isRelativePos)

@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "MainScene.h"
+#include "GameObject.h"
+#include "Inventory.h"
 
 void MainScene::Init()
 {
@@ -18,6 +20,12 @@ void MainScene::Release()
 
 void MainScene::Update()
 {
+	//if (_Input->GetKeyDown('I')) 
+	//{
+	//	GameObject* inven = _ObjectManager->FindObject(ObjectType::Object, "Inventory");
+	//	if(inven)
+	//		inven->SetActive(true);
+	//}
 	_ObjectManager->Update();
 }
 

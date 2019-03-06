@@ -130,7 +130,7 @@
     <Filter Include="MainEntry\Scene\TownScene\FrameObject">
       <UniqueIdentifier>{d571bb10-8728-4998-a26b-63a4f73f76ba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainEntry\MainHeader">
+    <Filter Include="MainHeader">
       <UniqueIdentifier>{ceba5b2f-d487-4c5b-ae04-c120837460bb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -187,19 +187,19 @@
       <Filter>System\Resource</Filter>
     </ClInclude>
     <ClInclude Include="DefineHeader.h">
-      <Filter>MainEntry\MainHeader</Filter>
+      <Filter>MainHeader</Filter>
     </ClInclude>
     <ClInclude Include="EnumStructHeader.h">
-      <Filter>MainEntry\MainHeader</Filter>
+      <Filter>MainHeader</Filter>
     </ClInclude>
     <ClInclude Include="LibraryHeader.h">
-      <Filter>MainEntry\MainHeader</Filter>
+      <Filter>MainHeader</Filter>
     </ClInclude>
     <ClInclude Include="ModuleHeader.h">
-      <Filter>MainEntry\MainHeader</Filter>
+      <Filter>MainHeader</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>MainEntry\MainHeader</Filter>
+      <Filter>MainHeader</Filter>
     </ClInclude>
     <ClInclude Include="TextFile.h">
       <Filter>Utility\File</Filter>
@@ -300,9 +300,6 @@
     <ClInclude Include="MoveItem.h">
       <Filter>PublicForder\Chan</Filter>
     </ClInclude>
-    <ClInclude Include="UIBag.h">
-      <Filter>PublicForder\Chan</Filter>
-    </ClInclude>
     <ClInclude Include="TestInventory.h">
       <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClInclude>
@@ -326,6 +323,12 @@
     </ClInclude>
     <ClInclude Include="BigSlime.h">
       <Filter>PublicForder\Ha</Filter>
+    </ClInclude>
+    <ClInclude Include="UIWeaponAndBag.h">
+      <Filter>PublicForder\Chan</Filter>
+    </ClInclude>
+    <ClInclude Include="TestDeadman.h">
+      <Filter>PublicForder\Chan</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -378,13 +381,13 @@
       <Filter>System\Resource</Filter>
     </ClCompile>
     <ClCompile Include="TeamProject.cpp">
-      <Filter>MainEntry\MainHeader</Filter>
+      <Filter>MainHeader</Filter>
     </ClCompile>
     <ClCompile Include="TextFile.cpp">
       <Filter>Utility\File</Filter>
     </ClCompile>
     <ClCompile Include="imgui_demo.cpp">
-      <Filter>MainEntry\MainHeader</Filter>
+      <Filter>MainHeader</Filter>
     </ClCompile>
     <ClCompile Include="MainScene + ReeInit.cpp">
       <Filter>PublicForder\Ree</Filter>
@@ -497,9 +500,6 @@
     <ClCompile Include="MoveItem.cpp">
       <Filter>PublicForder\Chan</Filter>
     </ClCompile>
-    <ClCompile Include="UIBag.cpp">
-      <Filter>PublicForder\Chan</Filter>
-    </ClCompile>
     <ClCompile Include="TestInventory.cpp">
       <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClCompile>
@@ -523,6 +523,12 @@
     </ClCompile>
     <ClCompile Include="BigSlime.cpp">
       <Filter>PublicForder\Ha</Filter>
+    </ClCompile>
+    <ClCompile Include="UIWeaponAndBag.cpp">
+      <Filter>PublicForder\Chan</Filter>
+    </ClCompile>
+    <ClCompile Include="TestDeadman.cpp">
+      <Filter>PublicForder\Chan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

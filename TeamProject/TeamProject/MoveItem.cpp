@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MoveItem.h"
-
+#include "UIWeaponAndBag.h"
 #include "Inventory.h"
 #include "Player.h"
 MoveItem::MoveItem()
@@ -17,7 +17,7 @@ MoveItem::~MoveItem()
 void MoveItem::Init()
 {
 	this->_name = "item_brench";
-	_itemBrenchImg = _ImageManager->AddImage("brench1", L"../Resources/Item/item_brench.png",false);
+	_itemBrenchImg = _ImageManager->AddImage("item_brench", L"../Resources/Item/item_brench.png",false);
 	this->_pivot = Pivot::LEFT_TOP;
 	this->_position = Vector2(WinSizeX / 1.2f, WinSizeY / 5.0f);
 	this->_size = Vector2(50, 50);
@@ -51,18 +51,19 @@ void MoveItem::Update()
 			//상대 각도 구하기
 			float angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
 
-			//둥둥 뜨게하기
+			//만일 거리가 250보다 멀어지면
+			//아이템 둥둥 뜨게하기
 			if (250 < distance)
 			{
 				_angle += 0.05f;
-				if (_angle >= Math::PI * 2.f)
-					_angle -= Math::PI * 2.f;
+				if (_angle >= Math::PI * 2.0f)
+					_angle -= Math::PI * 2.0f;
 
-				_position.y += sinf(_angle) * 50.0f * _TimeManager->DeltaTime();
+				_position.y += sinf(_angle) * 20.0f * _TimeManager->DeltaTime();
 				this->UpdateMainRect();
 			}
 
-			//만일 거리가 250보다 낮고 50보다 높으면
+			//만일 거리가 250보다 낮고 150보다 높으면
 			else if (250 > distance && distance > 150)
 			{
 				float speed = 20.0f;
@@ -70,7 +71,7 @@ void MoveItem::Update()
 				this->_position.y -= sinf(angle) * speed * _TimeManager->DeltaTime();
 				this->UpdateMainRect();
 			}
-			//만일 거리가 50이랑 같거나 낮아지면
+			//만일 거리가 150이랑 같거나 낮아지면
 			else if (distance <= 150)
 			{
 				float speed = 150.0f;
@@ -78,13 +79,42 @@ void MoveItem::Update()
 				this->_position.y -= sinf(angle) * speed * _TimeManager->DeltaTime();
 				this->UpdateMainRect();
 			}
-			else if (distance <= 30)
+			//만일 거리가 10보다 낮아지면
+			if (distance <= 10)
+			{
+				//아이템 이동 상태 변경
+				_itemState = ItemState::MoveItem;
+			}
+		}
+	}
+
+	//아이템 상태가 아이템 이동 상태이면
+	else if (_itemState == ItemState::MoveItem) 
+	{
+		GameObject* _moveItem = _ObjectManager->FindObject(ObjectType::UI, "UIWeaponAndBag");
+		//만일 아이템(_moveItem)이 있으면 
+		if (_moveItem)
+		{
+			//거리 구하기
+			float _distanceItemBag = Math::GetDistance(_position.x, _position.y, _moveItem->GetMainRect().left, _moveItem->GetMainRect().top);
+
+			//각도 구하기
+			float _angleItemBag = Math::GetAngle(_position.x, _position.y, _moveItem->GetMainRect().left, _moveItem->GetMainRect().top);
+
+			//아이템 이동 속도
+			float _moveItemSpd = 950.0f;
+
+			//구한 각도와 아이템 속도로 포지션을 이동시키기
+			this->_position.x += cosf(_angleItemBag) * _moveItemSpd * _TimeManager->DeltaTime();
+			this->_position.y -= sinf(_angleItemBag) * _moveItemSpd * _TimeManager->DeltaTime();
+			this->UpdateMainRect();
+
+			if (_distanceItemBag <= 20)
 			{
 				//아이템 상태는 인벤 상태로 변환
 				_itemState = ItemState::Inven;
 			}
 		}
-
 	}
 
 	//아이템 상태가 인벤이면 
