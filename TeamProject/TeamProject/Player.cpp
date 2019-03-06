@@ -226,6 +226,7 @@ void Player::Update()
 	}
 	this->Move(moveValue);
 	_mainAnimation->UpdateFrame();
+	this->GetCollisionRect();
 }
 
 /********************************************************************************/
