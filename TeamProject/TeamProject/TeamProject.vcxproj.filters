@@ -133,6 +133,9 @@
     <Filter Include="MainEntry\MainHeader">
       <UniqueIdentifier>{ceba5b2f-d487-4c5b-ae04-c120837460bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainEntry\Scene\DungeonSceme">
+      <UniqueIdentifier>{8df2b560-a4a7-4dbc-bd3e-5f0d591e8bdc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -315,9 +318,6 @@
     <ClInclude Include="TestPlayer.h">
       <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClInclude>
-    <ClInclude Include="DebugCollider.h">
-      <Filter>MainEntry\Scene\TownScene</Filter>
-    </ClInclude>
     <ClInclude Include="FrameObject.h">
       <Filter>MainEntry\Scene\TownScene\FrameObject</Filter>
     </ClInclude>
@@ -329,6 +329,12 @@
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>PublicForder\Ha</Filter>
+    </ClInclude>
+    <ClInclude Include="Dungeon_Map_01.h">
+      <Filter>MainEntry\Scene\DungeonSceme</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugCollider.h">
+      <Filter>MainEntry\Scene\TownScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -529,6 +535,9 @@
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>PublicForder\Ha</Filter>
+    </ClCompile>
+    <ClCompile Include="Dungeon_Map_01.cpp">
+      <Filter>MainEntry\Scene\DungeonSceme</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

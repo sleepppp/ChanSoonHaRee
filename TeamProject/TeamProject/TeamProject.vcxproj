@@ -153,6 +153,7 @@
     <ClInclude Include="BigSlime.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="DebugCollider.h" />
+    <ClInclude Include="Dungeon_Map_01.h" />
     <ClInclude Include="FrameObject.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="UIBag.h" />
@@ -220,6 +221,7 @@
     <ClCompile Include="BigSlime.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="DebugCollider.cpp" />
+    <ClCompile Include="Dungeon_Map_01.cpp" />
     <ClCompile Include="FrameObject.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="UIBag.cpp" />
