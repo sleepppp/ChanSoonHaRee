@@ -22,8 +22,8 @@ void Program::Init()
 	_SceneManager->AddScene("TownScene", new TownScene);
 
 	LoadingScene* loadScene = new LoadingScene;
-	loadScene->SetNextSceneName("TownScene");
-	loadScene->SetLoadingFunc([this]() {_SceneManager->FindScene("TownScene")->Init(); });
+	loadScene->SetNextSceneName("MainScene");
+	loadScene->SetLoadingFunc([this]() {_SceneManager->FindScene("MainScene")->Init(); });
 	_SceneManager->AddScene("LoadingScene", loadScene);
 
 	_SceneManager->LoadScene("TitleScene");

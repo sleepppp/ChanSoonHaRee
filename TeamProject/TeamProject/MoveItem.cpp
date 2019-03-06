@@ -17,7 +17,7 @@ MoveItem::~MoveItem()
 void MoveItem::Init()
 {
 	this->_name = "item_brench";
-	_itemBrenchImg = _ImageManager->AddImage("brench1", L"../Resources/Object/item_brench.png",false);
+	_itemBrenchImg = _ImageManager->AddImage("brench1", L"../Resources/Item/item_brench.png",false);
 	this->_pivot = Pivot::LEFT_TOP;
 	this->_position = Vector2(WinSizeX / 1.2f, WinSizeY / 5.0f);
 	this->_size = Vector2(50, 50);

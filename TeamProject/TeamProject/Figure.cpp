@@ -336,3 +336,49 @@ bool Figure::isCollisionReaction(const MYCIRCLE& cirHold, MYCIRCLE& cirMove)
 }
 
 
+Figure::TagLine::TagLine(Vector2 start, Vector2 end)
+	:start(start), end(end) {}
+
+Figure::TagLine::TagLine(Vector2 start, float angle, float dist)
+	: start(start)
+{
+	end.x = cosf(angle) * dist;
+	end.y = -sinf(angle) * dist;
+}
+
+
+bool Figure::IntersectLineToLine(Vector2 * pCollision, TagLine lineA, TagLine lineB)
+{
+	float uA = ((lineB.end.x - lineB.start.x)*(lineA.start.y - lineB.start.y) - (lineB.end.y - lineB.start.y)*(lineA.start.x - lineB.start.x)) / ((lineB.end.y - lineB.start.y)*(lineA.end.x - lineA.start.x) - (lineB.end.x - lineB.start.x)*(lineA.end.y - lineA.start.y));
+	float uB = ((lineA.end.x - lineA.start.x)*(lineA.start.y - lineB.start.y) - (lineA.end.y - lineA.start.y)*(lineA.start.x - lineB.start.x)) / ((lineB.end.y - lineB.start.y)*(lineA.end.x - lineA.start.x) - (lineB.end.x - lineB.start.x)*(lineA.end.y - lineA.start.y));
+
+	if (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1) {
+
+		if (pCollision)
+		{
+			pCollision->x = lineA.start.y + (uA * (lineA.end.y - lineA.start.y));
+			pCollision->y = lineA.start.x + (uA * (lineA.end.x - lineA.start.x));
+		}
+		return true;
+	}
+	return false;
+}
+bool Figure::IntersectLineToRect(Vector2 * pCollision, TagLine line, RECT rc)
+{
+	Vector2 leftTop(CastingFloat(rc.left), CastingFloat(rc.top));
+	Vector2 leftBottom(CastingFloat(rc.left), CastingFloat(rc.bottom));
+	Vector2 rightTop(CastingFloat(rc.right), CastingFloat(rc.top));
+	Vector2 rightBottom(CastingFloat(rc.right), CastingFloat(rc.bottom));
+	//#   1	  #
+	//4		  2
+	//#   3   #
+	if (IntersectLineToLine(pCollision, line, TagLine(leftTop, rightTop)))
+		return true;
+	if (IntersectLineToLine(pCollision, line, TagLine(rightTop, rightBottom)))
+		return true;
+	if (IntersectLineToLine(pCollision, line, TagLine(leftBottom, rightBottom)))
+		return true;
+	if (IntersectLineToLine(pCollision, line, TagLine(leftTop, leftBottom)));
+
+	return false;
+}
