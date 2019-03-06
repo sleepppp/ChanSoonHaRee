@@ -49,9 +49,6 @@
     <Filter Include="System\Resource">
       <UniqueIdentifier>{6c635a00-5a21-4a62-9860-ffd40e0aebb1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\View">
-      <UniqueIdentifier>{27f13dd8-5c4d-4b76-aea4-dad90a752984}</UniqueIdentifier>
-    </Filter>
     <Filter Include="System\Input">
       <UniqueIdentifier>{355edd46-0469-41f9-9f0e-a8f0b62bf7c8}</UniqueIdentifier>
     </Filter>
@@ -133,6 +130,9 @@
     <Filter Include="MainHeader">
       <UniqueIdentifier>{ceba5b2f-d487-4c5b-ae04-c120837460bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System\Camera">
+      <UniqueIdentifier>{27f13dd8-5c4d-4b76-aea4-dad90a752984}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -175,7 +175,7 @@
       <Filter>Utility\String</Filter>
     </ClInclude>
     <ClInclude Include="CameraManager.h">
-      <Filter>System\View</Filter>
+      <Filter>System\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>System\Input</Filter>
@@ -300,6 +300,9 @@
     <ClInclude Include="MoveItem.h">
       <Filter>PublicForder\Chan</Filter>
     </ClInclude>
+    <ClInclude Include="UIBag.h">
+      <Filter>PublicForder\Chan</Filter>
+    </ClInclude>
     <ClInclude Include="TestInventory.h">
       <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClInclude>
@@ -324,11 +327,8 @@
     <ClInclude Include="BigSlime.h">
       <Filter>PublicForder\Ha</Filter>
     </ClInclude>
-    <ClInclude Include="UIWeaponAndBag.h">
-      <Filter>PublicForder\Chan</Filter>
-    </ClInclude>
-    <ClInclude Include="TestDeadman.h">
-      <Filter>PublicForder\Chan</Filter>
+    <ClInclude Include="Boss.h">
+      <Filter>PublicForder\Ha</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -369,7 +369,7 @@
       <Filter>Utility\String</Filter>
     </ClCompile>
     <ClCompile Include="CameraManager.cpp">
-      <Filter>System\View</Filter>
+      <Filter>System\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
       <Filter>System\Input</Filter>
@@ -500,6 +500,9 @@
     <ClCompile Include="MoveItem.cpp">
       <Filter>PublicForder\Chan</Filter>
     </ClCompile>
+    <ClCompile Include="UIBag.cpp">
+      <Filter>PublicForder\Chan</Filter>
+    </ClCompile>
     <ClCompile Include="TestInventory.cpp">
       <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClCompile>
@@ -524,11 +527,8 @@
     <ClCompile Include="BigSlime.cpp">
       <Filter>PublicForder\Ha</Filter>
     </ClCompile>
-    <ClCompile Include="UIWeaponAndBag.cpp">
-      <Filter>PublicForder\Chan</Filter>
-    </ClCompile>
-    <ClCompile Include="TestDeadman.cpp">
-      <Filter>PublicForder\Chan</Filter>
+    <ClCompile Include="Boss.cpp">
+      <Filter>PublicForder\Ha</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

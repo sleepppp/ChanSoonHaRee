@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "CameraManager.h"
 
+#include "GameObject.h"
+
 SingletonCpp(CameraManager)
 
 /***************************************************************************
@@ -189,7 +191,62 @@ void CameraManager::UpdateTargetCameraMode()
 {
 	if (pTarget)
 	{
+		//target의 위치로 서서히 움직인다.
+		Vector2 centerPos = { position.x + CastingFloat(WinSizeX) * 0.5f, position.y + CastingFloat(WinSizeY) * 0.5f };
+		Vector2 toTarget = pTarget->GetPosition() - centerPos;
 
+		switch (state)
+		{
+		case MoveState::None:
+		{
+			if (toTarget.GetLength() > CameraMoveStartDistance)
+			{
+				this->state = MoveState::MoveToTarget;
+			}
+		}
+		break;
+
+		case MoveState::MoveToTarget:
+		{
+			float length = toTarget.GetLength();
+			this->speed = (length / (CameraMaxDistance - CameraMinDistance)) * (CameraMaxSpeed - CameraMinSpeed);
+			this->speed = Math::Clampf(speed, CameraMinSpeed, CameraMaxSpeed);
+
+			centerPos += toTarget.Normalize() * speed * _TimeManager->DeltaTime();
+			this->position = centerPos - Vector2(WinSizeX / 2.f, WinSizeY / 2.f);
+			this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+
+			if ((pTarget->GetPosition() - centerPos).GetLength() <= 50.f)
+			{
+				this->state = MoveState::None;
+				this->position = centerPos - Vector2(WinSizeX /2.f, WinSizeY / 2.f);
+				this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+			}
+
+			if (position.x < 0.f)
+			{
+				position.x -= position.x;
+				this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+			}
+			else if (cameraRect.right > (LONG)mapSize.x)
+			{
+				position.x -= ((float)cameraRect.right) - mapSize.x;
+				this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+			}
+			if (cameraRect.top < 0)
+			{
+				position.y -= position.y;
+				this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+			}
+			else if (cameraRect.bottom > (LONG)mapSize.y)
+			{
+				position.y -= (float(cameraRect.bottom)) - mapSize.y;
+				this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+			}
+
+		}
+		break;
+		}
 	}
 }
 
@@ -199,17 +256,29 @@ void CameraManager::UpdateTargetCameraMode()
 ***************************************************************************/
 void CameraManager::CameraProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	if (IsMouseOnGui == false)
+	if (state == MoveState::FreeCamera)
 	{
-		if ((SHORT)HIWORD(wParam) > 0)
+		if (IsMouseOnGui == false)
 		{
-			this->zoomFactor += 0.1f;
-			this->zoomFactor = Math::Clampf(zoomFactor, CameraZoomMin, CameraZoomMax);
+			if ((SHORT)HIWORD(wParam) > 0)
+			{
+				this->zoomFactor += 0.1f;
+				this->zoomFactor = Math::Clampf(zoomFactor, CameraZoomMin, CameraZoomMax);
+			}
+			else
+			{
+				this->zoomFactor -= 0.1f;
+				this->zoomFactor = Math::Clampf(zoomFactor, CameraZoomMin, CameraZoomMax);
+			}
 		}
-		else
-		{
-			this->zoomFactor -= 0.1f;
-			this->zoomFactor = Math::Clampf(zoomFactor, CameraZoomMin, CameraZoomMax);
-		}
+	}
+}
+
+void CameraManager::SetTarget(GameObject * object)
+{
+	if (object)
+	{
+		this->pTarget = object;
+		this->state = MoveState::None;
 	}
 }
