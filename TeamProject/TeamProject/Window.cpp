@@ -67,6 +67,7 @@ WPARAM Window::Run()
 		{
 			this->UpdateManager();
 			Window::program->Update();
+			CameraManager::Get()->Update();
 			Window::program->Render();
 		}
 	}
@@ -233,6 +234,5 @@ void Window::UpdateManager()
 	Time::Get()->Update();
 	SoundManager::Get()->Update();
 	Input::Get()->Update();
-	CameraManager::Get()->Update();
 	ImGui::Update();
 }

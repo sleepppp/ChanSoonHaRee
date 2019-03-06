@@ -83,13 +83,15 @@ void TownScene::Init()
 
 	_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
 
-	_ObjectManager->AddObject(ObjectType::Object, new TestPlayer);
+	TestPlayer* player = new TestPlayer;
+	_ObjectManager->AddObject(ObjectType::Object, player);
 
 	_ObjectManager->Init();
 	_ObjectManager->ChangeZOrdering(true);
 
 	_townBackgroundImage = _ImageManager->AddImage("TownBackground", PathResources(L"Town/map.bmp"));
 	_Camera->SetMapSize(Vector2((float)_townBackgroundImage->GetWidth(),(float) _townBackgroundImage->GetHeight()));
+	_Camera->SetTarget(player);
 }
 
 void TownScene::Release()
@@ -107,4 +109,5 @@ void TownScene::Render()
 	_townBackgroundImage->Render(0, 0, Pivot::LEFT_TOP, true);
 
 	_ObjectManager->Render();
+
 }
