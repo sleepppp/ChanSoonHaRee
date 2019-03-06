@@ -5,6 +5,7 @@ class MoveItem : public GameObject
 	enum class ItemState
 	{
 		Follow = 0,
+		MoveItem,
 		Inven
 
 

@@ -113,6 +113,10 @@ Vector2 CameraManager::GetRelativeVector2(Vector2 v)
 	v = v * zoomFactor;
 	return std::move(v);
 }
+Vector2 CameraManager::GetWorldVector2(Vector2 v)
+{
+	return Vector2(v.x / zoomFactor + position.x,v.y / zoomFactor + position.y);
+}
 /***************************************************************************
 ## GetWorldMouse ## 
 카메라 공간 상의 마우스좌표 반환

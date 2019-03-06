@@ -32,6 +32,7 @@ void Weeds::Release() {}
 void Weeds::Update()
 {
 	this->Move();
+	Collision();
 
 	RECT collisionRc;
 	if (IntersectRect(&collisionRc, &_renderRect, &_player->GetMainRect()))
@@ -58,7 +59,9 @@ void Weeds::Update()
 	{
 		_imageCount = 0;
 	}
-	
+
+	this->_renderRect = UpdateRect(_position, _size, _pivot);
+
 }
 void Weeds::Render()
 {
@@ -69,4 +72,52 @@ void Weeds::Render()
 	{
 		_DXRenderer->DrawRectangle(_renderRect, DefaultBrush::red);
 	}
+}
+
+void Weeds::Collision()
+{
+	if (this->IntersectReaction(&_renderRect, &_player->GetMainRect()))
+	{
+		_position.x = ((_renderRect.right - _renderRect.left) / 2) + _renderRect.left;
+		_position.y = ((_renderRect.bottom - _renderRect.top) / 2) + _renderRect.top;
+	}
+}
+
+bool Weeds::IntersectReaction(RECT * moveRect, RECT * unMoveRect)
+{
+	RECT rc = { 0 };
+	
+	//충돌이 안되었다면 빠져나오라
+	if (IntersectRect(&rc, moveRect, unMoveRect) == false)
+		return false;
+
+	int x = rc.right - rc.left;
+	int y = rc.bottom - rc.top;
+	if (x > y)
+	{
+		if (rc.bottom == unMoveRect->bottom)
+		{
+			moveRect->bottom = moveRect->bottom + y;
+			moveRect->top = moveRect->top + y;
+		}
+		else if (rc.top == unMoveRect->top)
+		{
+			moveRect->bottom = moveRect->bottom - y;
+			moveRect->top = moveRect->top - y;
+		}
+	}
+	else
+	{
+		if (rc.left == unMoveRect->left)
+		{
+			moveRect->left = moveRect->left - x;
+			moveRect->right = moveRect->right - x;
+		}
+		else if (rc.right == unMoveRect->right)
+		{
+			moveRect->left = moveRect->left + x;
+			moveRect->right = moveRect->right + x;
+		}
+	}
+	return true;
 }

@@ -19,7 +19,7 @@ void Inventory::Init()
 	//이미지 추가
 	//LSTRING /.. 은 이전 폴더로 이동 /로 타고 타고 넘어갈 수 있다. png 파일도 사용 가능
 	//false는 픽셀 충돌 할 건지 말 건지 체크용
-	this->_inventoryImage = _ImageManager->AddImage("InventoryWindow", L"../Resources/UI/inventory.png", false);
+	this->_inventoryImage = _ImageManager->AddImage("InventoryWindow", L"../Resources/UI/newInventory.png", false);
 
 	//인벤토리 위치 잡기
 	//X 포지션은 화면 가로 중앙
@@ -49,8 +49,14 @@ void Inventory::Init()
 		//슬롯 -> 슬롯 렉트 = left top 기준으로 렉트 생성. 
 		//X시작 좌표는 메인 렉트.left + 95 + (57 + 10) * i 만큼 간격으로 5번 생성, 즉 5개의 렉트 생성
 		//Y시작 좌표는 메인 렉트.top + 58
+
+		//플레이어 슬롯 사이즈 선언
 		//X,Y 크기는 57, 57
-		slot->slotRect = Figure::RectMake(_mainRect.left +  95 + (57 + 10) * i, _mainRect.top + 58, 57, 57);
+		slot->size = Vector2(57, 57);
+
+		//플레이어 슬롯 렉트 생성
+		slot->slotRect = Figure::RectMake(_mainRect.left +  95 + (57 + 10) * i, _mainRect.top + 58, slot->size.x, slot->size.y);
+
 
 		//아직 아이템이 들어가지 않았으므로 슬롯 isEmpty는 true
 		slot->isEmpty = true;
@@ -69,8 +75,11 @@ void Inventory::Init()
 			//인벤토리 슬롯 new 선언
 			InventorySlot* bagSlot = new InventorySlot;
 
+			//가방 슬롯 사이즈 선언
+			bagSlot->size = Vector2(57, 57);
+
 			//가방 슬롯 렉트 15칸 생성
-			bagSlot->slotRect = Figure::RectMake(_mainRect.left + 95 + (57 + 10) * j, _mainRect.top + 144 + (58 + 10) * i, 57, 57);
+			bagSlot->slotRect = Figure::RectMake(_mainRect.left + 95 + (57 + 10) * j, _mainRect.top + 144 + (58 + 10) * i, bagSlot->size.x, bagSlot->size.y);
 
 			//가방 슬롯은 처음에 비었으므로 isEmpty는 true
 			bagSlot->isEmpty = true;
@@ -87,8 +96,11 @@ void Inventory::Init()
 		//인벤토리 슬롯 new 선언
 		InventorySlot* weaponSlot = new InventorySlot;
 
+		//무기 슬롯 사이즈 선언
+		weaponSlot->size = Vector2(57, 57);
+
 		//무기 슬롯 렉트 2칸 생성
-		weaponSlot->slotRect = Figure::RectMake(_mainRect.left + 680 + (57 + 50)* i, _mainRect.top + 50, 57, 57);
+		weaponSlot->slotRect = Figure::RectMake(_mainRect.left + 680 + (57 + 50)* i, _mainRect.top + 50, weaponSlot->size.x, weaponSlot->size.y);
 
 		//무기 슬롯은 처음에 비었으므로 isEmpty는 true
 		weaponSlot->isEmpty = true;
@@ -104,8 +116,11 @@ void Inventory::Init()
 		//인벤토리 슬롯 new 선언
 		InventorySlot* equipSlot = new InventorySlot;
 
+		//장비 슬롯 사이즈 선언
+		equipSlot->size = Vector2(57, 57);
+
 		//장비 슬롯 렉트 세로로 3칸 생성
-		equipSlot->slotRect = Figure::RectMake(_mainRect.left + 600 + 57, _mainRect.top + 144 + (58 + 10) * i, 57, 57);
+		equipSlot->slotRect = Figure::RectMake(_mainRect.left + 600 + 57, _mainRect.top + 144 + (58 + 10) * i, equipSlot->size.x, equipSlot->size.y);
 
 		//장비 슬롯은 처음에 비었으므로 isEmpty는 true
 		equipSlot->isEmpty = true;
@@ -118,8 +133,11 @@ void Inventory::Init()
 	//포션 슬롯은 1칸
 	//인벤토리 슬롯 new선언
 	InventorySlot* potionSlot = new InventorySlot;
+
+	potionSlot->size = Vector2(57, 57);
+
 	//포션 슬롯 렉트 1칸 생성
-	potionSlot->slotRect = Figure::RectMake(_mainRect.left + 667 + 57, _mainRect.top + 200 + 58, 57, 57);
+	potionSlot->slotRect = Figure::RectMake(_mainRect.left + 667 + 57, _mainRect.top + 200 + 58, potionSlot->size.x, potionSlot->size.y);
 	//포션 슬롯은 처음에 비었으므로 isEmpty는 true
 	potionSlot->isEmpty = true;
 	//생성한 포션 슬롯을 포션 슬롯 리스트에 push_back담기
@@ -181,31 +199,36 @@ void Inventory::Render()
 		//캐릭터 슬롯 인벤토리 상태, PlayerTarget
 		if (_targetState == InvenTargetState::PlayerTarget) 
 		{
-			_invenTargetImg->Render(_playerSlotList[_invenIndex]->slotRect.left - 6, _playerSlotList[_invenIndex]->slotRect.top - 4, Pivot::LEFT_TOP, false);
+			_invenTargetImg->SetSize(_playerSlotList[_invenIndex]->GetSize());
+			_invenTargetImg->Render(_playerSlotList[_invenIndex]->slotRect.left, _playerSlotList[_invenIndex]->slotRect.top, Pivot::LEFT_TOP, false);
 		}
 		
 		//가방 슬롯 인벤토리 상태, BagTarget
 		if (_targetState == InvenTargetState::BagTarget)
 		{
-			_invenTargetImg->Render(_bagSlotList[_invenIndex]->slotRect.left - 6, _bagSlotList[_invenIndex]->slotRect.top - 4, Pivot::LEFT_TOP, false);
+			_invenTargetImg->SetSize(_bagSlotList[_invenIndex]->GetSize());
+			_invenTargetImg->Render(_bagSlotList[_invenIndex]->slotRect.left, _bagSlotList[_invenIndex]->slotRect.top, Pivot::LEFT_TOP, false);
 		}
 
 		//무기 슬롯 인벤토리 상태, WeaponTarget
 		if (_targetState == InvenTargetState::WeaponTarget) 
 		{
-			_invenTargetImg->Render(_weponSlotList[_invenIndex]->slotRect.left - 6, _weponSlotList[_invenIndex]->slotRect.top - 4, Pivot::LEFT_TOP, false);
+			_invenTargetImg->SetSize(_weponSlotList[_invenIndex]->GetSize());
+			_invenTargetImg->Render(_weponSlotList[_invenIndex]->slotRect.left, _weponSlotList[_invenIndex]->slotRect.top, Pivot::LEFT_TOP, false);
 		}
 
 		//장비(방어구) 슬롯 인벤토리 상태, EquipTarget
 		if (_targetState == InvenTargetState::EquipTarget) 
 		{
-			_invenTargetImg->Render(_equipSlotList[_invenIndex]->slotRect.left - 6, _equipSlotList[_invenIndex]->slotRect.top - 4, Pivot::LEFT_TOP, false);
+			_invenTargetImg->SetSize(_equipSlotList[_invenIndex]->GetSize());
+			_invenTargetImg->Render(_equipSlotList[_invenIndex]->slotRect.left, _equipSlotList[_invenIndex]->slotRect.top, Pivot::LEFT_TOP, false);
 		}
 
 		//포션 슬롯 인벤토리 상태
 		if (_targetState == InvenTargetState::PotionTarget) 
 		{
-			_invenTargetImg->Render(_potionSlotList[_invenIndex]->slotRect.left - 6, _potionSlotList[_invenIndex]->slotRect.top - 4, Pivot::LEFT_TOP, false);
+			_invenTargetImg->SetSize(_playerSlotList[_invenIndex]->GetSize());
+			_invenTargetImg->Render(_potionSlotList[_invenIndex]->slotRect.left, _potionSlotList[_invenIndex]->slotRect.top, Pivot::LEFT_TOP, false);
 		}
 	}
 	//렉트 토글 F1
@@ -335,21 +358,34 @@ void Inventory::Render()
 //습득한 아이템 정보 추가 
 bool Inventory::AddItem(string name)
 {
+	//만일 아이템 이름이 item_brench이면
 	if (name == "item_brench")
 	{
 		for (UINT i = 0; i < _playerSlotList.size(); ++i)
 		{
+			//플레이어 슬롯 
 			if (_playerSlotList[i]->isEmpty == true)
 			{
-				_playerSlotList[i]->data.image = _ImageManager->FindImage("InventoryWindow");
-				_playerSlotList[i]->data.itemDescription = "이 아이템은 나뭇가지다~";
+				_playerSlotList[i]->data.image = _ImageManager->FindImage("item_brench");
+				_playerSlotList[i]->data.itemDescription = "던전에서 흔히 보이는 나뭇가지";
 				_playerSlotList[i]->data.itemIndex = i;
 				_playerSlotList[i]->data.itemAtk = 0;
 				_playerSlotList[i]->data.itemDef = 0;
 				_playerSlotList[i]->isEmpty = false;
 				return true;
 			}
-		
+
+			//가방 슬롯
+			else if (_bagSlotList[i]->isEmpty == true)
+			{
+				_bagSlotList[i]->data.image = _ImageManager->FindImage("item_brench");
+				_bagSlotList[i]->data.itemDescription = "던전에서 흔히 보이는 나뭇가지";
+				_bagSlotList[i]->data.itemIndex = i;
+				_bagSlotList[i]->data.itemAtk = 0;
+				_bagSlotList[i]->data.itemDef = 0;
+				_bagSlotList[i]->isEmpty = false;
+				return true;
+			}	
 		}
 	}
 	else if (name == "asdas")
@@ -369,7 +405,7 @@ void Inventory::InvenState()
 		//인벤토리 열기
 	case Inventory::InventoryState::OpenSlide:
 		//인벤토리 포지션 y 위로 800.0f 만큼 이동하기
-		_position.y -= 800.0f * _TimeManager->DeltaTime();
+		_position.y -= 1600.0f * _TimeManager->DeltaTime();
 
 
 		//### 인벤토리가 계속 올라가는 걸 방지하기 위함 ###
@@ -421,7 +457,7 @@ void Inventory::InvenState()
 		//인벤토리 닫기
 	case Inventory::InventoryState::CloseSlide:
 		//인벤토리 포지션 y 아래로 800.0f 만큼 이동하기
-		_position.y += 800.0f * _TimeManager->DeltaTime();
+		_position.y += 1600.0f * _TimeManager->DeltaTime();
 
 		//### 인벤토리가 계속 내려가는 걸 방지하기 위함 ###
 		//만일 포지션 y가 화면 중앙이거나 더 작으면  
@@ -531,6 +567,12 @@ void Inventory::InvenTarget()
 void Inventory::Enable()
 {
 	this->_state = InventoryState::OpenSlide;
+
+	vector<GameObject*> pObjectList = _ObjectManager->GetObjectList(ObjectType::Object);
+	for (UINT i = 0; i < pObjectList.size(); ++i)
+	{
+		pObjectList[i]->SendCallbackMessage(TagMessage("InventoryOpen"));
+	}
 }
 
 void Inventory::KeyMove()
