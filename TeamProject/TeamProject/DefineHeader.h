@@ -6,8 +6,8 @@
 
 #define LockFPS 500.0f
 
-#define WinSizeX 1280	//윈도우창 가로길이
-#define WinSizeY 760	//윈도우창 세로길이
+#define WinSizeX 1152	//윈도우창 가로길이
+#define WinSizeY 719	//윈도우창 세로길이
 
 #define ZeroToASC 48	//숫자 0 아스키값
 #define NineToASC 57	//숫자 9 아스키값

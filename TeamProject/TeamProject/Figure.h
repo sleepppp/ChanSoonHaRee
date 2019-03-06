@@ -150,27 +150,27 @@ namespace Figure
 	}MYRECT, *LPMYRECT;
 
 
-	bool checkPointInRect(const RECT& rc, const POINT& pt);
-	bool checkPointInRect(const RECT& rc, int x, int y);
-	bool checkPointInRect(const MYRECT& rc, float x, float y);
-	bool checkPointInRect(const MYRECT& rc, const MYFLOATPOINT& pt);
+	bool CheckPointInRect(const RECT& rc, const POINT& pt);
+	bool CheckPointInRect(const RECT& rc, int x, int y);
+	bool CheckPointInRect(const MYRECT& rc, float x, float y);
+	bool CheckPointInRect(const MYRECT& rc, const MYFLOATPOINT& pt);
 
-	bool checkPointInCircle(float cX, float cY, float cR, const MYFLOATPOINT& pt);
-	bool checkPointInCircle(float cX, float cY, float cR, float x, float y);
-	bool checkPointInCircle(const MYCIRCLE& rc, float x, float y);
-	bool checkPointInCircle(const MYCIRCLE& rc, const MYFLOATPOINT& pt);
+	bool CheckPointInCircle(float cX, float cY, float cR, const MYFLOATPOINT& pt);
+	bool CheckPointInCircle(float cX, float cY, float cR, float x, float y);
+	bool CheckPointInCircle(const MYCIRCLE& rc, float x, float y);
+	bool CheckPointInCircle(const MYCIRCLE& rc, const MYFLOATPOINT& pt);
 
-	bool isCollision(const MYRECT& rc1, const MYRECT& rc2);
-	bool isCollision(const RECT& rc1, const RECT& rc2);
+	bool IsCollision(const MYRECT& rc1, const MYRECT& rc2);
+	bool IsCollision(const RECT& rc1, const RECT& rc2);
 
-	bool isCollision(const MYCIRCLE& cir1, const MYCIRCLE& cir2);
+	bool IsCollision(const MYCIRCLE& cir1, const MYCIRCLE& cir2);
 
-	bool isCollision(const MYCIRCLE& cir1, const RECT& rc);
-	bool isCollision(const MYCIRCLE& cir, const MYRECT& rc);
+	bool IsCollision(const MYCIRCLE& cir1, const RECT& rc);
+	bool IsCollision(const MYCIRCLE& cir, const MYRECT& rc);
 
-	bool isCollisionReaction(const RECT& rcHold, RECT& rcMove);
-	bool isCollisionReaction(const MYRECT& mrcHold, MYRECT& mrcMove);
-	bool isCollisionReaction(const MYCIRCLE& cirHold, MYCIRCLE& cirMove);
+	bool IsCollisionReaction(RECT& rcMove,const RECT& rcHold);
+	bool IsCollisionReaction(const MYRECT& mrcHold, MYRECT& mrcMove);
+	bool IsCollisionReaction(const MYCIRCLE& cirHold, MYCIRCLE& cirMove);
 
 	/***********************************************************************
 	## PointMake ##
@@ -305,5 +305,6 @@ namespace Figure
 		default:
 			break;
 		}
+		return rc;
 	}
 }

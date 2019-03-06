@@ -49,9 +49,6 @@
     <Filter Include="System\Resource">
       <UniqueIdentifier>{6c635a00-5a21-4a62-9860-ffd40e0aebb1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\View">
-      <UniqueIdentifier>{27f13dd8-5c4d-4b76-aea4-dad90a752984}</UniqueIdentifier>
-    </Filter>
     <Filter Include="System\Input">
       <UniqueIdentifier>{355edd46-0469-41f9-9f0e-a8f0b62bf7c8}</UniqueIdentifier>
     </Filter>
@@ -130,11 +127,11 @@
     <Filter Include="MainEntry\Scene\TownScene\FrameObject">
       <UniqueIdentifier>{d571bb10-8728-4998-a26b-63a4f73f76ba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainEntry\MainHeader">
+    <Filter Include="MainHeader">
       <UniqueIdentifier>{ceba5b2f-d487-4c5b-ae04-c120837460bb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainEntry\Scene\DungeonSceme">
-      <UniqueIdentifier>{8df2b560-a4a7-4dbc-bd3e-5f0d591e8bdc}</UniqueIdentifier>
+    <Filter Include="System\Camera">
+      <UniqueIdentifier>{27f13dd8-5c4d-4b76-aea4-dad90a752984}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -178,7 +175,7 @@
       <Filter>Utility\String</Filter>
     </ClInclude>
     <ClInclude Include="CameraManager.h">
-      <Filter>System\View</Filter>
+      <Filter>System\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>System\Input</Filter>
@@ -190,19 +187,19 @@
       <Filter>System\Resource</Filter>
     </ClInclude>
     <ClInclude Include="DefineHeader.h">
-      <Filter>MainEntry\MainHeader</Filter>
+      <Filter>MainHeader</Filter>
     </ClInclude>
     <ClInclude Include="EnumStructHeader.h">
-      <Filter>MainEntry\MainHeader</Filter>
+      <Filter>MainHeader</Filter>
     </ClInclude>
     <ClInclude Include="LibraryHeader.h">
-      <Filter>MainEntry\MainHeader</Filter>
+      <Filter>MainHeader</Filter>
     </ClInclude>
     <ClInclude Include="ModuleHeader.h">
-      <Filter>MainEntry\MainHeader</Filter>
+      <Filter>MainHeader</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>MainEntry\MainHeader</Filter>
+      <Filter>MainHeader</Filter>
     </ClInclude>
     <ClInclude Include="TextFile.h">
       <Filter>Utility\File</Filter>
@@ -318,6 +315,9 @@
     <ClInclude Include="TestPlayer.h">
       <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClInclude>
+    <ClInclude Include="DebugCollider.h">
+      <Filter>MainEntry\Scene\TownScene</Filter>
+    </ClInclude>
     <ClInclude Include="FrameObject.h">
       <Filter>MainEntry\Scene\TownScene\FrameObject</Filter>
     </ClInclude>
@@ -329,12 +329,6 @@
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>PublicForder\Ha</Filter>
-    </ClInclude>
-    <ClInclude Include="Dungeon_Map_01.h">
-      <Filter>MainEntry\Scene\DungeonSceme</Filter>
-    </ClInclude>
-    <ClInclude Include="DebugCollider.h">
-      <Filter>MainEntry\Scene\TownScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -375,7 +369,7 @@
       <Filter>Utility\String</Filter>
     </ClCompile>
     <ClCompile Include="CameraManager.cpp">
-      <Filter>System\View</Filter>
+      <Filter>System\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
       <Filter>System\Input</Filter>
@@ -387,13 +381,13 @@
       <Filter>System\Resource</Filter>
     </ClCompile>
     <ClCompile Include="TeamProject.cpp">
-      <Filter>MainEntry\MainHeader</Filter>
+      <Filter>MainHeader</Filter>
     </ClCompile>
     <ClCompile Include="TextFile.cpp">
       <Filter>Utility\File</Filter>
     </ClCompile>
     <ClCompile Include="imgui_demo.cpp">
-      <Filter>MainEntry\MainHeader</Filter>
+      <Filter>MainHeader</Filter>
     </ClCompile>
     <ClCompile Include="MainScene + ReeInit.cpp">
       <Filter>PublicForder\Ree</Filter>
@@ -535,9 +529,6 @@
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>PublicForder\Ha</Filter>
-    </ClCompile>
-    <ClCompile Include="Dungeon_Map_01.cpp">
-      <Filter>MainEntry\Scene\DungeonSceme</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

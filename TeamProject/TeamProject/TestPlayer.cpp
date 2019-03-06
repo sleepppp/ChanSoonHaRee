@@ -26,7 +26,7 @@ void TestPlayer::Init()
 	//기본 변수들 초기화 
 	this->_name = "TestPlayer";
 	this->_size = Vector2(120, 120);
-	this->_position = Vector2(957,935);
+	this->_position = Vector2(700,935);
 	this->_isActive = true;
 	this->_pivot = Pivot::CENTER;
 	this->_speed = 300.0f;
@@ -208,9 +208,24 @@ void TestPlayer::Move(Vector2 direction)
 	//현재 좌표는 방향(정규화됀 값) * speed * DeltaTime
 	this->_position += direction.Normalize() * _speed * _TimeManager->DeltaTime();
 	//이동 했으므로 정밀 충돌용 렉트의 위치도 갱신해준다.
-	_collisionRect = Figure::RectMakeCenter(_position, Vector2(60.f, 60.f));
+	_collisionRect = Figure::RectMakeCenter(_position + Vector2(0.f, 10.f), Vector2(60.f, 40.f));
 	//mainRect의 위치도 갱신
 	this->UpdateMainRect();
+
+	const vector<GameObject*>* pObjectList = _ObjectManager->GetObjectListPointer(ObjectType::Object);
+	for (UINT i = 0; i < pObjectList->size(); ++i)
+	{
+		GameObject* object = pObjectList->at(i);
+		if (object != this)
+		{
+			if (Figure::IsCollisionReaction(_collisionRect, object->GetCollisionRect()) == true)
+			{
+				_position.x = CastingFloat(_collisionRect.left) + 30.f;
+				_position.y = CastingFloat(_collisionRect.top) + 10.f;
+				this->UpdateMainRect();
+			}
+		}
+	}
 }
 /***********************************************************************************
 ## ChangeAnimation ##
