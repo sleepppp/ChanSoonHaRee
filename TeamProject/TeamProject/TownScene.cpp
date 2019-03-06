@@ -105,6 +105,11 @@ void TownScene::Init()
 	//TestPlayer* player = new TestPlayer;
 	//_ObjectManager->AddObject(ObjectType::Object, player);
 
+	this->SoonInit();
+	this->ReeInit();
+	this->HaInit();
+	this->ChanInit();
+
 	_ObjectManager->Init();
 	_ObjectManager->ChangeZOrdering(true);
 
