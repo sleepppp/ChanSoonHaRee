@@ -24,6 +24,10 @@ private:
 	InvenItemData data;		//인벤토리 아이템 데이터 구조체 변수 선언 data
 	bool isEmpty;			//아이템 슬롯이 비어있는 확인하기 위한 bool 변수 isEmpty
 	RECT slotRect;			//슬롯 그림에 렉트를 생성하기 위한 렉트 변수 slotRect
+	Vector2 size;			//슬롯 사이즈
+public:
+	//사이즈 값 얻기 함수
+	Vector2 GetSize() { return size; }
 };
 
 //인벤토리 클래스 ---> GameObject를 상속받음
@@ -87,7 +91,6 @@ public:
 	void InvenTarget();							//타겟 상태 변경을 위한 함수
 
 	void Enable()override;						//인벤토리 켜기 함수
-
 
 	void KeyMove();								//방향 키 함수
 };

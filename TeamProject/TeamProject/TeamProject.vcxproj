@@ -155,8 +155,9 @@
     <ClInclude Include="DebugCollider.h" />
     <ClInclude Include="Dungeon_Map_01.h" />
     <ClInclude Include="FrameObject.h" />
+    <ClInclude Include="TestDeadman.h" />
     <ClInclude Include="Tree.h" />
-    <ClInclude Include="UIBag.h" />
+    <ClInclude Include="UIWeaponAndBag.h" />
     <ClInclude Include="BinaryFile.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="CameraManager.h" />
@@ -223,8 +224,9 @@
     <ClCompile Include="DebugCollider.cpp" />
     <ClCompile Include="Dungeon_Map_01.cpp" />
     <ClCompile Include="FrameObject.cpp" />
+    <ClCompile Include="TestDeadman.cpp" />
     <ClCompile Include="Tree.cpp" />
-    <ClCompile Include="UIBag.cpp" />
+    <ClCompile Include="UIWeaponAndBag.cpp" />
     <ClCompile Include="BinaryFile.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="CameraManager.cpp" />

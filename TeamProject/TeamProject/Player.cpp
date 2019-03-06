@@ -18,7 +18,7 @@ void Player::Init()
 	//기본 변수 초기화
 	this->_name = "Will";
 	this->_size = Vector2(120, 120);
-	this->_position = Vector2(WinSizeX / 2, WinSizeY / 2);
+	this->_position = Vector2(627, 120);
 	this->_isActive = true;
 	this->_pivot = Pivot::CENTER;
 	this->_speed = 400.0f;
@@ -36,6 +36,10 @@ void Player::Init()
 
 	//정밀 충돌용 렉트 위치 초기화
 	this->_collisionRect = RectMakeCenter(_position, Vector2(60.f, 60.f));
+	
+	//오브젝트와 충돌하기 위한 렉트(발부분만 있음)
+	//this->_obColliRect = RectMakeBottom(_position.x, _position.y,10,30);
+	
 	//상태별 애니메이션 전부 생성하여 맵에 담아둔다.
 	this->CreateAnimation();
 
@@ -227,6 +231,8 @@ void Player::Update()
 	this->Move(moveValue);
 	_mainAnimation->UpdateFrame();
 	this->GetCollisionRect();
+	
+
 }
 
 /********************************************************************************/
@@ -244,6 +250,7 @@ void Player::Render()
 	{
 		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, true);
 		_DXRenderer->DrawRectangle(_collisionRect, DefaultBrush::red, true);
+		//_DXRenderer->DrawRectangle(_obColliRect, DefaultBrush::green, true);
 	}
 }
 
@@ -306,8 +313,38 @@ void Player::Move(Vector2 direction)
 	this->_position += direction.Normalize()*_speed*_TimeManager->DeltaTime();
 	//이동했으니 정밀 충돌 렉트 위치도 갱신한다.
 	_collisionRect = RectMakeCenter(_position, Vector2(60.0f, 60.0f));
+	
+	//이동했으니 정밀 충돌 렉트 위치도 갱신한다.
+	//this->_obColliRect = RectMakeBottom(_position.x, _collisionRect.bottom, 60, 10);
+	
 	//mainRect의 위치도 갱신
 	this->UpdateMainRect();
+
+
+	
+	//=======================================
+	//오브젝트와 충돌
+	//=======================================
+	vector <class GameObject*> object;
+	object = _ObjectManager->GetObjectList(ObjectType::Object);
+	for (int i = 0; i < object.size(); i++)
+	{
+		if(object[i]->GetName()!=this->_name)
+		{
+			if (this->InterRect(&_collisionRect, &object[i]->GetCollisionRect()))
+			{
+				_position.x = (_collisionRect.right - _collisionRect.left) / 2 + _collisionRect.left;
+				_position.y = (_collisionRect.bottom - _collisionRect.top) / 2 + _collisionRect.top;
+				_mainRect = RectMakeCenter(_position.x, _position.y, _size.x, _size.y);
+			}
+		}
+		
+		
+		
+	}
+	cout << _position.x << " " << _position.y << endl;
+	
+		//this->_obColliRect = RectMakeBottom(_position.x, _position.y, 10, 30);
 }
 
 /********************************************************************************/
@@ -414,6 +451,68 @@ void Player::CreateAnimation()
 	_animationList.insert(make_pair(State::DownRoll, downRoll));
 }
 
+//다해부림
+bool Player::InterRect(RECT* moveRc, RECT* unMoveRc)
+{
+	RECT temp;
+	if (!IntersectRect(&temp, moveRc, unMoveRc))
+	{
+		return false;
+		//return false면 실행하지 않고 나가게 됨. 그래서 false는 먼저 적는게 좋음
+		//reuturn을 만나면 나가는거 중요!
+	}
+	
+	int tempWidth = temp.right - temp.left;
+	int tempHeight = temp.bottom - temp.top;
+
+
+	//가로길이가 더 넓다면 //상하로 부딪힌 경우이다.
+	if (tempWidth > tempHeight)
+	{		
+		//플레이어 상->하로 충돌
+		if (moveRc->bottom == temp.bottom)
+		{
+			//충돌지점 길이만큼 플레이어에게 더해줘서 밑으로 내린다.
+			//_position.y -= tempHeight;
+			moveRc->top -= tempHeight;
+			moveRc->bottom -= tempHeight;
+		}
+
+		//플레이어 하->상으로 충돌
+		if (moveRc->top == temp.top)
+		{
+			//충돌지점 길이만큼 플레이어에게 빼줘서 위로 올린다.
+			//_position.y += tempHeight;
+			moveRc->top += tempHeight;
+			moveRc->bottom += tempHeight;
+		}
+	}
+
+	//만약 세로 길이가 더 길다면 //좌우로 부딪힌 경우이다
+	else if (tempHeight > tempWidth)
+	{
+		//return false;
+		//플레이어 우->좌로 충돌
+		if (moveRc->left == temp.left)
+		{
+			//만약 플레이어 렉트가 충돌지점보다 오른쪽에서 있다면,템프길이만큼 더해준다.
+			//_position.x += tempWidth;
+			moveRc->left += tempWidth;
+			moveRc->right += tempWidth;
+		}
+		
+		//플레이어 좌->우로 충돌
+		else if (moveRc->right == temp.right)
+		{
+			//_position.x -= tempWidth;
+			moveRc->left -= tempWidth;
+			moveRc->right -= tempWidth;
+		}
+	}
+	return true;
+	//return true
+}
+
 //해당 상태 종료 후 변경할 상태 
 void Player::EndAnimation()
 {
@@ -479,5 +578,4 @@ void Player::IdleKeyInput()
 		this->ChangeState(State::DownRun);
 	}
 }
-
 

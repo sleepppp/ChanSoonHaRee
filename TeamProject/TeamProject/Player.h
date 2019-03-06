@@ -27,6 +27,7 @@ private:
 	State _state;
 	class Animation* _mainAnimation;
 	RECT _collisionRect;
+	RECT _obColliRect;	//오브젝트와 충돌용 렉트
 	float _speed;
 	//Vector2 _speed;
 	float _frameRun;
@@ -51,6 +52,6 @@ private:
 	void ChangeAnimation(State state);
 	void ChangeState(State state);
 	void CreateAnimation();
-
+	bool InterRect(RECT* moveRc, RECT* unMoveRc);
 	void IdleKeyInput();
 };
