@@ -113,8 +113,9 @@ void Image::Render(int x, int y, Pivot::Enum pivot, bool isRelativePos)
 		render = _Camera->GetRelativeVector2(render);
 	}
 	//카메라에 없으면 랜더x
-	if (render.x - size.x > WinSizeX || render.x + size.x < 0 ||
-		render.y - size.y > WinSizeY || render.y + size.y < 0)
+	RECT renderRc = Figure::RectMake((int)render.x, (int)render.y, (int)size.x, (int)size.y);
+	if (renderRc.left > WinSizeX + 100 || renderRc.right < -100 ||
+		renderRc.top > WinSizeY + 100 || renderRc.bottom < -100)
 	{
 		ResetRenderOption();
 		return;
@@ -181,8 +182,9 @@ void Image::FrameRender(int x, int y, int frameX, int frameY, Pivot::Enum pivot,
 		render = _Camera->GetRelativeVector2(render);
 	}
 	//카메라에 없으면 랜더x
-	if (render.x - size.x > WinSizeX || render.x + size.x < 0 ||
-		render.y - size.y > WinSizeY || render.y + size.y < 0)
+	RECT renderRc = Figure::RectMake((int)render.x, (int)render.y, (int)size.x, (int)size.y);
+	if (renderRc.left > WinSizeX + 100 || renderRc.right < -100 ||
+		renderRc.top > WinSizeY + 100 || renderRc.bottom < -100)
 	{
 		ResetRenderOption();
 		return;

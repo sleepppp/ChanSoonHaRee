@@ -24,6 +24,7 @@ public:
     class GameObject* FindObject(const ObjectType::Enum type, const string name);
 	vector<class GameObject*> FindObjects(const ObjectType::Enum type, const string name);
 	vector<class GameObject*> GetObjectList(const ObjectType::Enum type);
+	const vector<class GameObject*>* GetObjectListPointer(const ObjectType::Enum type);
 
 	void ChangeZOrdering(bool b) { _isZorder = b; }
 	class LightSystem* GetLightSystem()const { return this->_lightSystem; }

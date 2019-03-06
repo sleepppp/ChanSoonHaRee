@@ -9,6 +9,9 @@ void MainScene::Init()
 	this->HaInit();
 
 	_ObjectManager->Init();
+
+	_Camera->SetTarget(_ObjectManager->FindObject(ObjectType::Object, "Will"));
+	_Camera->SetMapSize(Vector2(3000, 3000));
 }
 
 void MainScene::Release()

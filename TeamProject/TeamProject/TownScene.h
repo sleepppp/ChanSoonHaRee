@@ -13,5 +13,11 @@ public:
 	void Release()override; 
 	void Update()override; 
 	void Render()override; 
+
+private:
+	void ChanInit(); 
+	void HaInit(); 
+	void SoonInit(); 
+	void ReeInit(); 
 };
 
