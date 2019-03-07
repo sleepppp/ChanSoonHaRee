@@ -31,6 +31,7 @@ void Program::Init()
 	_SceneManager->AddScene("LoadingScene", loadScene);
 
 	_SceneManager->LoadScene("TitleScene");
+	_SceneManager->SceneQueue();
 }
 
 void Program::Release()
@@ -58,4 +59,5 @@ void Program::Render()
 	ImGui::Render();
 	_DXRenderer->PresentSwapChain();
 
+	_SceneManager->SceneQueue();
 }

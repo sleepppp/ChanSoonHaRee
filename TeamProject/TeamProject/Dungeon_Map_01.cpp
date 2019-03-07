@@ -31,7 +31,7 @@ void Dungeon_Map_01::Init()
 	_ObjectManager->AddObject(ObjectType::Object, object3);
 
 	Door* _door = new Door(Vector2((WinSizeX / 2 - 90), 0), Vector2(155, 100));
-	_door->setMapName("Dungeon_Map_02");
+	Door::_mapName = "Dungeon_Map_02";
 	_ObjectManager->AddObject(ObjectType::Object, _door);
 
 	map = _ImageManager->AddImage("mpa01", L"../Resources/Scene/Dungeon_Map_01.png");

@@ -6,6 +6,8 @@
 #include "Dungeon_Map_02.h"
 #include "LoadingScene.h"
 
+string Door::_mapName = "";
+
 Door::Door(Vector2 pos, Vector2 size)
 {
 	_name = "Door";
@@ -59,8 +61,8 @@ void Door::Update()
 		LoadingScene* loadingScene = dynamic_cast<LoadingScene*>(_SceneManager->FindScene("LoadingScene"));
 		if (loadingScene != nullptr)
 		{
-			loadingScene->SetNextSceneName(_mapName);
-			loadingScene->SetLoadingFunc([this]() {_SceneManager->FindScene(this->getMapName())->Init(); });
+			loadingScene->SetNextSceneName(Door::_mapName);
+			loadingScene->SetLoadingFunc([this]() {_SceneManager->FindScene(Door::_mapName)->Init(); });
 			_SceneManager->LoadScene("LoadingScene");
 			return;
 		}

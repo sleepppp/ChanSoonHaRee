@@ -38,10 +38,12 @@ void SceneManager::Render()
 {
 	if (nowScene)
 		nowScene->Render();
-
+}
+void SceneManager::SceneQueue()
+{
 	if (loadFunc != nullptr)
 	{
-		loadFunc(loadSceneName,bInit);
+		loadFunc(loadSceneName, bInit);
 		loadFunc = nullptr;
 	}
 }

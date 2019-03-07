@@ -20,6 +20,7 @@ private:
 public:
 	void Update();
 	void Render();
+	void SceneQueue();
 
 	void AddScene(string name, class SceneBase* scene);
 	class SceneBase* FindScene(string name);

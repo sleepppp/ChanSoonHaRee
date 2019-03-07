@@ -50,7 +50,7 @@ void Dungeon_Map_02::Init()
 	_ObjectManager->AddObject(ObjectType::Object, object3);
 	
 	Door* _door = new Door(Vector2((WinSizeX / 2 - 90), 0), Vector2(155, 100));
-	_door->setMapName("TownScene");
+	Door::_mapName = "Dungeon_Map_01";
 	_ObjectManager->AddObject(ObjectType::Object, _door);
 
 	_ObjectManager->Init();

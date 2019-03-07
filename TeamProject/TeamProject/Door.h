@@ -3,6 +3,8 @@
 class Door :
 	public GameObject
 {
+public:
+	static string _mapName;
 private:
 	RECT rc;
 	Vector2 rcPosition;
@@ -12,7 +14,6 @@ private:
 	int _doorCount;
 
 	bool _isDoorChange;
-	string _mapName;
 
 	class Image* _door2;
 	class Image* _door;
@@ -27,8 +28,5 @@ public:
 	void Release()override;
 	void Update()override;
 	void Render()override;
-public:
-	string getMapName() { return _mapName; }
-	void setMapName(string name) { _mapName = name; }
 };
 
