@@ -395,7 +395,7 @@ void Player::Move(Vector2 direction)
 		if(object[i]->GetName()!=this->_name)
 		{
 			Enemy* enemy = dynamic_cast<Enemy*>(object[i]);
-			if (enemy != nullptr)
+			if (enemy == nullptr)
 			{
 				if (this->InterRect(&_collisionRect, &object[i]->GetCollisionRect()))
 				{
@@ -544,6 +544,10 @@ void Player::CreateAnimation()
 	upSword1->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::UpSword1, upSword1));
 
+	Animation* downSword1 = new Animation;
+	downSword1->SetStartEndFrame(0, 1, 7, 1, false);
+	downSword1->SetIsLoop(false);
+	downSword1->SetFrameUpdateTime(_frameRun);
 }
 
 //해당 상태 종료 후 변경할 상태 
