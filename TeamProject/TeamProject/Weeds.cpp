@@ -2,6 +2,7 @@
 #include "Weeds.h"
 #include "Image.h"
 #include "Player.h"
+#include "MoveItem.h"
 
 Weeds::Weeds(Vector2 pos)
 {
@@ -11,7 +12,7 @@ Weeds::Weeds(Vector2 pos)
 	this->_pivot = Pivot::CENTER;
 	this->_renderRect = UpdateRect(_position, _size, _pivot);
 	this->_speed = 70.0f;
-	this->_hp = 100;
+	this->_hp = 20;
 	this->_demage = 16;
 	this->_isAttack = false;
 	this->_state = StateType::Chasing;
@@ -42,8 +43,6 @@ void Weeds::Update()
 	}
 	if (_isAttack)
 	{
-		this->AttackedDemege(0);
-		_isAttack = false;
 	}
 	if (!_isAttack)
 	{
@@ -63,7 +62,7 @@ void Weeds::Update()
 
 	if (_Input->GetKeyDown('0'))
 	{
-		this->AttackedDemege(0);
+		this->AttackedDemege(20);
 	}
 
 	this->_renderRect = UpdateRect(_position, _size, _pivot);
@@ -85,17 +84,21 @@ void Weeds::Collision()
 	//=======================================
 	//오브젝트와 충돌
 	//=======================================
-	vector <class GameObject*> object;
-	object = _ObjectManager->GetObjectList(ObjectType::Object);
-	for (int i = 0; i < object.size(); i++)
+	const vector <class GameObject*>* object;
+	object = _ObjectManager->GetObjectListPointer(ObjectType::Object);
+	for (int i = 0; i < (*object).size(); i++)
 	{
-		if (object[i]->GetName() != this->_name)
+		if ((*object)[i]->GetName() != this->_name && (*object)[i]->GetName() != _player->GetName())
 		{
-			if (this->IntersectReaction(&_renderRect, &object[i]->GetCollisionRect()))
+			MoveItem* item = dynamic_cast<MoveItem*>((*object)[i]);
+			if (item == nullptr)
 			{
-				_position.x = (_renderRect.right - _renderRect.left) / 2 + _renderRect.left;
-				_position.y = (_renderRect.bottom - _renderRect.top) / 2 + _renderRect.top;
-				this->_renderRect = UpdateRect(_position, _size, _pivot);
+				if (this->IntersectReaction(&_renderRect, &(*object)[i]->GetCollisionRect()))
+				{
+					_position.x = (_renderRect.right - _renderRect.left) / 2 + _renderRect.left;
+					_position.y = (_renderRect.bottom - _renderRect.top) / 2 + _renderRect.top;
+					this->_renderRect = UpdateRect(_position, _size, _pivot);
+				}
 			}
 		}
 	}

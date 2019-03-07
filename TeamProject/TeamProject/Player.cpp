@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Timer.h"
 #include "Enemy.h"
+#include "MoveItem.h"
 
 using namespace Figure;
 
@@ -35,6 +36,8 @@ Player::Player()
 	this->_frameIdle = 0.1f;		//스피드 변경을 위한 변수
 	this->_frameRun = 0.1f;		//스피드 변경을 위한 변수
 
+	this->_swordWidth= 40;
+	this->_swordHeight= 20;
 
 	//정밀 충돌용 렉트 위치 초기화
 	this->_collisionRect = RectMakeCenter(_position, Vector2(60.f, 60.f));	
@@ -234,32 +237,75 @@ void Player::Update()
 			break;
 			//=====================================================================================
 		case Player::State::LeftSword1:
-			
+			if (_Input->GetKey('J')) this->ChangeState(State::LeftSword1);
 
+			if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+			else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
+			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 
-
+			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
+			else if (_Input->GetKeyDown('J')) this->ChangeState(State::LeftSword1);
+			//무기와 에너미의 충돌을 위한 함수
+			this->Attack();
 			break;
 
 		case Player::State::RightSword1:
+			if (_Input->GetKey('J')) this->ChangeState(State::RightSword1);
+
+			if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+			else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
+			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
+
+			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
+			else if (_Input->GetKeyDown('J')) this->ChangeState(State::RightSword1);
+			
+			//무기와 에너미의 충돌을 위한 함수
+			this->Attack();
 			break;
 
 		case Player::State::UpSword1:
+			if (_Input->GetKey('J')) this->ChangeState(State::UpSword1);
+
+			if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+			else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
+			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
+
+			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
+			else if (_Input->GetKeyDown('J')) this->ChangeState(State::UpSword1);
+			
+			//무기와 에너미의 충돌을 위한 함수
+			this->Attack();
 			break;
 
 		case Player::State::DownSword1:
+			if (_Input->GetKey('J')) this->ChangeState(State::DownSword1);
 
+			if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+			else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
+			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
+
+			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
+			else if (_Input->GetKeyDown('J')) this->ChangeState(State::DownSword1);
+			
+			//무기와 에너미의 충돌을 위한 함수
+			this->Attack();
 			break;
-
-
+			
 		default:
 			break;
 		}
 		
+
+
 		this->Move(moveValue);
 	}
 
 	_mainAnimation->UpdateFrame();
-
+	
 	if (_Input->GetKeyDown('1'))
 	{
 		const vector<GameObject*>* pObjectList = _ObjectManager->GetObjectListPointer(ObjectType::Object);
@@ -297,6 +343,7 @@ void Player::Render()
 	{
 		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, true);
 		_DXRenderer->DrawRectangle(_collisionRect, DefaultBrush::red, true);
+		if(_isChangeImg)_DXRenderer->DrawRectangle(_swordRect, DefaultBrush::green, true);
 		//_DXRenderer->DrawRectangle(_obColliRect, DefaultBrush::green, true);
 	}
 }
@@ -324,44 +371,69 @@ void Player::ChangeState(State state)
 	switch (_state)
 	{
 	case Player::State::LeftIdle:
+		_isChangeImg = false;		
 		break;
 	case Player::State::RightIdle:
+		_isChangeImg = false;
 		break;
 	case Player::State::UpIdle:
+		_isChangeImg = false;
 		break;
 	case Player::State::DownIdle:
+		_isChangeImg = false;
 		break;
 	case Player::State::LeftRun:
+		_isChangeImg = false;
 		//_speed = 300.0f;
 		break;
 	case Player::State::RightRun:
+		_isChangeImg = false;
 		break;
 	case Player::State::UpRun:
+		_isChangeImg = false;
 		break;
 	case Player::State::DownRun:
+		_isChangeImg = false;
 		break;
 	case Player::State::LeftRoll:
+		_isChangeImg = false;
 		break;
 	case Player::State::RightRoll:
+		_isChangeImg = false;
 		break;
 	case Player::State::UpRoll:
+		_isChangeImg = false;
 		break;
 	case Player::State::DownRoll:
+		_isChangeImg = false;
 		break;
 	case Player::State::LeftSword1:
+		_isChangeImg = true;
+		//칼 렉트
+		if(_isChangeImg)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight);
 		break;
 	case Player::State::RightSword1:
+		_isChangeImg = true;
+		//칼 렉트
+		this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight);
 		break;
 	case Player::State::UpSword1:
+		_isChangeImg = true;		
+		//칼 렉트
+		this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth);
 		break;
 	case Player::State::DownSword1:
-		//this->_swordRect = RectMakePivot(_position.x, _position.y, 40, 20, Pivot::BOTTOM);
+		_isChangeImg = true;		
+		//칼 렉트
+		this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth);
 		break;
 
-	default:
+	default:		
 		break;
 	}
 }
+
+
 
 /********************************************************************************/
 //## Move ##
@@ -369,6 +441,7 @@ void Player::ChangeState(State state)
 /********************************************************************************/
 void Player::Move(Vector2 direction)
 {
+	//이동하지 않았다면 Float EQUAL에 소수점오차값으로 확인하여 이동을 하지 않았다면 return처리하여 빠져나간다.
 	if (FLOAT_EQUAL(direction.x,0.f) && FLOAT_EQUAL(direction.y,0.f))
 		return;
 
@@ -383,21 +456,23 @@ void Player::Move(Vector2 direction)
 	//=======================================
 	//오브젝트와 충돌(InterRect함수 사용)
 	//=======================================
-	vector <class GameObject*> object;
-	object = _ObjectManager->GetObjectList(ObjectType::Object);
+	const vector <class GameObject*>* object;
+	object = _ObjectManager->GetObjectListPointer(ObjectType::Object);
 	
 	//모든 오브젝트를  for문으로 충돌 검사를 해준다.
 	//enemy와의 충돌도 담음
 	//enemy가 값을 호출하면(!=) 충돌 검사를 한다.
-	for (int i = 0; i < object.size(); i++)
+	for (int i = 0; i < object->size(); i++)
 	{
 		//플레이어 자신을 제외하기 위한 조건문
-		if(object[i]->GetName()!=this->_name)
+		if(object->at(i)->GetName()!=this->_name)
 		{
-			Enemy* enemy = dynamic_cast<Enemy*>(object[i]);
-			if (enemy != nullptr)
+			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));
+			MoveItem* item = dynamic_cast<MoveItem*>(object->at(i));
+				
+			if (enemy == nullptr && item == nullptr)
 			{
-				if (this->InterRect(&_collisionRect, &object[i]->GetCollisionRect()))
+				if (this->InterRect(&_collisionRect, &object->at(i)->GetCollisionRect()))
 				{
 					_position.x = (_collisionRect.right - _collisionRect.left) / 2 + _collisionRect.left;
 					_position.y = (_collisionRect.bottom - _collisionRect.top) / 2 + _collisionRect.top;
@@ -405,14 +480,12 @@ void Player::Move(Vector2 direction)
 				}
 			}
 		}
-	}
+	}	
+	//에너미와의 충돌	
+	//this->SendCallbackMessage(TagMessage("PlayerHP",0.0f, this->_currentHp));
 	
 	
 
-	//에너미와의 충돌
-	//CallbackMessage를 사용해본다
-	this->AddCallbackMessage("PlayerHp", [this](TagMessage message) {this->_currentHp; });
-	//cout << _currentHp << endl;
 	//Enemy* enemy = dynamic_cast<Enemy*>(object[i]);
 	//Enemy 클래스를 가리키는 enemy에 담는다.
 	//dynamic_case다이나믹 캐스(상속관계일 경우 형변환(ex: (float)hp ), 없으면 null값을 반환해줘서 편리!)
@@ -544,6 +617,12 @@ void Player::CreateAnimation()
 	upSword1->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::UpSword1, upSword1));
 
+	Animation* downSword1 = new Animation;
+	downSword1->SetStartEndFrame(0, 1, 7, 1, false);
+	downSword1->SetIsLoop(false);
+	downSword1->SetFrameUpdateTime(_frameRun);
+	downSword1->SetCallbackFunc([this]() {this->EndAnimation(); });
+	_animationList.insert(make_pair(State::DownSword1, downSword1));
 }
 
 //해당 상태 종료 후 변경할 상태 
@@ -580,6 +659,23 @@ void Player::EndAnimation()
 		else					this->ChangeState(State::UpIdle);
 		break;
 	case Player::State::DownRoll:
+		if (_Input->GetKey('D')) this->ChangeState(State::DownRun);
+		else					this->ChangeState(State::DownIdle);
+		break;
+
+	case Player::State::LeftSword1:
+		if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+		else					this->ChangeState(State::LeftIdle);
+		break;
+	case Player::State::RightSword1:
+		if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+		else					this->ChangeState(State::RightIdle);
+		break;
+	case Player::State::UpSword1:
+		if (_Input->GetKey('D')) this->ChangeState(State::UpRun);
+		else					this->ChangeState(State::UpIdle);
+		break;
+	case Player::State::DownSword1:
 		if (_Input->GetKey('D')) this->ChangeState(State::DownRun);
 		else					this->ChangeState(State::DownIdle);
 		break;
@@ -682,4 +778,34 @@ POINT Player::GetPlayerIndex()
 {
 	POINT IndexXY = { _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY() };
 	return IndexXY;
+}
+
+
+
+//=======================================
+//공격함수
+//=======================================
+void Player::Attack()
+{
+	const vector <class GameObject*>* object;
+	object = _ObjectManager->GetObjectListPointer(ObjectType::Object);
+
+	for (int i = 0; i < object->size(); i++)
+	{
+		//플레이어 자신을 제외하기 위한 조건문
+		if (object->at(i)->GetName() != this->_name)
+		{
+			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));			
+			
+			//무기와 에너미 충돌, 가져온 오브젝트에 값이 있을 경우만 검사
+			if (enemy != nullptr)
+			{
+				RECT temp;
+				if (IntersectRect(&temp, &_swordRect, &object->at(i)->GetCollisionRect()))
+				{					
+					enemy->AttackedDemege(_damage);
+				}
+			}
+		}
+	}	
 }

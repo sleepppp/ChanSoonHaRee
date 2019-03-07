@@ -6,7 +6,7 @@ SingletonCpp(SceneManager)
 ## SceneManager ##
 ***************************************************************/
 SceneManager::SceneManager()
-	:nowScene(nullptr)
+	:nowScene(nullptr), loadFunc(nullptr)
 {
 }
 /***************************************************************
@@ -22,6 +22,7 @@ SceneManager::~SceneManager()
 	}
 	sceneList.clear();
 }
+
 /***************************************************************
 ## Update ##
 ***************************************************************/
@@ -37,6 +38,14 @@ void SceneManager::Render()
 {
 	if (nowScene)
 		nowScene->Render();
+}
+void SceneManager::SceneQueue()
+{
+	if (loadFunc != nullptr)
+	{
+		loadFunc(loadSceneName, bInit);
+		loadFunc = nullptr;
+	}
 }
 /***************************************************************
 ## AddScene ##
@@ -67,17 +76,24 @@ SceneBase * SceneManager::FindScene(string name)
 @@ string name : ¹Ù²Ü ¾ÀÀÌ¸§ 
 @@ bool init : ¹Ù²Ü ¾À InitÇÒ ¿©ºÎ
 ***************************************************************/
-void SceneManager::LoadScene(string name,bool init)
+void SceneManager::ChangeScene(string name, bool init)
 {
-	SceneBase* findScene = this->FindScene(name);
+ 	SceneBase* findScene = this->FindScene(name);
 	if (findScene != nullptr)
 	{
 		if (nowScene)
 			nowScene->Release();
-		
+
 		nowScene = findScene;
-		
-		if(init)
+
+		if (init)
 			nowScene->Init();
 	}
+}
+
+void SceneManager::LoadScene(string name,bool init)
+{
+	this->loadFunc = bind(&SceneManager::ChangeScene, this, name, init);
+	this->loadSceneName = name;
+	this->bInit = init;
 }
