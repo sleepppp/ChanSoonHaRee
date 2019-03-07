@@ -54,7 +54,7 @@ public:
 	virtual void Init() {}
 	virtual void Release();
 	virtual void Update();
-	virtual void Render() {}
+	virtual void Render();
 	//활성화될 때 실행되는 함수 (게임오브젝트를 상속받은 객체에서 만약 활성화 되는 순간에 실행해야 될 내용이 있다면 해당 함수를 
 	//오버라이딩해서 내용을 작성하면 된다. 
 	virtual void Enable() {}

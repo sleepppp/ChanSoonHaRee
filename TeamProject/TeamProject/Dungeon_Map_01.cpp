@@ -5,34 +5,58 @@
 
 void Dungeon_Map_01::Init()
 {
-	_ObjectManager->AddObject(ObjectType::Object, new GameObject());
+	GameObject* object = new GameObject;
+	object->SetPosition(Vector2(0, 0));
+	object->SetSize(Vector2(WinSizeX, 90));
+	object->SetPivot(Pivot::LEFT_TOP);
+	_ObjectManager->AddObject(ObjectType::Object, object);
 
-	_ImageManager->AddImage("mpa01", L"../Resources/Scene/Dungeon_Map_01.png");
+	GameObject* object1 = new GameObject;
+	object1->SetPosition(Vector2(0, WinSizeY - 90));
+	object1->SetSize(Vector2(WinSizeX, 90));
+	object1->SetPivot(Pivot::LEFT_TOP);
+	_ObjectManager->AddObject(ObjectType::Object, object1);
+
+	GameObject* object2 = new GameObject;
+	object2->SetPosition(Vector2(0, 0));
+	object2->SetSize(Vector2(90, WinSizeY));
+	object2->SetPivot(Pivot::LEFT_TOP);
+	_ObjectManager->AddObject(ObjectType::Object, object2);
+
+	GameObject* object3 = new GameObject;
+	object3->SetPosition(Vector2(WinSizeX - 90, 0));
+	object3->SetSize(Vector2(90, WinSizeY));
+	object3->SetPivot(Pivot::LEFT_TOP);
+	_ObjectManager->AddObject(ObjectType::Object, object3);
+
+	map = _ImageManager->AddImage("mpa01", L"../Resources/Scene/Dungeon_Map_01.png");
+
+	this->HaInit();
+	this->SoonInit();
 
 	
-	_object->Init();
+	_ObjectManager->Init();
 }
 
 void Dungeon_Map_01::Release()
 {
-	_object->Release();
+	_ObjectManager->Release();
 }
 
 void Dungeon_Map_01::Update()
 {
-	_object->Update();
+	_ObjectManager->Update();
 }
 
 void Dungeon_Map_01::Render()
 {
-	_object->Render();
+	map->Render(0, 0, Pivot::LEFT_TOP, true);
+	_ObjectManager->Render();
 }
 
-Dungeon_Map_01::Dungeon_Map_01(Vector2 pos, Vector2 size)
+Dungeon_Map_01::Dungeon_Map_01()
 {
-	_object->SetPosition((pos.x, pos.y));
-	_object->SetSize((size.x, size.y/*1152, 90*/));
-	Pivot::LEFT_TOP;
+	
 
 }
 

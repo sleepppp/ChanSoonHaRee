@@ -61,6 +61,13 @@ void GameObject::Update()
 		}
 	}
 }
+void GameObject::Render()
+{
+	if (_isDebug)
+	{
+		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, true);
+	}
+}
 /*************************************************************************
 ## SendCallbackMessage ##
 @@ TagMessage message : 해당 객체에 보낼 메세지
