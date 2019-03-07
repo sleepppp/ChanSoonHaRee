@@ -3,6 +3,7 @@
 #include "TownScene.h"
 #include "Dungeon_Map_01.h"
 #include "Enemy.h"
+#include "Player.h"
 #include "Golem.h"
 #include "Weeds.h"
 //#include "BigSlime.h"
@@ -18,10 +19,14 @@ void MainScene::HaInit()
 
 void Dungeon_Map_01::HaInit()
 {
+	_ObjectManager->AddObject(ObjectType::Object, new Player());
+
 	_ObjectManager->AddObject(ObjectType::Object, new Golem(Vector2(100, 100)));
 	_ObjectManager->AddObject(ObjectType::Object, new Golem(Vector2(400, 100)));
 	_ObjectManager->AddObject(ObjectType::Object, new Weeds(Vector2(300, 400)));
 	_ObjectManager->AddObject(ObjectType::Object, new Weeds(Vector2(700, 500)));
+
+
 }
 
 void TownScene::HaInit()
