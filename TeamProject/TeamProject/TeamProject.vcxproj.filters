@@ -345,6 +345,12 @@
     <ClInclude Include="ProgressBar.h">
       <Filter>PublicForder\Chan</Filter>
     </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>PublicForder\Ha</Filter>
+    </ClInclude>
+    <ClInclude Include="TestHuman.h">
+      <Filter>PublicForder\Soon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -556,6 +562,12 @@
     </ClCompile>
     <ClCompile Include="ProgressBar.cpp">
       <Filter>PublicForder\Chan</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>PublicForder\Ha</Filter>
+    </ClCompile>
+    <ClCompile Include="TestHuman.cpp">
+      <Filter>PublicForder\Soon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

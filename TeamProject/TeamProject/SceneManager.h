@@ -11,6 +11,12 @@ private:
 	unordered_map<string, class SceneBase*> sceneList;
 	unordered_map<string, class SceneBase*> loadingSceneList;
 	class SceneBase* nowScene;
+
+	function<void(string,bool)> loadFunc;
+	string loadSceneName;
+	bool bInit;
+private:
+	void ChangeScene(string name, bool init);
 public:
 	void Update();
 	void Render();
