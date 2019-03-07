@@ -339,6 +339,9 @@
     <ClInclude Include="TestDeadman.h">
       <Filter>PublicForder\Soon</Filter>
     </ClInclude>
+    <ClInclude Include="Dungeon_Map_02.h">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -544,6 +547,9 @@
     </ClCompile>
     <ClCompile Include="TestDeadman.cpp">
       <Filter>PublicForder\Soon</Filter>
+    </ClCompile>
+    <ClCompile Include="Dungeon_Map_02.cpp">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

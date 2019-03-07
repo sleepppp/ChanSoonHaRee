@@ -50,9 +50,13 @@ public:
 	void AttackRender();
 	//공격 충돌판정을 해주는 함수.
 	void Collision();
+	//피갹판정을 해주는 함수
+	void AttackedCollision();
 	//이미지를 돌리기 위해서 빼놓은 함수.
 	void ImageCount();
 
+	void Move();
+	void ObjectCollision();
 	//렉트를 렌더링하기위해 만들어 놓은 함수.
 	void RectRender();
 	//이미지를 렌더링하기위해 만들어 놓은 함수.

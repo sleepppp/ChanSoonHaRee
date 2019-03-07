@@ -13,8 +13,7 @@ public:
 	void Update()override;
 	void Render()override;
 	void Collision();
-
-	bool IntersectReaction(RECT* moveRect,RECT* unMoveRect);
+	void Move();
 public:
 	Weeds(Vector2 pos);
 	~Weeds();

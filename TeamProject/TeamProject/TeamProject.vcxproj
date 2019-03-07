@@ -154,6 +154,7 @@
     <ClInclude Include="Boss.h" />
     <ClInclude Include="DebugCollider.h" />
     <ClInclude Include="Dungeon_Map_01.h" />
+    <ClInclude Include="Dungeon_Map_02.h" />
     <ClInclude Include="FrameObject.h" />
     <ClInclude Include="TestDeadman.h" />
     <ClInclude Include="Tree.h" />
@@ -223,6 +224,7 @@
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="DebugCollider.cpp" />
     <ClCompile Include="Dungeon_Map_01.cpp" />
+    <ClCompile Include="Dungeon_Map_02.cpp" />
     <ClCompile Include="FrameObject.cpp" />
     <ClCompile Include="TestDeadman.cpp" />
     <ClCompile Include="Tree.cpp" />

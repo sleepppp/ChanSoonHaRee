@@ -13,6 +13,8 @@ Enemy::~Enemy()
 void Enemy::Init()
 {
 	this->_player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
+	_count = 0;
+	_attacked = false;
 }
 //내 뎀지를 넘기기 위한 함수.
 void Enemy::AttackedDemege(int damage)
@@ -24,7 +26,8 @@ void Enemy::AttackedDemege(int damage)
 	}
 	else
 	{
-		_state = StateType::Attacked;
+		_attacked = true;
+		this->_attackedAngle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
 	}
 }
 
@@ -70,26 +73,43 @@ void Enemy::EnemyMoveType()
 		_move = MoveType::Right;
 	}
 }
-//쫒거나 피격당했을 시 움직이기 위한 함수.
-//아파요 싫어요 하지마세요
-void Enemy::Move()
+
+bool Enemy::IntersectReaction(RECT * moveRect, RECT * unMoveRect)
 {
-	//쫒을대상 추격을 위한 앵글값계산과 이동을 위한 변수들
-	if (_state == StateType::Chasing)
+
+	RECT rc = { 0 };
+
+	//충돌이 안되었다면 빠져나오라
+	if (IntersectRect(&rc, moveRect, unMoveRect) == false)
+		return false;
+
+	int x = rc.right - rc.left;
+	int y = rc.bottom - rc.top;
+	if (x > y)
 	{
-		//쫒기위한 앵글값.
-		this->_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
-		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
-		this->_position.y += -sinf(_angle)*_speed * _TimeManager->DeltaTime();
-		this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
+		if (rc.bottom == unMoveRect->bottom)
+		{
+			moveRect->bottom = moveRect->bottom + y;
+			moveRect->top = moveRect->top + y;
+		}
+		else if (rc.top == unMoveRect->top)
+		{
+			moveRect->bottom = moveRect->bottom - y;
+			moveRect->top = moveRect->top - y;
+		}
 	}
-	//피격시 대상의 반대방향으로 날아가기 위한 변수들.
-	if (_state == StateType::Attacked)
+	else
 	{
-		//튕겨져나가는 앵글값
-		this->_angle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
-		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
-		this->_position.y += -sinf(_angle) * _speed * _TimeManager->DeltaTime();
-		this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
+		if (rc.left == unMoveRect->left)
+		{
+			moveRect->left = moveRect->left - x;
+			moveRect->right = moveRect->right - x;
+		}
+		else if (rc.right == unMoveRect->right)
+		{
+			moveRect->left = moveRect->left + x;
+			moveRect->right = moveRect->right + x;
+		}
 	}
+	return true;
 }

@@ -60,6 +60,11 @@ void Weeds::Update()
 		_imageCount = 0;
 	}
 
+	if (_Input->GetKeyDown('0'))
+	{
+		this->AttackedDemege(0);
+	}
+
 	this->_renderRect = UpdateRect(_position, _size, _pivot);
 
 }
@@ -70,54 +75,60 @@ void Weeds::Render()
 	_weeds->FrameRender(_position.x, _position.y, _imageCount, 0, Pivot::CENTER, true);
 	if (_isDebug)
 	{
-		_DXRenderer->DrawRectangle(_renderRect, DefaultBrush::red);
+		_DXRenderer->DrawRectangle(_renderRect, DefaultBrush::red, true);
 	}
 }
 
 void Weeds::Collision()
 {
-	if (this->IntersectReaction(&_renderRect, &_player->GetMainRect()))
+	//=======================================
+	//오브젝트와 충돌
+	//=======================================
+	vector <class GameObject*> object;
+	object = _ObjectManager->GetObjectList(ObjectType::Object);
+	for (int i = 0; i < object.size(); i++)
 	{
-		_position.x = ((_renderRect.right - _renderRect.left) / 2) + _renderRect.left;
-		_position.y = ((_renderRect.bottom - _renderRect.top) / 2) + _renderRect.top;
+		if (object[i]->GetName() != this->_name)
+		{
+			if (this->IntersectReaction(&_renderRect, &object[i]->GetCollisionRect()))
+			{
+				_position.x = (_renderRect.right - _renderRect.left) / 2 + _renderRect.left;
+				_position.y = (_renderRect.bottom - _renderRect.top) / 2 + _renderRect.top;
+				this->_renderRect = UpdateRect(_position, _size, _pivot);
+			}
+		}
 	}
 }
 
-bool Weeds::IntersectReaction(RECT * moveRect, RECT * unMoveRect)
+//쫒거나 피격당했을 시 움직이기 위한 함수.
+//아파요 싫어요 하지마세요
+void Weeds::Move()
 {
-	RECT rc = { 0 };
-	
-	//충돌이 안되었다면 빠져나오라
-	if (IntersectRect(&rc, moveRect, unMoveRect) == false)
-		return false;
+	//쫒을대상 추격을 위한 앵글값계산과 이동을 위한 변수들
+	if (_state == StateType::Chasing)
+	{
+		//쫒기위한 앵글값.
+		this->_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
+		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
+		this->_position.y += -sinf(_angle)*_speed * _TimeManager->DeltaTime();
+		this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
+	}
 
-	int x = rc.right - rc.left;
-	int y = rc.bottom - rc.top;
-	if (x > y)
+	if (_attacked)
 	{
-		if (rc.bottom == unMoveRect->bottom)
+		_count += _TimeManager->DeltaTime();
+		if (_count <= 0.5f)
 		{
-			moveRect->bottom = moveRect->bottom + y;
-			moveRect->top = moveRect->top + y;
+			this->_position.x += cosf(_attackedAngle) * _speed * _TimeManager->DeltaTime()* 3.f;
+			this->_position.y += -sinf(_attackedAngle) * _speed * _TimeManager->DeltaTime()* 3.f;
+			this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
 		}
-		else if (rc.top == unMoveRect->top)
+		if (_count > 0.5f)
 		{
-			moveRect->bottom = moveRect->bottom - y;
-			moveRect->top = moveRect->top - y;
+			_attacked = false;
+			_count = 0.f;
 		}
 	}
-	else
-	{
-		if (rc.left == unMoveRect->left)
-		{
-			moveRect->left = moveRect->left - x;
-			moveRect->right = moveRect->right - x;
-		}
-		else if (rc.right == unMoveRect->right)
-		{
-			moveRect->left = moveRect->left + x;
-			moveRect->right = moveRect->right + x;
-		}
-	}
-	return true;
+
+
 }
