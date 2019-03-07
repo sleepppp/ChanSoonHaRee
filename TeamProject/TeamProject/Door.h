@@ -11,6 +11,10 @@ private:
 	float _timeCount;
 	int _doorCount;
 
+	bool _isDoorChange;
+	string _mapName;
+
+	class Image* _door2;
 	class Image* _door;
 	class Player* _player;
 
@@ -23,6 +27,8 @@ public:
 	void Release()override;
 	void Update()override;
 	void Render()override;
-
+public:
+	string getMapName() { return _mapName; }
+	void setMapName(string name) { _mapName = name; }
 };
 

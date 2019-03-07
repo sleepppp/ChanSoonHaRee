@@ -5,6 +5,7 @@
 #include "Dungeon_Map_01.h"
 #include "Dungeon_Map_02.h"
 #include "LoadingScene.h"
+
 Door::Door(Vector2 pos, Vector2 size)
 {
 	_name = "Door";
@@ -18,6 +19,8 @@ Door::Door(Vector2 pos, Vector2 size)
 	rcPosition = Vector2(_position.x + 50, _position.y + 40);
 	rcSize = Vector2(_size.x - 100, _size.y - 30);
 	rc = Figure::RectMake(rcPosition, rcSize);
+
+	_isDoorChange = false;
 }
 
 
@@ -56,10 +59,12 @@ void Door::Update()
 		LoadingScene* loadingScene = dynamic_cast<LoadingScene*>(_SceneManager->FindScene("LoadingScene"));
 		if (loadingScene != nullptr)
 		{
-			loadingScene->SetNextSceneName("Dungeon_Map_01");
-			loadingScene->SetLoadingFunc([]() {_SceneManager->FindScene("Dungeon_Map_01")->Init(); });
+			loadingScene->SetNextSceneName(_mapName);
+			loadingScene->SetLoadingFunc([this]() {_SceneManager->FindScene(this->getMapName())->Init(); });
 			_SceneManager->LoadScene("LoadingScene");
+			return;
 		}
+		_doorCount = 0;
 	}
 }
 
