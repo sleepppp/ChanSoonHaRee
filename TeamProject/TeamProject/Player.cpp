@@ -355,7 +355,7 @@ void Player::ChangeState(State state)
 	case Player::State::UpSword1:
 		break;
 	case Player::State::DownSword1:
-		this->_swordRect = RectMakePivot(_position.x, _position.y, 40, 20, Pivot::BOTTOM);
+		//this->_swordRect = RectMakePivot(_position.x, _position.y, 40, 20, Pivot::BOTTOM);
 		break;
 
 	default:
@@ -522,6 +522,28 @@ void Player::CreateAnimation()
 	downRoll->SetFrameUpdateTime(_frameRun);
 	downRoll->SetCallbackFunc([this]() {this->EndAnimation(); });	//이 방식은 public에 선언된 애만 가능해!
 	_animationList.insert(make_pair(State::DownRoll, downRoll));
+
+	Animation* leftSword1 = new Animation;
+	leftSword1->SetStartEndFrame(0, 3, 7, 3, false);
+	leftSword1->SetIsLoop(false);
+	leftSword1->SetFrameUpdateTime(_frameRun);
+	leftSword1->SetCallbackFunc([this]() {this->EndAnimation(); });
+	_animationList.insert(make_pair(State::LeftSword1, leftSword1));
+
+	Animation* rightSword1 = new Animation;
+	rightSword1->SetStartEndFrame(0, 2, 7, 2, false);
+	rightSword1->SetIsLoop(false);
+	rightSword1->SetFrameUpdateTime(_frameRun);
+	rightSword1->SetCallbackFunc([this]() {this->EndAnimation(); });
+	_animationList.insert(make_pair(State::RightSword1, rightSword1));
+
+	Animation* upSword1 = new Animation;
+	upSword1->SetStartEndFrame(0, 0, 7, 0, false);
+	upSword1->SetIsLoop(false);
+	upSword1->SetFrameUpdateTime(_frameRun);
+	upSword1->SetCallbackFunc([this]() {this->EndAnimation(); });
+	_animationList.insert(make_pair(State::UpSword1, upSword1));
+
 }
 
 //해당 상태 종료 후 변경할 상태 
