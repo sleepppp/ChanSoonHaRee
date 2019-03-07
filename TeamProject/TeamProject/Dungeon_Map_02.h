@@ -4,9 +4,12 @@ class Dungeon_Map_02 :	public SceneBase
 {
 private:
 	RECT _doorRect;
-
+	float _timeCount;
+	int _closeDoorCount;
+	bool _isTransScene;
+	
 	class Image* _map;
-	class Image* _door;
+	
 	class GameObject* _object;
 public:
 	void Init()override;

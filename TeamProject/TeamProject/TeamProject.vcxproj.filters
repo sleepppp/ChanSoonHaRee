@@ -342,6 +342,9 @@
     <ClInclude Include="Dungeon_Map_02.h">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -549,6 +552,9 @@
       <Filter>PublicForder\Soon</Filter>
     </ClCompile>
     <ClCompile Include="Dungeon_Map_02.cpp">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
   </ItemGroup>

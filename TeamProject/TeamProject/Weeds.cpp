@@ -88,7 +88,7 @@ void Weeds::Collision()
 	object = _ObjectManager->GetObjectList(ObjectType::Object);
 	for (int i = 0; i < object.size(); i++)
 	{
-		if (object[i]->GetName() != this->_name)
+		if (object[i]->GetName() != this->_name && object[i]->GetName() != _player->GetName())
 		{
 			if (this->IntersectReaction(&_renderRect, &object[i]->GetCollisionRect()))
 			{
