@@ -9,6 +9,8 @@ private:
 private:
 	void HaInit();
 	void SoonInit();
+	void ChanInit();
+	void ReeInit();
 public:
 	void Init()override;
 	void Release()override;
