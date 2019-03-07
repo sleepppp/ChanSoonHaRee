@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Inventory.h"
-
+#include "StringHelper.h"
 #include "Image.h"
 Inventory::Inventory()
 {
@@ -35,6 +35,9 @@ void Inventory::Init()
 	//중앙(CENTER)에 생성 
 	this->_pivot = Pivot::CENTER;
 
+	//중복되는 아이템 갯수 체크용
+	this->_itemCount = 0;
+
 	//업데이트 렉트 처리
 	this->UpdateMainRect();
 	//233 185
@@ -57,6 +60,8 @@ void Inventory::Init()
 		//플레이어 슬롯 렉트 생성
 		slot->slotRect = Figure::RectMake(_mainRect.left +  95 + (57 + 10) * i, _mainRect.top + 58, slot->size.x, slot->size.y);
 
+		//플레이어 슬롯 아이템 카운트 초기화
+		slot->itemCount = 0;
 
 		//아직 아이템이 들어가지 않았으므로 슬롯 isEmpty는 true
 		slot->isEmpty = true;
@@ -83,6 +88,9 @@ void Inventory::Init()
 
 			//가방 슬롯은 처음에 비었으므로 isEmpty는 true
 			bagSlot->isEmpty = true;
+
+			//가방 슬롯 아이템 카운트 초기화
+			bagSlot->itemCount = 0;
 
 			//생성한 슬롯을 가방 슬롯 리스트에 push_back담기
 			_bagSlotList.push_back(bagSlot);
@@ -157,6 +165,7 @@ void Inventory::Init()
 
 	//인벤토리 상태 초기화
 	_state = InventoryState::OpenSlide;
+
 }
 
 //인벤토리 Release
@@ -236,6 +245,7 @@ void Inventory::Render()
 	{
 		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, false);
 	}
+
 	//플레이어 슬롯 사이즈만큼 
 	for (UINT i = 0; i < _playerSlotList.size(); ++i)
 	{
@@ -254,6 +264,16 @@ void Inventory::Render()
 
 			_playerSlotList[i]->data.image->Render(_playerSlotList[i]->slotRect.left, _playerSlotList[i]->slotRect.top, Pivot::LEFT_TOP, false);
 		}
+
+		//플레이어 슬롯 리스트 아이템 카운트가 1보다 크면
+		if (_playerSlotList[i]->itemCount > 1) 
+		{
+			//텍스트 렌더
+			_DXRenderer->RenderText(_playerSlotList[i]->slotRect.right - _playerSlotList[i]->size.x / 2.8f,
+				_playerSlotList[i]->slotRect.bottom - _playerSlotList[i]->size.y / 3.0f,
+				StringHelper::StringToWString(to_string(_playerSlotList[i]->itemCount)),RGB(13,13,13),1.0f,18);
+		}
+		
 	}
 
 	//가방 슬롯 사이즈만큼
@@ -275,6 +295,15 @@ void Inventory::Render()
 
 			//담은 size크기에 맞춰 data.image 렌더해주기
 			_bagSlotList[i]->data.image->Render(_bagSlotList[i]->slotRect.left, _bagSlotList[i]->slotRect.top, Pivot::LEFT_TOP, false);
+		}
+
+		//가방 슬롯 리스트 아이템 카운트가 1보다 크면
+		if (_bagSlotList[i]->itemCount > 1)
+		{
+			//텍스트 렌더
+			_DXRenderer->RenderText(_bagSlotList[i]->slotRect.right - _bagSlotList[i]->size.x / 2.8f,
+				_bagSlotList[i]->slotRect.bottom - _bagSlotList[i]->size.y / 3.0f,
+				StringHelper::StringToWString(to_string(_bagSlotList[i]->itemCount)), RGB(13, 13, 13), 1.0f, 18);
 		}
 	}
 
@@ -351,6 +380,10 @@ void Inventory::Render()
 	}
 
 
+	/*********************************
+		  플레이어 현재 상태 가져오기
+	**********************************/
+	//GameObject* _player = _ObjectManager->FindObject(ObjectType::Object, "Will");
 }
 
 
@@ -358,34 +391,60 @@ void Inventory::Render()
 //습득한 아이템 정보 추가 
 bool Inventory::AddItem(string name)
 {
-	//만일 아이템 이름이 item_brench이면
-	if (name == "item_brench")
+	//만일 아이템 이름이 brench이면
+	if (name == "brench")
 	{
+		//플레이어 슬롯 사이즈만큼
 		for (UINT i = 0; i < _playerSlotList.size(); ++i)
 		{
-			//플레이어 슬롯 
+			//플레이어 슬롯 해당 칸이 비어있으면
 			if (_playerSlotList[i]->isEmpty == true)
 			{
-				_playerSlotList[i]->data.image = _ImageManager->FindImage("item_brench");
-				_playerSlotList[i]->data.itemDescription = "던전에서 흔히 보이는 나뭇가지";
-				_playerSlotList[i]->data.itemIndex = i;
-				_playerSlotList[i]->data.itemAtk = 0;
-				_playerSlotList[i]->data.itemDef = 0;
-				_playerSlotList[i]->isEmpty = false;
+				//플레이어 슬롯 아이템 카운트 증가
+				_playerSlotList[i]->itemCount++;
+
+				//만일 아이템 카운트가 0보다 크다면
+				if (_playerSlotList[i]->itemCount > 0)
+				{
+					//해당 아이템 이미지 찾기
+					_playerSlotList[i]->data.image = _ImageManager->FindImage("item_brench");
+					_playerSlotList[i]->data.itemDescription = "던전에서 흔히 보이는 나뭇가지";
+					_playerSlotList[i]->data.itemIndex = i;
+					_playerSlotList[i]->data.itemAtk = 0;
+					_playerSlotList[i]->data.itemDef = 0;
+
+					if (_playerSlotList[i]->itemCount >= 10)
+					{
+						_playerSlotList[i]->isEmpty = false;
+					}
+				}	
 				return true;
 			}
+		}
 
+		for (UINT i = 0; i < _bagSlotList.size(); ++i) 
+		{
 			//가방 슬롯
-			else if (_bagSlotList[i]->isEmpty == true)
+			if (_bagSlotList[i]->isEmpty == true)
 			{
-				_bagSlotList[i]->data.image = _ImageManager->FindImage("item_brench");
-				_bagSlotList[i]->data.itemDescription = "던전에서 흔히 보이는 나뭇가지";
-				_bagSlotList[i]->data.itemIndex = i;
-				_bagSlotList[i]->data.itemAtk = 0;
-				_bagSlotList[i]->data.itemDef = 0;
-				_bagSlotList[i]->isEmpty = false;
+				//가방 슬롯 아이템 카운트 증가
+				_bagSlotList[i]->itemCount++;
+
+				if (_bagSlotList[i]->itemCount > 0) 
+				{
+					_bagSlotList[i]->data.image = _ImageManager->FindImage("item_brench");
+					_bagSlotList[i]->data.itemDescription = "던전에서 흔히 보이는 나뭇가지";
+					_bagSlotList[i]->data.itemIndex = i;
+					_bagSlotList[i]->data.itemAtk = 0;
+					_bagSlotList[i]->data.itemDef = 0;
+
+					if (_bagSlotList[i]->itemCount >= 10) 
+					{
+						_bagSlotList[i]->isEmpty = false;
+					}
+				}
 				return true;
-			}	
+			}
 		}
 	}
 	else if (name == "asdas")

@@ -3,9 +3,22 @@
 #include "UIWeaponAndBag.h"
 #include "Inventory.h"
 #include "Player.h"
-MoveItem::MoveItem()
+MoveItem::MoveItem(string name, Vector2 position)
 {
+	_name = name;
+	_position = position;
 
+	_itemBrenchImg = _ImageManager->FindImage("item_brench");
+	_pivot = Pivot::LEFT_TOP;
+	_size = Vector2(50, 50);
+	_mainRect = Figure::RectMake(_position.x, _position.y, _size.x, _size.y);
+
+	_angle = 0.f;		//아이템 흔들림을 위한 앵글 변수
+	_speed = 1.5f;		//아이템 흔들림 속도를 위한 속도 변수
+
+	_itemState = ItemState::Follow;
+
+	_moveCount = 0;
 }
 
 
@@ -16,19 +29,7 @@ MoveItem::~MoveItem()
 
 void MoveItem::Init()
 {
-	this->_name = "item_brench";
-	_itemBrenchImg = _ImageManager->AddImage("item_brench", L"../Resources/Item/item_brench.png",false);
-	this->_pivot = Pivot::LEFT_TOP;
-	this->_position = Vector2(WinSizeX / 1.2f, WinSizeY / 5.0f);
-	this->_size = Vector2(50, 50);
-	this->_mainRect = Figure::RectMake(_position.x, _position.y, _size.x, _size.y);
-
-	_angle = 0.f;		//아이템 흔들림을 위한 앵글 변수
-	_speed = 1.5f;		//아이템 흔들림 속도를 위한 속도 변수
-
-	_itemState = ItemState::Follow;
-
-	_moveCount = 0;
+	
 }
 
 void MoveItem::Release()

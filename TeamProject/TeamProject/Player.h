@@ -8,7 +8,8 @@ class Player : public GameObject
 		LeftRun, RightRun, UpRun, DownRun,
 		LeftRoll, RightRoll, UpRoll, DownRoll,
 		LeftSword1, RightSword1, UpSword1, DownSword1,
-		LeftSword2, RightSword2, UpSword2, DownSword2
+		//LeftSword2, RightSword2, UpSword2, DownSword2,
+		end
 	};
 
 	struct TestBullet
@@ -31,31 +32,35 @@ private:
 
 	State _state;
 	class Animation* _mainAnimation;
-	RECT _collisionRect;
+	RECT _collisionRect;	//충돌용 RECT
+	RECT _swordRect;			//공격용 RECT
+	RECT _shieldRect;		//방어용 RECT
 	float _speed;
 	
 	int _currentHp;
 	int _maxHp;
+	int _damage;
 
 	float _frameRun;
 	float _frameIdle;
 	float _frameRoll;
 
-	bool _moveStop;
+	bool _isMoveStop;
+	bool _isChangeImg;
 
 
 public:
-	Player() {}
-	~Player() {}
+	Player();
+	~Player();
 
 	void Init()override;
 	void Release()override;
 	void Update()override;
 	void Render()override;
 
-
 	void EndAnimation();
-private:
+
+public:
 	void Move(Vector2 direction);
 	void ChangeAnimation(State state);
 	void ChangeState(State state);
@@ -63,10 +68,15 @@ private:
 	void IdleKeyInput();
 	bool InterRect(RECT* moveRc, RECT* unMoveRc);
 
+public:
 	//UI,인벤토리 클래스에 넘겨주기 위한 함수 3개	
 	int GetPlayerCurrentHp() { return _currentHp; }
 	int GetPlayerMaxHp() { return _maxHp; }
-	POINT GetPlayerIndex();		//퉤 프레임XY
+	POINT GetPlayerIndex();
+	
+	//에너미 클래스에 넘겨주기 위한 함수
+	//int GetPlayerDamage() { return _currentHp; }
+	
+	//데미지값전달
+	//에너미와 충돌
 };
-
-//에너미와 충돌

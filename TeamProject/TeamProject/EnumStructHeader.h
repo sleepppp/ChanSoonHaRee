@@ -14,8 +14,8 @@ struct TagMessage
 
 	TagMessage()
 		:name(""), delayTime(0.f), vector2Data(0, 0),intData(0), pData(nullptr) {}
-	TagMessage(string name, float delayTime = 0.f,int data = 0, Vector2 vector2Data = Vector2(), void* pData = nullptr)
-		:name(name), delayTime(delayTime), vector2Data(vector2Data), pData(pData) {}
+	TagMessage(string name, float delayTime = 0.f,int intData = 0, Vector2 vector2Data = Vector2(), void* pData = nullptr)
+		:name(name), delayTime(delayTime),intData(intData), vector2Data(vector2Data), pData(pData) {}
 };
 
 struct TagInt

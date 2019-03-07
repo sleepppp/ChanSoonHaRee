@@ -15,7 +15,7 @@ DXRenderer::DXRenderer()
 	this->CreateBackBuffer();
 	this->CreateDirect2D();
 	this->CreateBursh();
-	this->AddTextFormat(L"맑은고딕", 20);
+	this->AddTextFormat(L"맑은고딕", 1);
 }
 /********************************************************************************
 ## ~DXRenderer ## 

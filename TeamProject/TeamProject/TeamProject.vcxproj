@@ -157,7 +157,9 @@
     <ClInclude Include="Dungeon_Map_01.h" />
     <ClInclude Include="Dungeon_Map_02.h" />
     <ClInclude Include="FrameObject.h" />
+    <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="TestDeadman.h" />
+    <ClInclude Include="TestHuman.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="UIWeaponAndBag.h" />
     <ClInclude Include="BinaryFile.h" />
@@ -228,7 +230,9 @@
     <ClCompile Include="Dungeon_Map_01.cpp" />
     <ClCompile Include="Dungeon_Map_02.cpp" />
     <ClCompile Include="FrameObject.cpp" />
+    <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="TestDeadman.cpp" />
+    <ClCompile Include="TestHuman.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="UIWeaponAndBag.cpp" />
     <ClCompile Include="BinaryFile.cpp" />
