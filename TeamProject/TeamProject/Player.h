@@ -60,7 +60,7 @@ public:
 
 	void EndAnimation();
 
-private:
+public:
 	void Move(Vector2 direction);
 	void ChangeAnimation(State state);
 	void ChangeState(State state);
@@ -68,7 +68,7 @@ private:
 	void IdleKeyInput();
 	bool InterRect(RECT* moveRc, RECT* unMoveRc);
 
-private:
+public:
 	//UI,인벤토리 클래스에 넘겨주기 위한 함수 3개	
 	int GetPlayerCurrentHp() { return _currentHp; }
 	int GetPlayerMaxHp() { return _maxHp; }
