@@ -12,7 +12,7 @@
 //Init은 ㄴㄴ new 하고 ObjectManager에 추가 ㅇㅇ
 void MainScene::HaInit()
 {
-	_ObjectManager->AddObject(ObjectType::Object, new Golem(Vector2(100, 100)));
+	//_ObjectManager->AddObject(ObjectType::Object, new Golem(Vector2(100, 100)));
 	_ObjectManager->AddObject(ObjectType::Object, new Weeds(Vector2(300, 100)));
 	//_ObjectManager->AddObject(ObjectType::Object, new BigSlime(Vector2(100, 500)));
 }
