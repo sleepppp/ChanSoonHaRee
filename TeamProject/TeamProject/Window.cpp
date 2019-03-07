@@ -51,7 +51,7 @@ WPARAM Window::Run()
 	}
 	Window::program = new Program();
 	Window::program->Init();
-	_TimeManager->StartClock();
+	_TimeManager->Start();
 	//============Main Loop===================================
 	while (true)
 	{

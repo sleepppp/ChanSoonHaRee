@@ -20,10 +20,14 @@ private:
 	unsigned long fpsFrameCount;
 	float fpsTimeElapsed;
 	float worldTime;
+
+	bool isStart;
 private:
 	void Tick(float lockFPS = 60.0f);
-public:
 	void StartClock();
+public:
+	void Start() { isStart = true; StartClock(); }
+	void Stop() { isStart = false; }
 	void Update();
 	void Render();
 
