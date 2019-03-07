@@ -345,11 +345,11 @@
     <ClInclude Include="ProgressBar.h">
       <Filter>PublicForder\Chan</Filter>
     </ClInclude>
-    <ClInclude Include="Door.h">
-      <Filter>PublicForder\Ha</Filter>
-    </ClInclude>
     <ClInclude Include="TestHuman.h">
-      <Filter>PublicForder\Soon</Filter>
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -563,11 +563,11 @@
     <ClCompile Include="ProgressBar.cpp">
       <Filter>PublicForder\Chan</Filter>
     </ClCompile>
-    <ClCompile Include="Door.cpp">
-      <Filter>PublicForder\Ha</Filter>
-    </ClCompile>
     <ClCompile Include="TestHuman.cpp">
-      <Filter>PublicForder\Soon</Filter>
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
