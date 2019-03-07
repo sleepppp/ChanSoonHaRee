@@ -21,7 +21,7 @@ private:
 	float _angle;
 	float _speed;
 public:
-	MoveItem();
+	MoveItem(string name, Vector2 position);
 	~MoveItem();
 
 	void Init()override;

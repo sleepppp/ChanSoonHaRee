@@ -339,8 +339,11 @@
     <ClInclude Include="TestDeadman.h">
       <Filter>PublicForder\Soon</Filter>
     </ClInclude>
-    <ClInclude Include="TestHuman.h">
-      <Filter>PublicForder\Ree</Filter>
+    <ClInclude Include="Dungeon_Map_02.h">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressBar.h">
+      <Filter>PublicForder\Chan</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -548,8 +551,11 @@
     <ClCompile Include="TestDeadman.cpp">
       <Filter>PublicForder\Soon</Filter>
     </ClCompile>
-    <ClCompile Include="TestHuman.cpp">
-      <Filter>PublicForder\Ree</Filter>
+    <ClCompile Include="Dungeon_Map_02.cpp">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressBar.cpp">
+      <Filter>PublicForder\Chan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
