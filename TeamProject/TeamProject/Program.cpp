@@ -24,8 +24,8 @@ void Program::Init()
 	_SceneManager->AddScene("Dungeon_Map_01", new Dungeon_Map_01);
 
 	LoadingScene* loadScene = new LoadingScene;
-	loadScene->SetNextSceneName("Dungeon_Map_01");
-	loadScene->SetLoadingFunc([this]() {_SceneManager->FindScene("Dungeon_Map_01")->Init(); });
+	loadScene->SetNextSceneName("MainScene");
+	loadScene->SetLoadingFunc([this]() {_SceneManager->FindScene("MainScene")->Init(); });
 	_SceneManager->AddScene("LoadingScene", loadScene);
 
 	_SceneManager->LoadScene("TitleScene");

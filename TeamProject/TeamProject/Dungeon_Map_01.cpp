@@ -2,6 +2,7 @@
 #include "Dungeon_Map_01.h"
 #include "Image.h"
 #include "GameObject.h"
+#include "LoadingScene.h"
 
 void Dungeon_Map_01::Init()
 {

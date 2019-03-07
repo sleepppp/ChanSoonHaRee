@@ -2,6 +2,7 @@
 #include "MainScene.h"
 #include "GameObject.h"
 #include "Inventory.h"
+#include "LoadingScene.h"
 
 void MainScene::Init()
 {
@@ -14,6 +15,7 @@ void MainScene::Init()
 
 	_Camera->SetTarget(_ObjectManager->FindObject(ObjectType::Object, "Will"));
 	_Camera->SetMapSize(Vector2(3000, 3000));
+
 }
 
 void MainScene::Release()
@@ -23,13 +25,18 @@ void MainScene::Release()
 
 void MainScene::Update()
 {
-	//if (_Input->GetKeyDown('I')) 
-	//{
-	//	GameObject* inven = _ObjectManager->FindObject(ObjectType::Object, "Inventory");
-	//	if(inven)
-	//		inven->SetActive(true);
-	//}
 	_ObjectManager->Update();
+
+	if (_Input->GetKeyDown(VK_RETURN))
+	{
+		LoadingScene* loadingScene = dynamic_cast<LoadingScene*>(_SceneManager->FindScene("LoadingScene"));
+		if (loadingScene != nullptr)
+		{
+			loadingScene->SetNextSceneName("TownScene");
+			loadingScene->SetLoadingFunc([]() {_SceneManager->FindScene("TownScene")->Init(); });
+			_SceneManager->LoadScene("LoadingScene");
+		}
+	}
 }
 
 void MainScene::Render()
