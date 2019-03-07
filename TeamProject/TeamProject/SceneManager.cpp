@@ -78,7 +78,7 @@ SceneBase * SceneManager::FindScene(string name)
 ***************************************************************/
 void SceneManager::ChangeScene(string name, bool init)
 {
-	SceneBase* findScene = this->FindScene(name);
+ 	SceneBase* findScene = this->FindScene(name);
 	if (findScene != nullptr)
 	{
 		if (nowScene)
