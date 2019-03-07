@@ -6,7 +6,9 @@ class Player : public GameObject
 	{
 		LeftIdle = 0, RightIdle, UpIdle, DownIdle,
 		LeftRun, RightRun, UpRun, DownRun,
-		LeftRoll, RightRoll, UpRoll, DownRoll
+		LeftRoll, RightRoll, UpRoll, DownRoll,
+		LeftSword1, RightSword1, UpSword1, DownSword1,
+		LeftSword2, RightSword2, UpSword2, DownSword2
 	};
 
 	struct TestBullet
@@ -21,7 +23,10 @@ private:
 	//애니메이션을 담을 맵의 반복자
 	typedef map<State, class Animation*>::iterator AnimationIter;
 private:
-	class Image* _image;	//플레이어
+	class Image* _imgMove;		//플레이어 기본 움직임
+	class Image* _imgAtkSword1;	//플레이어 공격 스워드1
+	class Image* _imgAtkSword2;	//플레이어 공격 스워드2
+
 	map<State, class Animation*> _animationList;	//상태별 애니를 관리하기 위해 맵 사용
 
 	State _state;
