@@ -3,7 +3,8 @@
 #include "MoveItem.h"
 #include "Inventory.h"
 #include "UIWeaponAndBag.h"
-
+#include "TownScene.h"
+#include "Dungeon_Map_01.h"
 #include "TestDeadman.h"
 //여기서 필요한 리소스 로드 및 클래스 할당하시면 됩니다. 
 //Init은 ㄴㄴ new 하고 ObjectManager에 추가 ㅇㅇ
@@ -42,3 +43,15 @@ void MainScene::ChanInit()
 	//	_ObjectManager->AddObject(ObjectType::Object, new TestDeadman(randomPos,randomSize));
 	//}
 }	//
+
+
+void TownScene::ChanInit()
+{
+
+}
+
+//여기다가 1번 던전것들 올리시면 됩니다유
+void Dungeon_Map_01::ChanInit()
+{
+
+}

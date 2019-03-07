@@ -74,12 +74,17 @@ void Golem::Update()
 	}
 
 	this->Move();
-
+	this->ObjectCollision();
 	this->Attack();
 	this->EnemyMoveType();
 	this->ImageCount();
 	this->AttackPosition();
 	this->Collision();
+
+	if (_Input->GetKeyDown('0'))
+	{
+		this->AttackedDemege(0);
+	}
 }
 
 void Golem::Render()
@@ -174,19 +179,19 @@ void Golem::AttackRender()
 	{
 		if (this->_isAttackLeft == true)
 		{
-			_DXRenderer->DrawRectangle(_attackLeft, DefaultBrush::yello);
+			_DXRenderer->DrawRectangle(_attackLeft, DefaultBrush::yello, true);
 		}
 		if (this->_isAttackRight == true)
 		{
-			_DXRenderer->DrawRectangle(_attackRight, DefaultBrush::yello);
+			_DXRenderer->DrawRectangle(_attackRight, DefaultBrush::yello, true);
 		}
 		if (this->_isAttackTop == true)
 		{
-			_DXRenderer->DrawRectangle(_attackTop, DefaultBrush::yello);
+			_DXRenderer->DrawRectangle(_attackTop, DefaultBrush::yello, true);
 		}
 		if (this->_isAttackBottom == true)
 		{
-			_DXRenderer->DrawRectangle(_attackBottom, DefaultBrush::yello);
+			_DXRenderer->DrawRectangle(_attackBottom, DefaultBrush::yello, true);
 		}
 	}
 }
@@ -219,18 +224,23 @@ void Golem::Collision()
 	}
 }
 
+void Golem::AttackedCollision()
+{
+	
+}
+
 void Golem::RectRender()
 {
 	if (_isDebug == true)
 	{
-		_DXRenderer->DrawRectangle(_renderRect, DefaultBrush::gray);
+		_DXRenderer->DrawRectangle(_renderRect, DefaultBrush::gray, true);
 		if (_state == StateType::Chasing)
 		{
-			_DXRenderer->DrawEllipse(_position, (_size.x * 1.2f), DefaultBrush::blue);
+			_DXRenderer->DrawEllipse(_position, (_size.x * 1.2f), DefaultBrush::blue, true);
 		}
 		if (_state == StateType::attack)
 		{
-			_DXRenderer->DrawEllipse(_position, (_size.x * 1.2f), DefaultBrush::red);
+			_DXRenderer->DrawEllipse(_position, (_size.x * 1.2f), DefaultBrush::red, true);
 		}
 		this->AttackRender();
 	}
@@ -279,6 +289,59 @@ void Golem::ImageRender()
 		if (_move == MoveType::Bottom)
 		{
 			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 3, Pivot::CENTER, true);
+		}
+	}
+}
+
+//쫒거나 피격당했을 시 움직이기 위한 함수.
+//아파요 싫어요 하지마세요
+void Golem::Move()
+{
+	//쫒을대상 추격을 위한 앵글값계산과 이동을 위한 변수들
+	if (_state == StateType::Chasing)
+	{
+		//쫒기위한 앵글값.
+		this->_angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
+		this->_position.x += cosf(_angle) * _speed * _TimeManager->DeltaTime();
+		this->_position.y += -sinf(_angle)*_speed * _TimeManager->DeltaTime();
+		this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
+	}
+
+	if (_attacked)
+	{
+		_count += _TimeManager->DeltaTime();
+		if (_count <= 0.5f)
+		{
+			this->_position.x += cosf(_attackedAngle) * _speed * _TimeManager->DeltaTime()* 0.7f;
+			this->_position.y += -sinf(_attackedAngle) * _speed * _TimeManager->DeltaTime()* 0.7;
+			this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
+		}
+		if (_count > 0.5f)
+		{
+			_attacked = false;
+			_count = 0.f;
+		}
+	}
+}
+
+
+void Golem::ObjectCollision()
+{
+	//=======================================
+	//오브젝트와 충돌
+	//=======================================
+	vector <class GameObject*> object;
+	object = _ObjectManager->GetObjectList(ObjectType::Object);
+	for (int i = 0; i < object.size(); i++)
+	{
+		if (object[i]->GetName() != this->_name)
+		{
+			if (this->IntersectReaction(&_renderRect, &object[i]->GetCollisionRect()))
+			{
+				_position.x = (_renderRect.right - _renderRect.left) / 2 + _renderRect.left;
+				_position.y = (_renderRect.bottom - _renderRect.top) / 2 + _renderRect.top;
+				this->_renderRect = UpdateRect(_position, _size, _pivot);
+			}
 		}
 	}
 }
