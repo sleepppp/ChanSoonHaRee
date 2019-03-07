@@ -339,6 +339,9 @@
     <ClInclude Include="TestDeadman.h">
       <Filter>PublicForder\Soon</Filter>
     </ClInclude>
+    <ClInclude Include="TestHuman.h">
+      <Filter>PublicForder\Ree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -544,6 +547,9 @@
     </ClCompile>
     <ClCompile Include="TestDeadman.cpp">
       <Filter>PublicForder\Soon</Filter>
+    </ClCompile>
+    <ClCompile Include="TestHuman.cpp">
+      <Filter>PublicForder\Ree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
