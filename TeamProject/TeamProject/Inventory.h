@@ -80,6 +80,11 @@ private:
 
 	InventoryState _state;						//인벤토리 상태 변수 선언
 	InvenTargetState _targetState;				//인벤토리 타겟 상태 변수 선언
+
+
+	//플레이어 상태 표시
+	class Image* _invenPlayer;					//인벤토리에 플레이어 상태 표시
+
 public:
 	Inventory();
 	~Inventory();

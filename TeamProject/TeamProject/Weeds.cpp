@@ -32,6 +32,7 @@ void Weeds::Release() {}
 void Weeds::Update()
 {
 	this->Move();
+
 	Collision();
 
 	RECT collisionRc;

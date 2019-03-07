@@ -13,7 +13,11 @@ private:
 	int _imgFrameX;
 	int _imgFrameY;
 
-	int _saveHp;
+	//체력바 길이
+	int _hpWidth;
+	
+	//세이브 HP
+	float _saveHp;
 
 	//테스트용
 	//현재 HP
@@ -36,6 +40,6 @@ public:
 	void Render();
 
 	//게이지 얻기
-	void SetGauge();
+	bool SetGauge(int currentHp, int maxHp);
 };
 
