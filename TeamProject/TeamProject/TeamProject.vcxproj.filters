@@ -133,6 +133,9 @@
     <Filter Include="System\Camera">
       <UniqueIdentifier>{27f13dd8-5c4d-4b76-aea4-dad90a752984}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainEntry\Scene\Dungeon">
+      <UniqueIdentifier>{a54aa045-f8cd-4000-8cde-965da5c9f86c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -327,14 +330,14 @@
     <ClInclude Include="Boss.h">
       <Filter>PublicForder\Ha</Filter>
     </ClInclude>
-    <ClInclude Include="Dungeon_Map_01.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="TestDeadman.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="UIWeaponAndBag.h">
       <Filter>PublicForder\Chan</Filter>
+    </ClInclude>
+    <ClInclude Include="Dungeon_Map_01.h">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="TestDeadman.h">
+      <Filter>PublicForder\Soon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -533,14 +536,14 @@
     <ClCompile Include="Boss.cpp">
       <Filter>PublicForder\Ha</Filter>
     </ClCompile>
-    <ClCompile Include="Dungeon_Map_01.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TestDeadman.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="UIWeaponAndBag.cpp">
       <Filter>PublicForder\Chan</Filter>
+    </ClCompile>
+    <ClCompile Include="Dungeon_Map_01.cpp">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
+    </ClCompile>
+    <ClCompile Include="TestDeadman.cpp">
+      <Filter>PublicForder\Soon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -13,7 +13,7 @@ void MainScene::SoonInit()
 }
 void Dungeon_Map_01::SoonInit()
 {
-	_ObjectManager->AddObject(ObjectType::UI, new TestInventory);
+
 }
 void TownScene::SoonInit()
 {
