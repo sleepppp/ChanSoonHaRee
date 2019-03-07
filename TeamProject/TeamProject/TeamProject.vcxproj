@@ -155,6 +155,7 @@
     <ClInclude Include="DebugCollider.h" />
     <ClInclude Include="Dungeon_Map_01.h" />
     <ClInclude Include="FrameObject.h" />
+    <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="TestDeadman.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="UIWeaponAndBag.h" />
@@ -224,6 +225,7 @@
     <ClCompile Include="DebugCollider.cpp" />
     <ClCompile Include="Dungeon_Map_01.cpp" />
     <ClCompile Include="FrameObject.cpp" />
+    <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="TestDeadman.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="UIWeaponAndBag.cpp" />

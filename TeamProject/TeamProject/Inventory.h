@@ -25,6 +25,7 @@ private:
 	bool isEmpty;			//아이템 슬롯이 비어있는 확인하기 위한 bool 변수 isEmpty
 	RECT slotRect;			//슬롯 그림에 렉트를 생성하기 위한 렉트 변수 slotRect
 	Vector2 size;			//슬롯 사이즈
+	int itemCount;
 public:
 	//사이즈 값 얻기 함수
 	Vector2 GetSize() { return size; }
@@ -64,6 +65,9 @@ private:
 	class Image* _invenTargetImg;				//인벤토리 선택 이미지
 	Vector2 _invenTargetPosition;				//인벤 타겟 포지션
 	int _invenIndex;							//인벤 인덱스
+
+	int _itemCount;								//아이템 카운트 (아이템 갯수 제한용)
+
 
 	bool _isInvenSlot;							//인벤 슬롯 구분위한 bool
 

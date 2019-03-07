@@ -28,7 +28,11 @@ void MainScene::ChanInit()
 
 
 	_ObjectManager->AddObject(ObjectType::UI, new Inventory);
-	_ObjectManager->AddObject(ObjectType::Object, new MoveItem);
+	for (UINT i = 0; i < 15; ++i) 
+	{
+		_ObjectManager->AddObject(ObjectType::Object, new MoveItem("brench", Vector2(Math::Random(0, WinSizeX), Math::Random(0, WinSizeY))));
+	}
+	
 	_ObjectManager->AddObject(ObjectType::UI, new UIWeaponAndBag);
 
 	//for (UINT i = 0; i < 10; ++i)

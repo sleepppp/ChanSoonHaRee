@@ -336,6 +336,9 @@
     <ClInclude Include="UIWeaponAndBag.h">
       <Filter>PublicForder\Chan</Filter>
     </ClInclude>
+    <ClInclude Include="ProgressBar.h">
+      <Filter>PublicForder\Chan</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -540,6 +543,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="UIWeaponAndBag.cpp">
+      <Filter>PublicForder\Chan</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressBar.cpp">
       <Filter>PublicForder\Chan</Filter>
     </ClCompile>
   </ItemGroup>
