@@ -41,8 +41,6 @@ void Weeds::Update()
 	}
 	if (_isAttack)
 	{
-		this->AttackedDemege(0);
-		_isAttack = false;
 	}
 	if (!_isAttack)
 	{
