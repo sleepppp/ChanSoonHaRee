@@ -18,8 +18,7 @@ void Player::Init()
 	this->_imgAtkSword1 = _ImageManager->FindImage("Will_Sword1");
 	_ImageManager->AddFrameImage("Will_Sword2", L"../Resources/Player/will_sword2.png", 8, 4);
 	this->_imgAtkSword2 = _ImageManager->FindImage("Will_Sword2");
-
-	
+		
 	//기본 변수 초기화
 	this->_name = "Will";
 	this->_size = Vector2(120, 120);
@@ -27,32 +26,24 @@ void Player::Init()
 	this->_isActive = true;
 	this->_pivot = Pivot::CENTER;
 	this->_speed = 400.0f;
-	//this->_speed = Vector2(300.0f, 300.0f);
 	this->UpdateMainRect();
+	this->_maxHp = 100;
+	this->_currentHp = 50;
+	this->_moveStop = false;		//움직임을 멈추기 위한 bool값
 
 	//시간을 한번에!
 	_frameRun = 0.1f;
 	_frameIdle = 0.1f;
-	//left = 0.05f;
-	//	right = 0.05f;
-	//	up = 0.05f;
-	//	down = 0.05f;
-
+	
 
 	//정밀 충돌용 렉트 위치 초기화
 	this->_collisionRect = RectMakeCenter(_position, Vector2(60.f, 60.f));
-	
-	//오브젝트와 충돌하기 위한 렉트(발부분만 있음)
-	//this->_obColliRect = RectMakeBottom(_position.x, _position.y,10,30);
 	
 	//상태별 애니메이션 전부 생성하여 맵에 담아둔다.
 	this->CreateAnimation();
 
 	// 처음 시작 상태를 위한 세팅
 	this->ChangeState(State::DownIdle);
-
-
-	//_frameRoll = 0.1f;
 }
 
 /********************************************************************************/
@@ -75,6 +66,13 @@ void Player::Update()
 {
 	//이동량 측정할 변수
 	Vector2 moveValue(0, 0);
+	
+	//인벤토리 사용시 움직임을 멈추게 하기 위한 조건
+	if (_Input->IsToggleKey('I')) _moveStop = true;
+	else _moveStop = false;
+	//cout << _moveStop << endl;
+
+
 
 	//상태에 따라 다르게 업데이트
 	switch (_state)
@@ -86,7 +84,7 @@ void Player::Update()
 		else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
 		//this->IdleKeyInput();
-		cout << "LeftIdle" << endl;
+		//cout << "LeftIdle" << endl;
 		break;
 	case Player::State::RightIdle:
 		if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
@@ -94,7 +92,7 @@ void Player::Update()
 		else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
 		else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
-		cout << "RightIdle" << endl;
+		//cout << "RightIdle" << endl;
 		//this->IdleKeyInput();
 		break;
 
@@ -104,7 +102,7 @@ void Player::Update()
 		else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
 		else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
-		cout << "UpIdle" << endl;
+		//cout << "UpIdle" << endl;
 		//this->IdleKeyInput();
 		break;
 
@@ -114,13 +112,11 @@ void Player::Update()
 		else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
 		else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 		else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
-		cout << "DownIdle" << endl;
+		//cout << "DownIdle" << endl;
 		//this->IdleKeyInput();
 		break;
 
-		//대각선일경우 이미지 무조건 상하로 변경됨
-		//롤링도 대각선으로 감
-
+		//=====================================================================================
 	case Player::State::LeftRun:		
 		if (_Input->GetKey('A')) moveValue += Vector2(-1.0f, 0.0f);	//왼누르기
 		if (_Input->GetKeyUp('A')) this->ChangeState(State::LeftIdle); //왼떼기
@@ -140,26 +136,21 @@ void Player::Update()
 		if (_Input->GetKeyUp('W'))			//대각선 위 떼기
 		{			
 			ChangeAnimation(Player::State::LeftRun);
-			//moveValue += Vector2(-1.0f, 0.0f);
-			//this->ChangeState(State::LeftRun);
 		}		
 		else if (_Input->GetKeyUp('S'))			//대각선 아래 떼기
 		{			
 			this->ChangeState(State::LeftRun);
-			//ChangeAnimation(Player::State::LeftRun);
-		//	moveValue += Vector2(-1.0f, 0.0f);
 		}	
 		
 		if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
-		cout << "LeftRun" << endl;
+		//cout << "LeftRun" << endl;
 
 		break;
 		//=====================================================================================
 	case Player::State::RightRun:
 		if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
 		if (_Input->GetKeyUp('D')) this->ChangeState(State::RightIdle);
-		
-		
+				
 		
 		//대각선 시작
 		if ( _Input->GetKey('W'))	//대각선 위
@@ -185,7 +176,7 @@ void Player::Update()
 		}
 		
 		if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
-		cout << "RightRun" << endl;
+		//cout << "RightRun" << endl;
 		break;
 		//=====================================================================================
 	case Player::State::UpRun:
@@ -197,7 +188,7 @@ void Player::Update()
 		
 
 		if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
-		cout << "UpRun" << endl;
+		//cout << "UpRun" << endl;
 		break; 		 	  	  
 		//=====================================================================================
 	case Player::State::DownRun:		
@@ -208,7 +199,7 @@ void Player::Update()
 		else if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
 
 		if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
-		cout << "DownRun" << endl;
+		//cout << "DownRun" << endl;
 		
 		break;
 		//=====================================================================================
@@ -229,14 +220,29 @@ void Player::Update()
 	case Player::State::DownRoll:
 		moveValue += Vector2(0.0f, 2.0f);
 		break;
+		//=====================================================================================
+	case Player::State::LeftSword1:
+
+		break;
+
+	case Player::State::RightSword1:
+		break;
+
+	case Player::State::UpSword1:
+		break;
+
+	case Player::State::DownSword1:
+		break;
+
 
 	default:
 		break;
 	}
+
+
 	this->Move(moveValue);
 	_mainAnimation->UpdateFrame();
-	this->GetCollisionRect();
-	
+	this->GetCollisionRect();	
 
 }
 
@@ -269,6 +275,9 @@ void Player::Render()
 /********************************************************************************/
 void Player::ChangeState(State state)
 {
+	//'I'버튼을 누르면 움직이지 않고 멈춤
+	if (_moveStop == true) return;
+
 	//현 상태와 동일하다면 실행시키지 않고 빠져나간다
 	if (_state == state) return;
 
@@ -306,6 +315,15 @@ void Player::ChangeState(State state)
 		break;
 	case Player::State::DownRoll:
 		break;
+	case Player::State::LeftSword1:
+		break;
+	case Player::State::RightSword1:
+		break;
+	case Player::State::UpSword1:
+		break;
+	case Player::State::DownSword1:
+		break;
+
 	default:
 		break;
 	}
@@ -327,16 +345,18 @@ void Player::Move(Vector2 direction)
 	
 	//mainRect의 위치도 갱신
 	this->UpdateMainRect();
-
-
+	
 	
 	//=======================================
-	//오브젝트와 충돌
+	//오브젝트와 충돌(InterRect함수 사용)
 	//=======================================
 	vector <class GameObject*> object;
 	object = _ObjectManager->GetObjectList(ObjectType::Object);
+	
+	//모든 오브젝트를  for문으로 충돌 검사를 해준다.
 	for (int i = 0; i < object.size(); i++)
 	{
+		//플레이어 자신을 제외하기 위한 조건문
 		if(object[i]->GetName()!=this->_name)
 		{
 			if (this->InterRect(&_collisionRect, &object[i]->GetCollisionRect()))
@@ -346,13 +366,8 @@ void Player::Move(Vector2 direction)
 				_mainRect = RectMakeCenter(_position.x, _position.y, _size.x, _size.y);
 			}
 		}
-		
-		
-		
 	}
-	cout << _position.x << " " << _position.y << endl;
-	
-		//this->_obColliRect = RectMakeBottom(_position.x, _position.y, 10, 30);
+	//cout << _position.x << " " << _position.y << endl;
 }
 
 /********************************************************************************/
@@ -459,68 +474,6 @@ void Player::CreateAnimation()
 	_animationList.insert(make_pair(State::DownRoll, downRoll));
 }
 
-//다해부림
-bool Player::InterRect(RECT* moveRc, RECT* unMoveRc)
-{
-	RECT temp;
-	if (!IntersectRect(&temp, moveRc, unMoveRc))
-	{
-		return false;
-		//return false면 실행하지 않고 나가게 됨. 그래서 false는 먼저 적는게 좋음
-		//reuturn을 만나면 나가는거 중요!
-	}
-	
-	int tempWidth = temp.right - temp.left;
-	int tempHeight = temp.bottom - temp.top;
-
-
-	//가로길이가 더 넓다면 //상하로 부딪힌 경우이다.
-	if (tempWidth > tempHeight)
-	{		
-		//플레이어 상->하로 충돌
-		if (moveRc->bottom == temp.bottom)
-		{
-			//충돌지점 길이만큼 플레이어에게 더해줘서 밑으로 내린다.
-			//_position.y -= tempHeight;
-			moveRc->top -= tempHeight;
-			moveRc->bottom -= tempHeight;
-		}
-
-		//플레이어 하->상으로 충돌
-		if (moveRc->top == temp.top)
-		{
-			//충돌지점 길이만큼 플레이어에게 빼줘서 위로 올린다.
-			//_position.y += tempHeight;
-			moveRc->top += tempHeight;
-			moveRc->bottom += tempHeight;
-		}
-	}
-
-	//만약 세로 길이가 더 길다면 //좌우로 부딪힌 경우이다
-	else if (tempHeight > tempWidth)
-	{
-		//return false;
-		//플레이어 우->좌로 충돌
-		if (moveRc->left == temp.left)
-		{
-			//만약 플레이어 렉트가 충돌지점보다 오른쪽에서 있다면,템프길이만큼 더해준다.
-			//_position.x += tempWidth;
-			moveRc->left += tempWidth;
-			moveRc->right += tempWidth;
-		}
-		
-		//플레이어 좌->우로 충돌
-		else if (moveRc->right == temp.right)
-		{
-			//_position.x -= tempWidth;
-			moveRc->left -= tempWidth;
-			moveRc->right -= tempWidth;
-		}
-	}
-	return true;
-	//return true
-}
-
 //해당 상태 종료 후 변경할 상태 
 void Player::EndAnimation()
 {
@@ -587,3 +540,78 @@ void Player::IdleKeyInput()
 	}
 }
 
+/********************************************************************************/
+//## InterRect ##
+//오브젝트와 충돌을 위한 함수
+/********************************************************************************/
+bool Player::InterRect(RECT* moveRc, RECT* unMoveRc)
+{
+	RECT temp;
+	if (!IntersectRect(&temp, moveRc, unMoveRc))
+	{
+		return false;
+		//return false면 실행하지 않고 나가게 됨. 그래서 false는 먼저 적는게 좋음
+		//reuturn을 만나면 나가는거 중요!
+	}
+
+	int tempWidth = temp.right - temp.left;
+	int tempHeight = temp.bottom - temp.top;
+
+
+	//가로길이가 더 넓다면 //상하로 부딪힌 경우이다.
+	if (tempWidth > tempHeight)
+	{
+		//플레이어 상->하로 충돌
+		if (moveRc->bottom == temp.bottom)
+		{
+			//충돌지점 길이만큼 플레이어에게 더해줘서 밑으로 내린다.
+			//_position.y -= tempHeight;
+			moveRc->top -= tempHeight;
+			moveRc->bottom -= tempHeight;
+		}
+
+		//플레이어 하->상으로 충돌
+		if (moveRc->top == temp.top)
+		{
+			//충돌지점 길이만큼 플레이어에게 빼줘서 위로 올린다.
+			//_position.y += tempHeight;
+			moveRc->top += tempHeight;
+			moveRc->bottom += tempHeight;
+		}
+	}
+	//만약 세로 길이가 더 길다면 //좌우로 부딪힌 경우이다
+	else if (tempHeight > tempWidth)
+	{
+		//return false;
+		//플레이어 우->좌로 충돌
+		if (moveRc->left == temp.left)
+		{
+			//만약 플레이어 렉트가 충돌지점보다 오른쪽에서 있다면,템프길이만큼 더해준다.
+			//_position.x += tempWidth;
+			moveRc->left += tempWidth;
+			moveRc->right += tempWidth;
+		}
+
+		//플레이어 좌->우로 충돌
+		else if (moveRc->right == temp.right)
+		{
+			//_position.x -= tempWidth;
+			moveRc->left -= tempWidth;
+			moveRc->right -= tempWidth;
+		}
+	}
+	return true;
+	//return true
+}
+
+ 
+//현재 내 상태를 가져오는 (State)상태값 이미지
+
+//키 조작을 막는 bool값 처리 함수
+
+//현재 x,y값
+POINT Player::GetPlayerIndex()
+{
+	POINT IndexXY = { _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY() };
+	return IndexXY;
+}

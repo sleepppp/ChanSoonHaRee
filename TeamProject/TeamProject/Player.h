@@ -32,13 +32,16 @@ private:
 	State _state;
 	class Animation* _mainAnimation;
 	RECT _collisionRect;
-	RECT _obColliRect;	//오브젝트와 충돌용 렉트
 	float _speed;
-	//Vector2 _speed;
+	
+	int _currentHp;
+	int _maxHp;
+
 	float _frameRun;
 	float _frameIdle;
 	float _frameRoll;
 
+	bool _moveStop;
 
 
 public:
@@ -56,7 +59,14 @@ private:
 	void Move(Vector2 direction);
 	void ChangeAnimation(State state);
 	void ChangeState(State state);
-	void CreateAnimation();
-	bool InterRect(RECT* moveRc, RECT* unMoveRc);
+	void CreateAnimation();	
 	void IdleKeyInput();
+	bool InterRect(RECT* moveRc, RECT* unMoveRc);
+
+	//UI,인벤토리 클래스에 넘겨주기 위한 함수 3개	
+	int GetPlayerCurrentHp() { return _currentHp; }
+	int GetPlayerMaxHp() { return _maxHp; }
+	POINT GetPlayerIndex();		//퉤 프레임XY
 };
+
+//에너미와 충돌
