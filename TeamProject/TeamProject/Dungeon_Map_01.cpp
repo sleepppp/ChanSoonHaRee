@@ -3,7 +3,7 @@
 #include "Image.h"
 #include "GameObject.h"
 #include "LoadingScene.h"
-
+#include "Door.h"
 void Dungeon_Map_01::Init()
 {
 	GameObject* object = new GameObject;
@@ -29,6 +29,10 @@ void Dungeon_Map_01::Init()
 	object3->SetSize(Vector2(90, WinSizeY));
 	object3->SetPivot(Pivot::LEFT_TOP);
 	_ObjectManager->AddObject(ObjectType::Object, object3);
+
+	Door* _door = new Door(Vector2((WinSizeX / 2 - 90), 0), Vector2(155, 100));
+	Door::_mapName = "Dungeon_map_02";
+	_ObjectManager->AddObject(ObjectType::Object, _door);
 
 	map = _ImageManager->AddImage("mpa01", L"../Resources/Scene/Dungeon_Map_01.png");
 

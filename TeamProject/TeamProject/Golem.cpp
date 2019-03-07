@@ -330,13 +330,14 @@ void Golem::ObjectCollision()
 	//=======================================
 	//오브젝트와 충돌
 	//=======================================
-	vector <class GameObject*> object;
-	object = _ObjectManager->GetObjectList(ObjectType::Object);
-	for (int i = 0; i < object.size(); i++)
+	const vector <class GameObject*>* object;
+	object = _ObjectManager->GetObjectListPointer(ObjectType::Object);
+	for (int i = 0; i < object->size(); i++)
 	{
-		if (object[i]->GetName() != this->_name && object[i]->GetName() != this->_player->GetName())
+		
+		if ((*object)[i]->GetName() != this->_name && (*object)[i]->GetName() != this->_player->GetName())
 		{
-			if (this->IntersectReaction(&_renderRect, &object[i]->GetCollisionRect()))
+			if (this->IntersectReaction(&_renderRect, &(*object)[i]->GetCollisionRect()))
 			{
 				_position.x = (_renderRect.right - _renderRect.left) / 2 + _renderRect.left;
 				_position.y = (_renderRect.bottom - _renderRect.top) / 2 + _renderRect.top;

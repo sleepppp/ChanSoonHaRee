@@ -31,7 +31,10 @@ void Loading::Start()
 	//만약 로딩쓰레드가 nullptr이라면 쓰레드를 생성한다. 
 	//쓰레드는 생성과 동시에 비동기로 실행된다. 
 	if (loadingThread == nullptr)
-		loadingThread = new thread(bind(&Loading::Threading,this));
+	{
+		loadingThread = new thread(bind(&Loading::Threading, this));
+		isLoadEnd = false;
+	}
 }
 /***************************************************************
 ## Threading ##
