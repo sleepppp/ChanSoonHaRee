@@ -9,7 +9,7 @@ Golem::Golem(Vector2 pos)
 {
 	//에너미의 자시자신 기본 설정.
 	this->_name = "Golem";					//내이름은 골램이여
-	this->_position = pos;					//100, 100 지점에서 시작하지
+	this->_position = pos;					//
 	this->_size = Vector2(100, 100);		//크기도 100, 100이야
 	this->_pivot = Pivot::CENTER;			//내 기준은 중심에있어
 	this->_speed = 90.0f;					//속도는 90.0f
@@ -17,6 +17,7 @@ Golem::Golem(Vector2 pos)
 	this->_demage = 34;						//34의 뎀지
 
 	this->_isAttack = false;				//공격은 처음에는 안하고있지
+	bool _attackedColor = false;
 	this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
 
 	//내 이미지 찾기!
@@ -26,7 +27,7 @@ Golem::Golem(Vector2 pos)
 
 	this->_golemAttack = _ImageManager->AddFrameImage("GolemAttack", L"../Resources/Enemy/Golem/GolemAttack.png", 13, 4);
 	this->_golemAttack_Red = _ImageManager->AddFrameImage("GolemAttack_Red", L"../Resources/Enemy/Golem/GolemAttack_Red.png", 13, 4);
-	this->_golemAttack_White = _ImageManager->AddFrameImage("GolemAttack_Red", L"../Resources/Enemy/Golem/_golemAttack_White.png", 13, 4);
+	this->_golemAttack_White = _ImageManager->AddFrameImage("GolemAttack_White", L"../Resources/Enemy/Golem/GolemAttack_White.png", 13, 4);
 
 	//각종 카운트 초기화
 	this->_moveCount = 0;
@@ -51,6 +52,7 @@ Golem::Golem(Vector2 pos)
 	this->_isAttackBottom = false;
 	this->AddCallbackMessage("InventoryOpen", [this](TagMessage message) {this->InvenStop(1); });
 	this->AddCallbackMessage("InventoryClose", [this](TagMessage message) {this->InvenStop(0); });
+
 	//공격렉트 초기화
 	//this->_attackLeft = UpdateRect(_positionLeft, _sizeLeft, Pivot::LEFT_TOP);
 	//this->_attackRight = UpdateRect(_positionRight, _sizeRight, Pivot::LEFT_TOP);
@@ -277,21 +279,82 @@ void Golem::ImageRender()
 	{
 		_golemMove->SetSize(_golemMove->GetFrameSize(0));
 		_golemMove->SetScale(1.0f);
+
+		_golemMove_Red->SetSize(_golemMove_Red->GetFrameSize(0));
+		_golemMove_Red->SetScale(1.0f);
+		_golemMove_white->SetSize(_golemMove_white->GetFrameSize(0));
+		_golemMove_white->SetScale(1.0f);
 		if (_move == MoveType::Left)
 		{
-			_golemMove->FrameRender(_position.x, _position.y, _moveCount, 0, Pivot::CENTER, true);
+			if (!_attacked)
+			{
+				_golemMove->FrameRender(_position.x, _position.y, _moveCount, 0, Pivot::CENTER, true);
+			}
+			if (_attacked)
+			{
+				if (_attackedColor == false)
+				{
+					_golemMove_Red->FrameRender(_position.x, _position.y, _moveCount, 0, Pivot::CENTER, true);
+				}
+				if (_attackedColor == true)
+				{
+					_golemMove_white->FrameRender(_position.x, _position.y, _moveCount, 0, Pivot::CENTER, true);
+				}
+			}
 		}
 		if (_move == MoveType::Right)
 		{
-			_golemMove->FrameRender(_position.x, _position.y, _moveCount, 1, Pivot::CENTER, true);
+			if (!_attacked)
+			{
+				_golemMove->FrameRender(_position.x, _position.y, _moveCount, 1, Pivot::CENTER, true);
+			}
+			if (_attacked)
+			{
+				if (_attackedColor == false)
+				{
+					_golemMove_Red->FrameRender(_position.x, _position.y, _moveCount, 1, Pivot::CENTER, true);
+				}
+				if (_attackedColor == true)
+				{
+					_golemMove_white->FrameRender(_position.x, _position.y, _moveCount, 1, Pivot::CENTER, true);
+				}
+			}
 		}
 		if (_move == MoveType::Top)
 		{
-			_golemMove->FrameRender(_position.x, _position.y, _moveCount, 2, Pivot::CENTER, true);
+			if (!_attacked)
+			{
+				_golemMove->FrameRender(_position.x, _position.y, _moveCount, 2, Pivot::CENTER, true);
+			}
+			if (_attacked)
+			{
+				if (_attackedColor == false)
+				{
+					_golemMove_Red->FrameRender(_position.x, _position.y, _moveCount, 2, Pivot::CENTER, true);
+				}
+				if (_attackedColor == true)
+				{
+					_golemMove_white->FrameRender(_position.x, _position.y, _moveCount, 2, Pivot::CENTER, true);
+				}
+			}
 		}
 		if (_move == MoveType::Bottom)
 		{
-			_golemMove->FrameRender(_position.x, _position.y, _moveCount, 3, Pivot::CENTER, true);
+			if (!_attacked)
+			{
+				_golemMove->FrameRender(_position.x, _position.y, _moveCount, 3, Pivot::CENTER, true);
+			}
+			if (_attacked)
+			{
+				if (_attackedColor == false)
+				{
+					_golemMove_Red->FrameRender(_position.x, _position.y, _moveCount, 3, Pivot::CENTER, true);
+				}
+				if (_attackedColor == true)
+				{
+					_golemMove_white->FrameRender(_position.x, _position.y, _moveCount, 3, Pivot::CENTER, true);
+				}
+			}
 		}
 	}
 
@@ -299,21 +362,87 @@ void Golem::ImageRender()
 	{
 		_golemAttack->SetSize(_golemAttack->GetFrameSize(0));
 		_golemAttack->SetScale(1.0f);
+
+		_golemAttack_Red->SetSize(_golemAttack_Red->GetFrameSize(0));
+		_golemAttack_Red->SetScale(1.0f);
+		_golemAttack_White->SetSize(_golemAttack_White->GetFrameSize(0));
+		_golemAttack_White->SetScale(1.0f);
+
 		if (_move == MoveType::Left)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 0, Pivot::CENTER, true);
+			if (!_attacked)
+			{
+				_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 0, Pivot::CENTER, true);
+			}
+
+			if (_attacked)
+			{
+				if (_attackedColor == false)
+				{
+					_golemAttack_Red->FrameRender(_position.x, _position.y, _moveCount, 0, Pivot::CENTER, true);
+				}
+				if (_attackedColor == true)
+				{
+					_golemAttack_White->FrameRender(_position.x, _position.y, _moveCount, 0, Pivot::CENTER, true);
+				}
+			}
 		}
 		if (_move == MoveType::Right)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 1, Pivot::CENTER, true);
+			if (!_attacked)
+			{
+				_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 1, Pivot::CENTER, true);
+			}
+
+			if (_attacked)
+			{
+				if (_attackedColor == false)
+				{
+					_golemAttack_Red->FrameRender(_position.x, _position.y, _moveCount, 1, Pivot::CENTER, true);
+				}
+				if (_attackedColor == true)
+				{
+					_golemAttack_White->FrameRender(_position.x, _position.y, _moveCount, 1, Pivot::CENTER, true);
+				}
+			}
 		}
 		if (_move == MoveType::Top)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 2, Pivot::CENTER, true);
+			if (!_attacked)
+			{
+				_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 2, Pivot::CENTER, true);
+			}
+
+			if (_attacked)
+			{
+				if (_attackedColor == false)
+				{
+					_golemAttack_Red->FrameRender(_position.x, _position.y, _moveCount, 2, Pivot::CENTER, true);
+				}
+				if (_attackedColor == true)
+				{
+					_golemAttack_White->FrameRender(_position.x, _position.y, _moveCount, 2, Pivot::CENTER, true);
+				}
+			}
 		}
 		if (_move == MoveType::Bottom)
 		{
-			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 3, Pivot::CENTER, true);
+			if (!_attacked)
+			{
+				_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 3, Pivot::CENTER, true);
+			}
+
+			if (_attacked)
+			{
+				if (_attackedColor == false)
+				{
+					_golemAttack_Red->FrameRender(_position.x, _position.y, _moveCount, 3, Pivot::CENTER, true);
+				}
+				if (_attackedColor == true)
+				{
+					_golemAttack_White->FrameRender(_position.x, _position.y, _moveCount, 3, Pivot::CENTER, true);
+				}
+			}
 		}
 	}
 }
@@ -336,7 +465,7 @@ void Golem::Move()
 		this->_position.y += -sinf(_angle)*_speed * _TimeManager->DeltaTime();
 		this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
 	}
-
+	//공격을 맞았을때 출력해줄 이미지
 	if (_attacked)
 	{
 		_count += _TimeManager->DeltaTime();
@@ -345,6 +474,15 @@ void Golem::Move()
 			this->_position.x += cosf(_attackedAngle) * _speed * _TimeManager->DeltaTime()* 0.7f;
 			this->_position.y += -sinf(_attackedAngle) * _speed * _TimeManager->DeltaTime()* 0.7;
 			this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
+
+			if (_count < 0.2f)
+			{
+				_attackedColor = false;
+			}
+			if (_count > 0.2f)
+			{
+				_attackedColor = true;
+			}
 		}
 		if (_count > 0.5f)
 		{
