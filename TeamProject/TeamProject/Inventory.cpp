@@ -182,7 +182,6 @@ void Inventory::Init()
 
 	//인벤토리 플레이어 렉트 생성
 	_invenPlayerRect = Figure::RectMake(_invenPlayerPosition.x, _invenPlayerPosition.y, 290, 290);
-	
 
 } 
 
@@ -606,10 +605,20 @@ void Inventory::InvenState()
 		break;
 		//인벤토리 상태 유지
 	case Inventory::InventoryState::Idle:
-		//만일 f4 누르면 인벤토리 닫기
+		//만일 I 누르면 인벤토리 닫기
 		if (_Input->GetKeyDown('I'))
 		{
 			_state = InventoryState::CloseSlide;
+
+			//벡터 포인터로 오브젝트 리스트 포인터로 받기
+			const vector<GameObject*>* _pObjectList = _ObjectManager->GetObjectListPointer(ObjectType::Object);
+
+
+			for (UINT i = 0; i < _pObjectList->size(); ++i) 
+			{
+				//InventoryClose 메시지 보내기
+				_pObjectList->at(i)->SendCallbackMessage(TagMessage("InventoryClose"));
+			}
 		}
 		break;
 	default:
@@ -664,6 +673,7 @@ void Inventory::Enable()
 	//인벤토리 벡터에 포인터를 붙인 오브젝트 리스트 포인터 선언
 	const vector<GameObject*>* pObjectList = _ObjectManager->GetObjectListPointer(ObjectType::Object);
 	
+	//인벤토리가 활성화가 되면 메시지를 보내 다른 기능을 막는다.
 	//벡터가 포인터가 되었으므로 [.size는 ->size가 됨]
 	for (UINT i = 0; i < pObjectList->size(); ++i)
 	{

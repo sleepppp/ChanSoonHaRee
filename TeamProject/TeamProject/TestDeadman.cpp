@@ -7,10 +7,7 @@ TestDeadman::TestDeadman(Vector2 pos, Vector2 size)
 {
 	_isMove = true;
 
-	this->AddCallbackMessage("InventoryOpen", [this](TagMessage message) 
-	{
-		this->MoveOff();
-	});
+	this->AddCallbackMessage("InventoryOpen", [this](TagMessage message) {this->MoveOff();});
 }
 
 TestDeadman::~TestDeadman()
