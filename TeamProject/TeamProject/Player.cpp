@@ -41,6 +41,7 @@ Player::Player()
 	this->_swordHeight= 20;
 
 	this->_isAttacked = false;
+	this->_delay = 0.0f;
 
 	//정밀 충돌용 렉트 위치 초기화
 	this->_collisionRect = RectMakeCenter(_position, Vector2(60.f, 60.f));	
@@ -79,7 +80,8 @@ void Player::Release()
 /********************************************************************************/
 void Player::Update()
 {
-	cout << "_isAttacked: " << _isAttacked << endl;
+	if(_isAttacked==true) cout << "_isAttacked: " << _isAttacked << endl;
+
 	//이동량 측정할 변수
 	Vector2 moveValue(0, 0);
 	
@@ -166,7 +168,7 @@ void Player::Update()
 			}
 
 			if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
-			else if (_Input->GetKey('J')) this->ChangeState(State::LeftSword1);
+			if (_Input->GetKey('J')) this->ChangeState(State::LeftSword1);
 			//cout << "LeftRun" << endl;
 
 			break;
@@ -174,8 +176,7 @@ void Player::Update()
 		case Player::State::RightRun:
 			if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
 			if (_Input->GetKeyUp('D')) this->ChangeState(State::RightIdle);
-
-
+			
 			//대각선 시작
 			if (_Input->GetKey('W'))	//대각선 위
 			{
@@ -199,7 +200,7 @@ void Player::Update()
 				//moveValue += Vector2(1.0f, 0.0f);
 			}
 			if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
-			else if (_Input->GetKey('J')) this->ChangeState(State::RightSword1);
+			if (_Input->GetKey('J')) this->ChangeState(State::RightSword1);
 			//cout << "RightRun" << endl;
 			break;
 			//=====================================================================================
@@ -223,7 +224,7 @@ void Player::Update()
 			else if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
 
 			if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
-			else if (_Input->GetKey('J')) this->ChangeState(State::DownSword1);
+			if (_Input->GetKey('J')) this->ChangeState(State::DownSword1);
 			//cout << "DownRun" << endl;
 
 			break;
@@ -247,59 +248,59 @@ void Player::Update()
 			break;
 			//=====================================================================================
 		case Player::State::LeftSword1:
-			if (_Input->GetKey('J')) this->ChangeState(State::LeftSword1);
-
-			if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-			else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-
-			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
-			else if (_Input->GetKey('J')) this->ChangeState(State::LeftSword1);
+			//if (_Input->GetKey('J')) this->ChangeState(State::LeftSword1);
+			//
+			//if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+			//else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+			//else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
+			//else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
+			//
+			//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
+			//else if (_Input->GetKey('J')) this->ChangeState(State::LeftSword1);
 			//무기와 에너미의 충돌을 위한 함수
 			this->Attack();
 			break;
 
 		case Player::State::RightSword1:
-			if (_Input->GetKey('J')) this->ChangeState(State::RightSword1);
-
-			if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-			else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-
-			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
-			else if (_Input->GetKey('J')) this->ChangeState(State::RightSword1);
+			//if (_Input->GetKey('J')) this->ChangeState(State::RightSword1);
+			//
+			//if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+			//else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+			//else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
+			//else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
+			//
+			//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
+			//else if (_Input->GetKey('J')) this->ChangeState(State::RightSword1);
 			
 			//무기와 에너미의 충돌을 위한 함수
 			this->Attack();
 			break;
 
 		case Player::State::UpSword1:
-			if (_Input->GetKey('J')) this->ChangeState(State::UpSword1);
-
-			if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-			else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-
-			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
-			else if (_Input->GetKey('J')) this->ChangeState(State::UpSword1);
+			//if (_Input->GetKey('J')) this->ChangeState(State::UpSword1);
+			//
+			//if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+			//else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+			//else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
+			//else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
+			//
+			//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
+			//else if (_Input->GetKey('J')) this->ChangeState(State::UpSword1);
 			
 			//무기와 에너미의 충돌을 위한 함수
 			this->Attack();
 			break;
 
 		case Player::State::DownSword1:
-			if (_Input->GetKey('J')) this->ChangeState(State::DownSword1);
-
-			if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-			else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-
-			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
-			else if (_Input->GetKey('J')) this->ChangeState(State::DownSword1);
+			//if (_Input->GetKey('J')) this->ChangeState(State::DownSword1);
+			//
+			//if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+			//else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+			//else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
+			//else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
+			//
+			//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
+			//else if (_Input->GetKey('J')) this->ChangeState(State::DownSword1);
 			
 			//무기와 에너미의 충돌을 위한 함수
 			this->Attack();
@@ -354,8 +355,8 @@ void Player::Render()
 		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, true);
 		_DXRenderer->DrawRectangle(_collisionRect, DefaultBrush::red, true);
 		//공격모션(이미지)가 true이고 공격판정이 false일때만 그린다
-		if(_isChangeImg&& !_isAttacked)_DXRenderer->DrawRectangle(_swordRect, DefaultBrush::green, true);
-
+		
+		if (_isChangeImg && !_isAttacked)_DXRenderer->DrawRectangle(_swordRect, DefaultBrush::green, true);
 		//_DXRenderer->DrawRectangle(_obColliRect, DefaultBrush::green, true);
 	}
 }
@@ -667,11 +668,11 @@ void Player::EndAnimation()
 		else					this->ChangeState(State::RightIdle);
 		break;
 	case Player::State::UpRoll:
-		if (_Input->GetKey('D')) this->ChangeState(State::UpRun);
+		if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
 		else					this->ChangeState(State::UpIdle);
 		break;
 	case Player::State::DownRoll:
-		if (_Input->GetKey('D')) this->ChangeState(State::DownRun);
+		if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 		else					this->ChangeState(State::DownIdle);
 		break;
 
@@ -684,11 +685,11 @@ void Player::EndAnimation()
 		else					this->ChangeState(State::RightIdle);
 		break;
 	case Player::State::UpSword1:
-		if (_Input->GetKey('D')) this->ChangeState(State::UpRun);
+		if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
 		else					this->ChangeState(State::UpIdle);
 		break;
 	case Player::State::DownSword1:
-		if (_Input->GetKey('D')) this->ChangeState(State::DownRun);
+		if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 		else					this->ChangeState(State::DownIdle);
 		break;
 	default:
@@ -814,23 +815,36 @@ void Player::Attack()
 			{
 				RECT temp;
 				if (IntersectRect(&temp, &_swordRect, &object->at(i)->GetCollisionRect()))
-				{					
-					
-					if (_isAttacked)
+				{	
+					//충돌했을때 false상태일때(그 전에 충돌 상태가 아니었을때)
+					if (_isAttacked==false)
 					{
+						//데미지값을 받아서 체력을 깎는다
 						enemy->AttackedDemege(_damage);
-						_isAttacked = false;
+						//카운트 살짝 줘서 false
+						
 					}
-					else
-					{
-						this->_isAttacked = true;
-					}					
 					
 				}
 			}
 		}
 	}	
 }
+
+void Player::AtkDelay()
+{
+	
+	if (_isAttacked == false)
+	{
+		
+		//_delay+= _delay*_TimeManager->DeltaTime();
+		
+		//상태를 true로 바꾸고
+		_isAttacked = true;
+	}
+	
+}
+
 
 
 //데미지를 받아서 체력을 깎음
@@ -839,6 +853,7 @@ void Player::AttackedDamage(int damage)
 {
 	this->_currentHp -= damage;
 	
+	//플레이어 사망시(애니 추가와 신 이동, 등 추가 상황이 많이 필요함
 	if (_currentHp <= 0) cout << "Die" << endl;
 	else
 	{

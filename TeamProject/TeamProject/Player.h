@@ -53,6 +53,8 @@ private:
 	
 	bool _isAttacked;
 
+	float _delay;
+
 public:
 	Player();
 	~Player();
@@ -77,13 +79,15 @@ public:
 	int GetPlayerCurrentHp() { return _currentHp; }
 	int GetPlayerMaxHp() { return _maxHp; }
 	POINT GetPlayerIndex();
+
+	RECT GetCollisionRect()const override {	return _collisionRect;}
 	
 	//에너미 클래스에 넘겨주기 위한 함수
 	int GetPlayerDamage() { return _damage; }
-
+	
 	void AttackedDamage(int damage);
 	void InventoryOnOff();
-
+	void AtkDelay();
 	//데미지값전달
 	//에너미와 충돌
 };
