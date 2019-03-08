@@ -46,8 +46,8 @@ class Inventory :public GameObject
 	//인벤토리 상태에 따라 처리하기 위함
 	enum class InventoryState
 	{
-		OpenSlide,								//인벤 열기
-		CloseSlide,								//인벤 닫기
+		OpenSlide = 1,								//인벤 열기
+		CloseSlide = 2,								//인벤 닫기
 		Idle									//인벤 유지
 	};
 	

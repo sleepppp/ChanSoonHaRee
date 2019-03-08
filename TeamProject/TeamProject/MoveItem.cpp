@@ -38,6 +38,7 @@ void MoveItem::Release()
 
 void MoveItem::Update()
 {
+
 	GameObject* _player = _ObjectManager->FindObject(ObjectType::Object,"Will");
 
 	//상태가 따라가기 상태이면
@@ -155,4 +156,5 @@ void MoveItem::Render()
 		ImGui::Text("X : %d , Y : %d", (int)_Input->GetMousePosition().x,(int) _Input->GetMousePosition().y);
 		ImGui::End();
 	}
+	
 }

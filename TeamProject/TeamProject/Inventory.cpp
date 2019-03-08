@@ -168,7 +168,7 @@ void Inventory::Init()
 	_isInvenSlot = false;
 
 	//인벤토리 상태 초기화
-	_state = InventoryState::OpenSlide;
+	//_state = InventoryState::OpenSlide;
 
 	/*********************************
 		플레이어 현재 상태 가져오기
@@ -182,11 +182,7 @@ void Inventory::Init()
 
 	//인벤토리 플레이어 렉트 생성
 	_invenPlayerRect = Figure::RectMake(_invenPlayerPosition.x, _invenPlayerPosition.y, 290, 290);
-
-	/**************************************
-	 메시지 생성 : 인벤토리만 활성화하기 위함
-	***************************************/
-	//this->("InventoryOpen", [this](TagMessage message){}
+	
 
 } 
 
@@ -615,7 +611,6 @@ void Inventory::InvenState()
 		{
 			_state = InventoryState::CloseSlide;
 		}
-
 		break;
 	default:
 		break;
