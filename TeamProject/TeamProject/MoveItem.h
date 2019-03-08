@@ -20,6 +20,7 @@ private:
 
 	float _angle;
 	float _speed;
+
 public:
 	MoveItem(string name, Vector2 position);
 	~MoveItem();
