@@ -16,8 +16,13 @@ Weeds::Weeds(Vector2 pos)
 	this->_demage = 16;
 	this->_isAttack = false;
 	this->_state = StateType::Chasing;
-
+	this->_attackTime = 0.f;
 	this->_weeds = _ImageManager->AddFrameImage("weeds", L"../Resources/Enemy/Weeds/Weeds.png", 12, 1);
+	this->_weeds_Red = _ImageManager->AddFrameImage("weeds_Red", L"../Resources/Enemy/Weeds/Weeds_Red.png", 12, 1);
+	this->_weeds_White = _ImageManager->AddFrameImage("weeds_White", L"../Resources/Enemy/weeds/Weeds_White.png", 12, 1);
+
+	this->_shadow = _ImageManager->AddImage("shadow", L"../Resources/Object/Shadow.png");
+
 	this->_imageCount = 0;
 	this->_count = 0;
 }
@@ -60,19 +65,34 @@ void Weeds::Update()
 		_imageCount = 0;
 	}
 
-	if (_Input->GetKeyDown('0'))
-	{
-		this->AttackedDemege(20);
-	}
-
 	this->_renderRect = UpdateRect(_position, _size, _pivot);
 
 }
 void Weeds::Render()
 {
+	_shadow->SetSize(_shadow->GetFrameSize(0));
+	_shadow->SetAlpha(0.4f);
+	_shadow->SetScale(0.66f);
+	_shadow->Render(_position.x - 4, _position.y + 15, Pivot::CENTER, true);
+
 	_weeds->SetSize(_weeds->GetFrameSize(0));
 	_weeds->SetScale(0.9f);	
 	_weeds->FrameRender(_position.x, _position.y, _imageCount, 0, Pivot::CENTER, true);
+	if (_attacked)
+	{
+		_weeds_Red->SetSize(_weeds->GetFrameSize(0));
+		_weeds_Red->SetScale(0.9f);
+		if (_attackedColor == false)
+		{
+			_weeds_Red->FrameRender(_position.x, _position.y, _imageCount, 0, Pivot::CENTER, true);
+		}
+		_weeds_White->SetSize(_weeds->GetFrameSize(0));
+		_weeds_White->SetScale(0.9f);
+		if (_attackedColor == true)
+		{
+			_weeds_White->FrameRender(_position.x, _position.y, _imageCount, 0, Pivot::CENTER, true);
+		}
+	}
 	if (_isDebug)
 	{
 		_DXRenderer->DrawRectangle(_renderRect, DefaultBrush::red, true);
@@ -118,12 +138,26 @@ void Weeds::Move()
 
 	if (_attacked)
 	{
+		_attackTime++;
+		if (_attackTime > 100)
+		{
+			_attackTime = 0.f;
+		}
 		_count += _TimeManager->DeltaTime();
 		if (_count <= 0.5f)
 		{
 			this->_position.x += cosf(_attackedAngle) * _speed * _TimeManager->DeltaTime()* 3.f;
 			this->_position.y += -sinf(_attackedAngle) * _speed * _TimeManager->DeltaTime()* 3.f;
 			this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
+
+			if (_attackTime <= 70.f)
+			{
+				_attackedColor = false;
+			}
+			if (_attackTime > 70.f)
+			{
+				_attackedColor = true;
+			}
 		}
 		if (_count > 0.5f)
 		{

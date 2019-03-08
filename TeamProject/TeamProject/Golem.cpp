@@ -29,6 +29,7 @@ Golem::Golem(Vector2 pos)
 	this->_golemAttack_Red = _ImageManager->AddFrameImage("GolemAttack_Red", L"../Resources/Enemy/Golem/GolemAttack_Red.png", 13, 4);
 	this->_golemAttack_White = _ImageManager->AddFrameImage("GolemAttack_White", L"../Resources/Enemy/Golem/GolemAttack_White.png", 13, 4);
 
+	this->_shadow = _ImageManager->AddImage("shadow", L"../Resources/Object/Shadow.png");
 	//각종 카운트 초기화
 	this->_moveCount = 0;
 	this->_attackCount = 0;
@@ -275,6 +276,11 @@ void Golem::RectRender()
 
 void Golem::ImageRender()
 {
+	_shadow->SetSize(_shadow->GetFrameSize(0));
+	_shadow->SetAlpha(0.3f);
+	_shadow->SetScale(0.7f);
+	_shadow->Render(_position.x, _position.y + 50, Pivot::CENTER, true);
+
 	if (_state == StateType::Chasing)
 	{
 		_golemMove->SetSize(_golemMove->GetFrameSize(0));
@@ -284,6 +290,7 @@ void Golem::ImageRender()
 		_golemMove_Red->SetScale(1.0f);
 		_golemMove_white->SetSize(_golemMove_white->GetFrameSize(0));
 		_golemMove_white->SetScale(1.0f);
+
 		if (_move == MoveType::Left)
 		{
 			if (!_attacked)
