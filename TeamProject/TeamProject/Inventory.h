@@ -105,5 +105,10 @@ public:
 	void Enable()override;						//인벤토리 켜기 함수
 
 	void KeyMove();								//방향 키 함수
+
+	void ChangeStateTarget()
+	{
+		_targetState = InvenTargetState::PlayerTarget;
+	}
 };
 
