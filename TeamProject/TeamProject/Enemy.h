@@ -24,6 +24,7 @@ protected:
 	float _count;
 
 	bool _attacked;
+	bool _attackedColor;
 	//에너미 방향상태 변수
 	MoveType _move;		//방향에 관련된 이넘을 불러오기 위한 함수
 
