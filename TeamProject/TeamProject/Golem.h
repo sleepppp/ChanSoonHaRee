@@ -10,7 +10,6 @@ private:
 	RECT		_attackLeft;
 	RECT		_attackRight;
 	RECT		_attackBottom;
-
 	//공격 범위 크기
 	Vector2		_sizeTop;
 	Vector2		_sizeLeft;
@@ -38,6 +37,7 @@ private:
 	class Image* _golemAttack_Red;	//공격도중 피격이미지
 	class Image* _golemAttack_White;//공격도중 피격이미지
 
+	class Image* _shadow;
 	//각종 카운트
 	float _countMove;				//타이밍을 맞추기 위해 넣어놓은 상시 카운트
 	float _countAttack;				//공격 타이밍을 맞추기 위래 넣어놓은 카운트
