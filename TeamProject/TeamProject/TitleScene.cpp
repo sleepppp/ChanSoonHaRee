@@ -19,16 +19,6 @@ TitleScene::~TitleScene()
 
 void TitleScene::Init()
 {
-	_ImageManager->AddImage("LeftDoor", PathResources(L"Scene/door_left.png"));
-	_ImageManager->AddImage("RightDoor", PathResources(L"Scene/door_right.png"));
-	_ImageManager->AddImage("TitleImage", PathResources(L"Scene/logo.png"));
-	_ImageManager->AddImage("Selector", PathResources(L"Scene/Selector.png"));
-	_ImageManager->AddFrameImage("door_light", PathResources(L"Scene/door_light.png"),30,1,false);
-
-	_SoundManager->AddSound("DoorOpen", PathSounds("door.wav"));
-	_SoundManager->AddSound("introBGM", PathSounds("introBGM.mp3"),true,true);
-	_SoundManager->SetMusicVolume(0.1f);
-
 	_ObjectManager->AddObject(ObjectType::BackGround, new TitleBackground);
 	_ObjectManager->AddObject(ObjectType::Object, new TitleDoor("LeftDoor", Vector2(-1, 0), Vector2(-4, 0), Vector2(WinSizeX / 2, WinSizeY)));
 	_ObjectManager->AddObject(ObjectType::Object, new TitleDoor("RightDoor", Vector2(1, 0), Vector2(WinSizeX / 2 + 4, 0), Vector2(WinSizeX / 2, WinSizeY)));

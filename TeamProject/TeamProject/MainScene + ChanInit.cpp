@@ -7,8 +7,15 @@
 #include "Dungeon_Map_01.h"
 #include "TestDeadman.h"
 #include "ProgressBar.h"
+#include "Program.h"
 //여기서 필요한 리소스 로드 및 클래스 할당하시면 됩니다. 
 //Init은 ㄴㄴ new 하고 ObjectManager에 추가 ㅇㅇ
+
+
+void Program::LoadResourceChan()
+{
+}
+
 void MainScene::ChanInit()
 {
 	/**********************
@@ -24,6 +31,12 @@ void MainScene::ChanInit()
 	//UI 프로그래스 바
 	//_ImageManager->AddFrameImage("hpBar1", L"../Resouces/UI/hpBar", 1, 6, false);
 	//_ImageManager->AddFrameImage("hpBar2", L"../Resouces/UI/hpBar", 1, 6, false);
+
+	//UI 돈 주머니
+	_ImageManager->AddImage("moneyPoket", L"../Resources/UI/moneyBag.png", false);
+
+	//UI 하트
+	_ImageManager->AddImage("heart", L"../Resources/UI/heart.png", false);
 
 
 	/**********************

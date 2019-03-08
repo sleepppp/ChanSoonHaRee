@@ -613,7 +613,6 @@ void Inventory::InvenState()
 			//벡터 포인터로 오브젝트 리스트 포인터로 받기
 			const vector<GameObject*>* _pObjectList = _ObjectManager->GetObjectListPointer(ObjectType::Object);
 
-
 			for (UINT i = 0; i < _pObjectList->size(); ++i) 
 			{
 				//InventoryClose 메시지 보내기
