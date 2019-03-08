@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TitleFlowObject.h"
 
-
+#include "LoadingScene.h"
 TitleFlowObject::TitleFlowObject()
 	:GameObject("TitleFlowObject",Vector2(),Vector2(),Pivot::CENTER)
 {
@@ -16,7 +16,17 @@ TitleFlowObject::TitleFlowObject()
 	_selectorList[0] = new TitleSelector(L"새로운 게임", Figure::RectMakeCenter(WinSizeX / 2, WinSizeY / 2 + 100,200,100), []() 
 	{ 
 		_SoundManager->Stop("introBGM");
-		_SceneManager->LoadScene("LoadingScene"); 
+
+		LoadingScene* loadingScene = dynamic_cast<LoadingScene*>(_SceneManager->FindScene("LoadingScene"));
+		if (loadingScene != nullptr)
+		{
+			loadingScene->SetNextSceneName("TownScene");
+			loadingScene->SetLoadingFunc([]() {
+				_SceneManager->FindScene("TownScene")->Init();
+			});
+			_SceneManager->LoadScene("LoadingScene");
+			return;
+		}
 
 	});
 	_selectorList[1] = new TitleSelector(L"나가기", Figure::RectMakeCenter(WinSizeX / 2, WinSizeY / 2 + 200, 200, 100), []() { exit(0); });

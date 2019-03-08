@@ -15,10 +15,10 @@ Player::Player()
 	//이미지 추가, 매니저에서 FInd 하여 찾아옴
 	_ImageManager->AddFrameImage("Will", L"../Resources/Player/will_dungeon.png", 10, 13);
 	this->_imgMove = _ImageManager->FindImage("Will");
-	_ImageManager->AddFrameImage("Will_Sword1", L"../Resources/Player/will_sword1.png", 8, 4);
-	this->_imgAtkSword1 = _ImageManager->FindImage("Will_Sword1");
-	_ImageManager->AddFrameImage("Will_Sword2", L"../Resources/Player/will_sword2.png", 8, 4);
-	this->_imgAtkSword2 = _ImageManager->FindImage("Will_Sword2");
+	_ImageManager->AddFrameImage("Will_Sword1", L"../Resources/Player/will_sword.png", 10, 4);
+	this->_imgAtkSword = _ImageManager->FindImage("Will_Sword1");
+	//_ImageManager->AddFrameImage("Will_Sword2", L"../Resources/Player/will_sword2.png", 8, 4);
+	//this->_imgAtkSword2 = _ImageManager->FindImage("Will_Sword2");
 
 	//기본 변수 초기화
 	this->_name = "Will";
@@ -41,6 +41,8 @@ Player::Player()
 	this->_swordHeight= 20;
 
 	this->_isAttacked = false;
+	this->_delay = 0.0f;
+	this->_isDelay = false;
 
 	//정밀 충돌용 렉트 위치 초기화
 	this->_collisionRect = RectMakeCenter(_position, Vector2(60.f, 60.f));	
@@ -57,6 +59,8 @@ Player::~Player() {}
 /********************************************************************************/
 void Player::Init()
 {	
+	//AddCallbackMessage("InventoryOpen", [this](TagMessage message) {this->InventoryOnOff(); });
+	AddCallbackMessage("InventoryClose", [this](TagMessage message) {this->InventoryOnOff(); });
 }
 
 /********************************************************************************/
@@ -77,21 +81,23 @@ void Player::Release()
 /********************************************************************************/
 void Player::Update()
 {
+	if(_isAttacked==true) cout << "_isAttacked: " << _isAttacked << endl;
+	
+	cout << "_delay: " << _delay << endl;
+	cout << "_isAttacked: "<<_isAttacked << endl;
+
 	//이동량 측정할 변수
 	Vector2 moveValue(0, 0);
 	
-	Inventory* _inventory = (Inventory*)_ObjectManager->FindObject(ObjectType::UI, "Inventory");
-	
-
-	if (_Input->GetKeyDown('I'))
-	{
-		_isMoveStop = !_isMoveStop;
-		_inventory->Enable();
-	}
-
-
 	if (_isMoveStop == false)
 	{
+		if (_Input->GetKeyDown('I'))
+		{
+			GameObject* _inventory = (Inventory*)_ObjectManager->FindObject(ObjectType::UI, "Inventory");
+			_isMoveStop = true;
+			_inventory->SetActive(true);	
+		}
+
 		//&&&&&&공격 무브 OK
 		//상태에 따라 다르게 업데이트
 		switch (_state)
@@ -102,7 +108,7 @@ void Player::Update()
 			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
 			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
-			else if (_Input->GetKeyDown('J')) this->ChangeState(State::LeftSword1);
+			else if (_Input->GetKey('J')) this->ChangeState(State::LeftSword1);
 			//this->IdleKeyInput();
 			//cout << "LeftIdle" << endl;
 			break;
@@ -112,7 +118,7 @@ void Player::Update()
 			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
 			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
-			else if (_Input->GetKeyDown('J')) this->ChangeState(State::RightSword1);
+			else if (_Input->GetKey('J')) this->ChangeState(State::RightSword1);
 			//cout << "RightIdle" << endl;
 			//this->IdleKeyInput();
 			break;
@@ -123,7 +129,7 @@ void Player::Update()
 			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
 			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
-			else if (_Input->GetKeyDown('J')) this->ChangeState(State::UpSword1);
+			else if (_Input->GetKey('J')) this->ChangeState(State::UpSword1);
 			//cout << "UpIdle" << endl;
 			//this->IdleKeyInput();
 			break;
@@ -134,7 +140,7 @@ void Player::Update()
 			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
 			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
-			else if (_Input->GetKeyDown('J')) this->ChangeState(State::DownSword1);
+			else if (_Input->GetKey('J')) this->ChangeState(State::DownSword1);
 			//cout << "DownIdle" << endl;
 			//this->IdleKeyInput();
 			break;
@@ -166,7 +172,7 @@ void Player::Update()
 			}
 
 			if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
-			else if (_Input->GetKeyDown('J')) this->ChangeState(State::LeftSword1);
+			if (_Input->GetKey('J')) this->ChangeState(State::LeftSword1);
 			//cout << "LeftRun" << endl;
 
 			break;
@@ -174,8 +180,7 @@ void Player::Update()
 		case Player::State::RightRun:
 			if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
 			if (_Input->GetKeyUp('D')) this->ChangeState(State::RightIdle);
-
-
+			
 			//대각선 시작
 			if (_Input->GetKey('W'))	//대각선 위
 			{
@@ -199,7 +204,7 @@ void Player::Update()
 				//moveValue += Vector2(1.0f, 0.0f);
 			}
 			if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
-			else if (_Input->GetKeyDown('J')) this->ChangeState(State::RightSword1);
+			if (_Input->GetKey('J')) this->ChangeState(State::RightSword1);
 			//cout << "RightRun" << endl;
 			break;
 			//=====================================================================================
@@ -211,7 +216,7 @@ void Player::Update()
 			else if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
 
 			if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
-			else if (_Input->GetKeyDown('J')) this->ChangeState(State::UpSword1);
+			else if (_Input->GetKey('J')) this->ChangeState(State::UpSword1);
 			//cout << "UpRun" << endl;
 			break;
 			//=====================================================================================
@@ -223,9 +228,8 @@ void Player::Update()
 			else if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
 
 			if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
-			else if (_Input->GetKeyDown('J')) this->ChangeState(State::DownSword1);
+			if (_Input->GetKey('J')) this->ChangeState(State::DownSword1);
 			//cout << "DownRun" << endl;
-
 			break;
 			//=====================================================================================
 		case Player::State::LeftRoll:
@@ -246,62 +250,20 @@ void Player::Update()
 			moveValue += Vector2(0.0f, 2.0f);
 			break;
 			//=====================================================================================
-		case Player::State::LeftSword1:
-			if (_Input->GetKey('J')) this->ChangeState(State::LeftSword1);
+		case Player::State::LeftSword1:			
+			this->Attack();
+			break;
 
-			if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-			else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
+		case Player::State::RightSword1:			
+			this->Attack();
+			break;
 
-			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
-			else if (_Input->GetKeyDown('J')) this->ChangeState(State::LeftSword1);
+		case Player::State::UpSword1:			
 			//무기와 에너미의 충돌을 위한 함수
 			this->Attack();
 			break;
 
-		case Player::State::RightSword1:
-			if (_Input->GetKey('J')) this->ChangeState(State::RightSword1);
-
-			if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-			else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-
-			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
-			else if (_Input->GetKeyDown('J')) this->ChangeState(State::RightSword1);
-			
-			//무기와 에너미의 충돌을 위한 함수
-			this->Attack();
-			break;
-
-		case Player::State::UpSword1:
-			if (_Input->GetKey('J')) this->ChangeState(State::UpSword1);
-
-			if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-			else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-
-			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
-			else if (_Input->GetKeyDown('J')) this->ChangeState(State::UpSword1);
-			
-			//무기와 에너미의 충돌을 위한 함수
-			this->Attack();
-			break;
-
-		case Player::State::DownSword1:
-			if (_Input->GetKey('J')) this->ChangeState(State::DownSword1);
-
-			if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-			else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-			else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-			else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-
-			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
-			else if (_Input->GetKeyDown('J')) this->ChangeState(State::DownSword1);
-			
-			//무기와 에너미의 충돌을 위한 함수
+		case Player::State::DownSword1:			
 			this->Attack();
 			break;
 			
@@ -324,7 +286,20 @@ void Player::Update()
 			pObjectList->at(i)->SendCallbackMessage(TagMessage("Attack",0.f,1));
 		}
 	}
+	
+	if (_isDelay)
+	{
+		_delay += _delay * _TimeManager->DeltaTime();
+		if (_isDelay > 1.0f / 8.0f)
+		{
+			_delay++;
 
+		}
+	}
+	if (_isDelay==false)
+	{
+		_delay = 0;
+	}
 }
 
 /********************************************************************************/
@@ -334,8 +309,8 @@ void Player::Render()
 {
 	//이미지 사이즈 지정
 	_imgMove->SetSize(_size);
-	_imgAtkSword1->SetSize(_size);
-	_imgAtkSword2->SetSize(_size);
+	_imgAtkSword->SetSize(_size);
+	//_imgAtkSword2->SetSize(_size);
 
 	//렌더링
 	if (_isChangeImg == false)
@@ -344,7 +319,7 @@ void Player::Render()
 	}
 	else
 	{
-		_imgAtkSword1->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
+		_imgAtkSword->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
 	}
 
 
@@ -353,7 +328,9 @@ void Player::Render()
 	{
 		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, true);
 		_DXRenderer->DrawRectangle(_collisionRect, DefaultBrush::red, true);
-		if(_isChangeImg)_DXRenderer->DrawRectangle(_swordRect, DefaultBrush::green, true);
+		//공격모션(이미지)가 true이고 공격판정이 false일때만 그린다
+		
+		if (_isChangeImg && !_isAttacked)_DXRenderer->DrawRectangle(_swordRect, DefaultBrush::green, true);
 		//_DXRenderer->DrawRectangle(_obColliRect, DefaultBrush::green, true);
 	}
 }
@@ -605,28 +582,28 @@ void Player::CreateAnimation()
 	_animationList.insert(make_pair(State::DownRoll, downRoll));
 
 	Animation* leftSword1 = new Animation;
-	leftSword1->SetStartEndFrame(0, 3, 7, 3, false);
+	leftSword1->SetStartEndFrame(0, 3, 10, 3, false);
 	leftSword1->SetIsLoop(false);
 	leftSword1->SetFrameUpdateTime(_frameRun);
 	leftSword1->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::LeftSword1, leftSword1));
 
 	Animation* rightSword1 = new Animation;
-	rightSword1->SetStartEndFrame(0, 2, 7, 2, false);
+	rightSword1->SetStartEndFrame(0, 2, 10, 2, false);
 	rightSword1->SetIsLoop(false);
 	rightSword1->SetFrameUpdateTime(_frameRun);
 	rightSword1->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::RightSword1, rightSword1));
 
 	Animation* upSword1 = new Animation;
-	upSword1->SetStartEndFrame(0, 0, 7, 0, false);
+	upSword1->SetStartEndFrame(0, 1, 10, 1, false);
 	upSword1->SetIsLoop(false);
 	upSword1->SetFrameUpdateTime(_frameRun);
 	upSword1->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::UpSword1, upSword1));
 
 	Animation* downSword1 = new Animation;
-	downSword1->SetStartEndFrame(0, 1, 7, 1, false);
+	downSword1->SetStartEndFrame(0, 0, 10, 0, false);
 	downSword1->SetIsLoop(false);
 	downSword1->SetFrameUpdateTime(_frameRun);
 	downSword1->SetCallbackFunc([this]() {this->EndAnimation(); });
@@ -663,11 +640,11 @@ void Player::EndAnimation()
 		else					this->ChangeState(State::RightIdle);
 		break;
 	case Player::State::UpRoll:
-		if (_Input->GetKey('D')) this->ChangeState(State::UpRun);
+		if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
 		else					this->ChangeState(State::UpIdle);
 		break;
 	case Player::State::DownRoll:
-		if (_Input->GetKey('D')) this->ChangeState(State::DownRun);
+		if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 		else					this->ChangeState(State::DownIdle);
 		break;
 
@@ -680,11 +657,11 @@ void Player::EndAnimation()
 		else					this->ChangeState(State::RightIdle);
 		break;
 	case Player::State::UpSword1:
-		if (_Input->GetKey('D')) this->ChangeState(State::UpRun);
+		if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
 		else					this->ChangeState(State::UpIdle);
 		break;
 	case Player::State::DownSword1:
-		if (_Input->GetKey('D')) this->ChangeState(State::DownRun);
+		if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 		else					this->ChangeState(State::DownIdle);
 		break;
 	default:
@@ -810,14 +787,39 @@ void Player::Attack()
 			{
 				RECT temp;
 				if (IntersectRect(&temp, &_swordRect, &object->at(i)->GetCollisionRect()))
-				{					
-					enemy->AttackedDemege(_damage);
-					this->_isAttacked = true;
+				{	
+					//충돌했을때 false상태일때(그 전에 충돌 상태가 아니었을때)
+					if (_isAttacked==false)
+					{
+						//데미지값을 받아서 체력을 깎는다
+						enemy->AttackedDemege(_damage);
+
+						//카운트 살짝 줘서 false
+						if (_delay > 12)
+						{	
+							_isAttacked = true;
+						}				
+
+					}
+					
 				}
 			}
 		}
 	}	
 }
+
+void Player::AtkDelay()
+{
+	
+	if (_isAttacked == false)
+	{
+		//상태를 true로 바꾸고
+		_isAttacked = true;
+	}
+	
+}
+
+
 
 //데미지를 받아서 체력을 깎음
 //조건이 뭔지 확인을 못해서 일단 함수만 작성해 놓겠음
@@ -825,9 +827,15 @@ void Player::AttackedDamage(int damage)
 {
 	this->_currentHp -= damage;
 	
+	//플레이어 사망시(애니 추가와 신 이동, 등 추가 상황이 많이 필요함
 	if (_currentHp <= 0) cout << "Die" << endl;
 	else
 	{
 		//this->_isAttacked = true;
 	}
+}
+
+void Player::InventoryOnOff()
+{
+	_isMoveStop = false;
 }

@@ -25,8 +25,8 @@ private:
 	typedef map<State, class Animation*>::iterator AnimationIter;
 private:
 	class Image* _imgMove;		//플레이어 기본 움직임
-	class Image* _imgAtkSword1;	//플레이어 공격 스워드1
-	class Image* _imgAtkSword2;	//플레이어 공격 스워드2
+	class Image* _imgAtkSword;	//플레이어 공격 스워드1
+	//class Image* _imgAtkSword2;	//플레이어 공격 스워드2
 
 	map<State, class Animation*> _animationList;	//상태별 애니를 관리하기 위해 맵 사용
 
@@ -53,6 +53,9 @@ private:
 	
 	bool _isAttacked;
 
+	float _delay;
+	bool _isDelay;
+
 public:
 	Player();
 	~Player();
@@ -77,12 +80,15 @@ public:
 	int GetPlayerCurrentHp() { return _currentHp; }
 	int GetPlayerMaxHp() { return _maxHp; }
 	POINT GetPlayerIndex();
+
+	RECT GetCollisionRect()const override {	return _collisionRect;}
 	
 	//에너미 클래스에 넘겨주기 위한 함수
 	int GetPlayerDamage() { return _damage; }
-
-	void AttackedDamage(int damage);
 	
+	void AttackedDamage(int damage);
+	void InventoryOnOff();
+	void AtkDelay();
 	//데미지값전달
 	//에너미와 충돌
 };

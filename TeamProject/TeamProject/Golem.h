@@ -31,7 +31,12 @@ private:
 
 	//기본 움직이는것과 공격하는 것 이미지
 	class Image* _golemMove;		//걷는 이미지
+	class Image* _golemMove_Red;	//걷는도중 피격이미지
+	class Image* _golemMove_white;	//걷는도중 피격이미지
+
 	class Image* _golemAttack;		//공격하는 이미지
+	class Image* _golemAttack_Red;	//공격도중 피격이미지
+	class Image* _golemAttack_White;//공격도중 피격이미지
 
 	//각종 카운트
 	float _countMove;				//타이밍을 맞추기 위해 넣어놓은 상시 카운트
@@ -40,7 +45,9 @@ private:
 	int	 _attackCount;			//공격의 시작과 끝을 알려주기 위한 카운트 
 	int	 _attackedCount;		//피격시 뒤로 밀리는 타이밍을 재기 위한 카운트
 
+	bool _isStop;
 	bool _isAttack;			//공격여부를 확인하기 위한 불변수
+	bool _attackedColor;
 public:
 	//공격실행판만들 위해서 만들어놓은 함수.
 	void Attack();
@@ -61,6 +68,8 @@ public:
 	void RectRender();
 	//이미지를 렌더링하기위해 만들어 놓은 함수.
 	void ImageRender();
+
+	void InvenStop(bool stop);
 public:
 	void Init()override;
 	void Release()override;
