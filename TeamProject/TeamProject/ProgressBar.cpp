@@ -53,6 +53,8 @@ void ProgressBar::Release()
 
 void ProgressBar::Update()
 {
+	GameObject::Update();
+
 	//메인 렉트 선언
 	this->_mainRect = Figure::RectMake(_position.x, _position.y, _progressBarBackIMG->GetWidth(), _progressBarBackIMG->GetHeight());
 
@@ -74,8 +76,6 @@ void ProgressBar::Update()
 	
 	//업데이트 렉트
 	this->UpdateMainRect();
-
-
 
 }
 

@@ -82,7 +82,8 @@ public:
 	int GetPlayerDamage() { return _damage; }
 
 	void AttackedDamage(int damage);
-	
+	void InventoryOnOff();
+
 	//데미지값전달
 	//에너미와 충돌
 };

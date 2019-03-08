@@ -80,15 +80,20 @@ void Player::Update()
 	//이동량 측정할 변수
 	Vector2 moveValue(0, 0);
 	
-	Inventory* _inventory = (Inventory*)_ObjectManager->FindObject(ObjectType::UI, "Inventory");
+	GameObject* _inventory = (Inventory*)_ObjectManager->FindObject(ObjectType::UI, "Inventory");
 	
-
 	if (_Input->GetKeyDown('I'))
-	{
-		_isMoveStop = !_isMoveStop;
-		_inventory->Enable();
-	}
-
+	{		
+		if (_isMoveStop == true)
+		{
+			AddCallbackMessage("InventoryOpen", [this](TagMessage message) {this->InventoryOnOff(); });
+		}
+		else if (_isMoveStop == false)
+		{
+			_inventory->Enable();
+			AddCallbackMessage("InventoryClose", [this](TagMessage message) {this->InventoryOnOff(); });
+		}
+	}	
 
 	if (_isMoveStop == false)
 	{
@@ -832,4 +837,13 @@ void Player::AttackedDamage(int damage)
 	{
 		//this->_isAttacked = true;
 	}
+}
+
+void Player::InventoryOnOff()
+{
+	//_isMoveStop = !_isMoveStop;
+	//_isMoveStop = true;
+	if (_isMoveStop)_isMoveStop = false;
+	else if (!_isMoveStop) _isMoveStop = true;
+
 }
