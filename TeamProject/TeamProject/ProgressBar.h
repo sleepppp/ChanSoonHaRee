@@ -17,9 +17,6 @@ private:
 	class Image* _progressBarBackIMG;
 	class Image* _progressBarFrontIMG;
 
-	//이미지 클래스 선언 - 돈 주머니
-	class Image* _moneyPoketIMG;
-
 	//이미지 클래스 선언 - 하트
 	class Image* _heartIMG;
 
@@ -63,6 +60,7 @@ public:
 	//게이지 얻기
 	bool SetGauge(int currentHp, int maxHp);
 
+	//프로그래스 바 상태
 	void ProgressBarState();
 };
 

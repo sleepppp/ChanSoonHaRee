@@ -17,9 +17,6 @@ void ProgressBar::Init()
 	_progressBarBackIMG = _ImageManager->AddFrameImage("hpBar1", L"../Resources/UI/hpBar.png", 1, 6, false);
 	_progressBarFrontIMG = _ImageManager->AddFrameImage("hpBar2", L"../Resources/UI/hpBar.png", 1, 6, false);
 
-	//돈 주머니 이미지 렌더
-	_moneyPoketIMG = _ImageManager->AddImage("moneyPoket", L"../Resources/UI/moneyBag.png", false);
-
 	//하트 이미지 렌더
 	_heartIMG = _ImageManager->AddImage("heart", L"../Resources/UI/heart.png", false);
 
@@ -96,13 +93,9 @@ void ProgressBar::Render()
 	_progressBarFrontIMG->SetSize(Vector2(_hpWidth *  1.2f, 45.f));
 	_progressBarFrontIMG->FrameRender(_mainRect.left, _mainRect.top, _imgFrameX, _imgFrameY, Pivot::LEFT_TOP, false);
 
-	//돈 주머니 이미지
-	_moneyPoketIMG->SetSize(Vector2(64, 65));
-	_moneyPoketIMG->Render(17, 20, Pivot::LEFT_TOP, false);
-
 	//하트 이미지
 	_heartIMG->SetSize(Vector2(48, 48));
-	_heartIMG->Render(103, 13, Pivot::LEFT_TOP, false);
+	_heartIMG->Render(102, 13, Pivot::LEFT_TOP, false);
 
 }
 

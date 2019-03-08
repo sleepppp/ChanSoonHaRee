@@ -436,6 +436,7 @@ bool Inventory::AddItem(string name)
 					_playerSlotList[i]->data.itemAtk = 0;
 					_playerSlotList[i]->data.itemDef = 0;
 
+					//아이템 카운트가 10개가 되거나 넘어가면 빈 공간 false 처리
 					if (_playerSlotList[i]->itemCount >= 10)
 					{
 						_playerSlotList[i]->isEmpty = false;
@@ -445,14 +446,16 @@ bool Inventory::AddItem(string name)
 			}
 		}
 
+		//가방 슬롯 사이즈만큼
 		for (UINT i = 0; i < _bagSlotList.size(); ++i) 
 		{
-			//가방 슬롯
+			//가방 슬롯이 비어있으면
 			if (_bagSlotList[i]->isEmpty == true)
 			{
 				//가방 슬롯 아이템 카운트 증가
 				_bagSlotList[i]->itemCount++;
 
+				//만일 아이템 카운트가 0보다 크다면
 				if (_bagSlotList[i]->itemCount > 0) 
 				{
 					_bagSlotList[i]->data.image = _ImageManager->FindImage("item_brench");
@@ -461,6 +464,7 @@ bool Inventory::AddItem(string name)
 					_bagSlotList[i]->data.itemAtk = 0;
 					_bagSlotList[i]->data.itemDef = 0;
 
+					//아이템 카운트가 10개가 되거나 넘어가면 빈 공간 false 처리
 					if (_bagSlotList[i]->itemCount >= 10) 
 					{
 						_bagSlotList[i]->isEmpty = false;
