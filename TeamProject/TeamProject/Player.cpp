@@ -57,6 +57,8 @@ Player::~Player() {}
 /********************************************************************************/
 void Player::Init()
 {	
+	//AddCallbackMessage("InventoryOpen", [this](TagMessage message) {this->InventoryOnOff(); });
+	AddCallbackMessage("InventoryClose", [this](TagMessage message) {this->InventoryOnOff(); });
 }
 
 /********************************************************************************/
@@ -80,23 +82,15 @@ void Player::Update()
 	//이동량 측정할 변수
 	Vector2 moveValue(0, 0);
 	
-	GameObject* _inventory = (Inventory*)_ObjectManager->FindObject(ObjectType::UI, "Inventory");
-	
-	if (_Input->GetKeyDown('I'))
-	{		
-		if (_isMoveStop == true)
-		{
-			AddCallbackMessage("InventoryOpen", [this](TagMessage message) {this->InventoryOnOff(); });
-		}
-		else if (_isMoveStop == false)
-		{
-			_inventory->Enable();
-			AddCallbackMessage("InventoryClose", [this](TagMessage message) {this->InventoryOnOff(); });
-		}
-	}	
-
 	if (_isMoveStop == false)
 	{
+		if (_Input->GetKeyDown('I'))
+		{
+			GameObject* _inventory = (Inventory*)_ObjectManager->FindObject(ObjectType::UI, "Inventory");
+			_isMoveStop = true;
+			_inventory->SetActive(true);	
+		}
+
 		//&&&&&&공격 무브 OK
 		//상태에 따라 다르게 업데이트
 		switch (_state)
@@ -841,9 +835,5 @@ void Player::AttackedDamage(int damage)
 
 void Player::InventoryOnOff()
 {
-	//_isMoveStop = !_isMoveStop;
-	//_isMoveStop = true;
-	if (_isMoveStop)_isMoveStop = false;
-	else if (!_isMoveStop) _isMoveStop = true;
-
+	_isMoveStop = false;
 }
