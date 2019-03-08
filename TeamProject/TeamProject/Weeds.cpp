@@ -87,17 +87,15 @@ void Weeds::Collision()
 	object = _ObjectManager->GetObjectListPointer(ObjectType::Object);
 	for (int i = 0; i < (*object).size(); i++)
 	{
-		if ((*object)[i]->GetName() != this->_name && (*object)[i]->GetName() != _player->GetName())
+		Player* player = dynamic_cast<Player*>((*object)[i]);
+		MoveItem* item = dynamic_cast<MoveItem*>((*object)[i]);
+		if (player == nullptr && this != (*object)[i] && item == nullptr)
 		{
-			MoveItem* item = dynamic_cast<MoveItem*>((*object)[i]);
-			if (item == nullptr)
+			if (this->IntersectReaction(&_renderRect, &(*object)[i]->GetCollisionRect()))
 			{
-				if (this->IntersectReaction(&_renderRect, &(*object)[i]->GetCollisionRect()))
-				{
-					_position.x = (_renderRect.right - _renderRect.left) / 2 + _renderRect.left;
-					_position.y = (_renderRect.bottom - _renderRect.top) / 2 + _renderRect.top;
-					this->_renderRect = UpdateRect(_position, _size, _pivot);
-				}
+				_position.x = (_renderRect.right - _renderRect.left) / 2 + _renderRect.left;
+				_position.y = (_renderRect.bottom - _renderRect.top) / 2 + _renderRect.top;
+				this->_renderRect = UpdateRect(_position, _size, _pivot);
 			}
 		}
 	}
