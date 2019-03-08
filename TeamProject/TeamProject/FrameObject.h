@@ -15,5 +15,6 @@ public:
 	void Render()override; 
 
 	RECT GetCollisionRect()const override { return this->_collisionRect; }
+	void SetCollisionRect(RECT rc) { this->_collisionRect = rc; }
 };
 

@@ -26,11 +26,19 @@ void Program::Init()
 	_SceneManager->AddScene("Dungeon_map_02", new Dungeon_Map_02);
 
 	LoadingScene* loadScene = new LoadingScene;
-	loadScene->SetNextSceneName("MainScene");
-	loadScene->SetLoadingFunc([this]() {_SceneManager->FindScene("MainScene")->Init(); });
+	loadScene->SetNextSceneName("TitleScene");
+	loadScene->SetLoadingFunc([this]() 
+	{
+		this->LoadResourceSoon();
+		this->LoadResourceChan();
+		this->LoadResourceRee();
+		this->LoadResourceHa();
+		_SceneManager->FindScene("TitleScene")->Init(); 
+	});
 	_SceneManager->AddScene("LoadingScene", loadScene);
 
-	_SceneManager->LoadScene("TitleScene");
+	_SceneManager->LoadScene("LoadingScene");
+
 	_SceneManager->SceneQueue();
 }
 
@@ -53,7 +61,8 @@ void Program::Render()
 	_DXRenderer->Direct2DBeginDraw();
 	{
 		_SceneManager->Render();
-		_TimeManager->Render();
+		if(_isDebug)
+			_TimeManager->Render();
 	}
 	_DXRenderer->Direct2DEndDraw();
 	ImGui::Render();
@@ -61,3 +70,5 @@ void Program::Render()
 
 	_SceneManager->SceneQueue();
 }
+
+

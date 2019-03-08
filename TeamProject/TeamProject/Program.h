@@ -10,6 +10,12 @@ public:
 	void Release();
 	void Update();
 	void Render();
+
+	void LoadResourceSoon();
+	void LoadResourceRee();
+	void LoadResourceHa();
+	void LoadResourceChan();
+
 };
 
 

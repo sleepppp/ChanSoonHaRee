@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+
 class TestDeadman : public GameObject
 {
 	bool _isMove;
