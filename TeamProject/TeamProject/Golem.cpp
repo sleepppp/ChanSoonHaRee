@@ -21,7 +21,12 @@ Golem::Golem(Vector2 pos)
 
 	//내 이미지 찾기!
 	this->_golemMove = _ImageManager->AddFrameImage("GolemMove", L"../Resources/Enemy/Golem/GolemMove.png", 8, 4);
+	this->_golemMove_Red = _ImageManager->AddFrameImage("GolemMove_Red", L"../Resources/Enemy/Golem/GolemMove_Red.png", 8, 4);
+	this->_golemMove_white = _ImageManager->AddFrameImage("GolemMove_White", L"../Resources/Enemy/Golem/GolemMove_White.png", 8, 4);
+
 	this->_golemAttack = _ImageManager->AddFrameImage("GolemAttack", L"../Resources/Enemy/Golem/GolemAttack.png", 13, 4);
+	this->_golemAttack_Red = _ImageManager->AddFrameImage("GolemAttack_Red", L"../Resources/Enemy/Golem/GolemAttack_Red.png", 13, 4);
+	this->_golemAttack_White = _ImageManager->AddFrameImage("GolemAttack_Red", L"../Resources/Enemy/Golem/_golemAttack_White.png", 13, 4);
 
 	//각종 카운트 초기화
 	this->_moveCount = 0;
@@ -44,6 +49,8 @@ Golem::Golem(Vector2 pos)
 	this->_isAttackLeft = false;
 	this->_isAttackRight = false;
 	this->_isAttackBottom = false;
+	this->AddCallbackMessage("InventoryOpen", [this](TagMessage message) {this->InvenStop(1); });
+	this->AddCallbackMessage("InventoryClose", [this](TagMessage message) {this->InvenStop(0); });
 	//공격렉트 초기화
 	//this->_attackLeft = UpdateRect(_positionLeft, _sizeLeft, Pivot::LEFT_TOP);
 	//this->_attackRight = UpdateRect(_positionRight, _sizeRight, Pivot::LEFT_TOP);
@@ -73,14 +80,16 @@ void Golem::Update()
 		_countMove = 0;
 		_moveCount++;
 	}
-
-	this->Move();
-	this->ObjectCollision();
-	this->Attack();
+	if (!_isStop)
+	{
+		this->Move();
+		this->Attack();
+	}
 	this->EnemyMoveType();
 	this->ImageCount();
 	this->AttackPosition();
 	this->Collision();
+	this->ObjectCollision();
 
 	if (_Input->GetKeyDown('0'))
 	{
@@ -307,6 +316,11 @@ void Golem::ImageRender()
 			_golemAttack->FrameRender(_position.x, _position.y, _attackCount, 3, Pivot::CENTER, true);
 		}
 	}
+}
+
+void Golem::InvenStop(bool stop)
+{
+	_isStop = stop;
 }
 
 //쫒거나 피격당했을 시 움직이기 위한 함수.

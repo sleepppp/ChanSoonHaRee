@@ -43,6 +43,7 @@ public:
 
 	float Distance(Vector2 pos);
 	float Angle(Vector2 angle);
+
 public:
 	virtual void Init();
 	virtual void Release() {}
