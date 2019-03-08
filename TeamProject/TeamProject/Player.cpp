@@ -40,6 +40,8 @@ Player::Player()
 	this->_swordWidth= 40;
 	this->_swordHeight= 20;
 
+	this->_isAttacked = false;
+
 	//정밀 충돌용 렉트 위치 초기화
 	this->_collisionRect = RectMakeCenter(_position, Vector2(60.f, 60.f));	
 	//상태별 애니메이션 전부 생성하여 맵에 담아둔다.
@@ -812,8 +814,22 @@ void Player::Attack()
 				if (IntersectRect(&temp, &_swordRect, &object->at(i)->GetCollisionRect()))
 				{					
 					enemy->AttackedDemege(_damage);
+					this->_isAttacked = true;
 				}
 			}
 		}
 	}	
+}
+
+//데미지를 받아서 체력을 깎음
+//조건이 뭔지 확인을 못해서 일단 함수만 작성해 놓겠음
+void Player::AttackedDamage(int damage)
+{
+	this->_currentHp -= damage;
+	
+	if (_currentHp <= 0) cout << "Die" << endl;
+	else
+	{
+		//this->_isAttacked = true;
+	}
 }

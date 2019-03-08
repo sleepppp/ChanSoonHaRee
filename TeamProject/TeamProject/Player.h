@@ -51,6 +51,7 @@ private:
 	int _swordWidth;
 	int _swordHeight;
 	
+	bool _isAttacked;
 
 public:
 	Player();
@@ -80,7 +81,7 @@ public:
 	//에너미 클래스에 넘겨주기 위한 함수
 	int GetPlayerDamage() { return _damage; }
 
-
+	void AttackedDamage(int damage);
 	
 	//데미지값전달
 	//에너미와 충돌
