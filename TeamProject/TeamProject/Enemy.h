@@ -8,23 +8,19 @@ protected:
 	{
 		Top = 0, Left, Right, Bottom, End
 	};
-	enum class MoveType2
-	{
-		Left = 0, Right, End
-	};
 	enum class StateType
 	{
 		Chasing = 0, attack
 	};
 
 protected:
-	float _speed;		//속도
-	float _distance;	//직선거리를 구하기 위한 변수
-	float _angle;		//앵글
-	float _attackedAngle;
-	int _demage;		//공격력
-	int _hp;			//체력
-	RECT _renderRect;	//이미지를 위해서 만든 렉트
+	float _speed;			//속도
+	float _distance;		//직선거리를 구하기 위한 변수
+	float _angle;			//앵글
+	float _attackedAngle;	//공격을 받았을 시에 튕겨져 나갈 방향.
+	int _demage;			//공격력
+	int _hp;				//체력
+	RECT _renderRect;		//이미지를 위해서 만든 렉트
 	float _count;
 
 	bool _attacked;
@@ -44,6 +40,10 @@ public:
 	void EnemyMoveType();
 	bool IntersectReaction(RECT* moveRect, RECT* unMoveRect);
 	RECT GetCollisionRect()const override {return _renderRect;}
+
+	float Distance(Vector2 pos);
+	float Angle(Vector2 angle);
+
 public:
 	virtual void Init();
 	virtual void Release() {}

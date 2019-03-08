@@ -14,6 +14,9 @@ Inventory::~Inventory()
 
 void Inventory::Init()
 {
+	/*********************************
+			  인벤토리 초기화
+	**********************************/
 	//이름
 	this->_name = "Inventory";
 
@@ -165,7 +168,7 @@ void Inventory::Init()
 	_isInvenSlot = false;
 
 	//인벤토리 상태 초기화
-	_state = InventoryState::OpenSlide;
+	//_state = InventoryState::OpenSlide;
 
 	/*********************************
 		플레이어 현재 상태 가져오기
@@ -174,7 +177,13 @@ void Inventory::Init()
 	//윌 이미지 담기
 	_invenPlayer = _ImageManager->FindImage("Will");
 
-}
+	//인벤토리 플레이어 포지션 
+	_invenPlayerPosition = Vector2(787, WinSizeY + 500);
+
+	//인벤토리 플레이어 렉트 생성
+	_invenPlayerRect = Figure::RectMake(_invenPlayerPosition.x, _invenPlayerPosition.y, 290, 290);
+
+} 
 
 //인벤토리 Release
 void Inventory::Release()
@@ -397,7 +406,7 @@ void Inventory::Render()
 	_invenPlayer->SetSize(Vector2(290, 290));
 
 	//프레임 렌더
-	_invenPlayer->FrameRender(787,359, _player->GetPlayerIndex().x, _player->GetPlayerIndex().y, Pivot::CENTER, false);
+	_invenPlayer->FrameRender(_invenPlayerPosition.x, _invenPlayerPosition.y, _player->GetPlayerIndex().x, _player->GetPlayerIndex().y, Pivot::CENTER, false);
 }
 
 
@@ -477,9 +486,11 @@ void Inventory::InvenState()
 	{
 		//인벤토리 열기
 	case Inventory::InventoryState::OpenSlide:
-		//인벤토리 포지션 y 위로 800.0f 만큼 이동하기
+		//인벤토리 포지션 y 위로 1600.0f 만큼 이동하기
 		_position.y -= 1600.0f * _TimeManager->DeltaTime();
 
+		//인벤토리 포지션 y 위로 1600.0f 만큼 이동하기
+		_invenPlayerPosition.y -= 1600.0f * _TimeManager->DeltaTime();
 
 		//### 인벤토리가 계속 올라가는 걸 방지하기 위함 ###
 		//만일 포지션 y가 화면 중앙이거나 더 작으면  
@@ -487,6 +498,8 @@ void Inventory::InvenState()
 		{
 			//포지션 y를 화면 중앙에 고정시키고
 			_position.y = WinSizeY / 2;
+			_invenPlayerPosition.y = WinSizeY / 2;
+
 			//인벤토리 상태 유지하기
 			_state = InventoryState::Idle;
 		}
@@ -532,12 +545,17 @@ void Inventory::InvenState()
 		//인벤토리 포지션 y 아래로 800.0f 만큼 이동하기
 		_position.y += 1600.0f * _TimeManager->DeltaTime();
 
+		//인벤토리 플레이어 상태 포지션 y 아래로 1600.0f 만큼 이동하기
+		_invenPlayerPosition.y += 1600.0f * _TimeManager->DeltaTime();
+
+
 		//### 인벤토리가 계속 내려가는 걸 방지하기 위함 ###
 		//만일 포지션 y가 화면 중앙이거나 더 작으면  
 		if (_position.y <= WinSizeY / 2)
 		{
 			//포지션 y를 화면 중앙에 고정시키고
 			_position.y = WinSizeY / 2;
+			_invenPlayerPosition.y = WinSizeY / 2;
 		}
 
 		//만일 포지션 y가 화면 밖으로 완전히 사라지면
@@ -587,12 +605,21 @@ void Inventory::InvenState()
 		break;
 		//인벤토리 상태 유지
 	case Inventory::InventoryState::Idle:
-		//만일 f4 누르면 인벤토리 닫기
-		if (_Input->GetKeyDown(VK_F4))
+		//만일 I 누르면 인벤토리 닫기
+		if (_Input->GetKeyDown('I'))
 		{
 			_state = InventoryState::CloseSlide;
-		}
 
+			//벡터 포인터로 오브젝트 리스트 포인터로 받기
+			const vector<GameObject*>* _pObjectList = _ObjectManager->GetObjectListPointer(ObjectType::Object);
+
+
+			for (UINT i = 0; i < _pObjectList->size(); ++i) 
+			{
+				//InventoryClose 메시지 보내기
+				_pObjectList->at(i)->SendCallbackMessage(TagMessage("InventoryClose"));
+			}
+		}
 		break;
 	default:
 		break;
@@ -637,14 +664,21 @@ void Inventory::InvenTarget()
 	}
 }
 
+//인벤토리 활성화
 void Inventory::Enable()
 {
+	//인벤토리 화면 오픈
 	this->_state = InventoryState::OpenSlide;
 
-	vector<GameObject*> pObjectList = _ObjectManager->GetObjectList(ObjectType::Object);
-	for (UINT i = 0; i < pObjectList.size(); ++i)
+	//인벤토리 벡터에 포인터를 붙인 오브젝트 리스트 포인터 선언
+	const vector<GameObject*>* pObjectList = _ObjectManager->GetObjectListPointer(ObjectType::Object);
+	
+	//인벤토리가 활성화가 되면 메시지를 보내 다른 기능을 막는다.
+	//벡터가 포인터가 되었으므로 [.size는 ->size가 됨]
+	for (UINT i = 0; i < pObjectList->size(); ++i)
 	{
-		pObjectList[i]->SendCallbackMessage(TagMessage("InventoryOpen"));
+		//SendCallbackMessage로 이름 키 값을 보낸다.
+		pObjectList->at(i)->SendCallbackMessage(TagMessage("InventoryOpen"));
 	}
 }
 

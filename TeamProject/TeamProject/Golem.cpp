@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Image.h"
 #include "Player.h"
+#include "MoveItem.h"
 #include "Golem.h"
 
 
@@ -20,7 +21,12 @@ Golem::Golem(Vector2 pos)
 
 	//내 이미지 찾기!
 	this->_golemMove = _ImageManager->AddFrameImage("GolemMove", L"../Resources/Enemy/Golem/GolemMove.png", 8, 4);
+	this->_golemMove_Red = _ImageManager->AddFrameImage("GolemMove_Red", L"../Resources/Enemy/Golem/GolemMove_Red.png", 8, 4);
+	this->_golemMove_white = _ImageManager->AddFrameImage("GolemMove_White", L"../Resources/Enemy/Golem/GolemMove_White.png", 8, 4);
+
 	this->_golemAttack = _ImageManager->AddFrameImage("GolemAttack", L"../Resources/Enemy/Golem/GolemAttack.png", 13, 4);
+	this->_golemAttack_Red = _ImageManager->AddFrameImage("GolemAttack_Red", L"../Resources/Enemy/Golem/GolemAttack_Red.png", 13, 4);
+	this->_golemAttack_White = _ImageManager->AddFrameImage("GolemAttack_Red", L"../Resources/Enemy/Golem/_golemAttack_White.png", 13, 4);
 
 	//각종 카운트 초기화
 	this->_moveCount = 0;
@@ -29,25 +35,27 @@ Golem::Golem(Vector2 pos)
 	this->_countMove = 0.f;
 	this->_countAttack = 0.f;
 	//공격 렉트를 위한 포지션 초기화
-	this->_positionLeft = Vector2(_position.x - 110, _position.y + 10);
-	this->_positionRight = Vector2(_position.x + 10, _position.y + 15);
+	this->_positionLeft = Vector2(_position.x - 110, _position.y - 10);
+	this->_positionRight = Vector2(_position.x + 10, _position.y - 15);
 	this->_positionTop = Vector2(_position.x, _position.y - 10);
 	this->_positionBottom = Vector2(_position.x, _position.y + 110);
 	//공격 렉트를 위한 사이즈 설정 및 초기화
-	this->_sizeLeft = Vector2(100, 20);
-	this->_sizeRight = Vector2(100, 20);
-	this->_sizeTop = Vector2(20, 70);
-	this->_sizeBottom = Vector2(20, 80);
+	this->_sizeLeft = Vector2(100, 60);
+	this->_sizeRight = Vector2(100, 60);
+	this->_sizeTop = Vector2(60, 70);
+	this->_sizeBottom = Vector2(60, 80);
 	//공격여부확인을 위한 불변수 초기화
 	this->_isAttackTop = false;
 	this->_isAttackLeft = false;
 	this->_isAttackRight = false;
 	this->_isAttackBottom = false;
+	this->AddCallbackMessage("InventoryOpen", [this](TagMessage message) {this->InvenStop(1); });
+	this->AddCallbackMessage("InventoryClose", [this](TagMessage message) {this->InvenStop(0); });
 	//공격렉트 초기화
-	this->_attackLeft = UpdateRect(_positionLeft, _sizeLeft, Pivot::LEFT_TOP);
-	this->_attackRight = UpdateRect(_positionRight, _sizeRight, Pivot::LEFT_TOP);
-	this->_attackTop = UpdateRect(_positionTop, _sizeTop, Pivot::BOTTOM);
-	this->_attackBottom = UpdateRect(_positionBottom, _sizeBottom, Pivot::BOTTOM);
+	//this->_attackLeft = UpdateRect(_positionLeft, _sizeLeft, Pivot::LEFT_TOP);
+	//this->_attackRight = UpdateRect(_positionRight, _sizeRight, Pivot::LEFT_TOP);
+	//this->_attackTop = UpdateRect(_positionTop, _sizeTop, Pivot::BOTTOM);
+	//this->_attackBottom = UpdateRect(_positionBottom, _sizeBottom, Pivot::BOTTOM);
 }
 
 Golem::~Golem()
@@ -72,14 +80,16 @@ void Golem::Update()
 		_countMove = 0;
 		_moveCount++;
 	}
-
-	this->Move();
-	this->ObjectCollision();
-	this->Attack();
+	if (!_isStop)
+	{
+		this->Move();
+		this->Attack();
+	}
 	this->EnemyMoveType();
 	this->ImageCount();
 	this->AttackPosition();
 	this->Collision();
+	this->ObjectCollision();
 
 	if (_Input->GetKeyDown('0'))
 	{
@@ -138,8 +148,8 @@ void Golem::Attack()
 
 void Golem::AttackPosition()
 {
-	this->_positionLeft = Vector2(_position.x - 110, _position.y + 10);
-	this->_positionRight = Vector2(_position.x + 10, _position.y + 15);
+	this->_positionLeft = Vector2(_position.x - 110, _position.y - 10);
+	this->_positionRight = Vector2(_position.x + 10, _position.y - 15);
 	this->_positionTop = Vector2(_position.x, _position.y - 10);
 	this->_positionBottom = Vector2(_position.x, _position.y + 110);
 
@@ -215,12 +225,27 @@ void Golem::Collision()
 	{
 		_isAttack = true;
 	}
-	//공격에 성공했으면?
-	if (_isAttack == true)
+	if (IntersectRect(&CollisionRc, &_renderRect, &_player->GetMainRect()))
 	{
-		//내 뎀지를 넘겨줘라.
-		//_player->AttackedDemege(0);
-		_isAttack = false;
+		_isAttack = true;
+	}
+
+	//공격하고 있는 상황이고
+	if (_state == StateType::attack)
+	{
+		//그리고 공격에 성공했으면
+		if (_isAttack == true)
+		{
+			//내 뎀지를 넘겨줘라.
+			//_player->
+			//공격을 완료 했으면 데미지를 주는 변수를 펄스시켜라.
+			_isAttack = false;
+
+			_isAttackLeft = false;
+			_isAttackRight = false;
+			_isAttackTop = false;
+			_isAttackBottom = false;
+		}
 	}
 }
 
@@ -293,6 +318,11 @@ void Golem::ImageRender()
 	}
 }
 
+void Golem::InvenStop(bool stop)
+{
+	_isStop = stop;
+}
+
 //쫒거나 피격당했을 시 움직이기 위한 함수.
 //아파요 싫어요 하지마세요
 void Golem::Move()
@@ -335,7 +365,10 @@ void Golem::ObjectCollision()
 	for (int i = 0; i < object->size(); i++)
 	{
 		
-		if ((*object)[i]->GetName() != this->_name && (*object)[i]->GetName() != this->_player->GetName())
+		MoveItem* item = dynamic_cast<MoveItem*>((*object)[i]);
+		Player* player = dynamic_cast<Player*>((*object)[i]);
+		
+		if (item == nullptr && player == nullptr && this != (*object)[i])
 		{
 			if (this->IntersectReaction(&_renderRect, &(*object)[i]->GetCollisionRect()))
 			{

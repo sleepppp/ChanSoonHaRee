@@ -46,8 +46,8 @@ class Inventory :public GameObject
 	//인벤토리 상태에 따라 처리하기 위함
 	enum class InventoryState
 	{
-		OpenSlide,								//인벤 열기
-		CloseSlide,								//인벤 닫기
+		OpenSlide = 1,								//인벤 열기
+		CloseSlide = 2,								//인벤 닫기
 		Idle									//인벤 유지
 	};
 	
@@ -82,9 +82,12 @@ private:
 	InvenTargetState _targetState;				//인벤토리 타겟 상태 변수 선언
 
 
-	//플레이어 상태 표시
-	class Image* _invenPlayer;					//인벤토리에 플레이어 상태 표시
+	//인벤토리에 플레이어 상태 표시 이미지
+	class Image* _invenPlayer;					//인벤토리에 플레이어 상태 표시 이미지
 
+	//인벤토리에 플레이어 상태 표시용 렉트
+	RECT _invenPlayerRect;						//인벤토리 플레이어 상태 표시용 렉트
+	Vector2 _invenPlayerPosition;				//인벤토리 플레이어 상태 표시용 포지션
 public:
 	Inventory();
 	~Inventory();
@@ -102,5 +105,10 @@ public:
 	void Enable()override;						//인벤토리 켜기 함수
 
 	void KeyMove();								//방향 키 함수
+
+	void ChangeStateTarget()
+	{
+		_targetState = InvenTargetState::PlayerTarget;
+	}
 };
 

@@ -21,4 +21,3 @@ public:
 	Dungeon_Map_02();
 	~Dungeon_Map_02();
 };
-

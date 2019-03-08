@@ -16,6 +16,7 @@ void Enemy::Init()
 	_count = 0;
 	_attacked = false;
 }
+
 //내 뎀지를 넘기기 위한 함수.
 void Enemy::AttackedDemege(int damage)
 {
@@ -112,4 +113,22 @@ bool Enemy::IntersectReaction(RECT * moveRect, RECT * unMoveRect)
 		}
 	}
 	return true;
+}
+
+//직선거리 길이 구하는 공식.
+float Enemy::Distance(Vector2 position)
+{
+	//직선거리를 구하고
+	float distance = Math::GetDistance(position.x, position.y, _player->GetPosition().x, _player->GetPosition().y);
+	//반환해
+	return distance;
+}
+
+//앵글값구하는 공식.
+float Enemy::Angle(Vector2 position)
+{
+	//앵글값을 구하고
+	float angle = Math::GetAngle(position.x, position.y, _player->GetPosition().x, _player->GetPosition().y);
+	//반환해
+	return angle;
 }
