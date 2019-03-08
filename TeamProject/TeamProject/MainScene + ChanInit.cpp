@@ -25,6 +25,12 @@ void MainScene::ChanInit()
 	//_ImageManager->AddFrameImage("hpBar1", L"../Resouces/UI/hpBar", 1, 6, false);
 	//_ImageManager->AddFrameImage("hpBar2", L"../Resouces/UI/hpBar", 1, 6, false);
 
+	//UI 돈 주머니
+	_ImageManager->AddImage("moneyPoket", L"../Resources/UI/moneyBag.png", false);
+
+	//UI 하트
+	_ImageManager->AddImage("heart", L"../Resources/UI/heart.png", false);
+
 
 	/**********************
 			아이템

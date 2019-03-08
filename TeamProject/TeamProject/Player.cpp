@@ -494,8 +494,6 @@ void Player::Move(Vector2 direction)
 	//에너미와의 충돌	
 	//this->SendCallbackMessage(TagMessage("PlayerHP",0.0f, this->_currentHp));
 	
-	
-
 	//Enemy* enemy = dynamic_cast<Enemy*>(object[i]);
 	//Enemy 클래스를 가리키는 enemy에 담는다.
 	//dynamic_case다이나믹 캐스(상속관계일 경우 형변환(ex: (float)hp ), 없으면 null값을 반환해줘서 편리!)
