@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Image.h"
 #include "Player.h"
+#include "MoveItem.h"
 #include "Golem.h"
 
 
@@ -29,15 +30,15 @@ Golem::Golem(Vector2 pos)
 	this->_countMove = 0.f;
 	this->_countAttack = 0.f;
 	//공격 렉트를 위한 포지션 초기화
-	this->_positionLeft = Vector2(_position.x - 110, _position.y + 10);
-	this->_positionRight = Vector2(_position.x + 10, _position.y + 15);
+	this->_positionLeft = Vector2(_position.x - 110, _position.y - 10);
+	this->_positionRight = Vector2(_position.x + 10, _position.y - 15);
 	this->_positionTop = Vector2(_position.x, _position.y - 10);
 	this->_positionBottom = Vector2(_position.x, _position.y + 110);
 	//공격 렉트를 위한 사이즈 설정 및 초기화
-	this->_sizeLeft = Vector2(100, 20);
-	this->_sizeRight = Vector2(100, 20);
-	this->_sizeTop = Vector2(20, 70);
-	this->_sizeBottom = Vector2(20, 80);
+	this->_sizeLeft = Vector2(100, 60);
+	this->_sizeRight = Vector2(100, 60);
+	this->_sizeTop = Vector2(60, 70);
+	this->_sizeBottom = Vector2(60, 80);
 	//공격여부확인을 위한 불변수 초기화
 	this->_isAttackTop = false;
 	this->_isAttackLeft = false;
@@ -138,8 +139,8 @@ void Golem::Attack()
 
 void Golem::AttackPosition()
 {
-	this->_positionLeft = Vector2(_position.x - 110, _position.y + 10);
-	this->_positionRight = Vector2(_position.x + 10, _position.y + 15);
+	this->_positionLeft = Vector2(_position.x - 110, _position.y - 10);
+	this->_positionRight = Vector2(_position.x + 10, _position.y - 15);
 	this->_positionTop = Vector2(_position.x, _position.y - 10);
 	this->_positionBottom = Vector2(_position.x, _position.y + 110);
 
@@ -335,7 +336,10 @@ void Golem::ObjectCollision()
 	for (int i = 0; i < object->size(); i++)
 	{
 		
-		if ((*object)[i]->GetName() != this->_name && (*object)[i]->GetName() != this->_player->GetName())
+		MoveItem* item = dynamic_cast<MoveItem*>((*object)[i]);
+		Player* player = dynamic_cast<Player*>((*object)[i]);
+		
+		if (item == nullptr && player == nullptr && this != (*object)[i])
 		{
 			if (this->IntersectReaction(&_renderRect, &(*object)[i]->GetCollisionRect()))
 			{

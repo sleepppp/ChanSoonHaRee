@@ -62,8 +62,7 @@ void Door::Update()
 		if (loadingScene != nullptr)
 		{
 			loadingScene->SetNextSceneName(Door::_mapName);
-			loadingScene->SetLoadingFunc([]() 
-			{
+			loadingScene->SetLoadingFunc([]() {
 				_SceneManager->FindScene(Door::_mapName)->Init(); 
 			});
 			_SceneManager->LoadScene("LoadingScene");
