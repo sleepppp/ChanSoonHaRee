@@ -45,10 +45,10 @@ Golem::Golem(Vector2 pos)
 	this->_isAttackRight = false;
 	this->_isAttackBottom = false;
 	//공격렉트 초기화
-	this->_attackLeft = UpdateRect(_positionLeft, _sizeLeft, Pivot::LEFT_TOP);
-	this->_attackRight = UpdateRect(_positionRight, _sizeRight, Pivot::LEFT_TOP);
-	this->_attackTop = UpdateRect(_positionTop, _sizeTop, Pivot::BOTTOM);
-	this->_attackBottom = UpdateRect(_positionBottom, _sizeBottom, Pivot::BOTTOM);
+	//this->_attackLeft = UpdateRect(_positionLeft, _sizeLeft, Pivot::LEFT_TOP);
+	//this->_attackRight = UpdateRect(_positionRight, _sizeRight, Pivot::LEFT_TOP);
+	//this->_attackTop = UpdateRect(_positionTop, _sizeTop, Pivot::BOTTOM);
+	//this->_attackBottom = UpdateRect(_positionBottom, _sizeBottom, Pivot::BOTTOM);
 }
 
 Golem::~Golem()
@@ -216,12 +216,27 @@ void Golem::Collision()
 	{
 		_isAttack = true;
 	}
-	//공격에 성공했으면?
-	if (_isAttack == true)
+	if (IntersectRect(&CollisionRc, &_renderRect, &_player->GetMainRect()))
 	{
-		//내 뎀지를 넘겨줘라.
-		//_player->AttackedDemege(0);
-		_isAttack = false;
+		_isAttack = true;
+	}
+
+	//공격하고 있는 상황이고
+	if (_state == StateType::attack)
+	{
+		//그리고 공격에 성공했으면
+		if (_isAttack == true)
+		{
+			//내 뎀지를 넘겨줘라.
+			//_player->
+			//공격을 완료 했으면 데미지를 주는 변수를 펄스시켜라.
+			_isAttack = false;
+
+			_isAttackLeft = false;
+			_isAttackRight = false;
+			_isAttackTop = false;
+			_isAttackBottom = false;
+		}
 	}
 }
 
