@@ -42,6 +42,7 @@ Player::Player()
 
 	this->_isAttacked = false;
 	this->_delay = 0.0f;
+	this->_isDelay = false;
 
 	//정밀 충돌용 렉트 위치 초기화
 	this->_collisionRect = RectMakeCenter(_position, Vector2(60.f, 60.f));	
@@ -81,6 +82,9 @@ void Player::Release()
 void Player::Update()
 {
 	if(_isAttacked==true) cout << "_isAttacked: " << _isAttacked << endl;
+	
+	cout << "_delay: " << _delay << endl;
+	cout << "_isAttacked: "<<_isAttacked << endl;
 
 	//이동량 측정할 변수
 	Vector2 moveValue(0, 0);
@@ -226,7 +230,6 @@ void Player::Update()
 			if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
 			if (_Input->GetKey('J')) this->ChangeState(State::DownSword1);
 			//cout << "DownRun" << endl;
-
 			break;
 			//=====================================================================================
 		case Player::State::LeftRoll:
@@ -247,62 +250,20 @@ void Player::Update()
 			moveValue += Vector2(0.0f, 2.0f);
 			break;
 			//=====================================================================================
-		case Player::State::LeftSword1:
-			//if (_Input->GetKey('J')) this->ChangeState(State::LeftSword1);
-			//
-			//if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-			//else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-			//else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-			//else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-			//
-			//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
-			//else if (_Input->GetKey('J')) this->ChangeState(State::LeftSword1);
+		case Player::State::LeftSword1:			
+			this->Attack();
+			break;
+
+		case Player::State::RightSword1:			
+			this->Attack();
+			break;
+
+		case Player::State::UpSword1:			
 			//무기와 에너미의 충돌을 위한 함수
 			this->Attack();
 			break;
 
-		case Player::State::RightSword1:
-			//if (_Input->GetKey('J')) this->ChangeState(State::RightSword1);
-			//
-			//if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-			//else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-			//else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-			//else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-			//
-			//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
-			//else if (_Input->GetKey('J')) this->ChangeState(State::RightSword1);
-			
-			//무기와 에너미의 충돌을 위한 함수
-			this->Attack();
-			break;
-
-		case Player::State::UpSword1:
-			//if (_Input->GetKey('J')) this->ChangeState(State::UpSword1);
-			//
-			//if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-			//else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-			//else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-			//else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-			//
-			//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
-			//else if (_Input->GetKey('J')) this->ChangeState(State::UpSword1);
-			
-			//무기와 에너미의 충돌을 위한 함수
-			this->Attack();
-			break;
-
-		case Player::State::DownSword1:
-			//if (_Input->GetKey('J')) this->ChangeState(State::DownSword1);
-			//
-			//if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-			//else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-			//else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-			//else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-			//
-			//else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
-			//else if (_Input->GetKey('J')) this->ChangeState(State::DownSword1);
-			
-			//무기와 에너미의 충돌을 위한 함수
+		case Player::State::DownSword1:			
 			this->Attack();
 			break;
 			
@@ -325,7 +286,20 @@ void Player::Update()
 			pObjectList->at(i)->SendCallbackMessage(TagMessage("Attack",0.f,1));
 		}
 	}
+	
+	if (_isDelay)
+	{
+		_delay += _delay * _TimeManager->DeltaTime();
+		if (_isDelay > 1.0f / 8.0f)
+		{
+			_delay++;
 
+		}
+	}
+	if (_isDelay==false)
+	{
+		_delay = 0;
+	}
 }
 
 /********************************************************************************/
@@ -497,8 +471,6 @@ void Player::Move(Vector2 direction)
 	//에너미와의 충돌	
 	//this->SendCallbackMessage(TagMessage("PlayerHP",0.0f, this->_currentHp));
 	
-	
-
 	//Enemy* enemy = dynamic_cast<Enemy*>(object[i]);
 	//Enemy 클래스를 가리키는 enemy에 담는다.
 	//dynamic_case다이나믹 캐스(상속관계일 경우 형변환(ex: (float)hp ), 없으면 null값을 반환해줘서 편리!)
@@ -821,8 +793,13 @@ void Player::Attack()
 					{
 						//데미지값을 받아서 체력을 깎는다
 						enemy->AttackedDemege(_damage);
+
 						//카운트 살짝 줘서 false
-						
+						if (_delay > 12)
+						{	
+							_isAttacked = true;
+						}				
+
 					}
 					
 				}
@@ -836,9 +813,6 @@ void Player::AtkDelay()
 	
 	if (_isAttacked == false)
 	{
-		
-		//_delay+= _delay*_TimeManager->DeltaTime();
-		
 		//상태를 true로 바꾸고
 		_isAttacked = true;
 	}

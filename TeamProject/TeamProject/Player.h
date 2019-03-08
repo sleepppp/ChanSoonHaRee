@@ -54,6 +54,7 @@ private:
 	bool _isAttacked;
 
 	float _delay;
+	bool _isDelay;
 
 public:
 	Player();
