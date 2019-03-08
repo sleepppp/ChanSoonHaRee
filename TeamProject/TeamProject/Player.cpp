@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "Enemy.h"
 #include "MoveItem.h"
+#include "Inventory.h"
 
 using namespace Figure;
 
@@ -77,8 +78,15 @@ void Player::Update()
 	//이동량 측정할 변수
 	Vector2 moveValue(0, 0);
 	
+	Inventory* _inventory = (Inventory*)_ObjectManager->FindObject(ObjectType::UI, "Inventory");
+	
+
 	if (_Input->GetKeyDown('I'))
+	{
 		_isMoveStop = !_isMoveStop;
+		_inventory->Enable();
+	}
+
 
 	if (_isMoveStop == false)
 	{
