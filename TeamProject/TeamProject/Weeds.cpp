@@ -12,7 +12,7 @@ Weeds::Weeds(Vector2 pos)
 	this->_pivot = Pivot::CENTER;
 	this->_renderRect = UpdateRect(_position, _size, _pivot);
 	this->_speed = 70.0f;
-	this->_hp = 100;
+	this->_hp = 20;
 	this->_demage = 16;
 	this->_isAttack = false;
 	this->_state = StateType::Chasing;
@@ -33,6 +33,7 @@ void Weeds::Release() {}
 void Weeds::Update()
 {
 	this->Move();
+
 	Collision();
 
 	RECT collisionRc;
@@ -61,7 +62,7 @@ void Weeds::Update()
 
 	if (_Input->GetKeyDown('0'))
 	{
-		this->AttackedDemege(0);
+		this->AttackedDemege(20);
 	}
 
 	this->_renderRect = UpdateRect(_position, _size, _pivot);

@@ -2,6 +2,7 @@
 #include "Inventory.h"
 #include "StringHelper.h"
 #include "Image.h"
+#include "Player.h"
 Inventory::Inventory()
 {
 }
@@ -165,6 +166,13 @@ void Inventory::Init()
 
 	//인벤토리 상태 초기화
 	_state = InventoryState::OpenSlide;
+
+	/*********************************
+		플레이어 현재 상태 가져오기
+	**********************************/
+
+	//윌 이미지 담기
+	_invenPlayer = _ImageManager->FindImage("Will");
 
 }
 
@@ -379,11 +387,17 @@ void Inventory::Render()
 		}
 	}
 
-
 	/*********************************
-		  플레이어 현재 상태 가져오기
+		플레이어 현재 상태 가져오기
 	**********************************/
-	//GameObject* _player = _ObjectManager->FindObject(ObjectType::Object, "Will");
+	//플레이어 포인터 플레이어에 다운캐스팅 적용해서 함수 가져오기
+	Player* _player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
+
+	//사이즈 선언
+	_invenPlayer->SetSize(Vector2(290, 290));
+
+	//프레임 렌더
+	_invenPlayer->FrameRender(787,359, _player->GetPlayerIndex().x, _player->GetPlayerIndex().y, Pivot::CENTER, false);
 }
 
 

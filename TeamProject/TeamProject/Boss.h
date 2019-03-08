@@ -6,7 +6,11 @@ private:
 	//보스의 상태 종류 , 플레이어를 마주치기 전, 마주치고나서  깨어날때, 죽을때, 손떨구기, 주먹발사, 돌떨구기., 
 	enum class StateType
 	{
-		Idle, Create,Dead, Rock_Shoot, Hand_Shoot, Fist_Shoot, End
+		Idle, Create,Dead, 
+		Rock_Shoot_First, Rock_Shoot_Second, Rock_Shoot_Last,
+		Hand_Shoot_First, Hand_Shoot_Second, Hand_Shoot_Last, 
+		Fist_Shoot_First, Fist_Shoot_Second, Fist_Shoot_Last, 
+		End
 	};
 	
 private:

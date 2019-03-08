@@ -52,11 +52,23 @@ void Boss::Update()
 		break;
 	case Boss::StateType::Dead:
 		break;
-	case Boss::StateType::Rock_Shoot:
+	case Boss::StateType::Rock_Shoot_First:
 		break;
-	case Boss::StateType::Hand_Shoot:
+	case Boss::StateType::Rock_Shoot_Second:
 		break;
-	case Boss::StateType::Fist_Shoot:
+	case Boss::StateType::Rock_Shoot_Last:
+		break;
+	case Boss::StateType::Hand_Shoot_First:
+		break;
+	case Boss::StateType::Hand_Shoot_Second:
+		break;
+	case Boss::StateType::Hand_Shoot_Last:
+		break;
+	case Boss::StateType::Fist_Shoot_First:
+		break;
+	case Boss::StateType::Fist_Shoot_Second:
+		break;
+	case Boss::StateType::Fist_Shoot_Last:
 		break;
 	case Boss::StateType::End:
 		break;
@@ -89,11 +101,23 @@ void Boss::ChangeState(StateType state)
 		break;
 	case Boss::StateType::Dead:
 		break;
-	case Boss::StateType::Rock_Shoot:
+	case Boss::StateType::Rock_Shoot_First:
 		break;
-	case Boss::StateType::Hand_Shoot:
+	case Boss::StateType::Rock_Shoot_Second:
 		break;
-	case Boss::StateType::Fist_Shoot:
+	case Boss::StateType::Rock_Shoot_Last:
+		break;
+	case Boss::StateType::Hand_Shoot_First:
+		break;
+	case Boss::StateType::Hand_Shoot_Second:
+		break;
+	case Boss::StateType::Hand_Shoot_Last:
+		break;
+	case Boss::StateType::Fist_Shoot_First:
+		break;
+	case Boss::StateType::Fist_Shoot_Second:
+		break;
+	case Boss::StateType::Fist_Shoot_Last:
 		break;
 	case Boss::StateType::End:
 		break;
@@ -129,12 +153,22 @@ void Boss::CreateAnimation()
 	Animation* Create = new Animation;
 	//플레이어에게 얻어맞아 죽을 때
 	Animation* Dead = new Animation;
-	//플레이어를 공격하기 위해서 돌을 떨굴때
-	Animation* Rock_Shoot = new Animation;
-	//플레이어를 공격하기 위해 손을 떨굴때
-	Animation* Hand_Shoot = new Animation;
+	//==========================================//
+	//			플레이어 돌떨구기 공격			//
+	//==========================================//
+	Animation* Rock_Shoot_First = new Animation;		//주먹을 들어올려서 땅으로 내려찍기까지의 모션
+	Animation* Rock_Shoot_Second = new Animation;		//주먹을 내려찍은 후 잠시간 흔들거릴때까지의 모션
+	Animation* Rock_Shoot_Last  = new Animation;		//돌이 다 떨어진후 원래의 모션으로 돌아오기 까지의 모션
+	//==========================================//
+	//			플레이어 손떨구기 공격			//
+	//==========================================//
+	Animation* Hand_Shoot_First = new Animation;		//손을 하늘로 집어 던지는 모션
+	Animation* Hand_Shoot_Second = new Animation;		//손을 하늘로 집어 던지고 그 손이 계속해서 공격하는 도중의 움직이는 모션
+	Animation* Hand_Shoot_Last = new Animation;			// 공격이 끝나고 손을 다시 원래의 모션으로 되돌리기까지의 모션
 	//플레이어를 공격하기 위해 쬰쬬니를 날릴때
-	Animation* Fist_Shoot = new Animation;
+	Animation* Fist_Shoot_First = new Animation;		//쬰쬬니를 조준하는 모션
+	Animation* Fist_Shoot_Second = new Animation;		//쬰쬬니를 날리는 모션
+	Animation* Fist_Shoot_Last = new Animation;			//날린쬰쬬니를 흔들면서 되돌리는 모션
 }
 
 //직선거리 길이 구하는 공식.
