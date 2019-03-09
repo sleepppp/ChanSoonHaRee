@@ -372,9 +372,6 @@
     <ClInclude Include="DebugSystem.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Dungeon_Map_Boss.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Arrow.h">
       <Filter>PublicForder\Ree</Filter>
     </ClInclude>
@@ -383,6 +380,9 @@
     </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>PublicForder\Chan\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Dungeon_Map_Boss.h">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -608,9 +608,6 @@
     <ClCompile Include="DebugSystem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Dungeon_Map_Boss.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Arrow.cpp">
       <Filter>PublicForder\Ree</Filter>
     </ClCompile>
@@ -619,6 +616,9 @@
     </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>PublicForder\Chan\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Dungeon_Map_Boss.cpp">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
