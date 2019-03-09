@@ -7,12 +7,15 @@
 #include "Enemy.h"
 #include "MoveItem.h"
 #include "Inventory.h"
-
+#include "Arrow.h"
 
 //에너미 공ㅇ격 받을때 무적 판정(약 1초)	ok
 //에너미 데미지 값 받을 함수				ok
 //맞으면 알파값 깜빡임			
 //무기 보우, 방패
+//한번만 칼 휘두르게
+//두번 누를때 두번 휘두르게
+//휘두르는 동안 제대로 렉트가 한번씩 먹히도록 수정한다.
 
 
 using namespace Figure;
@@ -783,34 +786,34 @@ POINT Player::GetPlayerIndex()
 //=======================================
 void Player::Attack()
 {
-	const vector <class GameObject*>* object;
-	object = _ObjectManager->GetObjectListPointer(ObjectType::Object);
-
-	for (int i = 0; i < object->size(); i++)
+	if (_isAttacked == false)
 	{
-		//플레이어 자신을 제외하기 위한 조건문
-		if (object->at(i)->GetName() != this->_name)
+		const vector <class GameObject*>* object;
+		object = _ObjectManager->GetObjectListPointer(ObjectType::Object);
+		for (int i = 0; i < object->size(); i++)
 		{
-			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));			
-			
-			//무기와 에너미 충돌, 가져온 오브젝트에 값이 있을 경우만 검사
-			if (enemy != nullptr)
+			//플레이어 자신을 제외하기 위한 조건문
+			if (object->at(i)->GetName() != this->_name)
 			{
-				RECT temp;
-				if (IntersectRect(&temp, &_swordRect, &object->at(i)->GetCollisionRect()))
-				{	
-					//충돌했을때 false상태일때(그 전에 충돌 상태가 아니었을때)
-					if (_isAttacked==false)
+				Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));
+
+				//무기와 에너미 충돌, 가져온 오브젝트에 값이 있을 경우만 검사
+				if (enemy != nullptr)
+				{
+					RECT temp;
+					if (IntersectRect(&temp, &_swordRect, &object->at(i)->GetCollisionRect()))
 					{
+						//충돌했을때 false상태일때(그 전에 충돌 상태가 아니었을때)
+
 						//데미지값을 받아서 체력을 깎는다
 						enemy->AttackedDemege(_damage);
 						_isAttacked = true;
 					}
-					
 				}
 			}
 		}
-	}	
+	}
+
 }
 
 //void Player::AtkDelay()
