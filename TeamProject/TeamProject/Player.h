@@ -54,8 +54,12 @@ private:
 	bool _isAttacked;
 	bool _isChangeWeapon;
 
+	int _alpha;
+
 	bool _isDelay;
-	int _count;
+	float _count;
+	int _blink;
+
 public:
 	Player(Vector2 pos);
 	~Player();
@@ -67,6 +71,7 @@ public:
 
 	void EndAnimation();
 	void Attack();
+
 public:
 	void Move(Vector2 direction);
 	void ChangeAnimation(State state);
@@ -89,7 +94,7 @@ public:
 	void AttackedDamage(int damage);
 	void InventoryOnOff();
 	void AtkDelay();
-
+	void AtkDelay2();
 	void BodyAttack();
 
 

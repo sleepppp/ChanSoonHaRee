@@ -53,6 +53,8 @@ Player::Player(Vector2 pos)
 
 	this->_isAttacked = false;
 	this->_isChangeWeapon = false;		//false는 칼, true는 활
+	_blink = 0;
+	this->_alpha = 1.0f;
 
 	this->_isDelay = 0.f;
 	this->_count = 0;
@@ -93,9 +95,10 @@ void Player::Release()
 /********************************************************************************/
 void Player::Update()
 {	
+
 	//이동량 측정할 변수
 	Vector2 moveValue(0, 0);
-	cout << _count << endl;
+	
 	if (_isMoveStop == false)
 	{
 		if (_Input->GetKeyDown('I'))
@@ -294,7 +297,16 @@ void Player::Update()
 		}
 	}
 
-	cout << _isAttacked << endl;
+	
+
+
+
+
+	
+
+
+
+	this->AtkDelay2();
 }
 
 /********************************************************************************/
@@ -308,6 +320,7 @@ void Player::Render()
 	//_imgAtkSword2->SetSize(_size);
 
 
+	_imgMove->SetAlpha(_alpha);
 
 	//렌더링
 	if (_isChangeImg == false)
@@ -318,15 +331,7 @@ void Player::Render()
 	{
 		_imgAtkSword->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
 	}
-
-	if (_isDelay)
-	{
-		if (_isDelay)
-		{
-			
-		}
-	}
-
+	
 
 	//디버그 모드라면 디버그 렉트들 렌더링 (F1)
 	if (_isDebug)
@@ -808,16 +813,16 @@ void Player::Attack()
 	}	
 }
 
-void Player::AtkDelay()
-{
-	
-	if (_isAttacked == false)
-	{
-		//상태를 true로 바꾸고
-		_isAttacked = true;
-	}
-	
-}
+//void Player::AtkDelay()
+//{
+//	
+//	if (_isAttacked == false)
+//	{
+//		//상태를 true로 바꾸고
+//		_isAttacked = true;
+//	}
+//	
+//}
 
 
 
@@ -825,14 +830,16 @@ void Player::AtkDelay()
 //조건이 뭔지 확인을 못해서 일단 함수만 작성해 놓겠음
 void Player::AttackedDamage(int damage)
 {
-	this->_currentHp -= damage;
-	
-	//플레이어 사망시(애니 추가와 신 이동, 등 추가 상황이 많이 필요함
-	if (_currentHp <= 0) cout << "Die" << endl;
-	else
+	if (_isDelay == false)
 	{
-		//this->_isAttacked = true;
+		cout << "Fucking " << endl;
+		this->_currentHp -= damage;
+		_isDelay = true;
+		_blink = 0;
 	}
+		
+	//if (_currentHp <= 0)
+		//cout << "Die" << endl;	
 }
 
 void Player::InventoryOnOff()
@@ -841,74 +848,24 @@ void Player::InventoryOnOff()
 }
 
 
-
-//=======================================
-//바디 데미지 입으면 무적+깜빡임 함수(추가중)
-//=======================================
-void Player::BodyAttack()
-{
-	const vector <class GameObject*>* object;
-	object = _ObjectManager->GetObjectListPointer(ObjectType::Object);
-
-	for (int i = 0; i < object->size(); i++)
-	{
-		//플레이어 자신을 제외하기 위한 조건문
-		if (object->at(i)->GetName() != this->_name)
-		{
-			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));
-
-			//무기와 에너미 충돌, 가져온 오브젝트에 값이 있을 경우만 검사
-			if (enemy != nullptr)
-			{
-				RECT temp;
-				//몸체와 에너미 충돌시
-				if (IntersectRect(&temp, &_collisionRect, &object->at(i)->GetCollisionRect()))
-				{
-					//충돌했을때 false상태일때(그 전에 충돌 상태가 아니었을때)
-					//if (_isAttacked == false)
-					{
-						//1.데미지값을 받아서 체력을 깎는다
-						enemy->AttackedDemege(_damage);
-						//_isAttacked = true;
-					
-						_isDelay = true;
-						this->AtkDelay();
-						//3.position살짝 밀리게 한다.
-						//	에너미의 포지션을 가져와서 반대로 움직인다
-					}
-
-				}
-			}
-		}
-	}
-}
-
 //2.무적시간을 준다.
-void Player::AtkDelay()
+void Player::AtkDelay2()
 {	
 	if (_isDelay == true)
 	{
 		_count += _TimeManager->DeltaTime();
-
-		if (_count < 1.0f)
+		if (_count > 0.2f)
 		{
-			_isAttacked = false;
-
-			if (_count % 2 == 0)
-			{
-				_imgMove->SetAlpha(5.0f);
-			}
-			else if (_count % 2 == 0)
-			{ 
-				_imgMove->SetAlpha(0.0f);
-			}
-				
-
-		}
-		else if (_count > 1.0f)
-		{
+			_blink++;
 			_count = 0;
-			_isDelay = false;
+			_alpha = !_alpha;
+			
+			if (_blink == 6)
+			{
+				_isDelay = false;
+				_alpha = 1.0f;
+			}
 		}
+		
 	}
 }

@@ -369,7 +369,10 @@
     <ClInclude Include="DebugSystem.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
+    <ClInclude Include="Dungeon_Map_Boss.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrow.h">
       <Filter>PublicForder\Ree</Filter>
     </ClInclude>
   </ItemGroup>
@@ -596,7 +599,10 @@
     <ClCompile Include="DebugSystem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
+    <ClCompile Include="Dungeon_Map_Boss.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrow.cpp">
       <Filter>PublicForder\Ree</Filter>
     </ClCompile>
   </ItemGroup>
