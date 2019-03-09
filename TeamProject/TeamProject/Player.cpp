@@ -8,9 +8,19 @@
 #include "MoveItem.h"
 #include "Inventory.h"
 
+
+//에너미 공ㅇ격 받을때 무적 판정(약 1초)
+//에너미 데미지 값 받을 함수
+//맞으면 알파값 깜빡임
+//무기 보우, 방패
+
+
 using namespace Figure;
 
-Player::Player()
+//씬 변경으로 TItleScene에서 TitleObject의 TitleFlowObject.cpp
+//23,27번 Dungeon_map_02 맵으로 수정함 
+
+Player::Player(Vector2 pos)
 {
 	//이미지 추가, 매니저에서 FInd 하여 찾아옴
 	_ImageManager->AddFrameImage("Will", L"../Resources/Player/will_dungeon.png", 10, 13);
@@ -24,6 +34,7 @@ Player::Player()
 	this->_name = "Will";
 	this->_size = Vector2(120, 120);
 	this->_position = Vector2(627, 120);
+	_position = pos;	//따로값 입력 안하면 메인신에서 값을 입력한대로
 	this->_isActive = true;
 	this->_pivot = Pivot::CENTER;
 	this->_speed = 400.0f;
@@ -41,9 +52,10 @@ Player::Player()
 	this->_swordHeight= 20;
 
 	this->_isAttacked = false;
-	this->_delay = 0.0f;
-	this->_isDelay = false;
+	this->_isChangeWeapon = false;		//false는 칼, true는 활
 
+	this->_isDelay = 0.f;
+	this->_count = 0;
 	//정밀 충돌용 렉트 위치 초기화
 	this->_collisionRect = RectMakeCenter(_position, Vector2(60.f, 60.f));	
 	//상태별 애니메이션 전부 생성하여 맵에 담아둔다.
@@ -80,12 +92,7 @@ void Player::Release()
 //## Update ##
 /********************************************************************************/
 void Player::Update()
-{
-	if(_isAttacked==true) cout << "_isAttacked: " << _isAttacked << endl;
-	
-	cout << "_delay: " << _delay << endl;
-	cout << "_isAttacked: "<<_isAttacked << endl;
-
+{	
 	//이동량 측정할 변수
 	Vector2 moveValue(0, 0);
 	
@@ -286,20 +293,8 @@ void Player::Update()
 			pObjectList->at(i)->SendCallbackMessage(TagMessage("Attack",0.f,1));
 		}
 	}
-	
-	if (_isDelay)
-	{
-		_delay += _delay * _TimeManager->DeltaTime();
-		if (_isDelay > 1.0f / 8.0f)
-		{
-			_delay++;
 
-		}
-	}
-	if (_isDelay==false)
-	{
-		_delay = 0;
-	}
+	cout << _isAttacked << endl;
 }
 
 /********************************************************************************/
@@ -397,20 +392,24 @@ void Player::ChangeState(State state)
 	case Player::State::LeftSword1:
 		_isChangeImg = true;
 		//칼 렉트
+		_isAttacked = false;
 		if(_isChangeImg)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight);
 		break;
 	case Player::State::RightSword1:
 		_isChangeImg = true;
+		_isAttacked = false;
 		//칼 렉트
 		this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight);
 		break;
 	case Player::State::UpSword1:
-		_isChangeImg = true;		
+		_isChangeImg = true;	
+		_isAttacked = false;
 		//칼 렉트
 		this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth);
 		break;
 	case Player::State::DownSword1:
-		_isChangeImg = true;		
+		_isChangeImg = true;
+		_isAttacked = false;
 		//칼 렉트
 		this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth);
 		break;
@@ -505,11 +504,11 @@ void Player::ChangeAnimation(State state)
 /********************************************************************************/
 void Player::CreateAnimation()
 {
-	Animation* leftIdle = new Animation;
-	leftIdle->SetStartEndFrame(0, 9, 9, 9, false);
-	leftIdle->SetIsLoop(true);
-	leftIdle->SetFrameUpdateTime(_frameIdle);
-	_animationList.insert(make_pair(State::LeftIdle, leftIdle));
+	Animation* leftIdle = new Animation;							//상태별로 하나씩 new로 맹들었지렁
+	leftIdle->SetStartEndFrame(0, 9, 9, 9, false);					//한동작의 시작x,y,끝x,y 저억으시오
+	leftIdle->SetIsLoop(true);										//루프돌릴지 true, faㅣse
+	leftIdle->SetFrameUpdateTime(_frameIdle);						//프레임당 시간을 넣어주면 됨미다
+	_animationList.insert(make_pair(State::LeftIdle, leftIdle));	//값 다 만드셨으면 inset로 맵에 콱 박으쇼
 
 	Animation* rightIdle = new Animation;
 	rightIdle->SetStartEndFrame(0, 8, 9, 8, false);
@@ -582,28 +581,28 @@ void Player::CreateAnimation()
 	_animationList.insert(make_pair(State::DownRoll, downRoll));
 
 	Animation* leftSword1 = new Animation;
-	leftSword1->SetStartEndFrame(0, 3, 10, 3, false);
+	leftSword1->SetStartEndFrame(0, 3, 9, 3, false);
 	leftSword1->SetIsLoop(false);
 	leftSword1->SetFrameUpdateTime(_frameRun);
 	leftSword1->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::LeftSword1, leftSword1));
 
 	Animation* rightSword1 = new Animation;
-	rightSword1->SetStartEndFrame(0, 2, 10, 2, false);
+	rightSword1->SetStartEndFrame(0, 2, 9, 2, false);
 	rightSword1->SetIsLoop(false);
 	rightSword1->SetFrameUpdateTime(_frameRun);
 	rightSword1->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::RightSword1, rightSword1));
 
 	Animation* upSword1 = new Animation;
-	upSword1->SetStartEndFrame(0, 1, 10, 1, false);
+	upSword1->SetStartEndFrame(0, 0, 9, 0, false);
 	upSword1->SetIsLoop(false);
 	upSword1->SetFrameUpdateTime(_frameRun);
 	upSword1->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::UpSword1, upSword1));
 
-	Animation* downSword1 = new Animation;
-	downSword1->SetStartEndFrame(0, 0, 10, 0, false);
+	Animation* downSword1 = new Animation;	
+	downSword1->SetStartEndFrame(0, 1, 9, 1, false);
 	downSword1->SetIsLoop(false);
 	downSword1->SetFrameUpdateTime(_frameRun);
 	downSword1->SetCallbackFunc([this]() {this->EndAnimation(); });
@@ -757,15 +756,12 @@ bool Player::InterRect(RECT* moveRc, RECT* unMoveRc)
 	//return true
 }
 
-
 //인벤토리 전달 함수 현재 x,y값
 POINT Player::GetPlayerIndex()
 {
 	POINT IndexXY = { _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY() };
 	return IndexXY;
 }
-
-
 
 //=======================================
 //공격함수
@@ -793,13 +789,7 @@ void Player::Attack()
 					{
 						//데미지값을 받아서 체력을 깎는다
 						enemy->AttackedDemege(_damage);
-
-						//카운트 살짝 줘서 false
-						if (_delay > 12)
-						{	
-							_isAttacked = true;
-						}				
-
+						_isAttacked = true;
 					}
 					
 				}
@@ -838,4 +828,76 @@ void Player::AttackedDamage(int damage)
 void Player::InventoryOnOff()
 {
 	_isMoveStop = false;
+}
+
+
+
+//=======================================
+//바디 데미지 입으면 무적+깜빡임 함수(추가중)
+//=======================================
+void Player::BodyAttack()
+{
+	const vector <class GameObject*>* object;
+	object = _ObjectManager->GetObjectListPointer(ObjectType::Object);
+
+	for (int i = 0; i < object->size(); i++)
+	{
+		//플레이어 자신을 제외하기 위한 조건문
+		if (object->at(i)->GetName() != this->_name)
+		{
+			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));
+
+			//무기와 에너미 충돌, 가져온 오브젝트에 값이 있을 경우만 검사
+			if (enemy != nullptr)
+			{
+				RECT temp;
+				//몸체와 에너미 충돌시
+				if (IntersectRect(&temp, &_collisionRect, &object->at(i)->GetCollisionRect()))
+				{
+					//충돌했을때 false상태일때(그 전에 충돌 상태가 아니었을때)
+					//if (_isAttacked == false)
+					{
+						//1.데미지값을 받아서 체력을 깎는다
+						enemy->AttackedDemege(_damage);
+						//_isAttacked = true;
+
+						//2.무적시간을 준다.
+						
+						//무적시간을 줄 float
+						//시간 0부터 4까지 데미지 값을 받지 않는다.
+
+
+
+						//3.position살짝 밀리게 한다.
+						//	에너미의 포지션을 가져와서 반대로 움직인다
+
+
+
+
+
+					}
+
+				}
+			}
+		}
+	}
+}
+
+
+void Player::AtkDelay()
+{
+	_count += _TimeManager->DeltaTime();
+	if (_count < 1.0f)
+	{
+
+	}
+	else if (_count > 1.0f)
+	{
+		_count = 0;
+	}
+
+
+
+
+
 }
