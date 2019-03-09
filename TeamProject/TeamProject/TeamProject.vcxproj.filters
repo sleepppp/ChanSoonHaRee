@@ -148,6 +148,12 @@
     <Filter Include="PublicForder\Chan\UI">
       <UniqueIdentifier>{dbfcdf7c-6023-44ac-bea1-439bf5a2a3ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System\DebugSystem">
+      <UniqueIdentifier>{29dc2a02-1f20-4c6a-aabb-763824049418}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Chan\Effect">
+      <UniqueIdentifier>{5a47184f-252f-42cd-bb78-72aff1e04aa3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -366,14 +372,17 @@
     <ClInclude Include="UIMoneyPoket.h">
       <Filter>PublicForder\Chan\UI</Filter>
     </ClInclude>
-    <ClInclude Include="DebugSystem.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Dungeon_Map_Boss.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Arrow.h">
       <Filter>PublicForder\Ree</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugSystem.h">
+      <Filter>System\DebugSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Dungeon_Map_Boss.h">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>PublicForder\Chan\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -596,14 +605,17 @@
     <ClCompile Include="UIMoneyPoket.cpp">
       <Filter>PublicForder\Chan\UI</Filter>
     </ClCompile>
-    <ClCompile Include="DebugSystem.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Dungeon_Map_Boss.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Arrow.cpp">
       <Filter>PublicForder\Ree</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugSystem.cpp">
+      <Filter>System\DebugSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Dungeon_Map_Boss.cpp">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>PublicForder\Chan\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

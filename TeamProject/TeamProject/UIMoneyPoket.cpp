@@ -18,11 +18,6 @@ void UIMoneyPoket::Init()
 	//µ· ÁÖ¸Ó´Ï ÀÌ¹ÌÁö ·»´õ
 	_moneyPoketIMG = _ImageManager->AddImage("moneyPoket", L"../Resources/UI/moneyBag.png", false);
 
-
-
-
-
-
 }
 
 void UIMoneyPoket::Release()
