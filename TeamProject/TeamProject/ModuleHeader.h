@@ -20,3 +20,4 @@ ex) 싱글톤,유틸 클래스들 등등
 #include "ImageManager.h"
 #include "ObjectManager.h"
 #include "SceneManager.h"
+#include "DamageFontManager.h"

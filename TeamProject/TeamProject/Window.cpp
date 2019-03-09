@@ -224,6 +224,7 @@ void Window::DeleteManager()
 	SoundManager::Delete();
 	ImGui::Delete();
 	DXRenderer::Delete();
+	DamageFontManager::Delete();
 }
 
 /**********************************************************************************
@@ -234,6 +235,8 @@ void Window::UpdateManager()
 {
 	Time::Get()->Update();
 	SoundManager::Get()->Update();
+	DamageFontManager::Get()->Update();
 	Input::Get()->Update();
 	ImGui::Update();
+
 }
