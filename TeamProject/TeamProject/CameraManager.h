@@ -14,6 +14,13 @@
 #define CameraZoomMax 2.5f				//카메라 줌 최대값
 #define CameraZoomMin 0.5f				//카메라 줌 최소값
 
+#define CameraDefaultStrength 2.58f
+#define CameraDefaultShakeTime 0.2f
+/*
+shakeStrength = 2.58f;
+shakeTime = 0.2f;
+*/
+
 class CameraManager
 {
 	//싱글톤으로 생성
@@ -29,6 +36,12 @@ private:
 	Synthesize(Vector2,mapSize,MapSize)				//전체 맵 사이즈 (카메라 보정이 들어감)
 	Synthesize(float,speed,Speed)					//카메라 스피드 값
 	Vector2 saveMouse;								//자유시점 카메라에 사용(이전 프레임 마우스 좌표 저장 값)
+
+	bool isShake;
+	float shakeStrength;
+	float totalShakeTime;
+	float shakeTime;
+	float shakeDirection;
 public:
 	void Update();
 	void OnGui();
@@ -46,10 +59,14 @@ public:
 	float GetZoom()const { return this->zoomFactor; }
 	void CameraProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void SetTarget(class GameObject* object);
+
+	void Shake(float strength = CameraDefaultStrength,float shakeTime = CameraDefaultShakeTime);
+
 private:
 	void UpdateRenderRect();
 	void UpdateFreeCameraMode();
 	void UpdateTargetCameraMode();
+	void AmendCamera();
 };
 
 #define _Camera CameraManager::Get()

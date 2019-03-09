@@ -14,7 +14,7 @@
 
 void Program::LoadResourceSoon()
 {
-	_ImageManager->AddImage("Shadow", PathResources(L"Object/Shadow.png"));
+	_ImageManager->AddImage("Shadow", L"../Resources/Object/Shadow.png");
 	_ImageManager->AddImage("build_Retaile", PathResources(L"Object/build_Retaile.png"));
 	_ImageManager->AddImage("build_Enchant", PathResources(L"Object/build_Enchant.png"));
 	_ImageManager->AddImage("build_fountain", PathResources(L"Object/build_fountain.png"));
@@ -122,6 +122,6 @@ void TownScene::SoonInit()
 	tempFrameObject = new Tree(Vector2(2201, 1868));
 	_ObjectManager->AddObject(ObjectType::Object, tempFrameObject);
 
-	_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
+	//_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
 
 }

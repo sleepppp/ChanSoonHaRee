@@ -136,6 +136,9 @@
     <Filter Include="MainEntry\Scene\Dungeon">
       <UniqueIdentifier>{a54aa045-f8cd-4000-8cde-965da5c9f86c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System\DebugModule">
+      <UniqueIdentifier>{c0159efa-f033-4953-973d-2e40f2d50695}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -350,6 +353,9 @@
     </ClInclude>
     <ClInclude Include="TestHuman.h">
       <Filter>PublicForder\Soon\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugSystem.h">
+      <Filter>System\DebugModule</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -568,6 +574,9 @@
     </ClCompile>
     <ClCompile Include="TestHuman.cpp">
       <Filter>PublicForder\Soon\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugSystem.cpp">
+      <Filter>System\DebugModule</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
