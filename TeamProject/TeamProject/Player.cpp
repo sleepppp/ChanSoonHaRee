@@ -9,9 +9,9 @@
 #include "Inventory.h"
 
 
-//에너미 공ㅇ격 받을때 무적 판정(약 1초)
-//에너미 데미지 값 받을 함수
-//맞으면 알파값 깜빡임
+//에너미 공ㅇ격 받을때 무적 판정(약 1초)	ok
+//에너미 데미지 값 받을 함수				ok
+//맞으면 알파값 깜빡임			
 //무기 보우, 방패
 
 
@@ -95,7 +95,7 @@ void Player::Update()
 {	
 	//이동량 측정할 변수
 	Vector2 moveValue(0, 0);
-	
+	cout << _count << endl;
 	if (_isMoveStop == false)
 	{
 		if (_Input->GetKeyDown('I'))
@@ -307,14 +307,24 @@ void Player::Render()
 	_imgAtkSword->SetSize(_size);
 	//_imgAtkSword2->SetSize(_size);
 
+
+
 	//렌더링
 	if (_isChangeImg == false)
-	{
+	{		
 		_imgMove->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
 	}
 	else
 	{
 		_imgAtkSword->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
+	}
+
+	if (_isDelay)
+	{
+		if (_isDelay)
+		{
+			
+		}
 	}
 
 
@@ -860,21 +870,11 @@ void Player::BodyAttack()
 						//1.데미지값을 받아서 체력을 깎는다
 						enemy->AttackedDemege(_damage);
 						//_isAttacked = true;
-
-						//2.무적시간을 준다.
-						
-						//무적시간을 줄 float
-						//시간 0부터 4까지 데미지 값을 받지 않는다.
-
-
-
+					
+						_isDelay = true;
+						this->AtkDelay();
 						//3.position살짝 밀리게 한다.
 						//	에너미의 포지션을 가져와서 반대로 움직인다
-
-
-
-
-
 					}
 
 				}
@@ -883,21 +883,32 @@ void Player::BodyAttack()
 	}
 }
 
-
+//2.무적시간을 준다.
 void Player::AtkDelay()
-{
-	_count += _TimeManager->DeltaTime();
-	if (_count < 1.0f)
+{	
+	if (_isDelay == true)
 	{
+		_count += _TimeManager->DeltaTime();
 
+		if (_count < 1.0f)
+		{
+			_isAttacked = false;
+
+			if (_count % 2 == 0)
+			{
+				_imgMove->SetAlpha(5.0f);
+			}
+			else if (_count % 2 == 0)
+			{ 
+				_imgMove->SetAlpha(0.0f);
+			}
+				
+
+		}
+		else if (_count > 1.0f)
+		{
+			_count = 0;
+			_isDelay = false;
+		}
 	}
-	else if (_count > 1.0f)
-	{
-		_count = 0;
-	}
-
-
-
-
-
 }
