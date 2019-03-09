@@ -52,12 +52,16 @@ private:
 	int _swordHeight;
 	
 	bool _isAttacked;
+	bool _isChangeWeapon;
 
-	float _delay;
+	int _alpha;
+
 	bool _isDelay;
+	float _count;
+	int _blink;
 
 public:
-	Player();
+	Player(Vector2 pos);
 	~Player();
 
 	void Init()override;
@@ -67,6 +71,7 @@ public:
 
 	void EndAnimation();
 	void Attack();
+
 public:
 	void Move(Vector2 direction);
 	void ChangeAnimation(State state);
@@ -89,6 +94,10 @@ public:
 	void AttackedDamage(int damage);
 	void InventoryOnOff();
 	void AtkDelay();
+	void AtkDelay2();
+	void BodyAttack();
+
+
 	//데미지값전달
 	//에너미와 충돌
 };

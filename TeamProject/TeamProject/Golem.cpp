@@ -212,23 +212,35 @@ void Golem::AttackRender()
 void Golem::Collision()
 {
 	RECT CollisionRc = { 0 };
-	if (IntersectRect(&CollisionRc, &_attackLeft, &_player->GetMainRect()))
+	if (this->_isAttackLeft == true)
 	{
-		_isAttack = true;
+		if (IntersectRect(&CollisionRc, &_attackLeft, &_player->GetCollisionRect()))
+		{
+			_isAttack = true;
+		}
 	}
-	if (IntersectRect(&CollisionRc, &_attackRight, &_player->GetMainRect()))
+	if (this->_isAttackRight == true)
 	{
-		_isAttack = true;
+		if (IntersectRect(&CollisionRc, &_attackRight, &_player->GetCollisionRect()))
+		{
+			_isAttack = true;
+		}
 	}
-	if (IntersectRect(&CollisionRc, &_attackTop, &_player->GetMainRect()))
+	if (this->_isAttackTop == true)
 	{
-		_isAttack = true;
+		if (IntersectRect(&CollisionRc, &_attackTop, &_player->GetCollisionRect()))
+		{
+			_isAttack = true;
+		}
 	}
-	if (IntersectRect(&CollisionRc, &_attackBottom, &_player->GetMainRect()))
+	if (this->_isAttackBottom == true)
 	{
-		_isAttack = true;
+		if (IntersectRect(&CollisionRc, &_attackBottom, &_player->GetCollisionRect()))
+		{
+			_isAttack = true;
+		}
 	}
-	if (IntersectRect(&CollisionRc, &_renderRect, &_player->GetMainRect()))
+	if (IntersectRect(&CollisionRc, &_renderRect, &_player->GetCollisionRect()))
 	{
 		_isAttack = true;
 	}
@@ -240,7 +252,7 @@ void Golem::Collision()
 		if (_isAttack == true)
 		{
 			//내 뎀지를 넘겨줘라.
-			//_player->
+			_player->AttackedDamage(_demage);
 			//공격을 완료 했으면 데미지를 주는 변수를 펄스시켜라.
 			_isAttack = false;
 
@@ -250,11 +262,6 @@ void Golem::Collision()
 			_isAttackBottom = false;
 		}
 	}
-}
-
-void Golem::AttackedCollision()
-{
-	
 }
 
 void Golem::RectRender()

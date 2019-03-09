@@ -5,6 +5,7 @@
 #include "UIWeaponAndBag.h"
 #include "TownScene.h"
 #include "Dungeon_Map_01.h"
+#include "Dungeon_Map_Boss.h"
 #include "TestDeadman.h"
 #include "ProgressBar.h"
 #include "Program.h"
@@ -93,12 +94,26 @@ void MainScene::ChanInit()
 
 
 void TownScene::ChanInit()
-{
+{	//인벤토리 등록
+	_ObjectManager->AddObject(ObjectType::UI, new Inventory);
 
+	//UI 무기 스왑 / UI 가방
+	_ObjectManager->AddObject(ObjectType::UI, new UIWeaponAndBag);
+
+	//UI 프로그래스 바
+	_ObjectManager->AddObject(ObjectType::UI, new ProgressBar);
+
+	//UI 돈 주머니
+	_ObjectManager->AddObject(ObjectType::UI, new UIMoneyPoket);
 }
 
 //여기다가 1번 던전것들 올리시면 됩니다유
 void Dungeon_Map_01::ChanInit()
+{
+
+}
+//보스방 던전 여따가 넣을거 넣으심 됨요
+void Dungeon_Map_Boss::ChanInit()
 {
 
 }

@@ -7,27 +7,38 @@ private:
 	enum class StateType
 	{
 		Idle, Create,Dead, 
+		Hand_Shoot_First, Hand_Shoot_Second, Hand_Shoot_Last,
 		Rock_Shoot_First, Rock_Shoot_Second, Rock_Shoot_Last,
-		Hand_Shoot_First, Hand_Shoot_Second, Hand_Shoot_Last, 
 		Fist_Shoot_First, Fist_Shoot_Second, Fist_Shoot_Last, 
 		End
 	};
-	
-private:
-	//애니매이션 실행을 위한 반복자 이터레이터
-	typedef map<StateType, class Animation*>::iterator  StateAnimationIter;
-	//애니메이션을 담을 리스트
-	map <StateType, class Animation*> _stateAnimationList;
-	//이넘의 상태
-	StateType _state;
 
-	//애니매이션은 한가지 상태만을 가져야하기에 현재의 상태를 담아줄 상태값.
-	class Animation* _mainAnimation;
+	struct AniAndImage
+	{
+		class Image* _bossImage;
+		class Animation* _animation;
+	};
 private:
 	//플레이어를 불러오자.
 	class Player* _player;
+	//상태를 불러오기위해서 인넘값도 가져오자.
+	StateType _state;
+	AniAndImage* _aniImage;
 
-	//이미지들도 만들어지면 넣어야 할것이고,
+	typedef map<StateType, AniAndImage*>::iterator AniImgIter;
+	map<StateType, AniAndImage*> _aniImgList;
+
+//이미지
+#pragma region Image
+	class Image* _handImgae;		//손 날리기 스킬의 손 이미지
+										 
+	class Image* _rockImgae1;		//돌 던지기 스킬의 돌던지기 1
+	class Image* _rockImage2;		//돌 던지기 스킬의 돌던지기 2
+	class Image* _rockImage3;		//돌 던지기 스킬의 돌던지기 3
+	
+	class Image* _slimeArmImage1;	//손 던지기 스킬의 슬라임 팔 1
+	class Image* _slimeArmImage2;	//손 던지기 스킬의 슬라임 팔 2
+#pragma endregion	
 
 	int _hp;					//체력이 있어야 할 거고
 	int _demage;				//플레이어를 공격해야하니까 데미지도 있을 것이고,
@@ -47,12 +58,13 @@ private:
 	RECT _attackedRc;			//공격을 맞기 위한 렉트가 있어야 하고,
 	
 public:
-	void ChangeState(StateType state);
-	void ChangeAnimation(StateType state);
-	void CreateAnimation();
-
 	float Distance(Vector2 position);
 	float Angle(Vector2 position);
+
+	void ChangeState(StateType state);
+	void UpdateState();
+	void ChangeAnimation(StateType state);
+	void CreateAnimatiom();
 public:
 	void Init()override;
 	void Release()override;

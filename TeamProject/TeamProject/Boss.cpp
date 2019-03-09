@@ -9,16 +9,16 @@ Boss::Boss()
 {
 	//보스의 몸통을 생성할 기본적인 골격들
 	this->_position = Vector2(600, 100);	//좌표
-	this->_size = Vector2(200, 200);		//크기
+	this->_size = Vector2(300, 300);		//크기
 	this->_pivot = Pivot::CENTER;			//중심위치
-	this->_hp = 700;						//체력
+	this->_hp = 800;						//체력
 	this->_speed = 10.0f;					//속도
 	this->_demage = 0;						//공격력
 	this->_distance = 0.f;					//직선거리 (나중에 넣을거고 코드만짜려고)
 	this->_angle = 0.f;						//앵글값 (직선거리와 같음)
 	this->UpdateMainRect();					//렉트생성.
 	//초기 상태값은 보스가 움직이지 않아야 하니까 가만히 있는 상태를 만들어준다.
-	this->ChangeState(StateType::Idle);
+	_state = StateType::Idle;
 }
 
 
@@ -40,57 +40,23 @@ void Boss::Release()
 
 void Boss::Update()
 {
-	switch (_state)
-	{
-	case Boss::StateType::Idle:
-		if (_distance > _size.x)
-			StateType::Create;
-		break;
-	case Boss::StateType::Create:
-		//if(/*지정한 이미지의 카운트 값이 된다면*/)
-			//랜덤으로 세가지 상태중 하나로 바꿔라.
-		break;
-	case Boss::StateType::Dead:
-		break;
-	case Boss::StateType::Rock_Shoot_First:
-		break;
-	case Boss::StateType::Rock_Shoot_Second:
-		break;
-	case Boss::StateType::Rock_Shoot_Last:
-		break;
-	case Boss::StateType::Hand_Shoot_First:
-		break;
-	case Boss::StateType::Hand_Shoot_Second:
-		break;
-	case Boss::StateType::Hand_Shoot_Last:
-		break;
-	case Boss::StateType::Fist_Shoot_First:
-		break;
-	case Boss::StateType::Fist_Shoot_Second:
-		break;
-	case Boss::StateType::Fist_Shoot_Last:
-		break;
-	case Boss::StateType::End:
-		break;
-	default:
-		break;
-	}
+	//조건별로 처리할 부분은 여기에서
+	UpdateState();
 }
 
 void Boss::Render()
 {
+	
 }
 
-//상태에 따라 바뀌줄 이넘값을 설정해 준다.
 void Boss::ChangeState(StateType state)
-{
-	//바뀐 상태값이 기존상태값이라면 바뀌면 안되니까 함수를 빠져나가게 하고
+{	
+	//현제 상태와 바꿀 상태가 같다면 이 함수를 빠져나가라.
 	if (_state == state)
 		return;
-	//빠져나가지 않았다면 바뀐 거니까 상태를 변경해 준다.
+	//그게 아니라면 상태를 바꿔라.
 	_state = state;
-	
-	//상태에 따라 애니메이션도 바꿔준다.
+	//상태와 같이 애니메이션도 바꿔줘라.
 	this->ChangeAnimation(state);
 
 	switch (_state)
@@ -101,17 +67,17 @@ void Boss::ChangeState(StateType state)
 		break;
 	case Boss::StateType::Dead:
 		break;
-	case Boss::StateType::Rock_Shoot_First:
-		break;
-	case Boss::StateType::Rock_Shoot_Second:
-		break;
-	case Boss::StateType::Rock_Shoot_Last:
-		break;
 	case Boss::StateType::Hand_Shoot_First:
 		break;
 	case Boss::StateType::Hand_Shoot_Second:
 		break;
 	case Boss::StateType::Hand_Shoot_Last:
+		break;
+	case Boss::StateType::Rock_Shoot_First:
+		break;
+	case Boss::StateType::Rock_Shoot_Second:
+		break;
+	case Boss::StateType::Rock_Shoot_Last:
 		break;
 	case Boss::StateType::Fist_Shoot_First:
 		break;
@@ -125,52 +91,128 @@ void Boss::ChangeState(StateType state)
 		break;
 	}
 }
-//바뀐 상태에 따라 애니메이션도 재설정 해준다.
+
+void Boss::UpdateState()
+{
+	switch (_state)
+	{
+	case Boss::StateType::Idle:
+		//플레이어와 보스와의 거리가 보스 사이즈 X * 3 보다 작아진다면 생성으로바꿔라.
+		if (_size.x > this->Distance(_position))
+		{
+			this->ChangeState(StateType::Create);
+		}
+		break;
+	case Boss::StateType::Create:
+		//현재 진행되고있는프레임이 마지막 프레임이라면
+		if (_aniImage->_animation->GetNowFrameX() == 31)
+		{
+			//손날리는 공격의 시작으로 넘겨라.
+			ChangeState(StateType::Hand_Shoot_First);
+		}
+		break;
+	case Boss::StateType::Dead:
+
+		break;
+	case Boss::StateType::Hand_Shoot_First:
+		//현재 진행되고있는프레임이 마지막 프레임이라면
+		if (_aniImage->_animation->GetNowFrameX() == 18)
+		{
+			//실제 공격의 시작부분으로 넘겨라.
+			ChangeState(StateType::Fist_Shoot_Second);
+		}
+		//스킬을쓰는 도중에 체력이 0이나 0이하라면
+		if(_hp >= 0)
+		{
+			//죽는상태로 넘겨라.
+			ChangeState(StateType::Dead);
+		}
+		break;
+	case Boss::StateType::Hand_Shoot_Second:
+		break;
+	case Boss::StateType::Hand_Shoot_Last:
+		break;
+	case Boss::StateType::Rock_Shoot_First:
+		break;
+	case Boss::StateType::Rock_Shoot_Second:
+		break;
+	case Boss::StateType::Rock_Shoot_Last:
+		break;
+	case Boss::StateType::Fist_Shoot_First:
+		break;
+	case Boss::StateType::Fist_Shoot_Second:
+		break;
+	case Boss::StateType::Fist_Shoot_Last:
+		break;
+	case Boss::StateType::End:
+		break;
+	default:
+		break;
+	}
+}
+
 void Boss::ChangeAnimation(StateType state)
 {
-	// 들어온 상태값을 이터에 담아!
-	StateAnimationIter iter = _stateAnimationList.find(state);
-	//마지막까지 돌지않고 상태값을 담은 이터를 찾았다면!
-	if (iter != _stateAnimationList.end())
+	AniImgIter iter = _aniImgList.find(state);
+
+	if (iter != _aniImgList.end())
 	{
-		//그 키값의 내용을 실행시켜라!
-		_mainAnimation = iter->second;
-		//기존꺼는 끄고
-		_mainAnimation->Stop();
-		//새로운건 루프!
-		_mainAnimation->Play();
+		_aniImage = iter->second;
+		_aniImage->_animation->Stop();
+		_aniImage->_animation->Play();
 	}
-
 }
-//애니메이션 루프시킬 내용들 제작과정
-void Boss::CreateAnimation()
+
+void Boss::CreateAnimatiom()
 {
-	//이미지가 없어서 나중에 넣어야지
+	//플레이어가 에너미의 인지반경 밖에 있을경우 실행되는 애니메이션과 이미지
+	AniAndImage* idle = new AniAndImage;
+	idle->_bossImage = _ImageManager->AddFrameImage("idle", L"../resources/Enemy/Boss/CreateBoss.png", 32, 1, true);
+	idle->_animation->SetStartEndFrame(0, 0, 0, 0, false);
+	idle->_animation->SetIsLoop(false);
+	idle->_animation->SetFrameUpdateTime(1.f);
+	_aniImgList.insert(make_pair(StateType::Idle, idle));
 
-	//기본 움직이지 않는 상태일때
-	Animation* Idle = new Animation;
-	//플레이어를 인식하고 동작하기 위해서 조립되고있을때
-	Animation* Create = new Animation;
-	//플레이어에게 얻어맞아 죽을 때
-	Animation* Dead = new Animation;
-	//==========================================//
-	//			플레이어 돌떨구기 공격			//
-	//==========================================//
-	Animation* Rock_Shoot_First = new Animation;		//주먹을 들어올려서 땅으로 내려찍기까지의 모션
-	Animation* Rock_Shoot_Second = new Animation;		//주먹을 내려찍은 후 잠시간 흔들거릴때까지의 모션
-	Animation* Rock_Shoot_Last  = new Animation;		//돌이 다 떨어진후 원래의 모션으로 돌아오기 까지의 모션
-	//==========================================//
-	//			플레이어 손떨구기 공격			//
-	//==========================================//
-	Animation* Hand_Shoot_First = new Animation;		//손을 하늘로 집어 던지는 모션
-	Animation* Hand_Shoot_Second = new Animation;		//손을 하늘로 집어 던지고 그 손이 계속해서 공격하는 도중의 움직이는 모션
-	Animation* Hand_Shoot_Last = new Animation;			// 공격이 끝나고 손을 다시 원래의 모션으로 되돌리기까지의 모션
-	//플레이어를 공격하기 위해 쬰쬬니를 날릴때
-	Animation* Fist_Shoot_First = new Animation;		//쬰쬬니를 조준하는 모션
-	Animation* Fist_Shoot_Second = new Animation;		//쬰쬬니를 날리는 모션
-	Animation* Fist_Shoot_Last = new Animation;			//날린쬰쬬니를 흔들면서 되돌리는 모션
+	//플레이어를 에너미가 인식하고 공격모션이 나오기 전에 자기 자신을 꺠우는 애니&이미지
+	AniAndImage* create = new AniAndImage;
+	create->_bossImage = _ImageManager->AddFrameImage("create", L"../resources/Enemy/Boss/CreateBoss.png", 32, 1, true);
+	create->_animation->SetStartEndFrame(0, 0, 31, 0, false);
+	create->_animation->SetIsLoop(false);
+	create->_animation->SetFrameUpdateTime(0.5f);
+	_aniImgList.insert(make_pair(StateType::Create, create));
+
+	//보스가 죽을때 나오는 애니&이미지
+	AniAndImage* dead = new AniAndImage;
+	dead->_bossImage = _ImageManager->AddFrameImage("dead", L"../Resources/Enemy/Boss/deadBoss.png", 82, 1, true);
+	dead->_animation->SetStartEndFrame(0, 0, 81, 0, false);
+	dead->_animation->SetIsLoop(false);
+	dead->_animation->SetFrameUpdateTime(0.5f);
+	_aniImgList.insert(make_pair(StateType::Dead, dead));
+	
+	//보스의 1번째 공격패턴 손날려서 공격하기의 전조 손을 날리는 애니&이미지
+	AniAndImage* hand_Shoot_First = new AniAndImage;
+	hand_Shoot_First->_bossImage = _ImageManager->AddFrameImage("hand_Shoot_First", L"../Resources/Enemy/Boss/Hand_Shoot_First.png", 20, 1, true);
+	hand_Shoot_First->_animation->SetStartEndFrame(0, 0, 19, 0, false);
+	hand_Shoot_First->_animation->SetIsLoop(false);
+	hand_Shoot_First->_animation->SetFrameUpdateTime(0.5f);
+	_aniImgList.insert(make_pair(StateType::Hand_Shoot_First, hand_Shoot_First));
+
+	//보스의 1번째 공격패턴 손날려서 공격하기의 손은 이미 날아가고 난뒤의 몸의 애니&이미지
+	AniAndImage* hand_Shoot_Second = new AniAndImage;
+	hand_Shoot_Second->_bossImage = _ImageManager->AddFrameImage("hand_Shoot_second", L"../Resources/Enemy/Boss/Hand_Shoot_Second.png", 30, 1, true);
+	hand_Shoot_Second->_animation->SetStartEndFrame(0, 0, 29, 0, false);
+	hand_Shoot_Second->_animation->SetIsLoop(true);
+	hand_Shoot_Second->_animation->SetFrameUpdateTime(0.5f);
+	_aniImgList.insert(make_pair(StateType::Hand_Shoot_Second, hand_Shoot_Second));
+
+	//보스의 1번째 공격패턴 손날려서 공격하기의 손이 돌아오는 애니&이미지
+	AniAndImage* hand_Shoot_Last = new AniAndImage;
+	hand_Shoot_Last->_bossImage = _ImageManager->AddFrameImage("hand_Shoot_Last", L"../Resources/Enemy/Boss/Hand_Shoot_Last", 11, 1, true);
+	hand_Shoot_Last->_animation->SetStartEndFrame(0, 0, 10, 0, false);
+	hand_Shoot_Last->_animation->SetIsLoop(false);
+	hand_Shoot_Last->_animation->SetFrameUpdateTime(0.5f);
+	_aniImgList.insert(make_pair(StateType::Hand_Shoot_Last, hand_Shoot_Last));
 }
-
 //직선거리 길이 구하는 공식.
 float Boss::Distance(Vector2 position)
 {
