@@ -212,23 +212,35 @@ void Golem::AttackRender()
 void Golem::Collision()
 {
 	RECT CollisionRc = { 0 };
-	if (IntersectRect(&CollisionRc, &_attackLeft, &_player->GetMainRect()))
+	if (this->_isAttackLeft == true)
 	{
-		_isAttack = true;
+		if (IntersectRect(&CollisionRc, &_attackLeft, &_player->GetCollisionRect()))
+		{
+			_isAttack = true;
+		}
 	}
-	if (IntersectRect(&CollisionRc, &_attackRight, &_player->GetMainRect()))
+	if (this->_isAttackRight == true)
 	{
-		_isAttack = true;
+		if (IntersectRect(&CollisionRc, &_attackRight, &_player->GetCollisionRect()))
+		{
+			_isAttack = true;
+		}
 	}
-	if (IntersectRect(&CollisionRc, &_attackTop, &_player->GetMainRect()))
+	if (this->_isAttackTop == true)
 	{
-		_isAttack = true;
+		if (IntersectRect(&CollisionRc, &_attackTop, &_player->GetCollisionRect()))
+		{
+			_isAttack = true;
+		}
 	}
-	if (IntersectRect(&CollisionRc, &_attackBottom, &_player->GetMainRect()))
+	if (this->_isAttackBottom == true)
 	{
-		_isAttack = true;
+		if (IntersectRect(&CollisionRc, &_attackBottom, &_player->GetCollisionRect()))
+		{
+			_isAttack = true;
+		}
 	}
-	if (IntersectRect(&CollisionRc, &_renderRect, &_player->GetMainRect()))
+	if (IntersectRect(&CollisionRc, &_renderRect, &_player->GetCollisionRect()))
 	{
 		_isAttack = true;
 	}

@@ -23,7 +23,7 @@ void Dungeon_Map_02::Init()
 	
 	_map = _ImageManager->AddImage("map02", L"../Resources/Scene/Dungeon_Map_02.bmp");
 	
-	_ObjectManager->AddObject(ObjectType::Object, new Player());
+	_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(WinSizeX / 2, WinSizeY /2)));
 
 	GameObject* object = new GameObject;
 	object->SetPosition(Vector2(0, 0));
