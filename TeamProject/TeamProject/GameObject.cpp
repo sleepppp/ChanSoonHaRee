@@ -58,7 +58,7 @@ void GameObject::Update()
 			//해당 메세지의 함수를 실행시켜준다. 
 			this->SendCallbackMessage(_reserveMessageList[i]);
 			_reserveMessageList.erase(_reserveMessageList.begin() + i--);
-		}
+		}	
 	}
 }
 void GameObject::Render()

@@ -136,8 +136,17 @@
     <Filter Include="MainEntry\Scene\Dungeon">
       <UniqueIdentifier>{a54aa045-f8cd-4000-8cde-965da5c9f86c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\DebugModule">
-      <UniqueIdentifier>{c0159efa-f033-4953-973d-2e40f2d50695}</UniqueIdentifier>
+    <Filter Include="PublicForder\Chan\Inventory">
+      <UniqueIdentifier>{0be7a63c-bd7c-45a5-b520-0febe01fe1bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Chan\Item">
+      <UniqueIdentifier>{c55a0091-d177-40c1-8534-96038de654f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Chan\ProgressBar">
+      <UniqueIdentifier>{0920c016-7f47-4e75-a6da-585e347691ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PublicForder\Chan\UI">
+      <UniqueIdentifier>{dbfcdf7c-6023-44ac-bea1-439bf5a2a3ad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -215,9 +224,6 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>PublicForder\Ree</Filter>
-    </ClInclude>
-    <ClInclude Include="Inventory.h">
-      <Filter>PublicForder\Chan</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h">
       <Filter>System\Sound</Filter>
@@ -303,9 +309,6 @@
     <ClInclude Include="TitleDoorParticle.h">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClInclude>
-    <ClInclude Include="MoveItem.h">
-      <Filter>PublicForder\Chan</Filter>
-    </ClInclude>
     <ClInclude Include="TestInventory.h">
       <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClInclude>
@@ -333,9 +336,6 @@
     <ClInclude Include="Boss.h">
       <Filter>PublicForder\Ha</Filter>
     </ClInclude>
-    <ClInclude Include="UIWeaponAndBag.h">
-      <Filter>PublicForder\Chan</Filter>
-    </ClInclude>
     <ClInclude Include="Dungeon_Map_01.h">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
@@ -345,17 +345,26 @@
     <ClInclude Include="Dungeon_Map_02.h">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
-    <ClInclude Include="ProgressBar.h">
-      <Filter>PublicForder\Chan</Filter>
-    </ClInclude>
     <ClInclude Include="Door.h">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
     <ClInclude Include="TestHuman.h">
       <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClInclude>
-    <ClInclude Include="DebugSystem.h">
-      <Filter>System\DebugModule</Filter>
+    <ClInclude Include="Inventory.h">
+      <Filter>PublicForder\Chan\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveItem.h">
+      <Filter>PublicForder\Chan\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressBar.h">
+      <Filter>PublicForder\Chan\ProgressBar</Filter>
+    </ClInclude>
+    <ClInclude Include="UIWeaponAndBag.h">
+      <Filter>PublicForder\Chan\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIMoneyPoket.h">
+      <Filter>PublicForder\Chan\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -430,9 +439,6 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>PublicForder\Ree</Filter>
-    </ClCompile>
-    <ClCompile Include="Inventory.cpp">
-      <Filter>PublicForder\Chan</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>System\Sound</Filter>
@@ -524,9 +530,6 @@
     <ClCompile Include="TitleDoorParticle.cpp">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClCompile>
-    <ClCompile Include="MoveItem.cpp">
-      <Filter>PublicForder\Chan</Filter>
-    </ClCompile>
     <ClCompile Include="TestInventory.cpp">
       <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClCompile>
@@ -554,9 +557,6 @@
     <ClCompile Include="Boss.cpp">
       <Filter>PublicForder\Ha</Filter>
     </ClCompile>
-    <ClCompile Include="UIWeaponAndBag.cpp">
-      <Filter>PublicForder\Chan</Filter>
-    </ClCompile>
     <ClCompile Include="Dungeon_Map_01.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
@@ -566,17 +566,26 @@
     <ClCompile Include="Dungeon_Map_02.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
-    <ClCompile Include="ProgressBar.cpp">
-      <Filter>PublicForder\Chan</Filter>
-    </ClCompile>
     <ClCompile Include="Door.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
     <ClCompile Include="TestHuman.cpp">
       <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClCompile>
-    <ClCompile Include="DebugSystem.cpp">
-      <Filter>System\DebugModule</Filter>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>PublicForder\Chan\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveItem.cpp">
+      <Filter>PublicForder\Chan\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressBar.cpp">
+      <Filter>PublicForder\Chan\ProgressBar</Filter>
+    </ClCompile>
+    <ClCompile Include="UIWeaponAndBag.cpp">
+      <Filter>PublicForder\Chan\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIMoneyPoket.cpp">
+      <Filter>PublicForder\Chan\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

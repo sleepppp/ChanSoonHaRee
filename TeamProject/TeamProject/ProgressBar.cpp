@@ -12,23 +12,26 @@ ProgressBar::~ProgressBar()
 }
 
 void ProgressBar::Init()
-{	
+{
 	//HP바 이미지 프레임렌더
 	_progressBarBackIMG = _ImageManager->AddFrameImage("hpBar1", L"../Resources/UI/hpBar.png", 1, 6, false);
 	_progressBarFrontIMG = _ImageManager->AddFrameImage("hpBar2", L"../Resources/UI/hpBar.png", 1, 6, false);
+
+	//하트 이미지 렌더
+	_heartIMG = _ImageManager->AddImage("heart", L"../Resources/UI/heart.png", false);
 
 	//클래스 키 이름 선언
 	this->_name = "ProgressBar";
 
 	//포지션 초기화
-	this->_position = Vector2(100, 15);
+	this->_position = Vector2(140, 15);
 	//렉트 생성
 	this->_mainRect = Figure::RectMake(_position.x, _position.y, _progressBarBackIMG->GetWidth(), _progressBarBackIMG->GetHeight());
-	
+
 	//이미지 프레임 초기화 
 	_imgFrameX = 0;
 	_imgFrameY = 1;
-	
+
 	_testMaxHp = 100;
 	_testCurrentHp = 100;
 
@@ -37,7 +40,7 @@ void ProgressBar::Init()
 	//_saveHp = _player->GetPlayerMaxHp();
 	_saveHp = _testMaxHp; 
 
-
+	_barState = ProgressState::DefaultState;
 
 	//테스트용 인자 초기화
 	//_testCurrentHp = 50;
@@ -65,43 +68,105 @@ void ProgressBar::Update()
 	//_saveHp = _player->GetPlayerCurrentHp();
 	if (_Input->GetKeyDown('P'))
 	{
-		_testCurrentHp -= 10;
+		_testCurrentHp -= 20;
 	}
 
 
 	//변화한 HP바 길이 얻기
 	//SetGauge(_player->GetPlayerCurrentHp(), _player->GetPlayerMaxHp());
-	
 	SetGauge(_testCurrentHp, _testMaxHp);
-	
+
+	//프로그래스 바 상태 함수
+	ProgressBarState();
+
 	//업데이트 렉트
 	this->UpdateMainRect();
-
 }
 
 void ProgressBar::Render()
 {
 	//HP바 테두리 이미지
-	_progressBarBackIMG->SetSize(Vector2(_progressBarBackIMG->GetFrameSize(0).x * 1.5f, 45.f));
+	_progressBarBackIMG->SetSize(Vector2(_progressBarBackIMG->GetFrameSize(0).x * 1.2f, 45.f));
 	_progressBarBackIMG->FrameRender(_mainRect.left, _mainRect.top, 0, 0, Pivot::LEFT_TOP, false);
 	
 	//HP바 HP(체력) 이미지
-	_progressBarFrontIMG->SetSize(Vector2(_hpWidth *  1.5f, 45.f));
+	_progressBarFrontIMG->SetSize(Vector2(_hpWidth *  1.2f, 45.f));
 	_progressBarFrontIMG->FrameRender(_mainRect.left, _mainRect.top, _imgFrameX, _imgFrameY, Pivot::LEFT_TOP, false);
+
+	//하트 이미지
+	_heartIMG->SetSize(Vector2(48, 48));
+	_heartIMG->Render(102, 13, Pivot::LEFT_TOP, false);
+
 }
 
 bool ProgressBar::SetGauge(int currentHp, int maxHp)
 {
-	if (_saveHp != _testCurrentHp)
+	//만일 saveHp가 currentHp와 다르면
+	//FLOAT_EQUAL은 
+	if (FLOAT_EQUAL(_saveHp, _testCurrentHp) == false)
 	{
-		_saveHp -= 20.0f * _TimeManager->DeltaTime();
-		if (_saveHp <= _testCurrentHp)
+		//saveHp를 깎는다.
+		_saveHp -= 13.0f * _TimeManager->DeltaTime();
+		_barState = ProgressState::DamageState;
+		//만일 saveHp가 currentHp와 같거나 낮아지면 saveHp를 currentHp 값으로 맞춘다.
+		if (_saveHp <= _testCurrentHp) 
+		{
 			_saveHp = _testCurrentHp;
+			_barState = ProgressState::DamageEndState;
+		}
+			
+		//체력 바 계산식 : 체력 바 비율 * 프로그래스 바 이미지 길이만큼
 		this->_hpWidth = ((float)_saveHp / (float)maxHp) * (float)_progressBarFrontIMG->GetWidth();
+
+		//체력 바가 0보다 같거나 낮아지면 0으로 초기화
+		if (_hpWidth <= 0)
+		{
+			_hpWidth = 0;
+		}
 		return true;
 	}
 	return false;
 }
 
+//프로그래스 바 상태
+void ProgressBar::ProgressBarState()
+{
+	switch (_barState)
+	{
+	//맞은 상태 - 프로그래스 바
+	case ProgressBar::ProgressState::DamageState:
+		_imgFrameY = 2;
+		break;
+	//맞은 상태 종료 - 프로그래스 바
+	case ProgressBar::ProgressState::DamageEndState:
+		//프레임 카운트는 시간 적용
+		_frameCount += 16.f * _TimeManager->DeltaTime();
+		
+		//프레임 카운트가 1초보다 같거나 높아지면
+		if (_frameCount >= 1.f)
+		{
+			//이미지 y 프레임 증가
+			_imgFrameY++;
+			//프레임 카운트 초기화
+			_frameCount = 0.f;
 
+			//프레임 Y가 4보다 커지면
+			if (_imgFrameY > 4)
+			{
+				//프레임 Y는 1로 초기화
+				_imgFrameY = 1;
+				_barState = ProgressState::DefaultState;
+			}
+		}
+		break;
+	//디폴트 상태 - 프로그래스 바
+	case ProgressBar::ProgressState::DefaultState:
+		_imgFrameY = 1;
+		break;
+	case ProgressBar::ProgressState::End:
 
+		break;
+	default:
+		break;
+	}
+}
