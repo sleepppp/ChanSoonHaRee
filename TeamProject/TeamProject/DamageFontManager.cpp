@@ -4,6 +4,9 @@
 
 SingletonCpp(DamageFontManager)
 
+DamageFontManager::DamageFontManager() {}
+DamageFontManager::~DamageFontManager() {}
+
 void DamageFontManager::Init()
 {
 }
@@ -14,7 +17,7 @@ void DamageFontManager::Release()
 
 void DamageFontManager::Update()
 {
-	_position
+	//_position
 }
 
 void DamageFontManager::Render()
@@ -40,8 +43,8 @@ void DamageFontManager::ShowDamage(Vector2 position, int damage)
 
 void DamageFontManager::MoveDamage()
 {
-	if (!ShowDamage == false) 
-	{
-
-	}
+	//if (!ShowDamage == false) 
+	//{
+	//
+	//}
 }
