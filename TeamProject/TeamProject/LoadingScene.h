@@ -5,6 +5,9 @@ class LoadingScene : public LoadingSceneBase
 private:
 	wstring  _loadingWString;
 	float _frameCount;
+
+	float _delayTime;
+
 public:
 	LoadingScene();
 	~LoadingScene();

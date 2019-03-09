@@ -10,7 +10,7 @@ SingletonCpp(CameraManager)
 ***************************************************************************/
 CameraManager::CameraManager()
 	:mapSize((float)WinSizeX,(float)WinSizeY),pTarget(nullptr),zoomFactor(1.0f),
-	speed(100.0f), state(CameraManager::FreeCamera)
+	speed(100.0f), state(CameraManager::FreeCamera), shakeDirection(1.f)
 {
 	this->position = Vector2(0.f,0.f);
 	this->cameraRect = Figure::RectMake(
@@ -55,15 +55,14 @@ void CameraManager::Update()
 ***************************************************************************/
 void CameraManager::OnGui()
 {
+	static float strength = CameraDefaultStrength;
+	static float time = CameraDefaultShakeTime;
 	ImGui::Begin("Camera");
 	{
-		ImGui::Text("Camera Position : %f , %f", this->position.x, this->position.y);
-		ImGui::Text("Caemra Zoom : %f", this->zoomFactor);
-		ImGui::InputFloat2("MapSize", &mapSize.x);
-		ImGui::InputFloat("CameraSpeed", &this->speed);
-
-		if (ImGui::Button("ResetCamera"))
-			this->SetPosition(Vector2(0.f, 0.f));
+		ImGui::SliderFloat("Strength", &strength, 0.5f, 10.f);
+		ImGui::SliderFloat("ShakeTime", &time, 0.1f, 2.f);
+		if (ImGui::Button("Shake"))
+			_Camera->Shake(strength, time);
 	}
 	ImGui::End();
 }
@@ -195,62 +194,84 @@ void CameraManager::UpdateTargetCameraMode()
 {
 	if (pTarget)
 	{
-		//target의 위치로 서서히 움직인다.
-		Vector2 centerPos = { position.x + CastingFloat(WinSizeX) * 0.5f, position.y + CastingFloat(WinSizeY) * 0.5f };
-		Vector2 toTarget = pTarget->GetPosition() - centerPos;
+		{
+			//target의 위치로 서서히 움직인다.
+			Vector2 centerPos = { position.x + CastingFloat(WinSizeX) * 0.5f, position.y + CastingFloat(WinSizeY) * 0.5f };
+			Vector2 toTarget = pTarget->GetPosition() - centerPos;
 
-		switch (state)
-		{
-		case MoveState::None:
-		{
-			if (toTarget.GetLength() > CameraMoveStartDistance)
+			switch (state)
 			{
-				this->state = MoveState::MoveToTarget;
+			case MoveState::None:
+			{
+				if (toTarget.GetLength() > CameraMoveStartDistance)
+				{
+					this->state = MoveState::MoveToTarget;
+				}
+			}
+			break;
+
+			case MoveState::MoveToTarget:
+			{
+				float length = toTarget.GetLength();
+				this->speed = (length / (CameraMaxDistance - CameraMinDistance)) * (CameraMaxSpeed - CameraMinSpeed);
+				this->speed = Math::Clampf(speed, CameraMinSpeed, CameraMaxSpeed);
+
+				centerPos += toTarget.Normalize() * speed * _TimeManager->DeltaTime();
+				this->position = centerPos - Vector2(WinSizeX / 2.f, WinSizeY / 2.f);
+				this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+
+				if ((pTarget->GetPosition() - centerPos).GetLength() <= 50.f)
+				{
+					this->state = MoveState::None;
+					this->position = centerPos - Vector2(WinSizeX / 2.f, WinSizeY / 2.f);
+					this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+				}
+
+				this->AmendCamera();
+
+			}
+			break;
 			}
 		}
-		break;
-
-		case MoveState::MoveToTarget:
+		if(isShake == true)
 		{
-			float length = toTarget.GetLength();
-			this->speed = (length / (CameraMaxDistance - CameraMinDistance)) * (CameraMaxSpeed - CameraMinSpeed);
-			this->speed = Math::Clampf(speed, CameraMinSpeed, CameraMaxSpeed);
-
-			centerPos += toTarget.Normalize() * speed * _TimeManager->DeltaTime();
-			this->position = centerPos - Vector2(WinSizeX / 2.f, WinSizeY / 2.f);
+			shakeDirection = -1.f * shakeDirection;
+			shakeTime -= _TimeManager->DeltaTime();
+			shakeStrength -= (shakeTime / totalShakeTime) *_TimeManager->DeltaTime();
+			float strengh = shakeStrength * shakeDirection;
+			position += Vector2(0.f, strengh);
 			this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
-
-			if ((pTarget->GetPosition() - centerPos).GetLength() <= 50.f)
+			
+			if (shakeTime <= 0.f)
 			{
-				this->state = MoveState::None;
-				this->position = centerPos - Vector2(WinSizeX /2.f, WinSizeY / 2.f);
-				this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+				isShake = false;
 			}
-
-			if (position.x < 0.f)
-			{
-				position.x -= position.x;
-				this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
-			}
-			else if (cameraRect.right > (LONG)mapSize.x)
-			{
-				position.x -= ((float)cameraRect.right) - mapSize.x;
-				this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
-			}
-			if (cameraRect.top < 0)
-			{
-				position.y -= position.y;
-				this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
-			}
-			else if (cameraRect.bottom > (LONG)mapSize.y)
-			{
-				position.y -= (float(cameraRect.bottom)) - mapSize.y;
-				this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
-			}
-
+			this->AmendCamera();
 		}
-		break;
-		}
+	}
+}
+
+void CameraManager::AmendCamera()
+{
+	if (position.x < 0.f)
+	{
+		position.x -= position.x;
+		this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+	}
+	else if (cameraRect.right > (LONG)mapSize.x)
+	{
+		position.x -= ((float)cameraRect.right) - mapSize.x;
+		this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+	}
+	if (cameraRect.top < 0)
+	{
+		position.y -= position.y;
+		this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+	}
+	else if (cameraRect.bottom > (LONG)mapSize.y)
+	{
+		position.y -= (float(cameraRect.bottom)) - mapSize.y;
+		this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
 	}
 }
 
@@ -284,5 +305,15 @@ void CameraManager::SetTarget(GameObject * object)
 	{
 		this->pTarget = object;
 		this->state = MoveState::None;
+	}
+}
+
+void CameraManager::Shake(float strength,float shakeTime)
+{
+	if (isShake == false)
+	{
+		this->isShake = true; 
+		this->shakeStrength = strength;
+		this->shakeTime = this->totalShakeTime = shakeTime;
 	}
 }

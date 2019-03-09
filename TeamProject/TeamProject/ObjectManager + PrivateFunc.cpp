@@ -42,9 +42,6 @@ void ObjectManager::Lighting()
 	this->_lightSystem->BeginLighting();
 	this->_lightSystem->Lighting();
 	this->_lightSystem->EndLighting();
-
-	if (_isDebug)
-		this->_lightSystem->OnGui();
 }
 
 void ObjectManager::UIRender()

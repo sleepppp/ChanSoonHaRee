@@ -154,6 +154,7 @@
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="DebugCollider.h" />
+    <ClInclude Include="DebugSystem.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="Dungeon_Map_01.h" />
     <ClInclude Include="Dungeon_Map_02.h" />
@@ -229,6 +230,7 @@
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="DebugCollider.cpp" />
+    <ClCompile Include="DebugSystem.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Dungeon_Map_01.cpp" />
     <ClCompile Include="Dungeon_Map_02.cpp" />
