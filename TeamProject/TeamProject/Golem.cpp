@@ -240,7 +240,7 @@ void Golem::Collision()
 		if (_isAttack == true)
 		{
 			//내 뎀지를 넘겨줘라.
-			//_player->AttackedDamage(_demage);
+			_player->AttackedDamage(_demage);
 			//공격을 완료 했으면 데미지를 주는 변수를 펄스시켜라.
 			_isAttack = false;
 

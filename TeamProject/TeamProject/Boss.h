@@ -13,30 +13,29 @@ private:
 		End
 	};
 
-	struct sIdle
+	struct AniAndImage
 	{
-
+		class Image* _bossImage;
+		class Animation* _animation;
 	};
 private:
 	//플레이어를 불러오자.
 	class Player* _player;
 	//상태를 불러오기위해서 인넘값도 가져오자.
 	StateType _state;
+	AniAndImage* _aniImage;
+
+	typedef map<StateType, AniAndImage*>::iterator AniImgIter;
+	map<StateType, AniAndImage*> _aniImgList;
 
 //이미지
 #pragma region Image
-	//이미지들도 만들어지면 넣어야 할것이고,
-	class Image* _createImage;		//생성
-	class Image* _deadImage;		//죽음
-	class Image* _handShootImage;	//손 날리기 스킬
-	class Image* _RockShootImage;	//돌 던지기 스킬
-	class Image* _fistShootImage;	//손 던지기 스킬
 	class Image* _handImgae;		//손 날리기 스킬의 손 이미지
 										 
 	class Image* _rockImgae1;		//돌 던지기 스킬의 돌던지기 1
 	class Image* _rockImage2;		//돌 던지기 스킬의 돌던지기 2
 	class Image* _rockImage3;		//돌 던지기 스킬의 돌던지기 3
-
+	
 	class Image* _slimeArmImage1;	//손 던지기 스킬의 슬라임 팔 1
 	class Image* _slimeArmImage2;	//손 던지기 스킬의 슬라임 팔 2
 #pragma endregion	
@@ -62,7 +61,10 @@ public:
 	float Distance(Vector2 position);
 	float Angle(Vector2 position);
 
-	void BossStateType();
+	void ChangeState(StateType state);
+	void UpdateState();
+	void ChangeAnimation(StateType state);
+	void CreateAnimatiom();
 public:
 	void Init()override;
 	void Release()override;
