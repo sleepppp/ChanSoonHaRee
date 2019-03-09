@@ -153,6 +153,7 @@
     <ClInclude Include="BigSlime.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Arrow.h" />
+    <ClInclude Include="DamageFontManager.h" />
     <ClInclude Include="DebugCollider.h" />
     <ClInclude Include="DebugSystem.h" />
     <ClInclude Include="Door.h" />
@@ -231,6 +232,7 @@
     <ClCompile Include="BigSlime.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Arrow.cpp" />
+    <ClCompile Include="DamageFontManager.cpp" />
     <ClCompile Include="DebugCollider.cpp" />
     <ClCompile Include="DebugSystem.cpp" />
     <ClCompile Include="Door.cpp" />
