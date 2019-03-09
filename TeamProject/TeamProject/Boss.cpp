@@ -8,6 +8,7 @@
 Boss::Boss()
 {
 	//보스의 몸통을 생성할 기본적인 골격들
+	_name = "Dungeon_Map_Boss";
 	this->_position = Vector2(600, 100);	//좌표
 	this->_size = Vector2(300, 300);		//크기
 	this->_pivot = Pivot::CENTER;			//중심위치
@@ -17,8 +18,19 @@ Boss::Boss()
 	this->_distance = 0.f;					//직선거리 (나중에 넣을거고 코드만짜려고)
 	this->_angle = 0.f;						//앵글값 (직선거리와 같음)
 	this->UpdateMainRect();					//렉트생성.
+	this->CreateAnimatiom();
+
+	//------------1번 공격을 위한 변수들-----------------//
+	this->_shadowPosition = Vector2(_position.x, _position.y);
+	this->_shadowSize = Vector2(50, 50);
+	this->_timeCount = 0.f;
+	this->_shadowCollisionCount = 0;
+	this->_handAttackCount = 0;
+	this->_isShadowChasing = false;
+	this->_isArmChasing = false;
 	//초기 상태값은 보스가 움직이지 않아야 하니까 가만히 있는 상태를 만들어준다.
 	_state = StateType::Idle;
+	this->ChangeState(StateType::Idle);
 }
 
 
@@ -26,12 +38,10 @@ Boss::~Boss()
 {
 }
 
-
 void Boss::Init()
 {
-
 	//플레이어의 이름으로 불러와서 내가 쓸수 있게 만들어 준다.
-	this->_player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "player");	
+	this->_player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");	
 }
 
 void Boss::Release()
@@ -42,11 +52,15 @@ void Boss::Update()
 {
 	//조건별로 처리할 부분은 여기에서
 	UpdateState();
+
+	_aniImage->_animation->UpdateFrame();
 }
 
 void Boss::Render()
 {
-	
+	_aniImage->_bossImage->SetSize(_size);
+	_aniImage->_bossImage->FrameRender((int)_position.x, _position.y, _aniImage->_animation->GetNowFrameX(),
+		_aniImage->_animation->GetNowFrameY(), _pivot, true);
 }
 
 void Boss::ChangeState(StateType state)
@@ -121,16 +135,14 @@ void Boss::UpdateState()
 			//실제 공격의 시작부분으로 넘겨라.
 			ChangeState(StateType::Fist_Shoot_Second);
 		}
-		//스킬을쓰는 도중에 체력이 0이나 0이하라면
-		if(_hp >= 0)
-		{
-			//죽는상태로 넘겨라.
-			ChangeState(StateType::Dead);
-		}
+		this->Dead();
+
 		break;
 	case Boss::StateType::Hand_Shoot_Second:
+		this->Dead();
 		break;
 	case Boss::StateType::Hand_Shoot_Last:
+		this->Dead();
 		break;
 	case Boss::StateType::Rock_Shoot_First:
 		break;
@@ -167,6 +179,7 @@ void Boss::CreateAnimatiom()
 {
 	//플레이어가 에너미의 인지반경 밖에 있을경우 실행되는 애니메이션과 이미지
 	AniAndImage* idle = new AniAndImage;
+	idle->_animation = new Animation;
 	idle->_bossImage = _ImageManager->AddFrameImage("idle", L"../resources/Enemy/Boss/CreateBoss.png", 32, 1, true);
 	idle->_animation->SetStartEndFrame(0, 0, 0, 0, false);
 	idle->_animation->SetIsLoop(false);
@@ -175,6 +188,7 @@ void Boss::CreateAnimatiom()
 
 	//플레이어를 에너미가 인식하고 공격모션이 나오기 전에 자기 자신을 꺠우는 애니&이미지
 	AniAndImage* create = new AniAndImage;
+	create->_animation = new Animation;
 	create->_bossImage = _ImageManager->AddFrameImage("create", L"../resources/Enemy/Boss/CreateBoss.png", 32, 1, true);
 	create->_animation->SetStartEndFrame(0, 0, 31, 0, false);
 	create->_animation->SetIsLoop(false);
@@ -183,6 +197,7 @@ void Boss::CreateAnimatiom()
 
 	//보스가 죽을때 나오는 애니&이미지
 	AniAndImage* dead = new AniAndImage;
+	dead->_animation = new Animation;
 	dead->_bossImage = _ImageManager->AddFrameImage("dead", L"../Resources/Enemy/Boss/deadBoss.png", 82, 1, true);
 	dead->_animation->SetStartEndFrame(0, 0, 81, 0, false);
 	dead->_animation->SetIsLoop(false);
@@ -191,6 +206,7 @@ void Boss::CreateAnimatiom()
 	
 	//보스의 1번째 공격패턴 손날려서 공격하기의 전조 손을 날리는 애니&이미지
 	AniAndImage* hand_Shoot_First = new AniAndImage;
+	hand_Shoot_First->_animation = new Animation;
 	hand_Shoot_First->_bossImage = _ImageManager->AddFrameImage("hand_Shoot_First", L"../Resources/Enemy/Boss/Hand_Shoot_First.png", 20, 1, true);
 	hand_Shoot_First->_animation->SetStartEndFrame(0, 0, 19, 0, false);
 	hand_Shoot_First->_animation->SetIsLoop(false);
@@ -199,6 +215,7 @@ void Boss::CreateAnimatiom()
 
 	//보스의 1번째 공격패턴 손날려서 공격하기의 손은 이미 날아가고 난뒤의 몸의 애니&이미지
 	AniAndImage* hand_Shoot_Second = new AniAndImage;
+	hand_Shoot_Second->_animation = new Animation;
 	hand_Shoot_Second->_bossImage = _ImageManager->AddFrameImage("hand_Shoot_second", L"../Resources/Enemy/Boss/Hand_Shoot_Second.png", 30, 1, true);
 	hand_Shoot_Second->_animation->SetStartEndFrame(0, 0, 29, 0, false);
 	hand_Shoot_Second->_animation->SetIsLoop(true);
@@ -207,12 +224,32 @@ void Boss::CreateAnimatiom()
 
 	//보스의 1번째 공격패턴 손날려서 공격하기의 손이 돌아오는 애니&이미지
 	AniAndImage* hand_Shoot_Last = new AniAndImage;
+	hand_Shoot_Last->_animation = new Animation;
 	hand_Shoot_Last->_bossImage = _ImageManager->AddFrameImage("hand_Shoot_Last", L"../Resources/Enemy/Boss/Hand_Shoot_Last", 11, 1, true);
 	hand_Shoot_Last->_animation->SetStartEndFrame(0, 0, 10, 0, false);
 	hand_Shoot_Last->_animation->SetIsLoop(false);
 	hand_Shoot_Last->_animation->SetFrameUpdateTime(0.5f);
 	_aniImgList.insert(make_pair(StateType::Hand_Shoot_Last, hand_Shoot_Last));
 }
+
+//죽을때 불러와질 함수.
+void Boss::Dead()
+{
+	//스킬을쓰는 도중에 체력이 0이나 0이하라면
+	if (_hp >= 0)
+	{
+		//죽는상태로 넘겨라.
+		ChangeState(StateType::Dead);
+	}
+}
+
+void Boss::HandShoot()
+{
+	//그림자의 렉트가 플레이어 앵글값을 추격한다.
+	this->Angle(_shadowPosition);
+
+}
+
 //직선거리 길이 구하는 공식.
 float Boss::Distance(Vector2 position)
 {

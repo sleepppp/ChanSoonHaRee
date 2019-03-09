@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Golem.h"
+#include "Boss.h"
 #include "Weeds.h"
 #include "Program.h"
 //#include "BigSlime.h"
@@ -36,6 +37,7 @@ void Dungeon_Map_01::HaInit()
 void Dungeon_Map_Boss::HaInit()
 {
 	_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(500, 500)));
+	_ObjectManager->AddObject(ObjectType::Object, new Boss());
 }
 
 void TownScene::HaInit()
