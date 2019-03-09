@@ -7,6 +7,7 @@
 #include "TownScene.h"
 #include "Dungeon_Map_01.h"
 #include "Dungeon_Map_02.h"
+#include "Dungeon_Map_Boss.h"
 
 Program::Program()
 {
@@ -24,6 +25,7 @@ void Program::Init()
 	_SceneManager->AddScene("TownScene", new TownScene);
 	_SceneManager->AddScene("Dungeon_Map_01", new Dungeon_Map_01);
 	_SceneManager->AddScene("Dungeon_map_02", new Dungeon_Map_02);
+	_SceneManager->AddScene("Dungeon_Map_Boss", new Dungeon_Map_Boss);
 
 	LoadingScene* loadScene = new LoadingScene;
 	loadScene->SetNextSceneName("TitleScene");

@@ -366,6 +366,9 @@
     <ClInclude Include="UIMoneyPoket.h">
       <Filter>PublicForder\Chan\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Dungeon_Map_Boss.h">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -586,6 +589,9 @@
     </ClCompile>
     <ClCompile Include="UIMoneyPoket.cpp">
       <Filter>PublicForder\Chan\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Dungeon_Map_Boss.cpp">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

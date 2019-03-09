@@ -2,6 +2,7 @@
 #include "MainScene.h"
 #include "TownScene.h"
 #include "Dungeon_Map_01.h"
+#include "Dungeon_Map_Boss.h"
 #include "Player.h"
 #include "Program.h"
 //#include "TestHuman.h"
@@ -26,6 +27,12 @@ void TownScene::ReeInit()
 
 //1범 던전맵 여기다가 올리시면 됩니다유
 void Dungeon_Map_01::ReeInit()
+{
+
+}
+
+//보스방 던전맵 여기에다가 올리시면 됩니다유
+void Dungeon_Map_Boss::ReeInit()
 {
 
 }

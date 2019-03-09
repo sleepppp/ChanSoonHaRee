@@ -579,7 +579,7 @@ void Player::CreateAnimation()
 	downRoll->SetIsLoop(false);
 	downRoll->SetFrameUpdateTime(_frameRun);
 	downRoll->SetCallbackFunc([this]() {this->EndAnimation(); });	//이 방식은 public에 선언된 애만 가능해!
-	_animationList.insert(make_pair(State::DownRoll, downRoll));
+	_animationList.insert(make_pair(State::DownRoll, downRoll)); 
 
 	Animation* leftSword1 = new Animation;
 	leftSword1->SetStartEndFrame(0, 3, 10, 3, false);

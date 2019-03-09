@@ -2,6 +2,7 @@
 #include "MainScene.h"
 #include "TownScene.h"
 #include "Dungeon_Map_01.h"
+#include "Dungeon_Map_Boss.h"
 #include "Enemy.h"
 #include "Player.h"
 #include "Golem.h"
@@ -32,6 +33,12 @@ void Dungeon_Map_01::HaInit()
 
 }
 
+void Dungeon_Map_Boss::HaInit()
+{
+	_ObjectManager->AddObject(ObjectType::Object, new Player());
+}
+
 void TownScene::HaInit()
 {
 }
+

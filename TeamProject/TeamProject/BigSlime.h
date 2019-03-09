@@ -11,9 +11,6 @@ private:
 	struct Ani
 	{
 		class Image* _CreateImage;
-		class Image* _MoveImage;
-		class Image* _AttackImage;
-
 		class Animation* _animation;
 	};
 private:
