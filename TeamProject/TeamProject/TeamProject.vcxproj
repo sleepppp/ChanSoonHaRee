@@ -152,11 +152,13 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BigSlime.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="DamageFontManager.h" />
     <ClInclude Include="DebugCollider.h" />
     <ClInclude Include="DebugSystem.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="Dungeon_Map_01.h" />
     <ClInclude Include="Dungeon_Map_02.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="FrameObject.h" />
     <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="TestDeadman.h" />
@@ -227,11 +229,13 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BigSlime.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="DamageFontManager.cpp" />
     <ClCompile Include="DebugCollider.cpp" />
     <ClCompile Include="DebugSystem.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Dungeon_Map_01.cpp" />
     <ClCompile Include="Dungeon_Map_02.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="FrameObject.cpp" />
     <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="TestDeadman.cpp" />

@@ -148,6 +148,9 @@
     <Filter Include="PublicForder\Chan\UI">
       <UniqueIdentifier>{dbfcdf7c-6023-44ac-bea1-439bf5a2a3ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PublicForder\Chan\Effect">
+      <UniqueIdentifier>{3ce6c1a7-0506-4a8d-b637-224971fcf0db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -364,6 +367,15 @@
       <Filter>PublicForder\Chan\UI</Filter>
     </ClInclude>
     <ClInclude Include="UIMoneyPoket.h">
+      <Filter>PublicForder\Chan\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugSystem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>PublicForder\Chan\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageFontManager.h">
       <Filter>PublicForder\Chan\UI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -585,6 +597,15 @@
       <Filter>PublicForder\Chan\UI</Filter>
     </ClCompile>
     <ClCompile Include="UIMoneyPoket.cpp">
+      <Filter>PublicForder\Chan\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugSystem.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>PublicForder\Chan\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageFontManager.cpp">
       <Filter>PublicForder\Chan\UI</Filter>
     </ClCompile>
   </ItemGroup>

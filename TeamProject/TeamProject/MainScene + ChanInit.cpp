@@ -9,6 +9,7 @@
 #include "ProgressBar.h"
 #include "Program.h"
 #include "UIMoneyPoket.h"
+#include "Effect.h"
 //여기서 필요한 리소스 로드 및 클래스 할당하시면 됩니다. 
 //Init은 ㄴㄴ new 하고 ObjectManager에 추가 ㅇㅇ
 
@@ -41,6 +42,13 @@ void MainScene::ChanInit()
 
 
 	/**********************
+			이팩트
+	***********************/
+	_ImageManager->AddFrameImage("swordAtkEffect", L"../Resources/Effect/fx_hit_shortsword.png", 3, 1, false);
+
+
+	
+	/**********************
 			아이템
 	***********************/
 	//나뭇가지 이미지
@@ -67,6 +75,13 @@ void MainScene::ChanInit()
 
 	//UI 돈 주머니
 	_ObjectManager->AddObject(ObjectType::UI, new UIMoneyPoket);
+
+	
+	for (UINT i = 0; i < 30; ++i) 
+	{
+		_ObjectManager->AddObject(ObjectType::Effect, new Effect);
+	}
+	
 
 	//for (UINT i = 0; i < 10; ++i)
 	//{

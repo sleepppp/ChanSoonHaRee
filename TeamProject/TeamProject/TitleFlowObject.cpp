@@ -20,9 +20,9 @@ TitleFlowObject::TitleFlowObject()
 		LoadingScene* loadingScene = dynamic_cast<LoadingScene*>(_SceneManager->FindScene("LoadingScene"));
 		if (loadingScene != nullptr)
 		{
-			loadingScene->SetNextSceneName("TownScene");
+			loadingScene->SetNextSceneName("MainScene");
 			loadingScene->SetLoadingFunc([]() {
-				_SceneManager->FindScene("TownScene")->Init();
+				_SceneManager->FindScene("MainScene")->Init();
 			});
 			_SceneManager->LoadScene("LoadingScene");
 			return;

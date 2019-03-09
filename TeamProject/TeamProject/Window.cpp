@@ -207,6 +207,7 @@ void Window::CreateManager()
 	ImageManager::Create();
 	ObjectManager::Create();
 	SceneManager::Create();
+	DamageFontManager::Create();
 }
 /*********************************************************************************
 ## DeleteManager ##
