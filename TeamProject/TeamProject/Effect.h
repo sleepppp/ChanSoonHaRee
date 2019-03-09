@@ -1,5 +1,9 @@
 #pragma once
 #include "GameObject.h"
+
+//소드 공격 이팩트
+#define EFFECT_SWORDATK "swordAtkEffect"
+
 class Effect : public GameObject
 {
 private:
