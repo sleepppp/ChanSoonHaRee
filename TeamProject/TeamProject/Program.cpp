@@ -7,7 +7,7 @@
 #include "TownScene.h"
 #include "Dungeon_Map_01.h"
 #include "Dungeon_Map_02.h"
-#include "Dungeon_Map_Boss.h"
+#include "DebugSystem.h"
 
 Program::Program()
 {
@@ -25,7 +25,6 @@ void Program::Init()
 	_SceneManager->AddScene("TownScene", new TownScene);
 	_SceneManager->AddScene("Dungeon_Map_01", new Dungeon_Map_01);
 	_SceneManager->AddScene("Dungeon_map_02", new Dungeon_Map_02);
-	_SceneManager->AddScene("Dungeon_Map_Boss", new Dungeon_Map_Boss);
 
 	LoadingScene* loadScene = new LoadingScene;
 	loadScene->SetNextSceneName("TitleScene");
@@ -37,6 +36,7 @@ void Program::Init()
 		this->LoadResourceHa();
 		_SceneManager->FindScene("TitleScene")->Init(); 
 	});
+	
 	_SceneManager->AddScene("LoadingScene", loadScene);
 
 	_SceneManager->LoadScene("LoadingScene");
@@ -63,8 +63,8 @@ void Program::Render()
 	_DXRenderer->Direct2DBeginDraw();
 	{
 		_SceneManager->Render();
-		if(_isDebug)
-			_TimeManager->Render();
+		if (_isDebug)
+			DebugSystem::DebugRender();
 	}
 	_DXRenderer->Direct2DEndDraw();
 	ImGui::Render();

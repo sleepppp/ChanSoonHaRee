@@ -366,8 +366,11 @@
     <ClInclude Include="UIMoneyPoket.h">
       <Filter>PublicForder\Chan\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Dungeon_Map_Boss.h">
-      <Filter>MainEntry\Scene\Dungeon</Filter>
+    <ClInclude Include="DebugSystem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>PublicForder\Ree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -590,8 +593,11 @@
     <ClCompile Include="UIMoneyPoket.cpp">
       <Filter>PublicForder\Chan\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Dungeon_Map_Boss.cpp">
-      <Filter>MainEntry\Scene\Dungeon</Filter>
+    <ClCompile Include="DebugSystem.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>PublicForder\Ree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
