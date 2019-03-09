@@ -38,22 +38,42 @@ void Arrow::Update()
 {
 	this->_mainRect = Figure::RectMakeCenter(_position, _size);	
 
-
-	if (_state== State::Left)
+	switch (_state)
 	{
+	case Arrow::State::Left:
 		_position.x -= _position.x*_speed;
-	}
-	else if (_state == State::Right)
-	{
+		break;
+	case Arrow::State::Right:
 		_position.x += _position.x*_speed;
-	}
-	else if (_state == State::Up)
-	{
+		break;
+	case Arrow::State::Up:
 		_position.y -= _position.y*_speed;
-	}
-	else if (_state == State::Down)
-	{
+		break;
+	case Arrow::State::Down:
 		_position.y += _position.y*_speed;
+		break;
+	}
+	//if (_state== State::Left)
+	//{
+	//	_position.x -= _position.x*_speed;
+	//}
+	//else if (_state == State::Right)
+	//{
+	//	_position.x += _position.x*_speed;
+	//}
+	//else if (_state == State::Up)
+	//{
+	//	_position.y -= _position.y*_speed;
+	//}
+	//else if (_state == State::Down)
+	//{
+	//	_position.y += _position.y*_speed;
+	//}
+
+
+	if (_mainRect.right<0 || _mainRect.left>WinSizeX || _mainRect.bottom < 0 || _mainRect.top < WinSizeY)
+	{
+
 	}
 }
 
