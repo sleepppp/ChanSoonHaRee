@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "UIMoneyPoket.h"
+#include "Effect.h"
 
 
 UIMoneyPoket::UIMoneyPoket()
 {
+
 }
 
 
@@ -24,6 +26,13 @@ void UIMoneyPoket::Release()
 
 void UIMoneyPoket::Update()
 {
+	if (_Input->GetKeyDown('N'))
+	{
+		Effect::PlayEffect("swordAtkEffect", _Camera->GetWorldMouse());
+
+
+		
+	}
 }
 
 void UIMoneyPoket::Render()

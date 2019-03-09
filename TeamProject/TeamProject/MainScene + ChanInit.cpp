@@ -10,18 +10,16 @@
 #include "ProgressBar.h"
 #include "Program.h"
 #include "UIMoneyPoket.h"
+#include "Effect.h"
 //여기서 필요한 리소스 로드 및 클래스 할당하시면 됩니다. 
 //Init은 ㄴㄴ new 하고 ObjectManager에 추가 ㅇㅇ
 
 
 void Program::LoadResourceChan()
 {
-}
 
-void MainScene::ChanInit()
-{
 	/**********************
-			  UI
+			   UI
 	***********************/
 	//메인 인벤토리 이미지 
 	_ImageManager->AddImage("InventoryWindow", L"../Resources/UI/newInventory.png", false);
@@ -30,9 +28,6 @@ void MainScene::ChanInit()
 	_ImageManager->AddFrameImage("UI_WeaponSwap", L"../Resources/UI/UI_WeaponSwap.png", 4, 1, false);
 	//UI 가방
 	_ImageManager->AddImage("UI_Bag", L"../Resources/UI/UI_Bag.png", false);
-	//UI 프로그래스 바
-	//_ImageManager->AddFrameImage("hpBar1", L"../Resouces/UI/hpBar", 1, 6, false);
-	//_ImageManager->AddFrameImage("hpBar2", L"../Resouces/UI/hpBar", 1, 6, false);
 
 	//UI 돈 주머니
 	_ImageManager->AddImage("moneyPoket", L"../Resources/UI/moneyBag.png", false);
@@ -41,12 +36,27 @@ void MainScene::ChanInit()
 	_ImageManager->AddImage("heart", L"../Resources/UI/heart.png", false);
 
 
+
+	/**********************
+			이팩트
+	***********************/
+	_ImageManager->AddFrameImage("swordAtkEffect", L"../Resources/Effect/fx_hit_shortsword.png", 3, 1, false);
+
+
+
 	/**********************
 			아이템
 	***********************/
 	//나뭇가지 이미지
 	_ImageManager->AddImage("item_brench", L"../Resources/Item/item_brench.png", false);
+}
 
+void MainScene::ChanInit()
+{
+
+	//UI 프로그래스 바
+	//_ImageManager->AddFrameImage("hpBar1", L"../Resouces/UI/hpBar", 1, 6, false);
+	//_ImageManager->AddFrameImage("hpBar2", L"../Resouces/UI/hpBar", 1, 6, false);
 
 	/**********************
 	   오브젝트 매니저 등록
@@ -68,6 +78,13 @@ void MainScene::ChanInit()
 
 	//UI 돈 주머니
 	_ObjectManager->AddObject(ObjectType::UI, new UIMoneyPoket);
+	
+	//이팩트
+	for (UINT i = 0; i < 30; ++i) 
+	{
+		_ObjectManager->AddObject(ObjectType::Effect, new Effect);
+	}
+	
 
 	//for (UINT i = 0; i < 10; ++i)
 	//{
@@ -90,15 +107,29 @@ void TownScene::ChanInit()
 
 	//UI 돈 주머니
 	_ObjectManager->AddObject(ObjectType::UI, new UIMoneyPoket);
+
+	//이팩트
+	for (UINT i = 0; i < 30; ++i)
+	{
+		_ObjectManager->AddObject(ObjectType::Effect, new Effect);
+	}
 }
 
 //여기다가 1번 던전것들 올리시면 됩니다유
 void Dungeon_Map_01::ChanInit()
 {
-
+	//이팩트
+	for (UINT i = 0; i < 30; ++i)
+	{
+		_ObjectManager->AddObject(ObjectType::Effect, new Effect);
+	}
 }
 //보스방 던전 여따가 넣을거 넣으심 됨요
 void Dungeon_Map_Boss::ChanInit()
 {
-
+	//이팩트
+	for (UINT i = 0; i < 30; ++i)
+	{
+		_ObjectManager->AddObject(ObjectType::Effect, new Effect);
+	}
 }

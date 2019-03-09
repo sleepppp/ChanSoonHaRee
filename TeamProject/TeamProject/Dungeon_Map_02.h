@@ -17,6 +17,11 @@ public:
 	void Update()override;
 	void Render()override;
 
+	void ChanInit();
+	void HaInit();
+	void ReeInit();
+	void SoonInit();
+
 public:
 	Dungeon_Map_02();
 	~Dungeon_Map_02();
