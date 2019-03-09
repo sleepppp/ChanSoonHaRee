@@ -2,6 +2,7 @@
 #include "MainScene.h"
 #include "TownScene.h"
 #include "Dungeon_Map_01.h"
+#include "Dungeon_Map_Boss.h"
 
 #include "TestPlayer.h"
 #include "TestInventory.h"
@@ -45,6 +46,10 @@ void MainScene::SoonInit()
 
 }
 void Dungeon_Map_01::SoonInit()
+{
+
+}
+void Dungeon_Map_Boss::SoonInit()
 {
 
 }

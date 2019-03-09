@@ -9,16 +9,16 @@ Boss::Boss()
 {
 	//보스의 몸통을 생성할 기본적인 골격들
 	this->_position = Vector2(600, 100);	//좌표
-	this->_size = Vector2(200, 200);		//크기
+	this->_size = Vector2(300, 300);		//크기
 	this->_pivot = Pivot::CENTER;			//중심위치
-	this->_hp = 700;						//체력
+	this->_hp = 800;						//체력
 	this->_speed = 10.0f;					//속도
 	this->_demage = 0;						//공격력
 	this->_distance = 0.f;					//직선거리 (나중에 넣을거고 코드만짜려고)
 	this->_angle = 0.f;						//앵글값 (직선거리와 같음)
 	this->UpdateMainRect();					//렉트생성.
 	//초기 상태값은 보스가 움직이지 않아야 하니까 가만히 있는 상태를 만들어준다.
-	this->ChangeState(StateType::Idle);
+	_state = StateType::Idle;
 }
 
 
@@ -40,59 +40,14 @@ void Boss::Release()
 
 void Boss::Update()
 {
-	switch (_state)
-	{
-	case Boss::StateType::Idle:
-		if (_distance > _size.x)
-			StateType::Create;
-		break;
-	case Boss::StateType::Create:
-		//if(/*지정한 이미지의 카운트 값이 된다면*/)
-			//랜덤으로 세가지 상태중 하나로 바꿔라.
-		break;
-	case Boss::StateType::Dead:
-		break;
-	case Boss::StateType::Rock_Shoot_First:
-		break;
-	case Boss::StateType::Rock_Shoot_Second:
-		break;
-	case Boss::StateType::Rock_Shoot_Last:
-		break;
-	case Boss::StateType::Hand_Shoot_First:
-		break;
-	case Boss::StateType::Hand_Shoot_Second:
-		break;
-	case Boss::StateType::Hand_Shoot_Last:
-		break;
-	case Boss::StateType::Fist_Shoot_First:
-		break;
-	case Boss::StateType::Fist_Shoot_Second:
-		break;
-	case Boss::StateType::Fist_Shoot_Last:
-		break;
-	case Boss::StateType::End:
-		break;
-	default:
-		break;
-	}
 }
 
 void Boss::Render()
 {
 }
 
-//상태에 따라 바뀌줄 이넘값을 설정해 준다.
-void Boss::ChangeState(StateType state)
+void Boss::BossStateType()
 {
-	//바뀐 상태값이 기존상태값이라면 바뀌면 안되니까 함수를 빠져나가게 하고
-	if (_state == state)
-		return;
-	//빠져나가지 않았다면 바뀐 거니까 상태를 변경해 준다.
-	_state = state;
-	
-	//상태에 따라 애니메이션도 바꿔준다.
-	this->ChangeAnimation(state);
-
 	switch (_state)
 	{
 	case Boss::StateType::Idle:
@@ -101,17 +56,17 @@ void Boss::ChangeState(StateType state)
 		break;
 	case Boss::StateType::Dead:
 		break;
-	case Boss::StateType::Rock_Shoot_First:
-		break;
-	case Boss::StateType::Rock_Shoot_Second:
-		break;
-	case Boss::StateType::Rock_Shoot_Last:
-		break;
 	case Boss::StateType::Hand_Shoot_First:
 		break;
 	case Boss::StateType::Hand_Shoot_Second:
 		break;
 	case Boss::StateType::Hand_Shoot_Last:
+		break;
+	case Boss::StateType::Rock_Shoot_First:
+		break;
+	case Boss::StateType::Rock_Shoot_Second:
+		break;
+	case Boss::StateType::Rock_Shoot_Last:
 		break;
 	case Boss::StateType::Fist_Shoot_First:
 		break;
@@ -125,52 +80,6 @@ void Boss::ChangeState(StateType state)
 		break;
 	}
 }
-//바뀐 상태에 따라 애니메이션도 재설정 해준다.
-void Boss::ChangeAnimation(StateType state)
-{
-	// 들어온 상태값을 이터에 담아!
-	StateAnimationIter iter = _stateAnimationList.find(state);
-	//마지막까지 돌지않고 상태값을 담은 이터를 찾았다면!
-	if (iter != _stateAnimationList.end())
-	{
-		//그 키값의 내용을 실행시켜라!
-		_mainAnimation = iter->second;
-		//기존꺼는 끄고
-		_mainAnimation->Stop();
-		//새로운건 루프!
-		_mainAnimation->Play();
-	}
-
-}
-//애니메이션 루프시킬 내용들 제작과정
-void Boss::CreateAnimation()
-{
-	//이미지가 없어서 나중에 넣어야지
-
-	//기본 움직이지 않는 상태일때
-	Animation* Idle = new Animation;
-	//플레이어를 인식하고 동작하기 위해서 조립되고있을때
-	Animation* Create = new Animation;
-	//플레이어에게 얻어맞아 죽을 때
-	Animation* Dead = new Animation;
-	//==========================================//
-	//			플레이어 돌떨구기 공격			//
-	//==========================================//
-	Animation* Rock_Shoot_First = new Animation;		//주먹을 들어올려서 땅으로 내려찍기까지의 모션
-	Animation* Rock_Shoot_Second = new Animation;		//주먹을 내려찍은 후 잠시간 흔들거릴때까지의 모션
-	Animation* Rock_Shoot_Last  = new Animation;		//돌이 다 떨어진후 원래의 모션으로 돌아오기 까지의 모션
-	//==========================================//
-	//			플레이어 손떨구기 공격			//
-	//==========================================//
-	Animation* Hand_Shoot_First = new Animation;		//손을 하늘로 집어 던지는 모션
-	Animation* Hand_Shoot_Second = new Animation;		//손을 하늘로 집어 던지고 그 손이 계속해서 공격하는 도중의 움직이는 모션
-	Animation* Hand_Shoot_Last = new Animation;			// 공격이 끝나고 손을 다시 원래의 모션으로 되돌리기까지의 모션
-	//플레이어를 공격하기 위해 쬰쬬니를 날릴때
-	Animation* Fist_Shoot_First = new Animation;		//쬰쬬니를 조준하는 모션
-	Animation* Fist_Shoot_Second = new Animation;		//쬰쬬니를 날리는 모션
-	Animation* Fist_Shoot_Last = new Animation;			//날린쬰쬬니를 흔들면서 되돌리는 모션
-}
-
 //직선거리 길이 구하는 공식.
 float Boss::Distance(Vector2 position)
 {
