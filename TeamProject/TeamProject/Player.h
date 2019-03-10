@@ -84,7 +84,7 @@ public:
 	void ChangeAnimation(State state);
 	void ChangeState(State state);
 	void CreateAnimation();	
-	void IdleKeyInput();
+	//void IdleKeyInput();
 	bool InterRee(RECT* moveRc, RECT* unMoveRc);
 
 	
