@@ -33,9 +33,10 @@ Player::Player(Vector2 pos)
 	//이미지 추가, 매니저에서 FInd 하여 찾아옴
 	_ImageManager->AddFrameImage("Will", L"../Resources/Player/will_dungeon.png", 10, 13);
 	this->_imgMove = _ImageManager->FindImage("Will");
-	_ImageManager->AddFrameImage("Will_Sword1", L"../Resources/Player/will_sword.png", 10, 4);
-	this->_imgAtkSword = _ImageManager->FindImage("Will_Sword1");
-	
+	_ImageManager->AddFrameImage("Will_Sword", L"../Resources/Player/will_sword.png", 10, 4);
+	this->_imgAtkSword = _ImageManager->FindImage("Will_Sword");
+	_ImageManager->AddFrameImage("Will_Bow", L"../Resources/Player/will_bow.png", 10, 4);
+	this->_imgAtkBow = _ImageManager->FindImage("Will_Bow");
 
 
 	//기본 변수 초기화
@@ -49,12 +50,13 @@ Player::Player(Vector2 pos)
 	this->UpdateMainRect();
 	this->_maxHp = 100;
 	this->_currentHp = 50;
-	this->_isMoveStop = false;		//움직임을 멈추기 위한 bool값
-	this->_isChangeImg = false;		//공격시 이미지 파일 변경을 위한 bool값
-	this->_damage = 20;				//플레이어 기본 무기 데미지
+	this->_isMoveStop = false;			//움직임을 멈추기 위한 bool값
+	this->_isChangeSword = false;		//공격시 이미지 파일 변경을 위한 bool값
+	this->_isChangeBow = false;			//활 공격시 이미지 파일 변경을 위한 bool값
+	this->_damage = 20;					//플레이어 기본 무기 데미지
 
-	this->_frameIdle = 0.1f;		//스피드 변경을 위한 변수
-	this->_frameRun = 0.1f;			//스피드 변경을 위한 변수
+	this->_frameIdle = 0.1f;			//스피드 변경을 위한 변수
+	this->_frameRun = 0.1f;				//스피드 변경을 위한 변수
 
 	this->_swordWidth= 40;
 	this->_swordHeight= 20;
@@ -114,6 +116,13 @@ void Player::Update()
 			GameObject* _inventory = (Inventory*)_ObjectManager->FindObject(ObjectType::UI, "Inventory");
 			_isMoveStop = true;
 			_inventory->SetActive(true);	
+		}
+
+		//무기 변경(칼<->활)
+		if (_Input->GetKeyDown('Z'))
+		{
+			_isChangeBow = !_isChangeBow;
+
 		}
 
 		//&&&&&&공격 무브 OK
@@ -352,15 +361,18 @@ void Player::Render()
 	_imgMove->SetAlpha(_alpha);
 
 	//렌더링: 두개의 이미지를 상황에 맞게 번갈아가면서 사용하도록 조건을 준다.
-	if (_isChangeImg == false)
+	if (_isChangeSword == true)
 	{		
+		_imgAtkSword->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
+	}	
+	else if (_isChangeBow == true)
+	{
+		_imgAtkBow->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
+	}
+	else 
+	{
 		_imgMove->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
 	}
-	else
-	{
-		_imgAtkSword->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
-	}
-	
 
 	//디버그 모드라면 디버그 렉트들 렌더링 (F1)
 	if (_isDebug)
@@ -369,7 +381,7 @@ void Player::Render()
 		_DXRenderer->DrawRectangle(_collisionRect, DefaultBrush::red, true);
 		//공격모션(이미지)가 true이고 공격판정이 false일때만 그린다
 		
-		if (_isChangeImg && !_isAttacked)_DXRenderer->DrawRectangle(_swordRect, DefaultBrush::green, true);
+		if (_isChangeSword && !_isAttacked)_DXRenderer->DrawRectangle(_swordRect, DefaultBrush::green, true);
 		//_DXRenderer->DrawRectangle(_obColliRect, DefaultBrush::green, true);
 	}
 }
@@ -397,85 +409,121 @@ void Player::ChangeState(State state)
 	switch (_state)
 	{
 	case Player::State::LeftIdle:
-		_isChangeImg = false;		
+		_isChangeSword = false;		
+		_isChangeBow = false;
 		break;
 	case Player::State::RightIdle:
-		_isChangeImg = false;
+		_isChangeSword = false;
+		_isChangeBow = false;
 		break;
 	case Player::State::UpIdle:
-		_isChangeImg = false;
+		_isChangeSword = false;
+		_isChangeBow = false;
 		break;
 	case Player::State::DownIdle:
-		_isChangeImg = false;
+		_isChangeSword = false;
+		_isChangeBow = false;
 		break;
 	case Player::State::LeftRun:
-		_isChangeImg = false;
+		_isChangeSword = false;
+		_isChangeBow = false;
 		break;
 	case Player::State::RightRun:
-		_isChangeImg = false;
+		_isChangeSword = false;
+		_isChangeBow = false;
 		break;
 	case Player::State::UpRun:
-		_isChangeImg = false;
+		_isChangeSword = false;
+		_isChangeBow = false;
 		break;
 	case Player::State::DownRun:
-		_isChangeImg = false;
+		_isChangeSword = false;
+		_isChangeBow = false;
 		break;
 	case Player::State::LeftRoll:
-		_isChangeImg = false;
+		_isChangeSword = false;
+		_isChangeBow = false;
 		break;
 	case Player::State::RightRoll:
-		_isChangeImg = false;
+		_isChangeSword = false;
+		_isChangeBow = false;
 		break;
 	case Player::State::UpRoll:
-		_isChangeImg = false;
+		_isChangeSword = false;
+		_isChangeBow = false;
 		break;
 	case Player::State::DownRoll:
-		_isChangeImg = false;
+		_isChangeSword = false;
+		_isChangeBow = false;
 		break;
 		//======================================================
 	case Player::State::LeftSword1:
-		_isChangeImg = true;		
+		_isChangeSword = true;		
+		_isChangeBow = false;
 		_isAttacked = false;
-		//if(_isChangeImg)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //칼 렉트
-		if (_isChangeImg)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //칼 렉트
+		//if(_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //칼 렉트
+		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //칼 렉트
 		break;
 	case Player::State::RightSword1:
-		_isChangeImg = true;
+		_isChangeSword = true;
+		_isChangeBow = false;
 		_isAttacked = false;		
-		if (_isChangeImg)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight); //칼 렉트 
+		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight); //칼 렉트 
 		break;
 	case Player::State::UpSword1:
-		_isChangeImg = true;	
+		_isChangeSword = true;	
+		_isChangeBow = false;
 		_isAttacked = false;		
-		if (_isChangeImg)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth); //칼 렉트
+		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth); //칼 렉트
 		break;
 	case Player::State::DownSword1:
-		_isChangeImg = true;
+		_isChangeSword = true;
+		_isChangeBow = false;
 		_isAttacked = false;
-		if (_isChangeImg)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth); //칼 렉트
+		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth); //칼 렉트
 		break;
 		//======================================================
 	case Player::State::LeftSword2:
-		_isChangeImg = true;
+		_isChangeSword = true;
+		_isChangeBow = false;
 		_isAttacked = false;
-		if (_isChangeImg)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //칼 렉트
+		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //칼 렉트
 		break;
 	case Player::State::RightSword2:
-		_isChangeImg = true;
+		_isChangeSword = true;
+		_isChangeBow = false;
 		_isAttacked = false;
-		if (_isChangeImg)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight);  //칼 렉트
+		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight);  //칼 렉트
 		break;
 	case Player::State::UpSword2:
-		_isChangeImg = true;
+		_isChangeSword = true;
+		_isChangeBow = false;
 		_isAttacked = false;
-		if (_isChangeImg)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth);  //칼 렉트
+		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth);  //칼 렉트
 		break;
 	case Player::State::DownSword2:
-		_isChangeImg = true;
+		_isChangeSword = true;
+		_isChangeBow = false;
 		_isAttacked = false;
-		if (_isChangeImg)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth);  //칼 렉트
+		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth);  //칼 렉트
 		break;
 		//======================================================
+	case Player::State::LeftBow:
+		_isChangeBow = true;
+		break;
+
+	case Player::State::RightBow:
+		_isChangeBow = true;
+		break;
+
+	case Player::State::UpBow:
+		_isChangeBow = true;
+		break;
+
+	case Player::State::DownBow:
+		_isChangeBow = true;
+		break;
+
 	default:		
 		break;
 	}
@@ -702,6 +750,35 @@ void Player::CreateAnimation()
 	downSword2->SetFrameUpdateTime(_frameRun);
 	downSword2->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::DownSword2, downSword2));
+	//=====================================================================================
+	Animation* leftBow = new Animation;
+	leftBow->SetStartEndFrame(0, 3, 7, 0, false);
+	leftBow->SetIsLoop(false);
+	leftBow->SetFrameUpdateTime(false);
+	leftBow->SetCallbackFunc([this]() {this->EndAnimation(); });
+	_animationList.insert(make_pair(State::LeftBow, leftBow));
+
+	Animation* rightBow = new Animation;
+	rightBow->SetStartEndFrame(0, 2, 7, 2, false);
+	rightBow->SetIsLoop(false);
+	rightBow->SetFrameUpdateTime(false);
+	rightBow->SetCallbackFunc([this]() {this->EndAnimation(); });
+	_animationList.insert(make_pair(State::RightBow, rightBow));
+
+	Animation* upBow = new Animation;
+	upBow->SetStartEndFrame(0, 0, 7, 0, false);
+	upBow->SetIsLoop(false);
+	upBow->SetFrameUpdateTime(false);
+	upBow->SetCallbackFunc([this]() {this->EndAnimation(); });
+	_animationList.insert(make_pair(State::UpBow, upBow));
+
+	Animation* downBow = new Animation;
+	downBow->SetStartEndFrame(0, 1, 7, 1, false);
+	downBow->SetIsLoop(false);
+	downBow->SetFrameUpdateTime(false);
+	downBow->SetCallbackFunc([this]() {this->EndAnimation(); });
+	_animationList.insert(make_pair(State::DownBow, downBow));
+
 }
 
 //해당 상태 종료 후 변경할 상태 
@@ -744,6 +821,7 @@ void Player::EndAnimation()
 		//================================================================
 	case Player::State::LeftSword1:
 		if (_Input->GetKey('J')) this->ChangeState(State::LeftSword2);
+		else if (_Input->GetKeyDown('J')) this->ChangeState(State::LeftSword2);
 		else if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
 		else					this->ChangeState(State::LeftIdle);
 		break;
@@ -783,6 +861,24 @@ void Player::EndAnimation()
 		else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 		else					this->ChangeState(State::DownIdle);		
 		break;
+		//==============================================================
+	case Player::State::LeftBow:
+		if (_Input->GetKeyDown('J')) this->ChangeAnimation(State::LeftBow);
+		else if (_Input->GetKey('A')) this->ChangeAnimation(State::LeftRun);
+		else							this->ChangeState(State::LeftIdle);
+		break;
+
+	case Player::State::RightBow:
+
+		break;
+
+	case Player::State::UpBow:
+
+		break;
+
+	case Player::State::DownBow:
+
+		break;
 
 	default:
 		break;
@@ -793,31 +889,30 @@ void Player::EndAnimation()
 //## IdleKeyInut ##
 //Idle 상태일 때 키 입력 처리
 /********************************************************************************/
-void Player::IdleKeyInput()
-{
-	if (_Input->GetKeyDown('A'))
-	{
-		this->ChangeState(State::LeftRun);
-	}
-	else if (_Input->GetKeyDown('D'))
-	{
-		this->ChangeState(State::RightRun);
-	}
-	else if (_Input->GetKeyDown('W'))
-	{
-		this->ChangeState(State::UpRun);
-	}
-	else if (_Input->GetKeyDown('S'))
-	{
-		this->ChangeState(State::DownRun);
-	}
-	else if (_Input->GetKeyDown('K'))
-	{
-		_arrow->Update();
-
-	}
-
-}
+//void Player::IdleKeyInput()
+//{
+//	if (_Input->GetKeyDown('A'))
+//	{
+//		this->ChangeState(State::LeftRun);
+//	}
+//	else if (_Input->GetKeyDown('D'))
+//	{
+//		this->ChangeState(State::RightRun);
+//	}
+//	else if (_Input->GetKeyDown('W'))
+//	{
+//		this->ChangeState(State::UpRun);
+//	}
+//	else if (_Input->GetKeyDown('S'))
+//	{
+//		this->ChangeState(State::DownRun);
+//	}
+//	else if (_Input->GetKeyDown('K'))
+//	{
+//		_arrow->Update();
+//	}
+//
+//}
 
 /********************************************************************************/
 //## InterRect ##
