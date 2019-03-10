@@ -342,6 +342,9 @@
     <ClInclude Include="Dungeon_Map_01.h">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
+    <ClInclude Include="TestDeadman.h">
+      <Filter>PublicForder\Soon</Filter>
+    </ClInclude>
     <ClInclude Include="Dungeon_Map_02.h">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
@@ -369,9 +372,6 @@
     <ClInclude Include="DebugSystem.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Dungeon_Map_Boss.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Arrow.h">
       <Filter>PublicForder\Ree</Filter>
     </ClInclude>
@@ -381,11 +381,8 @@
     <ClInclude Include="Effect.h">
       <Filter>PublicForder\Chan\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="testYap.h">
-      <Filter>PublicForder\Ree</Filter>
-    </ClInclude>
-    <ClInclude Include="TestDeadman.h">
-      <Filter>PublicForder\Soon\Tutorial</Filter>
+    <ClInclude Include="Dungeon_Map_Boss.h">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -463,9 +460,6 @@
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>System\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="Program.cpp">
-      <Filter>MainEntry</Filter>
     </ClCompile>
     <ClCompile Include="LoadingScene.cpp">
       <Filter>MainEntry\Scene\LoadingScene</Filter>
@@ -581,6 +575,9 @@
     <ClCompile Include="Dungeon_Map_01.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
+    <ClCompile Include="TestDeadman.cpp">
+      <Filter>PublicForder\Soon</Filter>
+    </ClCompile>
     <ClCompile Include="Dungeon_Map_02.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
@@ -608,9 +605,6 @@
     <ClCompile Include="DebugSystem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Dungeon_Map_Boss.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Arrow.cpp">
       <Filter>PublicForder\Ree</Filter>
     </ClCompile>
@@ -620,11 +614,11 @@
     <ClCompile Include="Effect.cpp">
       <Filter>PublicForder\Chan\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="testYap.cpp">
-      <Filter>PublicForder\Ree</Filter>
+    <ClCompile Include="Dungeon_Map_Boss.cpp">
+      <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
-    <ClCompile Include="TestDeadman.cpp">
-      <Filter>PublicForder\Soon\Tutorial</Filter>
+    <ClCompile Include="Program.cpp">
+      <Filter>MainEntry\Scene\TitleScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

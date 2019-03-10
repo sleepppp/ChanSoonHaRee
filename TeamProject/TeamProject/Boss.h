@@ -2,6 +2,9 @@
 #include "GameObject.h"
 class Boss : public GameObject
 {
+
+	
+
 private:
 	//보스의 상태 종류 , 플레이어를 마주치기 전, 마주치고나서  깨어날때, 죽을때, 손떨구기, 주먹발사, 돌떨구기., 
 	enum class StateType
@@ -21,7 +24,7 @@ private:
 private:
 	//플레이어를 불러오자.
 	class Player* _player;
-	//상태를 불러오기위해서 인넘값도 가져오자.
+	//상태를 불러오기위해서 이넘값도 가져오자.
 	StateType _state;
 	AniAndImage* _aniImage;
 
@@ -43,28 +46,63 @@ private:
 	int _hp;					//체력이 있어야 할 거고
 	int _demage;				//플레이어를 공격해야하니까 데미지도 있을 것이고,
 	float _speed;				//각 공격들은 속도를 가져야하니까 속도도 들어가겠지 뭐
+	float _mainSpeed;
 	float _angle;				//각도를 계산해야하니까 앵글값도 있을 것이고,
 	float _distance;			//플레이어가 일정거리 안에 들어서면 움직여야하니까 플레이어의 거리를 재기 위해서 디스턴스도 있어야 하고,
 	
+	//-------충돌을 위한 렉트-------//
+	RECT collsionRc;
+	//----------------손의 렉트--------------//
+	RECT _rockHandRc;				//오른손주먹도 맞으면 아프니까 렉트가있어야 하고,
+	//-----------------돌의 렉트--------------//
 	Vector2 _rockPosition;		//돌들마다 충돌이 되어야 하고 각자의 좌표를 뿌려줘야하니까 얘들의 좌표를 주기위해서 좌표가있어야겠지?
 	Vector2 _rockSize;			//돌들도 크기가 있을거 아녀 그럼 사이즈가잇어야겠지
 	RECT _rockRc;				//좌표 있고 크기 있으면 그려줘야지
-	
+	//----------------주먹의 렉트-------------//
 	Vector2 _fistPosition;		//플레이어의 렉트와 내 슬라임의 쬰쬬니가 충돌시켜야하니까 쬰쬬니의 선을 그려주고, 
 	Vector2 _fistSize;			//쬰쪼니에 달린 주먹 크기도 있어야 할거 아녀
 	RECT _fistRc;				//쬰쬬니에 달린 주먹의 렉트도 있어야 겠지?
-
-	RECT _handRc;				//오른손주먹도 맞으면 아프니까 렉트가있어야 하고,
 	RECT _attackedRc;			//공격을 맞기 위한 렉트가 있어야 하고,
 	
+	//---------------손공격을 위한 렉트-------//
+	Vector2 _handPosition;
+	Vector2 _handSize;
+	RECT _handRc;
+	//------플레이어를 추격하기 위한 그림자 렉트----//
+	Vector2 _shadowPosition;		//그림자 좌표
+	Vector2 _shadowSize;			//그림자 크기
+	RECT _shadowRc;					//그림자 렉트
+
+	float _timeCount;				//델타타임과 동기화 하기 위한 카운트
+	int _shadowCollisionCount;		//그림자와 플레이어가 충돌하는 동안 카운팅할 카운트
+	int _handAttackCount;			//공격횟수를 측정하기 위한 카운트
+	bool _isShadowChasing;			//그림자가 쫒고 있는지 아닌지를 알기 위한 변수
+	bool _isArmChasing;				//팔이 쫒고 있는지 아닌지를 알기 위한 변수
+	
+	//1스킬의 First가 끝나면 Second로 전환
+	//Second로 넘어가면 바로 그림자가 player를 추격
+	//그림자의 RECT가 플레이어와 충돌되는동안 Count를 추가하고,
+	//일정 카운트가 어느정도 진행된다면,
+	//그림자의 RECT를 정지시키고 팔을 불러오기 위한 불변수를 True로 바꾸어
+	//맵의 밖에서 X축 추적을 계속 하고 있던 팔의 X축 Speed를 멈추고 Y축의 속도를
+	//줘서 빠르게 낙하시킨다.
+
+	//그림자의 position과 팔의 positiom이 같다면 1초의 Count가 지난 후 다시
+	//올라가게 하고서 횟수 카운트를 1 추가시킨다.
+	//5의 횟수카운트가 채워진다면 카운트를 0으로 바꿔주고 Last상태로 돌입한다.
+
 public:
 	float Distance(Vector2 position);
 	float Angle(Vector2 position);
-
+	
 	void ChangeState(StateType state);
 	void UpdateState();
 	void ChangeAnimation(StateType state);
 	void CreateAnimatiom();
+
+	void HandShoot();
+
+	void Dead();
 public:
 	void Init()override;
 	void Release()override;
@@ -75,4 +113,3 @@ public:
 	Boss();
 	~Boss();
 };
-
