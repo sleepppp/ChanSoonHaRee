@@ -165,6 +165,7 @@
     <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="TestDeadman.h" />
     <ClInclude Include="TestHuman.h" />
+    <ClInclude Include="testYap.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="UIMoneyPoket.h" />
     <ClInclude Include="UIWeaponAndBag.h" />
@@ -244,6 +245,7 @@
     <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="TestDeadman.cpp" />
     <ClCompile Include="TestHuman.cpp" />
+    <ClCompile Include="testYap.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="UIMoneyPoket.cpp" />
     <ClCompile Include="UIWeaponAndBag.cpp" />

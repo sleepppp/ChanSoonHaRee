@@ -53,6 +53,11 @@ void Dungeon_Map_02::Init()
 	Door::_mapName = "Dungeon_Map_01";
 	_ObjectManager->AddObject(ObjectType::Object, _door);
 
+	this->ChanInit();
+	this->ReeInit();
+	this->HaInit();
+	this->SoonInit();
+
 	_ObjectManager->Init();
 }
 
@@ -70,3 +75,4 @@ void Dungeon_Map_02::Render()
 	_map->Render(0, 0, Pivot::LEFT_TOP, true);
 	_ObjectManager->Render();
 }
+

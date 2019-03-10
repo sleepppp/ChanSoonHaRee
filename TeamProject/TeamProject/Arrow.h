@@ -7,11 +7,13 @@ class Arrow : public GameObject
 	class Image* _imgArrow_up;
 	class Image* _imgArrow_down;
 
+	class Player* _player;
 	//vector <RECT> _bullet;
 	float _speed;
 	int _max;
 	int _damage;
 	bool fire;
+	
 
 	enum class State
 	{

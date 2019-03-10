@@ -4,8 +4,6 @@ class DamageFontManager
 
 	SingletonHeader(DamageFontManager)
 public:
-	DamageFontManager();
-	~DamageFontManager();
 
 	void Init();
 	void Release();

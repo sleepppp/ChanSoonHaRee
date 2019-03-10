@@ -3,6 +3,7 @@
 #include "Image.h"
 //#include "Animation.h"
 #include "Timer.h"
+#include "Player.h"
 
 Arrow::Arrow(Vector2 pos)
 {
@@ -11,7 +12,7 @@ Arrow::Arrow(Vector2 pos)
 	this->_position = pos;
 	this->_speed = 20.0f;
 	this->_damage = 20.f;	
-	//_bullet=
+	
 	_ImageManager->AddImage("arrow_left", L"../Resources/Player/arrow_left.png");
 	this->_imgArrow_left = _ImageManager->FindImage("arrow_left");
 	_ImageManager->AddImage("arrow_right", L"../Resources/Player/arrow_right.png");
@@ -37,7 +38,8 @@ void Arrow::Release()
 void Arrow::Update()
 {
 	this->_mainRect = Figure::RectMakeCenter(_position, _size);	
-
+	
+	_player->GetState();
 	switch (_state)
 	{
 	case Arrow::State::Left:
@@ -53,24 +55,7 @@ void Arrow::Update()
 		_position.y += _position.y*_speed;
 		break;
 	}
-	//if (_state== State::Left)
-	//{
-	//	_position.x -= _position.x*_speed;
-	//}
-	//else if (_state == State::Right)
-	//{
-	//	_position.x += _position.x*_speed;
-	//}
-	//else if (_state == State::Up)
-	//{
-	//	_position.y -= _position.y*_speed;
-	//}
-	//else if (_state == State::Down)
-	//{
-	//	_position.y += _position.y*_speed;
-	//}
-
-
+	
 	if (_mainRect.right<0 || _mainRect.left>WinSizeX || _mainRect.bottom < 0 || _mainRect.top < WinSizeY)
 	{
 

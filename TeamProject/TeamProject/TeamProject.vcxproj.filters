@@ -342,9 +342,6 @@
     <ClInclude Include="Dungeon_Map_01.h">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
-    <ClInclude Include="TestDeadman.h">
-      <Filter>PublicForder\Soon</Filter>
-    </ClInclude>
     <ClInclude Include="Dungeon_Map_02.h">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
@@ -383,6 +380,12 @@
     </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>PublicForder\Chan\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="testYap.h">
+      <Filter>PublicForder\Ree</Filter>
+    </ClInclude>
+    <ClInclude Include="TestDeadman.h">
+      <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -578,9 +581,6 @@
     <ClCompile Include="Dungeon_Map_01.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
-    <ClCompile Include="TestDeadman.cpp">
-      <Filter>PublicForder\Soon</Filter>
-    </ClCompile>
     <ClCompile Include="Dungeon_Map_02.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
@@ -619,6 +619,12 @@
     </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>PublicForder\Chan\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="testYap.cpp">
+      <Filter>PublicForder\Ree</Filter>
+    </ClCompile>
+    <ClCompile Include="TestDeadman.cpp">
+      <Filter>PublicForder\Soon\Tutorial</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

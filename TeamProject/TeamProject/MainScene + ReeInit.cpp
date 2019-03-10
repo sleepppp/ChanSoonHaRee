@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Program.h"
 #include "Dungeon_Map_Boss.h"
+#include "Dungeon_Map_02.h"
 //#include "TestHuman.h"
 
 //â1152*721
@@ -39,4 +40,6 @@ void Dungeon_Map_01::ReeInit()
 void  Dungeon_Map_Boss::ReeInit()
 {
 
+}void Dungeon_Map_02::ReeInit()
+{
 }

@@ -11,6 +11,7 @@
 #include "Program.h"
 #include "UIMoneyPoket.h"
 #include "Effect.h"
+#include "Dungeon_Map_02.h"
 //여기서 필요한 리소스 로드 및 클래스 할당하시면 됩니다. 
 //Init은 ㄴㄴ new 하고 ObjectManager에 추가 ㅇㅇ
 
@@ -126,6 +127,15 @@ void Dungeon_Map_01::ChanInit()
 }
 //보스방 던전 여따가 넣을거 넣으심 됨요
 void Dungeon_Map_Boss::ChanInit()
+{
+	//이팩트
+	for (UINT i = 0; i < 30; ++i)
+	{
+		_ObjectManager->AddObject(ObjectType::Effect, new Effect);
+	}
+}
+
+void Dungeon_Map_02::ChanInit()
 {
 	//이팩트
 	for (UINT i = 0; i < 30; ++i)
