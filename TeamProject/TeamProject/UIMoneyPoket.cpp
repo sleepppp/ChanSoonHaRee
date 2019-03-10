@@ -28,7 +28,7 @@ void UIMoneyPoket::Update()
 {
 	if (_Input->GetKeyDown('N'))
 	{
-		Effect::PlayEffect("swordAtkEffect", _Camera->GetWorldMouse());
+		_DamageFontManager->ShowDamage(_Camera->GetWorldMouse(),50);
 
 
 		
