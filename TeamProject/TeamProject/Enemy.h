@@ -41,6 +41,7 @@ public:
 	void EnemyMoveType();
 	bool IntersectReaction(RECT* moveRect, RECT* unMoveRect);
 	RECT GetCollisionRect()const override {return _renderRect;}
+	void ObjectCollision();
 
 	float Distance(Vector2 pos);
 	float Angle(Vector2 angle);

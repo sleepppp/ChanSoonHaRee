@@ -479,6 +479,7 @@ void Golem::Move()
 		this->_position.y += -sinf(_angle)*_speed * _TimeManager->DeltaTime();
 		this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
 	}
+
 	//공격을 맞았을때 출력해줄 이미지
 	if (_attacked)
 	{
@@ -506,28 +507,3 @@ void Golem::Move()
 	}
 }
 
-
-void Golem::ObjectCollision()
-{
-	//=======================================
-	//오브젝트와 충돌
-	//=======================================
-	const vector <class GameObject*>* object;
-	object = _ObjectManager->GetObjectListPointer(ObjectType::Object);
-	for (int i = 0; i < object->size(); i++)
-	{
-		
-		MoveItem* item = dynamic_cast<MoveItem*>((*object)[i]);
-		Player* player = dynamic_cast<Player*>((*object)[i]);
-		
-		if (item == nullptr && player == nullptr && this != (*object)[i])
-		{
-			if (this->IntersectReaction(&_renderRect, &(*object)[i]->GetCollisionRect()))
-			{
-				_position.x = (_renderRect.right - _renderRect.left) / 2 + _renderRect.left;
-				_position.y = (_renderRect.bottom - _renderRect.top) / 2 + _renderRect.top;
-				this->_renderRect = UpdateRect(_position, _size, _pivot);
-			}
-		}
-	}
-}

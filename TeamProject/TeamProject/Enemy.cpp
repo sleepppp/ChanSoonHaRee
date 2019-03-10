@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Image.h"
 #include "Enemy.h"
-
+#include "MoveItem.h"
 #include "Player.h"
 Enemy::Enemy()
 {
@@ -114,6 +114,33 @@ bool Enemy::IntersectReaction(RECT * moveRect, RECT * unMoveRect)
 	}
 	return true;
 }
+
+
+void Enemy::ObjectCollision()
+{
+	//=======================================
+	//오브젝트와 충돌
+	//=======================================
+	const vector <class GameObject*>* object;
+	object = _ObjectManager->GetObjectListPointer(ObjectType::Object);
+	for (int i = 0; i < object->size(); i++)
+	{
+
+		MoveItem* item = dynamic_cast<MoveItem*>((*object)[i]);
+		Player* player = dynamic_cast<Player*>((*object)[i]);
+
+		if (item == nullptr && player == nullptr && this != (*object)[i])
+		{
+			if (this->IntersectReaction(&_renderRect, &(*object)[i]->GetCollisionRect()))
+			{
+				_position.x = (_renderRect.right - _renderRect.left) / 2 + _renderRect.left;
+				_position.y = (_renderRect.bottom - _renderRect.top) / 2 + _renderRect.top;
+				this->_renderRect = UpdateRect(_position, _size, _pivot);
+			}
+		}
+	}
+}
+
 
 //직선거리 길이 구하는 공식.
 float Enemy::Distance(Vector2 position)
