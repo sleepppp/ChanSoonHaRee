@@ -3,7 +3,7 @@
 #include "TownScene.h"
 #include "Dungeon_Map_01.h"
 #include "Dungeon_Map_Boss.h"
-
+#include "Dungeon_Map_02.h"
 #include "TestPlayer.h"
 #include "TestInventory.h"
 
@@ -129,4 +129,10 @@ void TownScene::SoonInit()
 
 	//_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
 
+}
+
+
+
+void Dungeon_Map_02::SoonInit()
+{
 }

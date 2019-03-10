@@ -38,7 +38,8 @@ void Dungeon_Map_01::Init()
 
 	this->HaInit();
 	this->SoonInit();
-
+	this->ChanInit();
+	this->ReeInit();
 	
 	_ObjectManager->Init();
 }

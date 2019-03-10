@@ -25,7 +25,7 @@ void MainScene::HaInit()
 
 void Dungeon_Map_01::HaInit()
 {
-	_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(500, 500)));
+	//_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(500, 500)));
 	
 	_ObjectManager->AddObject(ObjectType::Object, new Golem(Vector2(100, 100)));
 	_ObjectManager->AddObject(ObjectType::Object, new Golem(Vector2(400, 100)));
@@ -45,3 +45,7 @@ void TownScene::HaInit()
 {
 }
 
+
+void Dungeon_Map_02::HaInit()
+{
+}
