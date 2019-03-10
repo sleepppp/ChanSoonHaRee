@@ -46,6 +46,9 @@ void ObjectManager::Lighting()
 
 void ObjectManager::UIRender()
 {
+	//데미지 폰트 매니저 렌더
+	_DamageFontManager->Render();
+	
 	for (UINT i = 0; i < _objectContainer[ObjectType::UI].size(); ++i)
 	{
 		GameObject* object = _objectContainer[ObjectType::UI][i];

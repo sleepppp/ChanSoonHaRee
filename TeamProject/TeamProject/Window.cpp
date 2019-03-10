@@ -215,6 +215,7 @@ void Window::CreateManager()
 **********************************************************************************/
 void Window::DeleteManager()
 {
+	DamageFontManager::Delete();
 	SceneManager::Delete();
 	ObjectManager::Delete();
 	ImageManager::Delete();
@@ -224,7 +225,6 @@ void Window::DeleteManager()
 	SoundManager::Delete();
 	ImGui::Delete();
 	DXRenderer::Delete();
-	DamageFontManager::Delete();
 }
 
 /**********************************************************************************
