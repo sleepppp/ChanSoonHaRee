@@ -2,6 +2,7 @@
 #include "MainScene.h"
 #include "TownScene.h"
 #include "Dungeon_Map_01.h"
+#include "Dungeon_Map_02.h"
 #include "Dungeon_Map_Boss.h"
 #include "Enemy.h"
 #include "Player.h"

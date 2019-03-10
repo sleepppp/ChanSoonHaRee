@@ -461,9 +461,6 @@
     <ClCompile Include="SoundManager.cpp">
       <Filter>System\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="Program.cpp">
-      <Filter>MainEntry</Filter>
-    </ClCompile>
     <ClCompile Include="LoadingScene.cpp">
       <Filter>MainEntry\Scene\LoadingScene</Filter>
     </ClCompile>
@@ -619,6 +616,9 @@
     </ClCompile>
     <ClCompile Include="Dungeon_Map_Boss.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
+    </ClCompile>
+    <ClCompile Include="Program.cpp">
+      <Filter>MainEntry\Scene\TitleScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

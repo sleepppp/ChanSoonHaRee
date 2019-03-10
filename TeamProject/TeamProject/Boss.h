@@ -24,7 +24,7 @@ private:
 private:
 	//플레이어를 불러오자.
 	class Player* _player;
-	//상태를 불러오기위해서 인넘값도 가져오자.
+	//상태를 불러오기위해서 이넘값도 가져오자.
 	StateType _state;
 	AniAndImage* _aniImage;
 
@@ -46,8 +46,12 @@ private:
 	int _hp;					//체력이 있어야 할 거고
 	int _demage;				//플레이어를 공격해야하니까 데미지도 있을 것이고,
 	float _speed;				//각 공격들은 속도를 가져야하니까 속도도 들어가겠지 뭐
+	float _mainSpeed;
 	float _angle;				//각도를 계산해야하니까 앵글값도 있을 것이고,
 	float _distance;			//플레이어가 일정거리 안에 들어서면 움직여야하니까 플레이어의 거리를 재기 위해서 디스턴스도 있어야 하고,
+	
+	//-------충돌을 위한 렉트-------//
+	RECT collsionRc;
 	//----------------손의 렉트--------------//
 	RECT _rockHandRc;				//오른손주먹도 맞으면 아프니까 렉트가있어야 하고,
 	//-----------------돌의 렉트--------------//
