@@ -11,8 +11,15 @@
 @@ DWRITE_TEXT_ALIGMENT align : ÅØ½ºÆ® ±×¸± ÇÇº¿ ¼³Á¤
 @@ wstring font : ÆùÆ® (±âº»°ªÀ¸·Î ¸¼Àº °íµñ) 
 ********************************************************************************/
-void DXRenderer::RenderText(int x, int y, wstring text, int size, DefaultBrush::Enum defaultBrush, DWRITE_TEXT_ALIGNMENT align, wstring font /*=¸¼Àº °íµñ*/)
+void DXRenderer::RenderText(int x, int y, wstring text, int size, DefaultBrush::Enum defaultBrush, 
+	DWRITE_TEXT_ALIGNMENT align,bool isRelative, wstring font /*=¸¼Àº °íµñ*/)
 {
+	Vector2 pos(x, y);
+	if (isRelative)
+	{
+		pos = _Camera->GetRelativeVector2(pos);
+	}
+
 	this->dwFactory->CreateTextLayout
 	(
 		text.c_str(),
@@ -32,7 +39,7 @@ void DXRenderer::RenderText(int x, int y, wstring text, int size, DefaultBrush::
 
 	d2dRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 
-	d2dRenderTarget->DrawTextLayout(D2D1::Point2F((float)x, (float)y), dwLayout,
+	d2dRenderTarget->DrawTextLayout(D2D1::Point2F(pos.x, pos.y), dwLayout,
 		dwDefaultBrush[defaultBrush]);
 
 	dwLayout->Release();
@@ -50,8 +57,15 @@ void DXRenderer::RenderText(int x, int y, wstring text, int size, DefaultBrush::
 @@ align : ÅØ½ºÆ® ±×¸± ÇÇº¿ ¼³Á¤ 
 @@ wstring font : ÆùÆ® ( ±âº»°ªÀ¸·Î ¸¼Àº °íµñ ¼³Á¤) 
 ********************************************************************************/
-void DXRenderer::RenderText(int x, int y, wstring text, COLORREF color, float alpha, int size, DWRITE_TEXT_ALIGNMENT align, wstring font/*="¸¼Àº°íµñ"*/)
+void DXRenderer::RenderText(int x, int y, wstring text, COLORREF color, float alpha, int size,
+	DWRITE_TEXT_ALIGNMENT align, bool isRelative, wstring font/*="¸¼Àº°íµñ"*/)
 {
+	Vector2 pos(x, y);
+	if (isRelative)
+	{
+		pos = _Camera->GetRelativeVector2(pos);
+	}
+
 	//ÅØ½ºÆ® ·¹ÀÌ¾Æ¿ô »ý¼º
 	dwFactory->CreateTextLayout(
 		text.c_str(),
@@ -75,7 +89,7 @@ void DXRenderer::RenderText(int x, int y, wstring text, COLORREF color, float al
 	d2dRenderTarget->CreateSolidColorBrush(D2D1::ColorF(color, alpha), &brush);
 
 	d2dRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
-	d2dRenderTarget->DrawTextLayout(D2D1::Point2F((float)x, (float)y), dwLayout, brush);
+	d2dRenderTarget->DrawTextLayout(D2D1::Point2F(pos.x, pos.y), dwLayout, brush);
 
 	brush->Release();
 	dwLayout->Release();
@@ -86,8 +100,15 @@ void DXRenderer::RenderText(int x, int y, wstring text, COLORREF color, float al
 /********************************************************************************
 ## RenderTextField ##
 ********************************************************************************/
-void DXRenderer::RenderTextField(int x, int y, wstring text, int size, int width, int height, DefaultBrush::Enum defaultBrush, DWRITE_TEXT_ALIGNMENT align, wstring font)
+void DXRenderer::RenderTextField(int x, int y, wstring text, int size, int width, int height, 
+	DefaultBrush::Enum defaultBrush, DWRITE_TEXT_ALIGNMENT align, bool isRelative, wstring font)
 {
+	Vector2 pos(x, y);
+	if (isRelative)
+	{
+		pos = _Camera->GetRelativeVector2(pos);
+	}
+
 	dwFactory->CreateTextLayout(
 		text.c_str(),
 		text.length(),
@@ -107,14 +128,22 @@ void DXRenderer::RenderTextField(int x, int y, wstring text, int size, int width
 	dwLayout->SetTextAlignment(align);
 
 	d2dRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
-	d2dRenderTarget->DrawTextLayout(D2D1::Point2F((float)x, (float)y), dwLayout, dwDefaultBrush[defaultBrush]);
+	d2dRenderTarget->DrawTextLayout(D2D1::Point2F(pos.x, pos.y), dwLayout, dwDefaultBrush[defaultBrush]);
 
 	dwLayout->Release();
 	++this->currentDrawCall;
 }
 
-void DXRenderer::RenderTextField(int x, int y, wstring text, COLORREF color, int size, int width, int height, float alpha, DWRITE_TEXT_ALIGNMENT align, wstring font)
+void DXRenderer::RenderTextField(int x, int y, wstring text, COLORREF color,
+	int size, int width, int height, float alpha, DWRITE_TEXT_ALIGNMENT align, bool isRelative, wstring font)
 {
+	Vector2 pos(x, y);
+	if (isRelative)
+	{
+		pos = _Camera->GetRelativeVector2(pos);
+	}
+
+
 	dwFactory->CreateTextLayout(
 		text.c_str(),
 		text.length(),

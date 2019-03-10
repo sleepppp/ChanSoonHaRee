@@ -15,6 +15,8 @@ private:
 	ItemState _itemState;	//아이템 상태 변수 선언
 
 	Image* _itemBrenchImg;
+	Image* _itemShadowImg;
+	
 
 	int _moveCount;
 

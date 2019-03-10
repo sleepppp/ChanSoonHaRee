@@ -16,6 +16,7 @@ DXRenderer::DXRenderer()
 	this->CreateDirect2D();
 	this->CreateBursh();
 	this->AddTextFormat(L"맑은고딕", 1);
+	this->AddTextFormat(L"Cooper Std", 1);
 }
 /********************************************************************************
 ## ~DXRenderer ## 

@@ -9,6 +9,8 @@ MoveItem::MoveItem(string name, Vector2 position)
 	_position = position;
 
 	_itemBrenchImg = _ImageManager->FindImage("item_brench");
+	_itemShadowImg = _ImageManager->FindImage("Shadow");
+
 	_pivot = Pivot::LEFT_TOP;
 	_size = Vector2(50, 50);
 	_mainRect = Figure::RectMake(_position.x, _position.y, _size.x, _size.y);
@@ -141,9 +143,21 @@ void MoveItem::Update()
 
 void MoveItem::Render()
 {
+
+	if (_itemState == ItemState::Follow) 
+	{
+		//그림자
+		_itemShadowImg->SetSize(Vector2(20, 13));
+		_itemShadowImg->SetAlpha(0.3f);				//알파 값
+		_itemShadowImg->Render(_position.x + 3, _position.y + 34, Pivot::LEFT_TOP, true);
+	}
+	
+	//아이템
 	_itemBrenchImg->Render(_position.x, _position.y, Pivot::LEFT_TOP, true);
 	if (_isDebug)
 		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, true);
+
+	
 	//렉트 렌더 토글키
 	//if (_Input->IsToggleKey(VK_F10)) 
 	//{

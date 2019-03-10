@@ -25,18 +25,6 @@
     <Filter Include="Utility\String">
       <UniqueIdentifier>{5b979675-d9f4-4db1-bf17-20f13e552321}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PublicForder">
-      <UniqueIdentifier>{52365358-4a56-4dc5-8c6b-dccd74e6f7b4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PublicForder\Ree">
-      <UniqueIdentifier>{ba585205-377b-4ef7-b5f7-ad931b20b002}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PublicForder\Soon">
-      <UniqueIdentifier>{3df1a5e0-e911-4ccd-9176-64c3faa8dda3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PublicForder\Ha">
-      <UniqueIdentifier>{34c97096-16d2-4e34-aca5-5b7f4002198a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MainEntry">
       <UniqueIdentifier>{1700f802-9853-409e-bbcd-706c2aa7f351}</UniqueIdentifier>
     </Filter>
@@ -58,14 +46,8 @@
     <Filter Include="System\Window">
       <UniqueIdentifier>{545818c3-5899-4588-bc93-00184abbe025}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PublicForder\Soon\Module">
-      <UniqueIdentifier>{379a2311-5586-4e7f-b73b-d118451d15a2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MainEntry\Scene">
       <UniqueIdentifier>{48604a6e-c863-4d87-a64e-b3c534db044d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PublicForder\Chan">
-      <UniqueIdentifier>{c648cb71-0c75-4026-ad3f-39fed23f7176}</UniqueIdentifier>
     </Filter>
     <Filter Include="System\Sound">
       <UniqueIdentifier>{46553f27-1dab-4718-9f83-bd3c96936dd7}</UniqueIdentifier>
@@ -100,27 +82,6 @@
     <Filter Include="MainEntry\Scene\TownScene">
       <UniqueIdentifier>{bf152be9-e145-4db3-86f5-1a81e18fe6aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PublicForder\Soon\Module\Animation">
-      <UniqueIdentifier>{bb3ce8fa-0c9b-4255-8e62-ea77c839c462}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PublicForder\Soon\Module\GameObject">
-      <UniqueIdentifier>{b607e4c0-d641-47d4-9d1b-4f072a7baca8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PublicForder\Soon\Module\Light">
-      <UniqueIdentifier>{a3362a9f-aabf-4067-9a51-a3715e6557ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PublicForder\Soon\Module\Loading">
-      <UniqueIdentifier>{76134e5e-c0c2-481b-82e6-fcf1944f0543}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PublicForder\Soon\Module\Timer">
-      <UniqueIdentifier>{1a9cff39-28db-4e00-bcca-89b4342cd1c9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PublicForder\Soon\Module\Scene">
-      <UniqueIdentifier>{1e293258-f702-4ce8-b888-b4aae2f90c95}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PublicForder\Soon\Tutorial">
-      <UniqueIdentifier>{0ec844e8-5418-4d4f-9af2-5f626ed15d6c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MainEntry\Scene\TownScene\Object">
       <UniqueIdentifier>{6ccbaaad-78f2-475b-a3f2-44776af172fa}</UniqueIdentifier>
     </Filter>
@@ -136,20 +97,62 @@
     <Filter Include="MainEntry\Scene\Dungeon">
       <UniqueIdentifier>{a54aa045-f8cd-4000-8cde-965da5c9f86c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PublicForder\Chan\Inventory">
+    <Filter Include="PrivateForder">
+      <UniqueIdentifier>{52365358-4a56-4dc5-8c6b-dccd74e6f7b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Ree">
+      <UniqueIdentifier>{ba585205-377b-4ef7-b5f7-ad931b20b002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Soon">
+      <UniqueIdentifier>{3df1a5e0-e911-4ccd-9176-64c3faa8dda3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Soon\Module">
+      <UniqueIdentifier>{379a2311-5586-4e7f-b73b-d118451d15a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Soon\Module\Animation">
+      <UniqueIdentifier>{bb3ce8fa-0c9b-4255-8e62-ea77c839c462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Soon\Module\GameObject">
+      <UniqueIdentifier>{b607e4c0-d641-47d4-9d1b-4f072a7baca8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Soon\Module\Light">
+      <UniqueIdentifier>{a3362a9f-aabf-4067-9a51-a3715e6557ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Soon\Module\Loading">
+      <UniqueIdentifier>{76134e5e-c0c2-481b-82e6-fcf1944f0543}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Soon\Module\Timer">
+      <UniqueIdentifier>{1a9cff39-28db-4e00-bcca-89b4342cd1c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Soon\Module\Scene">
+      <UniqueIdentifier>{1e293258-f702-4ce8-b888-b4aae2f90c95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Soon\Tutorial">
+      <UniqueIdentifier>{0ec844e8-5418-4d4f-9af2-5f626ed15d6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Ha">
+      <UniqueIdentifier>{34c97096-16d2-4e34-aca5-5b7f4002198a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Chan">
+      <UniqueIdentifier>{c648cb71-0c75-4026-ad3f-39fed23f7176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Chan\Inventory">
       <UniqueIdentifier>{0be7a63c-bd7c-45a5-b520-0febe01fe1bc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PublicForder\Chan\Item">
+    <Filter Include="PrivateForder\Chan\Item">
       <UniqueIdentifier>{c55a0091-d177-40c1-8534-96038de654f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PublicForder\Chan\ProgressBar">
+    <Filter Include="PrivateForder\Chan\ProgressBar">
       <UniqueIdentifier>{0920c016-7f47-4e75-a6da-585e347691ea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PublicForder\Chan\UI">
+    <Filter Include="PrivateForder\Chan\UI">
       <UniqueIdentifier>{dbfcdf7c-6023-44ac-bea1-439bf5a2a3ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PublicForder\Chan\Effect">
+    <Filter Include="PrivateForder\Chan\Effect">
       <UniqueIdentifier>{5ca445c5-d344-47bf-9928-4267c328661b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Chan\Enemy">
+      <UniqueIdentifier>{1de75822-83fa-4fc0-afed-bfdbcf96b6ba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -223,10 +226,10 @@
       <Filter>Utility\File</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>PublicForder\Ha</Filter>
+      <Filter>PrivateForder\Ha</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>PublicForder\Ree</Filter>
+      <Filter>PrivateForder\Ree</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h">
       <Filter>System\Sound</Filter>
@@ -253,7 +256,7 @@
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClInclude>
     <ClInclude Include="Golem.h">
-      <Filter>PublicForder\Ha</Filter>
+      <Filter>PrivateForder\Ha</Filter>
     </ClInclude>
     <ClInclude Include="Buffer.h">
       <Filter>Shading\Buffer</Filter>
@@ -274,55 +277,55 @@
       <Filter>MainEntry\Scene\TownScene\Object</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
-      <Filter>PublicForder\Soon\Module\Animation</Filter>
+      <Filter>PrivateForder\Soon\Module\Animation</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>PublicForder\Soon\Module\GameObject</Filter>
+      <Filter>PrivateForder\Soon\Module\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
-      <Filter>PublicForder\Soon\Module\GameObject</Filter>
+      <Filter>PrivateForder\Soon\Module\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="LightSystem.h">
-      <Filter>PublicForder\Soon\Module\Light</Filter>
+      <Filter>PrivateForder\Soon\Module\Light</Filter>
     </ClInclude>
     <ClInclude Include="PointLight.h">
-      <Filter>PublicForder\Soon\Module\Light</Filter>
+      <Filter>PrivateForder\Soon\Module\Light</Filter>
     </ClInclude>
     <ClInclude Include="Loading.h">
-      <Filter>PublicForder\Soon\Module\Loading</Filter>
+      <Filter>PrivateForder\Soon\Module\Loading</Filter>
     </ClInclude>
     <ClInclude Include="LoadingSceneBase.h">
-      <Filter>PublicForder\Soon\Module\Loading</Filter>
+      <Filter>PrivateForder\Soon\Module\Loading</Filter>
     </ClInclude>
     <ClInclude Include="SceneBase.h">
-      <Filter>PublicForder\Soon\Module\Scene</Filter>
+      <Filter>PrivateForder\Soon\Module\Scene</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>PublicForder\Soon\Module\Scene</Filter>
+      <Filter>PrivateForder\Soon\Module\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
-      <Filter>PublicForder\Soon\Module\Timer</Filter>
+      <Filter>PrivateForder\Soon\Module\Timer</Filter>
     </ClInclude>
     <ClInclude Include="Slime.h">
-      <Filter>PublicForder\Ha</Filter>
+      <Filter>PrivateForder\Ha</Filter>
     </ClInclude>
     <ClInclude Include="Weeds.h">
-      <Filter>PublicForder\Ha</Filter>
+      <Filter>PrivateForder\Ha</Filter>
     </ClInclude>
     <ClInclude Include="TitleDoorParticle.h">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClInclude>
     <ClInclude Include="TestInventory.h">
-      <Filter>PublicForder\Soon\Tutorial</Filter>
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
     </ClInclude>
     <ClInclude Include="TestInventorySlot.h">
-      <Filter>PublicForder\Soon\Tutorial</Filter>
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
     </ClInclude>
     <ClInclude Include="TestItem.h">
-      <Filter>PublicForder\Soon\Tutorial</Filter>
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
     </ClInclude>
     <ClInclude Include="TestPlayer.h">
-      <Filter>PublicForder\Soon\Tutorial</Filter>
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
     </ClInclude>
     <ClInclude Include="DebugCollider.h">
       <Filter>MainEntry\Scene\TownScene</Filter>
@@ -334,16 +337,16 @@
       <Filter>MainEntry\Scene\TownScene\FrameObject</Filter>
     </ClInclude>
     <ClInclude Include="BigSlime.h">
-      <Filter>PublicForder\Ha</Filter>
+      <Filter>PrivateForder\Ha</Filter>
     </ClInclude>
     <ClInclude Include="Boss.h">
-      <Filter>PublicForder\Ha</Filter>
+      <Filter>PrivateForder\Ha</Filter>
     </ClInclude>
     <ClInclude Include="Dungeon_Map_01.h">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
     <ClInclude Include="TestDeadman.h">
-      <Filter>PublicForder\Soon</Filter>
+      <Filter>PrivateForder\Soon</Filter>
     </ClInclude>
     <ClInclude Include="Dungeon_Map_02.h">
       <Filter>MainEntry\Scene\Dungeon</Filter>
@@ -352,37 +355,40 @@
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
     <ClInclude Include="TestHuman.h">
-      <Filter>PublicForder\Soon\Tutorial</Filter>
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
     </ClInclude>
     <ClInclude Include="Inventory.h">
-      <Filter>PublicForder\Chan\Inventory</Filter>
+      <Filter>PrivateForder\Chan\Inventory</Filter>
     </ClInclude>
     <ClInclude Include="MoveItem.h">
-      <Filter>PublicForder\Chan\Item</Filter>
+      <Filter>PrivateForder\Chan\Item</Filter>
     </ClInclude>
     <ClInclude Include="ProgressBar.h">
-      <Filter>PublicForder\Chan\ProgressBar</Filter>
+      <Filter>PrivateForder\Chan\ProgressBar</Filter>
     </ClInclude>
     <ClInclude Include="UIWeaponAndBag.h">
-      <Filter>PublicForder\Chan\UI</Filter>
+      <Filter>PrivateForder\Chan\UI</Filter>
     </ClInclude>
     <ClInclude Include="UIMoneyPoket.h">
-      <Filter>PublicForder\Chan\UI</Filter>
+      <Filter>PrivateForder\Chan\UI</Filter>
     </ClInclude>
     <ClInclude Include="DebugSystem.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Arrow.h">
-      <Filter>PublicForder\Ree</Filter>
+      <Filter>PrivateForder\Ree</Filter>
     </ClInclude>
     <ClInclude Include="DamageFontManager.h">
-      <Filter>PublicForder\Chan\Effect</Filter>
+      <Filter>PrivateForder\Chan\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Effect.h">
-      <Filter>PublicForder\Chan\Effect</Filter>
+      <Filter>PrivateForder\Chan\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Dungeon_Map_Boss.h">
       <Filter>MainEntry\Scene\Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="Plankton.h">
+      <Filter>PrivateForder\Chan\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -444,19 +450,19 @@
       <Filter>MainHeader</Filter>
     </ClCompile>
     <ClCompile Include="MainScene + ReeInit.cpp">
-      <Filter>PublicForder\Ree</Filter>
+      <Filter>PrivateForder\Ree</Filter>
     </ClCompile>
     <ClCompile Include="MainScene + HaInit.cpp">
-      <Filter>PublicForder\Ha</Filter>
+      <Filter>PrivateForder\Ha</Filter>
     </ClCompile>
     <ClCompile Include="MainScene + ChanInit.cpp">
-      <Filter>PublicForder\Chan</Filter>
+      <Filter>PrivateForder\Chan</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>PublicForder\Ha</Filter>
+      <Filter>PrivateForder\Ha</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>PublicForder\Ree</Filter>
+      <Filter>PrivateForder\Ree</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>System\Sound</Filter>
@@ -483,7 +489,7 @@
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClCompile>
     <ClCompile Include="Golem.cpp">
-      <Filter>PublicForder\Ha</Filter>
+      <Filter>PrivateForder\Ha</Filter>
     </ClCompile>
     <ClCompile Include="Buffer.cpp">
       <Filter>Shading\Buffer</Filter>
@@ -501,61 +507,61 @@
       <Filter>MainEntry\Scene\TownScene\Object</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
-      <Filter>PublicForder\Soon\Module\Animation</Filter>
+      <Filter>PrivateForder\Soon\Module\Animation</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>PublicForder\Soon\Module\GameObject</Filter>
+      <Filter>PrivateForder\Soon\Module\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
-      <Filter>PublicForder\Soon\Module\GameObject</Filter>
+      <Filter>PrivateForder\Soon\Module\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="LightSystem.cpp">
-      <Filter>PublicForder\Soon\Module\Light</Filter>
+      <Filter>PrivateForder\Soon\Module\Light</Filter>
     </ClCompile>
     <ClCompile Include="PointLight.cpp">
-      <Filter>PublicForder\Soon\Module\Light</Filter>
+      <Filter>PrivateForder\Soon\Module\Light</Filter>
     </ClCompile>
     <ClCompile Include="Loading.cpp">
-      <Filter>PublicForder\Soon\Module\Loading</Filter>
+      <Filter>PrivateForder\Soon\Module\Loading</Filter>
     </ClCompile>
     <ClCompile Include="LoadingSceneBase.cpp">
-      <Filter>PublicForder\Soon\Module\Loading</Filter>
+      <Filter>PrivateForder\Soon\Module\Loading</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager + PrivateFunc.cpp">
-      <Filter>PublicForder\Soon\Module\GameObject</Filter>
+      <Filter>PrivateForder\Soon\Module\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="SceneBase.cpp">
-      <Filter>PublicForder\Soon\Module\Scene</Filter>
+      <Filter>PrivateForder\Soon\Module\Scene</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>PublicForder\Soon\Module\Scene</Filter>
+      <Filter>PrivateForder\Soon\Module\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
-      <Filter>PublicForder\Soon\Module\Timer</Filter>
+      <Filter>PrivateForder\Soon\Module\Timer</Filter>
     </ClCompile>
     <ClCompile Include="MainScene + SoonInit.cpp">
-      <Filter>PublicForder\Soon</Filter>
+      <Filter>PrivateForder\Soon</Filter>
     </ClCompile>
     <ClCompile Include="Slime.cpp">
-      <Filter>PublicForder\Ha</Filter>
+      <Filter>PrivateForder\Ha</Filter>
     </ClCompile>
     <ClCompile Include="Weeds.cpp">
-      <Filter>PublicForder\Ha</Filter>
+      <Filter>PrivateForder\Ha</Filter>
     </ClCompile>
     <ClCompile Include="TitleDoorParticle.cpp">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClCompile>
     <ClCompile Include="TestInventory.cpp">
-      <Filter>PublicForder\Soon\Tutorial</Filter>
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
     </ClCompile>
     <ClCompile Include="TestInventorySlot.cpp">
-      <Filter>PublicForder\Soon\Tutorial</Filter>
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
     </ClCompile>
     <ClCompile Include="TestItem.cpp">
-      <Filter>PublicForder\Soon\Tutorial</Filter>
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
     </ClCompile>
     <ClCompile Include="TestPlayer.cpp">
-      <Filter>PublicForder\Soon\Tutorial</Filter>
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
     </ClCompile>
     <ClCompile Include="DebugCollider.cpp">
       <Filter>MainEntry\Scene\TownScene</Filter>
@@ -567,16 +573,16 @@
       <Filter>MainEntry\Scene\TownScene\FrameObject</Filter>
     </ClCompile>
     <ClCompile Include="BigSlime.cpp">
-      <Filter>PublicForder\Ha</Filter>
+      <Filter>PrivateForder\Ha</Filter>
     </ClCompile>
     <ClCompile Include="Boss.cpp">
-      <Filter>PublicForder\Ha</Filter>
+      <Filter>PrivateForder\Ha</Filter>
     </ClCompile>
     <ClCompile Include="Dungeon_Map_01.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
     <ClCompile Include="TestDeadman.cpp">
-      <Filter>PublicForder\Soon</Filter>
+      <Filter>PrivateForder\Soon</Filter>
     </ClCompile>
     <ClCompile Include="Dungeon_Map_02.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
@@ -585,40 +591,43 @@
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
     <ClCompile Include="TestHuman.cpp">
-      <Filter>PublicForder\Soon\Tutorial</Filter>
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
     </ClCompile>
     <ClCompile Include="Inventory.cpp">
-      <Filter>PublicForder\Chan\Inventory</Filter>
+      <Filter>PrivateForder\Chan\Inventory</Filter>
     </ClCompile>
     <ClCompile Include="MoveItem.cpp">
-      <Filter>PublicForder\Chan\Item</Filter>
+      <Filter>PrivateForder\Chan\Item</Filter>
     </ClCompile>
     <ClCompile Include="ProgressBar.cpp">
-      <Filter>PublicForder\Chan\ProgressBar</Filter>
+      <Filter>PrivateForder\Chan\ProgressBar</Filter>
     </ClCompile>
     <ClCompile Include="UIWeaponAndBag.cpp">
-      <Filter>PublicForder\Chan\UI</Filter>
+      <Filter>PrivateForder\Chan\UI</Filter>
     </ClCompile>
     <ClCompile Include="UIMoneyPoket.cpp">
-      <Filter>PublicForder\Chan\UI</Filter>
+      <Filter>PrivateForder\Chan\UI</Filter>
     </ClCompile>
     <ClCompile Include="DebugSystem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Arrow.cpp">
-      <Filter>PublicForder\Ree</Filter>
+      <Filter>PrivateForder\Ree</Filter>
     </ClCompile>
     <ClCompile Include="DamageFontManager.cpp">
-      <Filter>PublicForder\Chan\Effect</Filter>
+      <Filter>PrivateForder\Chan\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Effect.cpp">
-      <Filter>PublicForder\Chan\Effect</Filter>
+      <Filter>PrivateForder\Chan\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Dungeon_Map_Boss.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
     <ClCompile Include="Program.cpp">
       <Filter>MainEntry\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Plankton.cpp">
+      <Filter>PrivateForder\Chan\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

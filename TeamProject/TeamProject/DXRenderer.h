@@ -78,21 +78,21 @@ public:
 	//텍스트 출력(기본 브러쉬 사용) 
 	void RenderText(int x, int y, wstring text, int size,
 		DefaultBrush::Enum defaultBrush = DefaultBrush::black,
-		DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_LEADING,
+		DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_LEADING, bool isRelative = false,
 		wstring font = L"맑은고딕");
 	//텍스트 출력 (원하는 색상과 알파값으로 브러쉬 생성해서 출력)
 	void RenderText(int x, int y, wstring text, COLORREF color, float alpha, int size,
-		DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_LEADING,
+		DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_LEADING, bool isRelative = false,
 		wstring font = L"맑은고딕");
 	//텍스트 필드 출력 (기본 브러쉬 사용) 
 	void RenderTextField(int x, int y, wstring text, int size, int width, int height,
 		DefaultBrush::Enum defaultBrush = DefaultBrush::black,
-		DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_LEADING,
+		DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_LEADING, bool isRelative = false,
 		wstring font = L"맑은고딕");
 	//텍스트 필드 출려(원하는 색상과 알파값으로 브러쉬 생성해서 출력)
 	void RenderTextField(int x, int y, wstring text, COLORREF color, int size, int width, int height,
 		float alpha = 1.0f,
-		DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_LEADING,
+		DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_LEADING, bool isRelative = false,
 		wstring font = L"맑은고딕");
 
 	void DrawLine( Vector2 start, Vector2 end, D2D1::ColorF::Enum color, float alpha, bool isRelativePos = false, float strokeWidth = 1);

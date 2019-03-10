@@ -49,6 +49,16 @@ void Program::LoadResourceChan()
 	***********************/
 	//나뭇가지 이미지
 	_ImageManager->AddImage("item_brench", L"../Resources/Item/item_brench.png", false);
+
+
+
+	/**********************
+			 몬스터
+	***********************/
+	//플랑크톤 몬스터
+	_ImageManager->AddFrameImage("planktonIMG", L"../Resources/Enemy/Plankton.png", 10, 1, false);
+	_ImageManager->AddFrameImage("planktonRedIMG", L"../Resources/Enemy/Plankton_Red.png", 10, 1, false);
+	_ImageManager->AddFrameImage("planktonWhiteIMG", L"../Resources/Enemy/Plankton_White.png", 10, 1, false);
 }
 
 void MainScene::ChanInit()
