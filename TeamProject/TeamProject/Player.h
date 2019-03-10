@@ -8,7 +8,7 @@ class Player : public GameObject
 		LeftRun, RightRun, UpRun, DownRun,
 		LeftRoll, RightRoll, UpRoll, DownRoll,
 		LeftSword1, RightSword1, UpSword1, DownSword1,
-		//LeftSword2, RightSword2, UpSword2, DownSword2,
+		LeftSword2, RightSword2, UpSword2, DownSword2,
 		end
 	};
 
@@ -37,6 +37,8 @@ private:
 	RECT _shieldRect;		//방어용 RECT
 	float _speed;
 	
+	class Arrow* _arrow;
+
 	int _currentHp;
 	int _maxHp;
 	int _damage;
@@ -78,7 +80,7 @@ public:
 	void ChangeState(State state);
 	void CreateAnimation();	
 	void IdleKeyInput();
-	bool InterRect(RECT* moveRc, RECT* unMoveRc);
+	bool InterRee(RECT* moveRc, RECT* unMoveRc);
 
 	
 	//UI,인벤토리 클래스에 넘겨주기 위한 함수 3개	
@@ -93,10 +95,10 @@ public:
 	
 	void AttackedDamage(int damage);
 	void InventoryOnOff();
-	void AtkDelay();
+	//void AtkDelay();
 	void AtkDelay2();
-	void BodyAttack();
-
+	//void BodyAttack();
+	State GetState() { return _state;}
 
 	//데미지값전달
 	//에너미와 충돌
