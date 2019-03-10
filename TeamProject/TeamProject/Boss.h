@@ -1,10 +1,19 @@
 #pragma once
 #include "GameObject.h"
+
+enum class ShadowState
+{
+	Chasing, Stop, End
+};
+
+enum class HandState
+{
+	 Up, Down, Chasing, End
+};
+
+
 class Boss : public GameObject
 {
-
-	
-
 private:
 	//보스의 상태 종류 , 플레이어를 마주치기 전, 마주치고나서  깨어날때, 죽을때, 손떨구기, 주먹발사, 돌떨구기., 
 	enum class StateType
@@ -81,11 +90,11 @@ private:
 	RECT _shadowRc;					//그림자 렉트
 
 	float _timeCount;				//델타타임과 동기화 하기 위한 카운트
-	int _shadowCollisionCount;		//그림자와 플레이어가 충돌하는 동안 카운팅할 카운트
-	int _handAttackCount;			//공격횟수를 측정하기 위한 카운트
-	bool _isShadowChasing;			//그림자가 쫒고 있는지 아닌지를 알기 위한 변수
-	bool _isArmChasing;				//팔이 쫒고 있는지 아닌지를 알기 위한 변수
-	
+	int _ChasingCount;
+	int _drapCount;
+	ShadowState _shadow;
+	HandState _hand;
+
 	//1스킬의 First가 끝나면 Second로 전환
 	//Second로 넘어가면 바로 그림자가 player를 추격
 	//그림자의 RECT가 플레이어와 충돌되는동안 Count를 추가하고,

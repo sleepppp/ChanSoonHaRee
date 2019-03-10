@@ -28,11 +28,8 @@ Boss::Boss()
 	this->_fistSize = Vector2(150, 150);
 	this->_handImgae = _ImageManager->AddFrameImage("fist", L"../Resources/Enemy/Boss/hand.png", 19, 1, true);
 	this->_timeCount = 0.f;
-	this->_shadowCollisionCount = 0;
-	this->_handAttackCount = 0;
-	this->_isShadowChasing = false;
-	this->_isArmChasing = false;
-
+	this->_ChasingCount = 0;
+	this->_drapCount = 0;
 	//초기 상태값은 보스가 움직이지 않아야 하니까 가만히 있는 상태를 만들어준다.
 	_state = StateType::Create;
 	this->ChangeState(StateType::Idle);
@@ -160,10 +157,6 @@ void Boss::UpdateState()
 
 		HandShoot();
 
-		if (_handAttackCount == 5)
-		{
-			ChangeState(StateType::Hand_Shoot_Last);
-		}
 		this->Dead();
 		break;
 	case Boss::StateType::Hand_Shoot_Last:
@@ -276,55 +269,103 @@ void Boss::Dead()
 
 void Boss::HandShoot()
 {
-	//팔이 플레이어를 쫒게 만든다.
-	if (_shadowCollisionCount < 5)
+	switch (_shadow)
 	{
-		_isShadowChasing = true;
-		_isArmChasing = false;
-	}
-
-	//팔이 플레이어를 쫒기위한 앵글과 스피드.
-	if (_isShadowChasing == true)
-	{
-		//앵글값에 맟춰 추격한다.
-		_shadowPosition.x += cosf(Angle(_shadowPosition)) * _speed * _TimeManager->DeltaTime();
-		_shadowPosition.y += -sinf(Angle(_shadowPosition)) * _speed * _TimeManager->DeltaTime();
-		_shadowRc = Figure::RectMakeCenter(Vector2(_shadowPosition.x, _shadowPosition.y), Vector2(_shadowSize.x, _shadowSize.y));
-	}
-
-	//팔이 X축으로 쫒 위한 조건.
-	if (_isArmChasing == false)
-	{
-		float angle = Math::GetAngle(_fistPosition.x, _fistPosition.y, _shadowPosition.x, _shadowPosition.y);
-		_fistPosition.x += cosf(angle) * _speed * _TimeManager->DeltaTime();
-		_fistRc = Figure::RectMakeCenter(Vector2(_fistPosition.x, _fistPosition.y), Vector2(_fistSize.x, _fistSize.y));
-	}
-
-	//팔이 Y축으로 떨어지기 위한 조건.
-	if (_isArmChasing == true)
-	{
-		float angle = Math::GetAngle(_fistPosition.x, _fistPosition.y, _shadowPosition.x, _shadowPosition.y);
-		_fistPosition.y += -sinf(angle) * _speed * _TimeManager->DeltaTime();
-		_fistRc = Figure::RectMakeCenter(Vector2(_fistPosition.x, _fistPosition.y), Vector2(_fistSize.x, _fistSize.y));
-	}
-
-	RECT tempRc;
-	//만약 플레이어와 그림자가 충돌했다면
-	if (IntersectRect(&tempRc, &_shadowRc, &_player->GetCollisionRect()))
-	{
-		//충돌한 시간을 재고
-		_timeCount += _TimeManager->DeltaTime();
-		if (_timeCount > 1.f)
+		float angle;
+		//그림자가 플레이어를 쫒을때
+	case ShadowState::Chasing:
+		angle = Math::GetAngle(_shadowPosition.x, _shadowPosition.y, _player->GetPosition().x, _player->GetPosition().y);
+		_shadowPosition.x += cosf(angle) * _speed * _TimeManager->DeltaTime();
+		_shadowPosition.y += -sinf(angle) * _speed * _TimeManager->DeltaTime();
+		//손은 그림자를 쫒아라.
+		_hand = HandState::Chasing;
+		//그림자가 플레이어와 충돌하는 동안.
+		RECT temp;
+		if (IntersectRect(&temp, &_shadowRc, &_player->GetCollisionRect()))
+		{
+			//타임카운트가 들어가고
+			_timeCount += _TimeManager->DeltaTime();
+		}
+		//일정 타임카운트가 넘어가면
+		if (_timeCount > 0.5)
 		{
 			_timeCount = 0.f;
-			_shadowCollisionCount++;
+			//체이싱카운트가들어가고
+			_ChasingCount++;
 		}
+		//5보다 커진다면
+		if (_ChasingCount >= 5)
+		{
+			//그림자를 멈춰라.
+			_shadow = ShadowState::Stop;
+		}
+		break;
+	case ShadowState::Stop:
+		//그림자가 멈추면 손이 내려와라.
+		_hand = HandState::Down;
+
+		break;
+	case ShadowState::End:
+		break;
+	default:
+		break;
 	}
-	//일정한 시간이 지나면 정지시켜서 X축으로만쫒아오던 손을 떨어지게 만듭니다. 
-	if (_shadowCollisionCount > 5)
+
+	switch (_hand)
 	{
-		_isShadowChasing = false;
-		_isArmChasing = true;
+		float angle;
+		float distance;
+	case HandState::Up:
+		//그림자와 손과의 거리
+		distance = Math::GetDistance(_handPosition.x, _handPosition.y, _shadowPosition.x, _shadowPosition.y);
+
+		//손과 그림자의 앵글값.
+		angle = Math::GetAngle(_shadowPosition.x, _shadowPosition.y, _handPosition.x, _handPosition.y);
+		//거리가 500보다 작으면
+		if (distance <= 500)
+		{
+			//위로 올라가라.
+			_handPosition.y += -sinf(angle) * (_speed * 0.7) * _TimeManager->DeltaTime();
+		}
+		//어느정도 올라갔으면
+		if (distance >= 500)
+		{
+			//몇번떨어졌는지 알기위해 카운트를 더해주고
+			this->_drapCount++;
+			//다시 쫒아라.
+			_shadow = ShadowState::Chasing;
+		}
+		if (_drapCount == 5)
+		{
+			ChangeState(StateType::Hand_Shoot_Last);
+		}
+		break;
+	case HandState::Down:
+		//손과 그림자의 앵글값.
+		angle = Math::GetAngle(_handPosition.x, _handPosition.y, _shadowPosition.x, _shadowPosition.y);
+
+		//그림자와 손의 Y축이 같지 않다면
+		if (_handPosition.y != _shadowPosition.y)
+		{
+			//그림자의 Y축으로 이동해라.
+			_handPosition.y += -sinf(angle) * (_speed * 3) * _TimeManager->DeltaTime();
+		}
+		//막약 같다면 
+		if (_handPosition.y == _shadowPosition.y)
+		{
+			//이동해라.
+			_hand = HandState::Up;
+		}
+		break;
+	case HandState::Chasing:
+		//손의 X축은 언제나 그림자의 X축을 따라다닌다.
+		angle = Math::GetAngle(_handPosition.x, _handPosition.y, _shadowPosition.x, _shadowPosition.y);
+		_handPosition.x = _shadowPosition.x;
+		break;
+	case HandState::End:
+		break;
+	default:
+		break;
 	}
 }
 
