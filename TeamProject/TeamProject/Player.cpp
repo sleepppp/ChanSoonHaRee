@@ -351,24 +351,22 @@ void Player::Update()
 		case Player::State::DownSword2:
 			this->Attack();
 			break;
-
+		//=====================================================================================
 		case Player::State::LeftBow:		
-			this->Enable();
+			//this->Enable();
 			break;
 
 		case Player::State::RightBow:
-			//_ObjectManager->FindObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Right));
+			//this->Enable();
 			break;
 
 		case Player::State::UpBow:
-			//_ObjectManager->FindObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Up));
+			//this->Enable();
 			break;
 			
 		case Player::State::DownBow:
-			//_ObjectManager->FindObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Down));
-
-
-
+			this->Enable();
+			break;
 
 		default:
 			break;
