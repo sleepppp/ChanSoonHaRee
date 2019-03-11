@@ -3,11 +3,14 @@
 class UIWeaponAndBag : public GameObject
 {
 private:
-	class Image* _uIWeaponSwapIMG;
-	class Image* _uIBagIMG;
+	class Image* _uIWeaponSwapIMG;			//무기 스왑 이미지
+	class Image* _uIBagIMG;					//가방 이미지 
 
-	int _FrameX;
-	int _FrameY;
+	class Animation* _uIswapAnimation;		//무기 스왑 애니메이션 선언
+
+	bool _isSwap;							//스왑 상태 bool
+
+	int _swapCount;							//스왑 카운트
 
 
 public:

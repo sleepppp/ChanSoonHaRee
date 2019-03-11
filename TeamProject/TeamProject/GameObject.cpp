@@ -25,6 +25,14 @@ GameObject::GameObject(string name, Vector2 pos, Vector2 size, Pivot::Enum pivot
 	this->UpdateMainRect();
 }
 
+GameObject::GameObject(const RECT rect)
+	:_name(""),_pivot(Pivot::LEFT_TOP),_isActive(true),_isLive(true)
+{
+	this->_mainRect = rect;
+	this->_position = Vector2(_mainRect.left, _mainRect.top);
+	this->_size = Vector2(_mainRect.right - _mainRect.left, _mainRect.bottom - _mainRect.top);
+}
+
 /*************************************************************************
 ## ~GameObject ##
 **************************************************************************/
@@ -145,6 +153,10 @@ void GameObject::SetActive(const bool b)
 		this->Enable();
 	else
 		this->Disable();
+}
+void GameObject::SetMainRect(const RECT rect)
+{
+	this->_mainRect = rect;
 }
 /*************************************************************************
 ## UpdateMainRect ##

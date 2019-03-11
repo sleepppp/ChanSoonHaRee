@@ -62,6 +62,7 @@ public:
 	void SetFreeCamera();
 
 	void Shake(float strength = CameraDefaultStrength,float shakeTime = CameraDefaultShakeTime);
+	void InitCameraToPlayer();
 
 private:
 	void UpdateRenderRect();

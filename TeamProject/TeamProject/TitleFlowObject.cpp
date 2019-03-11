@@ -20,9 +20,10 @@ TitleFlowObject::TitleFlowObject()
 		LoadingScene* loadingScene = dynamic_cast<LoadingScene*>(_SceneManager->FindScene("LoadingScene"));
 		if (loadingScene != nullptr)
 		{
-			loadingScene->SetNextSceneName("Dungeon_Map_Boss");
+			_ObjectManager->ChangeZOrdering(true);
+			loadingScene->SetNextSceneName("TownScene");
 			loadingScene->SetLoadingFunc([]() {
-				_SceneManager->FindScene("Dungeon_Map_Boss")->Init();
+				_SceneManager->FindScene("TownScene")->Init();
 			});
 			_SceneManager->LoadScene("LoadingScene");
 			return;

@@ -305,6 +305,9 @@ void CameraManager::SetTarget(GameObject * object)
 	{
 		this->pTarget = object;
 		this->state = MoveState::None;
+		this->position = object->GetPosition() - Vector2(WinSizeX/2,WinSizeY/2);
+		this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+		this->AmendCamera();
 	}
 }
 
@@ -320,5 +323,14 @@ void CameraManager::Shake(float strength,float shakeTime)
 		this->isShake = true; 
 		this->shakeStrength = strength;
 		this->shakeTime = this->totalShakeTime = shakeTime;
+	}
+}
+
+void CameraManager::InitCameraToPlayer()
+{
+	GameObject* object = _ObjectManager->FindObject(ObjectType::Object, "Will");
+	if (object)
+	{
+		this->SetTarget(object);
 	}
 }

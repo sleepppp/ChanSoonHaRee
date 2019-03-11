@@ -4,7 +4,7 @@
 **********************************************************/
 #pragma once
 
-#define LockFPS 500.0f
+#define LockFPS 300.f
 
 #define WinSizeX 1152	//윈도우창 가로길이
 #define WinSizeY 719	//윈도우창 세로길이

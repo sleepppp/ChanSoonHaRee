@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+
 class Player : public GameObject
 {
 	enum class State : int
@@ -13,14 +14,6 @@ class Player : public GameObject
 		end
 	};
 
-	struct TestBullet
-	{
-		Vector2 pos;
-		Vector2 directrion;
-		float speed;
-		bool bFire;
-	};
-
 private:
 	//애니메이션을 담을 맵의 반복자
 	typedef map<State, class Animation*>::iterator AnimationIter;
@@ -28,10 +21,13 @@ private:
 	class Image* _imgMove;		//플레이어 기본 움직임
 	class Image* _imgAtkSword;	//플레이어 공격 스워드 이미지
 	class Image* _imgAtkBow;	//플레이어 공격 활 이미지
-	
-	class Arrow* _arrow;		//화살 클래스 사용을 위한 선언
-	
+
+	class UIWeaponAndBag* _UIWeaponSwap;
+
 	class Animation* _mainAnimation;
+
+	//vector <Arrow> _arrow;//화살 클래스 사용을 위한 선언
+
 
 	map<State, class Animation*> _animationList;	//상태별 애니를 관리하기 위해 맵 사용
 	State _state;
@@ -48,11 +44,12 @@ private:
 
 	float _frameRun;
 	float _frameIdle;
-	float _frameRoll;
+	float _frameBow;
 
 	bool _isMoveStop;
 	bool _isChangeSword;		//칼 이미지와 스탠드 무브 전환용 bool값
 	bool _isChangeBow;
+	bool _isStandardMove;
 
 	int _swordWidth;
 	int _swordHeight;
@@ -109,4 +106,11 @@ public:
 	//동작 enum값 전달 함수
 	State GetState() { return _state;}
 
+};
+
+class PlayerAni
+{
+public:
+	PlayerAni();
+	~PlayerAni();
 };
