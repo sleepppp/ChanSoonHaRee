@@ -57,9 +57,9 @@ void Program::LoadResourceChan()
 			 ¸ó½ºÅÍ
 	***********************/
 	//ÇÃ¶ûÅ©Åæ ¸ó½ºÅÍ
-	_ImageManager->AddFrameImage("planktonIMG", L"../Resources/Enemy/Plankton.png", 10, 1, false);
-	_ImageManager->AddFrameImage("planktonRedIMG", L"../Resources/Enemy/Plankton_Red.png", 10, 1, false);
-	_ImageManager->AddFrameImage("planktonWhiteIMG", L"../Resources/Enemy/Plankton_White.png", 10, 1, false);
+	_ImageManager->AddFrameImage("planktonIMG", L"../Resources/Enemy/Plankton/Plankton.png", 10, 1, false);
+	_ImageManager->AddFrameImage("planktonRedIMG", L"../Resources/Enemy/Plankton/Plankton_Red.png", 10, 1, false);
+	_ImageManager->AddFrameImage("planktonWhiteIMG", L"../Resources/Enemy/Plankton/Plankton_White.png", 10, 1, false);
 }
 
 void MainScene::ChanInit()
