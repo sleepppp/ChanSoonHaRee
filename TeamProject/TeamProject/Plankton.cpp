@@ -17,7 +17,7 @@ Plankton::Plankton(Vector2 position)
 	//포지션
 	this->_position = position;
 	//데미지
-	this->_demage = 15;
+	this->_damage = 15;
 	//HP	
 	this->_hp = 75;
 	//스피드

@@ -13,8 +13,8 @@ Boss::Boss()
 	this->_size = Vector2(700, 700);		//크기
 	this->_pivot = Pivot::CENTER;			//중심위치
 	this->_hp = 800;						//체력
-	this->_mainSpeed = this->_speed = 300.0f;					//속도
-	this->_demage = 0;						//공격력
+	this->_speed = 300.0f;					//속도
+	this->_damage = 0;						//공격력
 	this->_distance = 0.f;					//직선거리 (나중에 넣을거고 코드만짜려고)
 	this->_angle = 0.f;						//앵글값 (직선거리와 같음)
 	this->_imageRc = Figure::RectMakeCenter(_imagePosition, _imageSize); //렉트생성.
@@ -24,12 +24,13 @@ Boss::Boss()
 	this->_shadowPosition = Vector2(_imagePosition.x, _imagePosition.y);
 	this->_shadowSize = Vector2(50, 50);
 	this->_shadowImage = _ImageManager->AddImage("shadow", L"../Resources/Enemy/Boss/Shadow.png", true);
-	this->_fistPosition = Vector2(_shadowPosition.x, _shadowPosition.y - 400);
-	this->_fistSize = Vector2(150, 150);
-	this->_handImgae = _ImageManager->AddFrameImage("fist", L"../Resources/Enemy/Boss/hand.png", 19, 1, true);
+	this->_handPosition = Vector2(_shadowPosition.x, _shadowPosition.y - 400);
+	this->_handSize = Vector2(150, 150);
+	this->_handImage = _ImageManager->AddFrameImage("hand", L"../Resources/Enemy/Boss/hand.png", 19, 1, true);
 	this->_timeCount = 0.f;
 	this->_ChasingCount = 0;
 	this->_drapCount = 0;
+	this->_handFrame = 0;
 	//초기 상태값은 보스가 움직이지 않아야 하니까 가만히 있는 상태를 만들어준다.
 	_state = StateType::Create;
 	this->ChangeState(StateType::Idle);
@@ -54,7 +55,7 @@ void Boss::Update()
 {
 	//조건별로 처리할 부분은 여기에서
 	UpdateState();
-
+	HandShoot();
 	_aniImage->_animation->UpdateFrame();
 }
 
@@ -69,10 +70,13 @@ void Boss::Render()
 	_shadowImage->SetScale(0.7f);
 	_shadowImage->Render(_shadowPosition.x, _shadowPosition.y, Pivot::CENTER, true);
 
+	_handImage->SetSize(_handImage->GetFrameSize(0));
+	_handImage->SetScale(1.f);
+	_handImage->FrameRender((int)_handPosition.x, (int)_handPosition.y, _handFrame, 0, Pivot::CENTER, true);
 	if (_isDebug == true)
 	{
 		_DXRenderer->DrawRectangle(_shadowRc, DefaultBrush::yello, true);
-		_DXRenderer->DrawRectangle(_fistRc, DefaultBrush::yello, true);
+		_DXRenderer->DrawRectangle(_handRc, DefaultBrush::yello, true);
 		_DXRenderer->DrawRectangle(_imageRc, DefaultBrush::blue, true);
 		_DXRenderer->DrawEllipse(Vector2(_imagePosition.x, _imagePosition.y), _size.x * 0.7f, DefaultBrush::blue, true);
 	}
@@ -155,7 +159,7 @@ void Boss::UpdateState()
 		break;
 	case Boss::StateType::Hand_Shoot_Second:
 
-		HandShoot();
+		_shadow = ShadowState::Chasing;
 
 		this->Dead();
 		break;
@@ -163,7 +167,7 @@ void Boss::UpdateState()
 
 		if (_aniImage->_animation->GetNowFrameX() == 10)
 		{
-			ChangeState(StateType::Fist_Shoot_First);
+			ChangeState(StateType::Hand_Shoot_First);
 		}
 
 		this->Dead();
@@ -324,6 +328,16 @@ void Boss::HandShoot()
 		//거리가 500보다 작으면
 		if (distance <= 500)
 		{
+			_timeCount += _TimeManager->DeltaTime();
+			if (_timeCount > 0.5f)
+			{
+				_handFrame++;
+			}
+			if (_handFrame >= 18)
+			{
+				_handFrame = 18;
+			}
+
 			//위로 올라가라.
 			_handPosition.y += -sinf(angle) * (_speed * 0.7) * _TimeManager->DeltaTime();
 		}
@@ -332,6 +346,9 @@ void Boss::HandShoot()
 		{
 			//몇번떨어졌는지 알기위해 카운트를 더해주고
 			this->_drapCount++;
+
+			_handFrame = 0;
+
 			//다시 쫒아라.
 			_shadow = ShadowState::Chasing;
 		}
@@ -347,6 +364,16 @@ void Boss::HandShoot()
 		//그림자와 손의 Y축이 같지 않다면
 		if (_handPosition.y != _shadowPosition.y)
 		{
+			_timeCount += _TimeManager->DeltaTime();
+			if (_timeCount > 0.5f)
+			{
+				_handFrame++;
+			}
+			if (_handFrame >= 2)
+			{
+				_handFrame = 2;
+			}
+
 			//그림자의 Y축으로 이동해라.
 			_handPosition.y += -sinf(angle) * (_speed * 3) * _TimeManager->DeltaTime();
 		}
@@ -354,6 +381,24 @@ void Boss::HandShoot()
 		if (_handPosition.y == _shadowPosition.y)
 		{
 			//이동해라.
+			_hand = HandState::Stay;
+		}
+		break;
+	case HandState::Stay:
+
+		//땅에 일정시간 있어야 하니 카운트를 추가한다.
+		_timeCount += _TimeManager->DeltaTime();
+		if (_timeCount > 0.5f)
+		{
+			//일정 카운트마다 손의 프레임을 더해주고
+			_handFrame++;
+		}
+		//손을 비비는 프레임이 끝나면
+		if (_handFrame >= 15)
+		{
+			//일단 손의 프레임을 고정하고
+			_handFrame = 15;
+			//손의 상태를 올라가는 상태로 바꿔준다.
 			_hand = HandState::Up;
 		}
 		break;

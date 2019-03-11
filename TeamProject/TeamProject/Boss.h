@@ -8,7 +8,7 @@ enum class ShadowState
 
 enum class HandState
 {
-	 Up, Down, Chasing, End
+	 Up, Down, Stay, Chasing, End
 };
 
 
@@ -44,7 +44,7 @@ private:
 #pragma region Image
 	class Image* _shadowImage;		//그림자 이미지
 
-	class Image* _handImgae;		//손 날리기 스킬의 손 이미지
+	class Image* _handImage;		//손 날리기 스킬의 손 이미지
 										 
 	class Image* _rockImgae1;		//돌 던지기 스킬의 돌던지기 1
 	class Image* _rockImage2;		//돌 던지기 스킬의 돌던지기 2
@@ -55,12 +55,12 @@ private:
 #pragma endregion	
 
 	int _hp;					//체력이 있어야 할 거고
-	int _demage;				//플레이어를 공격해야하니까 데미지도 있을 것이고,
+	int _damage;				//플레이어를 공격해야하니까 데미지도 있을 것이고,
 	float _speed;				//각 공격들은 속도를 가져야하니까 속도도 들어가겠지 뭐
 	float _mainSpeed;
 	float _angle;				//각도를 계산해야하니까 앵글값도 있을 것이고,
 	float _distance;			//플레이어가 일정거리 안에 들어서면 움직여야하니까 플레이어의 거리를 재기 위해서 디스턴스도 있어야 하고,
-	
+	int _handFrame;
 
 	//-----------------보스 이미지 생성을 위한 렉트-----------------//
 	Vector2 _imagePosition;

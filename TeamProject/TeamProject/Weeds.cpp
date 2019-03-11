@@ -13,7 +13,7 @@ Weeds::Weeds(Vector2 pos)
 	this->_renderRect = UpdateRect(_position, _size, _pivot);
 	this->_speed = 70.0f;
 	this->_hp = 20;
-	this->_demage = 16;
+	this->_damage = 16;
 	this->_isAttack = false;
 	this->_state = StateType::Chasing;
 	this->_attackTime = 0.f;
