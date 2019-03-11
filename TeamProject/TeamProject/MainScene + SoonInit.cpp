@@ -49,6 +49,12 @@ void Dungeon_Map_01::SoonInit()
 {
 
 }
+
+
+void Dungeon_Map_02::SoonInit()
+{
+}
+
 void Dungeon_Map_Boss::SoonInit()
 {
 
@@ -132,7 +138,3 @@ void TownScene::SoonInit()
 }
 
 
-
-void Dungeon_Map_02::SoonInit()
-{
-}
