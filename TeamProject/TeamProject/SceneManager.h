@@ -5,6 +5,8 @@
 class SceneManager
 {
 	SingletonHeader(SceneManager)
+public:
+	string nextSceneName;
 private:
 	typedef unordered_map<string, class SceneBase*>::iterator SceneIter;
 private:
@@ -25,6 +27,7 @@ public:
 	void AddScene(string name, class SceneBase* scene);
 	class SceneBase* FindScene(string name);
 	void LoadScene(string name,bool init = true);
+	void LoadSceneByLoading(string name);
 };
 
 #define _SceneManager SceneManager::Get()

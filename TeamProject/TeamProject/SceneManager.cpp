@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "SceneManager.h"
 #include "SceneBase.h"
+#include "LoadingScene.h"
+
 SingletonCpp(SceneManager)
 /***************************************************************
 ## SceneManager ##
@@ -96,4 +98,21 @@ void SceneManager::LoadScene(string name,bool init)
 	this->loadFunc = bind(&SceneManager::ChangeScene, this, name, init);
 	this->loadSceneName = name;
 	this->bInit = init;
+}
+
+void SceneManager::LoadSceneByLoading(string name)
+{
+	LoadingScene* loadingScene = dynamic_cast<LoadingScene*>(_SceneManager->FindScene("LoadingScene"));
+	if (loadingScene != nullptr)
+	{
+		this->nextSceneName = name;
+		_ObjectManager->ChangeZOrdering(true);
+		loadingScene->SetNextSceneName(nextSceneName);
+		loadingScene->SetLoadingFunc([this]() 
+		{
+			_SceneManager->FindScene(nextSceneName)->Init();
+		});
+		_SceneManager->LoadScene("LoadingScene");
+		return;
+	}
 }

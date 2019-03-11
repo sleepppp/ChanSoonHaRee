@@ -9,6 +9,7 @@
 #include "Dungeon_Map_02.h"
 #include "Dungeon_Map_Boss.h"
 #include "DebugSystem.h"
+#include "DungeonLobby.h"
 
 Program::Program()
 {
@@ -27,6 +28,7 @@ void Program::Init()
 	_SceneManager->AddScene("Dungeon_Map_01", new Dungeon_Map_01);
 	_SceneManager->AddScene("Dungeon_map_02", new Dungeon_Map_02);
 	_SceneManager->AddScene("Dungeon_Map_Boss", new Dungeon_Map_Boss);
+	_SceneManager->AddScene("DungeonLobby", new DungeonLobby);
 
 	LoadingScene* loadScene = new LoadingScene;
 	loadScene->SetNextSceneName("TitleScene");
@@ -43,7 +45,7 @@ void Program::Init()
 
 	_SceneManager->LoadScene("LoadingScene");
 
-	_SceneManager->SceneQueue();
+	_SceneManager->SceneQueue();	
 }
 
 void Program::Release()
