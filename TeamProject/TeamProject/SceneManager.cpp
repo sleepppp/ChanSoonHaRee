@@ -132,6 +132,7 @@ void SceneManager::ChangeScene(string name, bool init)
 void SceneManager::LoadScene(string name,bool init)
 {
 	this->loadFunc = bind(&SceneManager::ChangeScene, this, name, init);
+
 	this->loadSceneName = name;
 	this->bInit = init;
 	this->state = State::FadeOut;

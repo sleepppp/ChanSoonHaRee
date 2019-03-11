@@ -2,6 +2,7 @@
 #include "Plankton.h"
 #include "Player.h"
 #include "MoveItem.h"
+#include "Animation.h"
 
 
 Plankton::Plankton(Vector2 position)
@@ -13,6 +14,18 @@ Plankton::Plankton(Vector2 position)
 	this->_plankton = _ImageManager->FindImage("planktonIMG");
 	this->_planktonRed = _ImageManager->FindImage("planktonRedIMG");
 	this->_planktonWhite = _ImageManager->FindImage("planktonWhiteIMG");
+
+	//애니메이션 new
+	_planktonAnimation = new Animation;
+
+	//시작 프레임 x,y와 끝 프레임 x,y
+	_planktonAnimation->SetStartEndFrame(0, 0, _plankton->GetMaxFrameX() - 1, 0, false);
+	//루프 안함
+	_planktonAnimation->SetIsLoop(true);
+	//프레임 도는 시간
+	_planktonAnimation->SetFrameUpdateTime(0.2f);
+	//프레임 시작
+	_planktonAnimation->Play();
 
 	//포지션
 	this->_position = position;
@@ -26,11 +39,27 @@ Plankton::Plankton(Vector2 position)
 	this->_size = Vector2(30, 30);
 	//피벗
 	this->_pivot = Pivot::CENTER;
-	//렉트
+	//렉트 생성
 	this->UpdateRect(_position, _size, _pivot);
 
 	//기본 상태는 따라가기
 	this->_planktonState = PlanktonState::Follow;
+
+	//공격 bool
+	_isAttack = false;
+
+	//인벤 정지 bool
+	_isInvenStop = false;
+
+	//피격 bool
+	_isAtked = false;
+
+	//공격 카운트 초기화
+	_atkCount = 0;
+
+	//받은 메시지 활성화
+	this->AddCallbackMessage("InventoryOpen", [this](TagMessage message) {this->InvenStop(1); });
+	this->AddCallbackMessage("InventoryClose", [this](TagMessage message) {this->InvenStop(0); });
 }
 
 
@@ -46,20 +75,83 @@ void Plankton::Init()
 
 void Plankton::Release()
 {
+	//릴리즈
+	SafeDelete(_planktonAnimation);
 }
 
 void Plankton::Update()
 {
 
+	//오브젝트 충돌 체크 함수
+	this->ObjectCollision();
 
-	//플랑크톤 상태 함수
-	PlanktonStates();
+	if (!_isInvenStop)
+	{
+		//플랑크톤 상태 함수
+		PlanktonStates();
+	}
+
+	//플랑크톤 프레임 실행
+	_planktonAnimation->Play();
+
+	//플랑크톤 프레임 업데이트
+	_planktonAnimation->UpdateFrame();
+	
+
+	if (_isAtked == true) 
+	{
+		//피격 상태인 경우, 밀리기와 컬러 렌더 시간 조절용 함수
+		this->AtkedState(_position, this->_attackedAngle, 50.f, 0.3f);
+	}
 }
 
 void Plankton::Render()
 {
+	if (_planktonState == PlanktonState::Follow || _planktonState == PlanktonState::Attack)
+	{
+		//플랑크톤 사이즈
+		_plankton->SetSize(_plankton->GetFrameSize(0));
+		//플랑크톤 프레임 렌더
+		_plankton->FrameRender(_position.x, _position.y, _planktonAnimation->GetNowFrameX(), 0, Pivot::CENTER, true);
+	}
+	
+	//만일 피격 상태인 경우
+	else if (_planktonState == PlanktonState::Attacked) 
+	{
+		//플랑크톤 사이즈
+		//플랑크톤 빨강
+		_planktonRed->SetSize(_plankton->GetFrameSize(0));
+		//플랑크톤 하양
+		_planktonWhite->SetSize(_plankton->GetFrameSize(0));
+
+		//만일 피격 렌더가 true이면
+		if (_isAtkedRender == true) 
+		{
+			//플랑크톤 프레임 렌더
+			_planktonRed->FrameRender(_position.x, _position.y, _planktonAnimation->GetNowFrameX(), 0, Pivot::CENTER, true);
+		}
+		//만일 피격 렌더가 false이면
+		else if (_isAtkedRender == false) 
+		{
+			//플랑크톤 프레임 렌더
+			_planktonWhite->FrameRender(_position.x, _position.y, _planktonAnimation->GetNowFrameX(), 0, Pivot::CENTER, true);
+		}
+
+		//데미지 폰트 출력용
+		_DamageFontManager->ShowDamage(_position, _player->GetPlayerDamage());
+	}
+
+	//디버그 (F1)
+	if (_isDebug) 
+	{
+		//빨간 사각형 렌더
+		_DXRenderer->DrawRectangle(_renderRect, DefaultBrush::red, true);
+		_DXRenderer->DrawRectangle(_atkRect, DefaultBrush::gray, true, 5.0f);
+	}
+
 }
 
+//플랑크톤 상태 함수 (switch문)
 void Plankton::PlanktonStates()
 {
 	switch (_planktonState)
@@ -74,13 +166,58 @@ void Plankton::PlanktonStates()
 		//렉터 업데이트
 		this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
 
-
+		//플랑크톤 렉트와 플레이어 렉트가 충돌하면 상태를 공격 상태로 변경
+		RECT temp;
+		if (IntersectRect(&temp, &_renderRect, &_player->GetCollisionRect())) 
+		{
+			//공격 상태 변경
+			_planktonState = PlanktonState::Attack;
+		}
 		break;
+
+	//상태 : 공격 Attack
 	case Plankton::PlanktonState::Attack:
+		//공격 true
+		_isAttack = true;
 
+		//공격 카운트
+		_atkCount += _TimeManager->DeltaTime();
 
+		//공격 렉트 생성
+		_atkRect = UpdateRect(_position, _size, Pivot::CENTER);
+
+		//공격이 true이면
+		if (_isAttack == true) 
+		{
+			//공격 렉트와 플레이어 렉트가 충돌하면
+			if (IntersectRect(&temp, &_atkRect, &_player->GetCollisionRect()))
+			{
+				//피격 상태 변경
+				_planktonState = PlanktonState::Attacked;
+
+				//피격 : 플레이어 데미지 전달
+				_player->AttackedDamage(_damage);
+
+				//공격 false
+				_isAttack = false;
+			}
+		}
+		//공격 false이면
+		else if(_isAttack == false)
+		{
+			//따라가기 상태로 변경
+			_planktonState = PlanktonState::Follow;
+		}
 		break;
+
+	//상태 : 피격 Attacked
 	case Plankton::PlanktonState::Attacked:
+		//피격 true
+		_isAtked = true;
+		break;
+
+	//상태 : 죽음 Dead
+	case Plankton::PlanktonState::Dead:
 
 		break;
 	case Plankton::PlanktonState::End:
@@ -88,4 +225,60 @@ void Plankton::PlanktonStates()
 	default:
 		break;
 	}
+}
+
+
+//피격 상태인 경우, 밀리기와 컬러 렌더 시간 조절용 함수
+void Plankton::AtkedState(Vector2 position, float angle, float speed, float countValue)
+{
+	//델타 타임
+	float deltaTimeCount = 0.f;
+	//델타 타임++
+	deltaTimeCount += _TimeManager->DeltaTime();
+	
+	//피격 카운트
+	float atkedCount = 0.f;
+	//피격 카운트++
+	atkedCount += _TimeManager->DeltaTime();
+
+	//델타 타임 0.5초보다 작거나 같아지면
+	if (deltaTimeCount <= 0.5f) 
+	{
+		//포지션과 렉트 조정
+		position.x += cosf(angle) * speed * _TimeManager->DeltaTime();
+		position.y -= sinf(angle) * speed * _TimeManager->DeltaTime();
+		this->_renderRect = UpdateRect(position, _size, Pivot::CENTER);
+
+		//피격 카운트에 따라 피격 렌더 설정하기
+		if (atkedCount <= countValue)
+		{
+			//피격 렌더 (흰색)
+			_isAtkedRender = false;
+		}
+		if (atkedCount > countValue)
+		{
+			//피격 렌더 (빨강색)
+			_isAtkedRender = true;
+
+			//피격 카운트 값 초기화
+			countValue = 0;
+		}
+	}
+	//델타 타임 0.5초보다 커지면
+	if (deltaTimeCount > 0.5f) 
+	{
+		//델타 타임 초기화
+		deltaTimeCount = 0;
+		//상태 : 따라가기 변경
+		_planktonState = PlanktonState::Follow;
+		
+		//피격 false
+		_isAtked = false;
+	}
+}
+
+void Plankton::InvenStop(bool isInvenStop)
+{
+	//함수가 호출되면 _isInvenStop의 상태를 인자 값으로 변경 
+	_isInvenStop = isInvenStop;
 }

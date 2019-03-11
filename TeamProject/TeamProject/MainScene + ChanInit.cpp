@@ -12,6 +12,7 @@
 #include "UIMoneyPoket.h"
 #include "Effect.h"
 #include "Dungeon_Map_02.h"
+#include "Plankton.h"
 //여기서 필요한 리소스 로드 및 클래스 할당하시면 됩니다. 
 //Init은 ㄴㄴ new 하고 ObjectManager에 추가 ㅇㅇ
 
@@ -96,6 +97,9 @@ void MainScene::ChanInit()
 		_ObjectManager->AddObject(ObjectType::Effect, new Effect);
 	}
 	
+	//몬스터
+	_ObjectManager->AddObject(ObjectType::Object, new Plankton(Vector2(150, 250)));
+
 
 	//for (UINT i = 0; i < 10; ++i)
 	//{
@@ -129,6 +133,18 @@ void TownScene::ChanInit()
 //여기다가 1번 던전것들 올리시면 됩니다유
 void Dungeon_Map_01::ChanInit()
 {
+	//인벤토리 등록
+	_ObjectManager->AddObject(ObjectType::UI, new Inventory);
+
+	//UI 무기 스왑 / UI 가방
+	_ObjectManager->AddObject(ObjectType::UI, new UIWeaponAndBag);
+
+	//UI 프로그래스 바
+	_ObjectManager->AddObject(ObjectType::UI, new ProgressBar);
+
+	//UI 돈 주머니
+	_ObjectManager->AddObject(ObjectType::UI, new UIMoneyPoket);
+
 	//이팩트
 	for (UINT i = 0; i < 30; ++i)
 	{
@@ -138,6 +154,18 @@ void Dungeon_Map_01::ChanInit()
 //보스방 던전 여따가 넣을거 넣으심 됨요
 void Dungeon_Map_Boss::ChanInit()
 {
+	//인벤토리 등록
+	_ObjectManager->AddObject(ObjectType::UI, new Inventory);
+
+	//UI 무기 스왑 / UI 가방
+	_ObjectManager->AddObject(ObjectType::UI, new UIWeaponAndBag);
+
+	//UI 프로그래스 바
+	_ObjectManager->AddObject(ObjectType::UI, new ProgressBar);
+
+	//UI 돈 주머니
+	_ObjectManager->AddObject(ObjectType::UI, new UIMoneyPoket);
+
 	//이팩트
 	for (UINT i = 0; i < 30; ++i)
 	{
@@ -147,6 +175,18 @@ void Dungeon_Map_Boss::ChanInit()
 
 void Dungeon_Map_02::ChanInit()
 {
+	//인벤토리 등록
+	_ObjectManager->AddObject(ObjectType::UI, new Inventory);
+
+	//UI 무기 스왑 / UI 가방
+	_ObjectManager->AddObject(ObjectType::UI, new UIWeaponAndBag);
+
+	//UI 프로그래스 바
+	_ObjectManager->AddObject(ObjectType::UI, new ProgressBar);
+
+	//UI 돈 주머니
+	_ObjectManager->AddObject(ObjectType::UI, new UIMoneyPoket);
+
 	//이팩트
 	for (UINT i = 0; i < 30; ++i)
 	{

@@ -25,7 +25,7 @@ private:
 	class UIWeaponAndBag* _UIWeaponSwap;
 
 	class Animation* _mainAnimation;
-
+	
 	//vector <Arrow> _arrow;//화살 클래스 사용을 위한 선언
 
 
@@ -33,7 +33,7 @@ private:
 	State _state;
 	
 	RECT _collisionRect;	//충돌용 RECT
-	RECT _swordRect;			//공격용 RECT
+	RECT _swordRect;		//칼 공격용 RECT
 	RECT _shieldRect;		//방어용 RECT
 	
 	float _speed;
@@ -73,38 +73,27 @@ public:
 	void Update()override;
 	void Render()override;
 
-	void EndAnimation();
-	void Attack();
-
 public:
 	void Move(Vector2 direction);
 	void ChangeAnimation(State state);
 	void ChangeState(State state);
 	void CreateAnimation();	
-	//void IdleKeyInput();
 	bool InterRee(RECT* moveRc, RECT* unMoveRc);
 
-	
-	//UI,인벤토리 클래스에 넘겨주기 위한 함수 3개	
-	int GetPlayerCurrentHp() { return _currentHp; }
-	int GetPlayerMaxHp() { return _maxHp; }
-	POINT GetPlayerIndex();
-
-	RECT GetCollisionRect()const override {	return _collisionRect;}
-	
-	//에너미 클래스에 넘겨주기 위한 함수
-	int GetPlayerDamage() { return _damage; }
-	
 	void AttackedDamage(int damage);
 	void InventoryOnOff();
-	//void AtkDelay();
 
-	
+	void EndAnimation();
+	void Attack();
 	void AtkDelay2();
-	//void BodyAttack();
 	
-	//동작 enum값 전달 함수
-	State GetState() { return _state;}
+	POINT GetPlayerIndex();
+	int GetPlayerCurrentHp() { return _currentHp; }
+	int GetPlayerMaxHp() { return _maxHp; }
+	RECT GetCollisionRect()const override { return _collisionRect; }
+	RECT GetSwordRect() const { return _swordRect; }
+	int GetPlayerDamage() { return _damage; }		//에너미 클래스에 넘겨주기 위한 함수
+	State GetState() { return _state; }				//동작 enum값 전달 함수
 
 };
 

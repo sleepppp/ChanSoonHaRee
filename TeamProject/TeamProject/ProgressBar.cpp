@@ -32,13 +32,13 @@ void ProgressBar::Init()
 	_imgFrameX = 0;
 	_imgFrameY = 1;
 
-	_testMaxHp = 100;
-	_testCurrentHp = 100;
+	//_testMaxHp = 100;
+	//_testCurrentHp = 100;
 
 	//세이브 hp 는 currentHp;
-	//Player* _player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
-	//_saveHp = _player->GetPlayerMaxHp();
-	_saveHp = _testMaxHp; 
+	Player* _player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
+	_saveHp = _player->GetPlayerMaxHp();
+	//_saveHp = _testMaxHp; 
 
 	_barState = ProgressState::DefaultState;
 
@@ -46,8 +46,8 @@ void ProgressBar::Init()
 	//_testCurrentHp = 50;
 	//_testMaxHp = 100;
 
-	SetGauge(_testCurrentHp, _testMaxHp);
-	this->_hpWidth = ((float)_saveHp / (float)_testMaxHp) * (float)_progressBarFrontIMG->GetWidth();
+	SetGauge(_player->GetPlayerCurrentHp(), _player->GetPlayerMaxHp());
+	this->_hpWidth = ((float)_saveHp / (float)_player->GetPlayerMaxHp()) * (float)_progressBarFrontIMG->GetWidth();
 }
 
 void ProgressBar::Release()
@@ -66,15 +66,19 @@ void ProgressBar::Update()
 
 	//세이브 HP에 현재 HP에 담기
 	//_saveHp = _player->GetPlayerCurrentHp();
-	if (_Input->GetKeyDown('P'))
-	{
-		_testCurrentHp -= 20;
-	}
+
+	//if (_Input->GetKeyDown('P'))
+	//{
+	//	//플레이어 클래스 접근해서 플레이어 함수 가져오기
+	//	Player* _player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
+	//
+	//	_player->GetPlayerCurrentHp() -= 20;
+	//}
 
 
 	//변화한 HP바 길이 얻기
-	//SetGauge(_player->GetPlayerCurrentHp(), _player->GetPlayerMaxHp());
-	SetGauge(_testCurrentHp, _testMaxHp);
+	SetGauge(_player->GetPlayerCurrentHp(), _player->GetPlayerMaxHp());
+	//SetGauge(_testCurrentHp, _testMaxHp);
 
 	//프로그래스 바 상태 함수
 	ProgressBarState();
@@ -101,17 +105,26 @@ void ProgressBar::Render()
 
 bool ProgressBar::SetGauge(int currentHp, int maxHp)
 {
+	//플레이어 클래스 접근해서 플레이어 함수 가져오기
+	Player* _player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
+
 	//만일 saveHp가 currentHp와 다르면
 	//FLOAT_EQUAL은 
-	if (FLOAT_EQUAL(_saveHp, _testCurrentHp) == false)
+	if (FLOAT_EQUAL(_saveHp, _player->GetPlayerCurrentHp()) == false)
 	{
 		//saveHp를 깎는다.
 		_saveHp -= 13.0f * _TimeManager->DeltaTime();
 		_barState = ProgressState::DamageState;
 		//만일 saveHp가 currentHp와 같거나 낮아지면 saveHp를 currentHp 값으로 맞춘다.
-		if (_saveHp <= _testCurrentHp) 
+		//if (_saveHp <= _testCurrentHp) 
+		//{
+		//	_saveHp = _testCurrentHp;
+		//	_barState = ProgressState::DamageEndState;
+		//}
+
+		if (_saveHp <= _player->GetPlayerCurrentHp())
 		{
-			_saveHp = _testCurrentHp;
+			_saveHp = _player->GetPlayerCurrentHp();
 			_barState = ProgressState::DamageEndState;
 		}
 			

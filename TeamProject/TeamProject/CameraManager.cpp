@@ -326,6 +326,11 @@ void CameraManager::SetTarget(GameObject * object)
 	}
 }
 
+void CameraManager::SetFreeCamera()
+{
+	state = MoveState::FreeCamera;
+}
+
 void CameraManager::Shake(float strength,float shakeTime)
 {
 	if (isShake == false)

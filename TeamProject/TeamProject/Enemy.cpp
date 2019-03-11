@@ -20,7 +20,7 @@ void Enemy::Init()
 //내 뎀지를 넘기기 위한 함수.
 void Enemy::AttackedDemege(int damage)
 {
-	//_hp -= damage;
+	_hp -= damage;
 	if (_hp <= 0)
 	{
 		this->Destroy();
