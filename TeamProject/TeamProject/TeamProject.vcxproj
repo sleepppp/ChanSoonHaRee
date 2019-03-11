@@ -158,6 +158,7 @@
     <ClInclude Include="DebugCollider.h" />
     <ClInclude Include="DebugObject.h" />
     <ClInclude Include="DebugSystem.h" />
+    <ClInclude Include="DungeonGate.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="DungeonLobby.h" />
     <ClInclude Include="Dungeon_Map_Boss.h" />
@@ -242,6 +243,7 @@
     <ClCompile Include="DebugCollider.cpp" />
     <ClCompile Include="DebugObject.cpp" />
     <ClCompile Include="DebugSystem.cpp" />
+    <ClCompile Include="DungeonGate.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="DungeonLobby.cpp" />
     <ClCompile Include="Dungeon_Map_Boss.cpp" />

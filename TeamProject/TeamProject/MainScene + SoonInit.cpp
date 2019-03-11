@@ -16,11 +16,18 @@
 #include "Tree.h"
 #include "Program.h"
 #include "Player.h"
+#include "DungeonGate.h"
 
 void Program::LoadResourceSoon()
 {
+	_ImageManager->AddFrameImage("door", L"../Resources/Object/door.png", 5, 1);
 	_ImageManager->AddFrameImage("tree", PathResources(L"Object/tree.png"), 4, 1);
 	_ImageManager->AddFrameImage("RivalFauntain", PathResources(L"Object/RivalFauntain.png"), 9, 1);
+	_ImageManager->AddFrameImage("dungeonLobby_goInDungeon", PathResources(L"Object/dungeonLobby_goInDungeon.png"), 21, 1);
+	_ImageManager->AddFrameImage("dungeonLobby_goOutDungeon", PathResources(L"Object/dungeonLobby_goOutDungeon.png"), 55, 1);
+	_ImageManager->AddFrameImage("dungeonLobby_doorOpen", PathResources(L"Object/dungeonLobby_doorOpen.png"), 16, 1);
+	_ImageManager->AddFrameImage("DungeonGateOpenIdle", PathResources(L"Object/DungeonGateOpenIdle.png"), 6, 1);
+	_ImageManager->AddFrameImage("dungeonLobby_bottomLeftTent", PathResources(L"Object/dungeonLobby_bottomLeftTent.png"), 8, 1);
 
 	_ImageManager->AddImage("LeftDoor", PathResources(L"Scene/door_left.png"));
 	_ImageManager->AddImage("RightDoor", PathResources(L"Scene/door_right.png"));
@@ -29,12 +36,17 @@ void Program::LoadResourceSoon()
 	_ImageManager->AddFrameImage("door_light", PathResources(L"Scene/door_light.png"), 30, 1, false);
 
 	_ImageManager->AddImage("Dungeon_Lobby", PathResources(L"Scene/Dungeon_Lobby.png"));
+	_ImageManager->LoadFolder("../Resources/Object/", "*.png");
 
 	_SoundManager->AddSound("DoorOpen", PathSounds("door.wav"));
 	_SoundManager->AddSound("introBGM", PathSounds("introBGM.mp3"), true, true);
+	_SoundManager->AddSound("townBGM", PathSounds("townBGM.mp3"), true, true);
+	_SoundManager->AddSound("poolRoomBGM", PathSounds("poolRoomBGM.mp3"), true, true);
+	_SoundManager->AddSound("dungeonBGM", PathSounds("dungeonBGM.mp3"), true, true);
+	_SoundManager->AddSound("dungeon_entrance_slime_door_absorb", PathSounds("dungeon_entrance_slime_door_absorb.wav"));
+
 	_SoundManager->SetMusicVolume(0.1f);
 
-	_ImageManager->LoadFolder("../Resources/Object/", "*.png");
 }
 
 
@@ -236,6 +248,8 @@ void DungeonLobby::SoonInit()
 
 	temp = new StaticObject("dungeonLobby_bottomRight2Rock", Vector2(1422, 1871));
 	_ObjectManager->AddObject(ObjectType::Object, temp);
+
+	_ObjectManager->AddObject(ObjectType::Object, new DungeonGate);
 
 	_ObjectManager->AddObject(ObjectType::Object, new SceneChangeObject({ 1182,2080,1327,2102}, []()
 	{

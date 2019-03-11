@@ -66,6 +66,7 @@ void Door::Update()
 				_SceneManager->FindScene(Door::_mapName)->Init(); 
 			});
 			_SceneManager->LoadScene("LoadingScene");
+			_SoundManager->FadeoutBGM();
 			return;
 		}
 		_doorCount = 0;

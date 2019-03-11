@@ -25,7 +25,7 @@ class CameraManager
 {
 	//싱글톤으로 생성
 	SingletonHeader(CameraManager)
-private:
+public:
 	enum MoveState {None,MoveToTarget,FreeCamera,End};		//카메라 상태 값
 private:
 	MoveState state;								//카메라 상태
@@ -42,6 +42,7 @@ private:
 	float totalShakeTime;
 	float shakeTime;
 	float shakeDirection;
+	float moveStartDistance;
 public:
 	void Update();
 	void OnGui();
@@ -59,10 +60,11 @@ public:
 	float GetZoom()const { return this->zoomFactor; }
 	void CameraProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void SetTarget(class GameObject* object);
+	void SetCameraMoveDistance(float distance = CameraMoveStartDistance) { moveStartDistance = distance; }
 
 	void Shake(float strength = CameraDefaultStrength,float shakeTime = CameraDefaultShakeTime);
 	void InitCameraToPlayer();
-
+	void SetState(MoveState state) { this->state = state; }
 private:
 	void UpdateRenderRect();
 	void UpdateFreeCameraMode();

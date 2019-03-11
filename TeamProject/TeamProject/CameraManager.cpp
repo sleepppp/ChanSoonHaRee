@@ -10,7 +10,7 @@ SingletonCpp(CameraManager)
 ***************************************************************************/
 CameraManager::CameraManager()
 	:mapSize((float)WinSizeX,(float)WinSizeY),pTarget(nullptr),zoomFactor(1.0f),
-	speed(100.0f), state(CameraManager::FreeCamera), shakeDirection(1.f)
+	speed(100.0f), state(CameraManager::FreeCamera), shakeDirection(1.f), moveStartDistance(CameraMoveStartDistance)
 {
 	this->position = Vector2(0.f,0.f);
 	this->cameraRect = Figure::RectMake(
@@ -43,6 +43,21 @@ void CameraManager::Update()
 		this->UpdateFreeCameraMode();
 		break;
 	case CameraManager::End:
+		if (isShake == true)
+		{
+			shakeDirection = -1.f * shakeDirection;
+			shakeTime -= _TimeManager->DeltaTime();
+			shakeStrength -= (shakeTime / totalShakeTime) *_TimeManager->DeltaTime();
+			float strengh = shakeStrength * shakeDirection;
+			position += Vector2(0.f, strengh);
+			this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+
+			if (shakeTime <= 0.f)
+			{
+				isShake = false;
+			}
+			this->AmendCamera();
+		}
 		break;
 	default:
 		break;
@@ -203,7 +218,7 @@ void CameraManager::UpdateTargetCameraMode()
 			{
 			case MoveState::None:
 			{
-				if (toTarget.GetLength() > CameraMoveStartDistance)
+				if (toTarget.GetLength() > moveStartDistance)
 				{
 					this->state = MoveState::MoveToTarget;
 				}

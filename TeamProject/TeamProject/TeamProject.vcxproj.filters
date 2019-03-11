@@ -163,6 +163,9 @@
     <Filter Include="PrivateForder\Soon\Module\Database">
       <UniqueIdentifier>{1fc44241-7214-468d-912e-435940408178}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainEntry\Scene\DungeonLobby\DungeonLobbyObject">
+      <UniqueIdentifier>{1d090a25-8405-4eb0-94a8-56f6bed5602d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -393,14 +396,8 @@
     <ClInclude Include="Plankton.h">
       <Filter>PrivateForder\Chan\Effect\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="testYap.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="DebugSystem.h">
       <Filter>System\DebugSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="DungeonLobby.h">
-      <Filter>MainEntry\Scene\DungeonLobby</Filter>
     </ClInclude>
     <ClInclude Include="DebugObject.h">
       <Filter>PrivateForder\Soon\Tutorial</Filter>
@@ -413,6 +410,12 @@
     </ClInclude>
     <ClInclude Include="Database.h">
       <Filter>PrivateForder\Soon\Module\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonLobby.h">
+      <Filter>MainEntry\Scene\DungeonLobby</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonGate.h">
+      <Filter>MainEntry\Scene\DungeonLobby\DungeonLobbyObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -644,17 +647,11 @@
     <ClCompile Include="Plankton.cpp">
       <Filter>PrivateForder\Chan\Effect\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="testYap.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="DebugSystem.cpp">
       <Filter>System\DebugSystem</Filter>
     </ClCompile>
     <ClCompile Include="Program.cpp">
       <Filter>MainEntry</Filter>
-    </ClCompile>
-    <ClCompile Include="DungeonLobby.cpp">
-      <Filter>MainEntry\Scene\DungeonLobby</Filter>
     </ClCompile>
     <ClCompile Include="DebugObject.cpp">
       <Filter>PrivateForder\Soon\Tutorial</Filter>
@@ -667,6 +664,15 @@
     </ClCompile>
     <ClCompile Include="Database.cpp">
       <Filter>PrivateForder\Soon\Module\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAni.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonLobby.cpp">
+      <Filter>MainEntry\Scene\DungeonLobby</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonGate.cpp">
+      <Filter>MainEntry\Scene\DungeonLobby\DungeonLobbyObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

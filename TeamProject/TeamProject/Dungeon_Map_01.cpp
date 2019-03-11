@@ -42,6 +42,11 @@ void Dungeon_Map_01::Init()
 	this->ReeInit();
 	
 	_ObjectManager->Init();
+	_Camera->SetMapSize(Vector2((int)map->GetWidth(),(int) map->GetHeight()));
+	_Camera->InitCameraToPlayer();
+	_Camera->SetState(CameraManager::MoveState::End);
+
+	_SoundManager->PlayBGM("dungeonBGM");
 }
 
 void Dungeon_Map_01::Release()
@@ -56,7 +61,7 @@ void Dungeon_Map_01::Update()
 
 void Dungeon_Map_01::Render()
 {
-	map->Render(0, 0, Pivot::LEFT_TOP, true);
+	map->Render(3, 3, Pivot::LEFT_TOP, true);
 	_ObjectManager->Render();
 }
 

@@ -5,6 +5,7 @@
 void DungeonLobby::Init()
 {
 	_background = _ImageManager->FindImage("Dungeon_Lobby");
+	
 	this->SoonInit();
 	this->ReeInit();
 	this->HaInit();
@@ -19,7 +20,10 @@ void DungeonLobby::Init()
 	}
 
 	_Camera->SetMapSize(Vector2(CastingInt(_background->GetWidth()), CastingInt(_background->GetHeight())));
+	_Camera->SetCameraMoveDistance();
 	_Camera->InitCameraToPlayer();
+
+	_SoundManager->PlayBGM("poolRoomBGM");
 }
 
 void DungeonLobby::Release()

@@ -30,7 +30,10 @@ void TownScene::Init()
 	}
 
 	_Camera->SetMapSize(Vector2((float)_townBackgroundImage->GetWidth(),(float) _townBackgroundImage->GetHeight()));
+	_Camera->SetCameraMoveDistance();
 	_Camera->InitCameraToPlayer();
+
+	_SoundManager->PlayBGM("townBGM");
 }
 
 void TownScene::Release()

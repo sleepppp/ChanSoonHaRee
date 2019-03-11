@@ -27,6 +27,7 @@ void SceneChangeObject::Update()
 		{
 			if(this->_func)
 				this->_func();
+			_SoundManager->FadeoutBGM();
 		}
 	}
 }
