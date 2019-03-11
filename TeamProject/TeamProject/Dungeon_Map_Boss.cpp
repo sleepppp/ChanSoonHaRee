@@ -20,8 +20,9 @@ void Dungeon_Map_Boss::Init()
 	_ObjectManager->Init();
 
 	_map = _ImageManager->AddImage("BoosRoom", L"../Resources/Scene/BossRoom.png", true);
-	_Camera->SetMapSize(Vector2((float)_map->GetWidth(), (float)_map->GetHeight()));
-	_Camera->SetTarget(_ObjectManager->FindObject(ObjectType::Object, "Will"));
+	//_Camera->SetMapSize(Vector2((float)_map->GetWidth(), (float)_map->GetHeight()));
+	//_Camera->SetTarget(_ObjectManager->FindObject(ObjectType::Object, "Will"));
+	_Camera->SetFreeCamera();
 }
 
 void Dungeon_Map_Boss::Release()
