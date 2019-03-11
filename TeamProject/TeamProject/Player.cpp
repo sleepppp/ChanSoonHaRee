@@ -33,9 +33,9 @@ Player::Player(Vector2 pos)
 	//이미지 추가, 매니저에서 FInd 하여 찾아옴
 	_ImageManager->AddFrameImage("Will", L"../Resources/Player/will_dungeon.png", 10, 13);
 	this->_imgMove = _ImageManager->FindImage("Will");
-	_ImageManager->AddFrameImage("Will_Sword", L"../Resources/Player/will_sword.png", 10, 4);
+	_ImageManager->AddFrameImage("Will_Sword", L"../Resources/Player/will_sword.png", 11, 4);
 	this->_imgAtkSword = _ImageManager->FindImage("Will_Sword");
-	_ImageManager->AddFrameImage("Will_Bow", L"../Resources/Player/will_bow.png", 8, 4);
+	_ImageManager->AddFrameImage("Will_Bow", L"../Resources/Player/will_bow.png", 9, 4);
 	this->_imgAtkBow = _ImageManager->FindImage("Will_Bow");
 
 
@@ -53,11 +53,12 @@ Player::Player(Vector2 pos)
 	this->_isMoveStop = false;			//움직임을 멈추기 위한 bool값
 	this->_isChangeSword = false;		//공격시 이미지 파일 변경을 위한 bool값
 	this->_isChangeBow = false;			//활 공격시 이미지 파일 변경을 위한 bool값
+	this->_isStandardMove = true;
 	this->_damage = 20;					//플레이어 기본 무기 데미지
 
 	this->_frameIdle = 0.1f;			//스피드 변경을 위한 변수
 	this->_frameRun = 0.1f;				//스피드 변경을 위한 변수
-
+	this->_frameBow = 0.08f;
 	this->_swordWidth= 40;
 	this->_swordHeight= 20;
 
@@ -126,6 +127,8 @@ void Player::Update()
 		if (_Input->GetKeyDown('Z'))
 		{
 			_isChangeBow = !_isChangeBow;
+			
+			//테스트용
 			if (_isChangeBow)cout << "Bow" << endl;
 			else  if (!_isChangeBow)cout << "Sword" << endl;
 		}
@@ -142,6 +145,7 @@ void Player::Update()
 			else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
 			else if (!_isChangeBow && _Input->GetKey('J')) this->ChangeState(State::LeftSword1);
 			else if (_isChangeBow && _Input->GetKey('J')) this->ChangeState(State::LeftBow);
+			//else if(_Input->GetKeyDown('Z'))
 			break;
 
 		case Player::State::RightIdle:
@@ -395,7 +399,13 @@ void Player::Render()
 	_imgMove->SetAlpha(_alpha);
 
 	//렌더링: 두개의 이미지를 상황에 맞게 번갈아가면서 사용하도록 조건을 준다.
-	if (_isChangeSword == true)
+	//무기 교체만 하는 상태에도 기본 무브 사용해야 하므로 공격 버튼 누를때만 렌더하도록 다른 조건을 줄 것
+	
+	if (_isStandardMove == true)
+	{
+		_imgMove->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
+	}
+	else if (_isChangeSword == true)
 	{		
 		_imgAtkSword->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
 	}	
@@ -404,11 +414,7 @@ void Player::Render()
 		_imgAtkBow->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
 		//_arrow->Render();
 	}
-	else 
-	{
-		_imgMove->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
-	}
-
+	
 	//디버그 모드라면 디버그 렉트들 렌더링 (F1)
 	if (_isDebug)
 	{
@@ -445,121 +451,149 @@ void Player::ChangeState(State state)
 	{
 	case Player::State::LeftIdle:
 		_isChangeSword = false;		
-		_isChangeBow = false;
+		//_isChangeBow = false;
+		_isStandardMove = true;
 		break;
 	case Player::State::RightIdle:
 		_isChangeSword = false;
-		_isChangeBow = false;
+		//_isChangeBow = false;
+		_isStandardMove = true;
 		break;
 	case Player::State::UpIdle:
 		_isChangeSword = false;
-		_isChangeBow = false;
+		//_isChangeBow = false;
+		_isStandardMove = true;
 		break;
 	case Player::State::DownIdle:
 		_isChangeSword = false;
-		_isChangeBow = false;
+		//_isChangeBow = false;
+		_isStandardMove = true;
 		break;
 	case Player::State::LeftRun:
 		_isChangeSword = false;
-		_isChangeBow = false;
+		//_isChangeBow = false;
+		_isStandardMove = true;
 		break;
 	case Player::State::RightRun:
 		_isChangeSword = false;
-		_isChangeBow = false;
+		//_isChangeBow = false;
+		_isStandardMove = true;
 		break;
 	case Player::State::UpRun:
 		_isChangeSword = false;
-		_isChangeBow = false;
+		//_isChangeBow = false;
+		_isStandardMove = true;
 		break;
 	case Player::State::DownRun:
 		_isChangeSword = false;
-		_isChangeBow = false;
+		//_isChangeBow = false;
+		_isStandardMove = true;
 		break;
 	case Player::State::LeftRoll:
 		_isChangeSword = false;
-		_isChangeBow = false;
+		//_isChangeBow = false;
+		_isStandardMove = true;
 		break;
 	case Player::State::RightRoll:
 		_isChangeSword = false;
-		_isChangeBow = false;
+		//_isChangeBow = false;
+		_isStandardMove = true;
 		break;
 	case Player::State::UpRoll:
 		_isChangeSword = false;
-		_isChangeBow = false;
+		//_isChangeBow = false;
+		_isStandardMove = true;
 		break;
 	case Player::State::DownRoll:
 		_isChangeSword = false;
-		_isChangeBow = false;
+		//_isChangeBow = false;
+		_isStandardMove = true;
 		break;
 		//======================================================
 	case Player::State::LeftSword1:
 		_isChangeSword = true;		
-		_isChangeBow = false;
+		//_isChangeBow = false;
 		_isAttacked = false;
+		_isStandardMove = false;
 		//if(_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //칼 렉트
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //칼 렉트
 		break;
 	case Player::State::RightSword1:
 		_isChangeSword = true;
-		_isChangeBow = false;
-		_isAttacked = false;		
+		//_isChangeBow = false;
+		_isAttacked = false;	
+		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight); //칼 렉트 
 		break;
 	case Player::State::UpSword1:
 		_isChangeSword = true;	
-		_isChangeBow = false;
-		_isAttacked = false;		
+		//_isChangeBow = false;
+		_isAttacked = false;	
+		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth); //칼 렉트
 		break;
 	case Player::State::DownSword1:
 		_isChangeSword = true;
-		_isChangeBow = false;
+		//_isChangeBow = false;
 		_isAttacked = false;
+		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth); //칼 렉트
 		break;
 		//======================================================
 	case Player::State::LeftSword2:
 		_isChangeSword = true;
-		_isChangeBow = false;
+		//_isChangeBow = false;
 		_isAttacked = false;
+		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //칼 렉트
 		break;
 	case Player::State::RightSword2:
 		_isChangeSword = true;
-		_isChangeBow = false;
+		//_isChangeBow = false;
 		_isAttacked = false;
+		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight);  //칼 렉트
 		break;
 	case Player::State::UpSword2:
 		_isChangeSword = true;
-		_isChangeBow = false;
+		//_isChangeBow = false;
 		_isAttacked = false;
+		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth);  //칼 렉트
 		break;
 	case Player::State::DownSword2:
 		_isChangeSword = true;
-		_isChangeBow = false;
+		//_isChangeBow = false;
 		_isAttacked = false;
+		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth);  //칼 렉트
 		break;
 		//======================================================
 	case Player::State::LeftBow:
-		_isChangeBow = true;
+		_isChangeSword = false;
+		//_isChangeBow = true;
+		_isStandardMove = false;
 		_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Left));
 		break;
 
 	case Player::State::RightBow:
-		_isChangeBow = true;
+		_isChangeSword = false;
+		//_isChangeBow = true;
+		_isStandardMove = false;
 		_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Right));
 		break;
 
 	case Player::State::UpBow:
-		_isChangeBow = true;
+		_isChangeSword = false;
+		//_isChangeBow = true;
+		_isStandardMove = false;
 		_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Up));
 		break;
 
 	case Player::State::DownBow:
-		_isChangeBow = true;
+		_isChangeSword = false;
+		//_isChangeBow = true;
+		_isStandardMove = false;
 		_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Down));
 		break;
 
@@ -763,58 +797,58 @@ void Player::CreateAnimation()
 	_animationList.insert(make_pair(State::DownSword1, downSword1));
 	//=======================================================================
 	Animation* leftSword2 = new Animation;
-	leftSword2->SetStartEndFrame(5, 3, 9, 3, false);
+	leftSword2->SetStartEndFrame(5, 3, 10, 3, false);
 	leftSword2->SetIsLoop(false);
 	leftSword2->SetFrameUpdateTime(_frameRun);
 	leftSword2->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::LeftSword2, leftSword2));
 
 	Animation* rightSword2 = new Animation;
-	rightSword2->SetStartEndFrame(5, 2, 9, 2, false);
+	rightSword2->SetStartEndFrame(5, 2, 10, 2, false);
 	rightSword2->SetIsLoop(false);
 	rightSword2->SetFrameUpdateTime(_frameRun);
 	rightSword2->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::RightSword2, rightSword2));
 
 	Animation* upSword2 = new Animation;
-	upSword2->SetStartEndFrame(5, 0, 9, 0, false);
+	upSword2->SetStartEndFrame(5, 0, 10, 0, false);
 	upSword2->SetIsLoop(false);
 	upSword2->SetFrameUpdateTime(_frameRun);
 	upSword2->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::UpSword2, upSword2));
 
 	Animation* downSword2 = new Animation;
-	downSword2->SetStartEndFrame(5, 1, 9, 1, false);
+	downSword2->SetStartEndFrame(5, 1, 10, 1, false);
 	downSword2->SetIsLoop(false);
 	downSword2->SetFrameUpdateTime(_frameRun);
 	downSword2->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::DownSword2, downSword2));
 	//=====================================================================================
 	Animation* leftBow = new Animation;
-	leftBow->SetStartEndFrame(0, 3, 7, 3, false);
+	leftBow->SetStartEndFrame(0, 3, 8, 3, false);
 	leftBow->SetIsLoop(false);
-	leftBow->SetFrameUpdateTime(0.2f);
+	leftBow->SetFrameUpdateTime(_frameBow);
 	leftBow->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::LeftBow, leftBow));
 
 	Animation* rightBow = new Animation;
-	rightBow->SetStartEndFrame(0, 2, 7, 2, false);
+	rightBow->SetStartEndFrame(0, 2, 8, 2, false);
 	rightBow->SetIsLoop(false);
-	rightBow->SetFrameUpdateTime(0.2f);
+	rightBow->SetFrameUpdateTime(_frameBow);
 	rightBow->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::RightBow, rightBow));
 
 	Animation* upBow = new Animation;
-	upBow->SetStartEndFrame(0, 0, 7, 0, false);
+	upBow->SetStartEndFrame(0, 0, 8, 0, false);
 	upBow->SetIsLoop(false);
-	upBow->SetFrameUpdateTime(0.2f);
+	upBow->SetFrameUpdateTime(_frameBow);
 	upBow->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::UpBow, upBow));
 
 	Animation* downBow = new Animation;
-	downBow->SetStartEndFrame(0, 1, 7, 1, false);
+	downBow->SetStartEndFrame(0, 1, 8, 1, false);
 	downBow->SetIsLoop(false);
-	downBow->SetFrameUpdateTime(0.2f);
+	downBow->SetFrameUpdateTime(_frameBow);
 	downBow->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::DownBow, downBow));
 
@@ -937,35 +971,6 @@ void Player::EndAnimation()
 }
 
 /********************************************************************************/
-//## IdleKeyInut ##
-//Idle 상태일 때 키 입력 처리
-/********************************************************************************/
-//void Player::IdleKeyInput()
-//{
-//	if (_Input->GetKeyDown('A'))
-//	{
-//		this->ChangeState(State::LeftRun);
-//	}
-//	else if (_Input->GetKeyDown('D'))
-//	{
-//		this->ChangeState(State::RightRun);
-//	}
-//	else if (_Input->GetKeyDown('W'))
-//	{
-//		this->ChangeState(State::UpRun);
-//	}
-//	else if (_Input->GetKeyDown('S'))
-//	{
-//		this->ChangeState(State::DownRun);
-//	}
-//	else if (_Input->GetKeyDown('K'))
-//	{
-//		_arrow->Update();
-//	}
-//
-//}
-
-/********************************************************************************/
 //## InterRect ##
 //오브젝트와 충돌을 위한 함수
 /********************************************************************************/
@@ -1039,7 +1044,7 @@ POINT Player::GetPlayerIndex()
 }
 
 //=======================================
-//공격함수
+//검 공격함수
 //=======================================
 void Player::Attack()
 {

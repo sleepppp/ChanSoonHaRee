@@ -151,8 +151,11 @@
     <Filter Include="PrivateForder\Chan\Effect">
       <UniqueIdentifier>{5ca445c5-d344-47bf-9928-4267c328661b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PrivateForder\Chan\Enemy">
+    <Filter Include="PrivateForder\Chan\Effect\Enemy">
       <UniqueIdentifier>{1de75822-83fa-4fc0-afed-bfdbcf96b6ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\DebugSystem">
+      <UniqueIdentifier>{d6e92e84-1e42-41f4-9a6a-2a0cebe0595b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -372,9 +375,6 @@
     <ClInclude Include="UIMoneyPoket.h">
       <Filter>PrivateForder\Chan\UI</Filter>
     </ClInclude>
-    <ClInclude Include="DebugSystem.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Arrow.h">
       <Filter>PrivateForder\Ree</Filter>
     </ClInclude>
@@ -388,7 +388,16 @@
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
     <ClInclude Include="Plankton.h">
-      <Filter>PrivateForder\Chan\Enemy</Filter>
+      <Filter>PrivateForder\Chan\Effect\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="testYap.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="testYap.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugSystem.h">
+      <Filter>System\DebugSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -608,9 +617,6 @@
     <ClCompile Include="UIMoneyPoket.cpp">
       <Filter>PrivateForder\Chan\UI</Filter>
     </ClCompile>
-    <ClCompile Include="DebugSystem.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Arrow.cpp">
       <Filter>PrivateForder\Ree</Filter>
     </ClCompile>
@@ -623,11 +629,20 @@
     <ClCompile Include="Dungeon_Map_Boss.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
-    <ClCompile Include="Program.cpp">
-      <Filter>MainEntry\Scene\TitleScene</Filter>
-    </ClCompile>
     <ClCompile Include="Plankton.cpp">
-      <Filter>PrivateForder\Chan\Enemy</Filter>
+      <Filter>PrivateForder\Chan\Effect\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="testYap.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="testYap.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugSystem.cpp">
+      <Filter>System\DebugSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Program.cpp">
+      <Filter>MainEntry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

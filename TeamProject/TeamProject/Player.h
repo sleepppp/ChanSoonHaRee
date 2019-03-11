@@ -30,7 +30,7 @@ private:
 	class Image* _imgAtkBow;	//플레이어 공격 활 이미지
 	
 	class Arrow* _arrow;		//화살 클래스 사용을 위한 선언
-	
+	class UIWeaponAndBag* _UIWeaponSwap;
 	class Animation* _mainAnimation;
 
 	map<State, class Animation*> _animationList;	//상태별 애니를 관리하기 위해 맵 사용
@@ -48,11 +48,12 @@ private:
 
 	float _frameRun;
 	float _frameIdle;
-	float _frameRoll;
+	float _frameBow;
 
 	bool _isMoveStop;
 	bool _isChangeSword;		//칼 이미지와 스탠드 무브 전환용 bool값
 	bool _isChangeBow;
+	bool _isStandardMove;
 
 	int _swordWidth;
 	int _swordHeight;
