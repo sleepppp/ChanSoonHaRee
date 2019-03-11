@@ -62,6 +62,9 @@ private:
 	float _distance;			//플레이어가 일정거리 안에 들어서면 움직여야하니까 플레이어의 거리를 재기 위해서 디스턴스도 있어야 하고,
 	int _handFrame;
 
+	Vector2 _bossCollisionSize;	//충돌렉트 사이즈
+	RECT _bossCollisionRc;		//충돌 렉트
+
 	//-----------------보스 이미지 생성을 위한 렉트-----------------//
 	Vector2 _imagePosition;
 	Vector2 _imageSize;
@@ -105,6 +108,7 @@ private:
 	int _ChasingCount;
 	int _drapCount;
 	
+	class Rock* _rock;
 	
 
 	//1스킬의 First가 끝나면 Second로 전환
@@ -120,6 +124,7 @@ private:
 	//5의 횟수카운트가 채워진다면 카운트를 0으로 바꿔주고 Last상태로 돌입한다.
 
 public:
+	virtual void AttackedDamage(int damage);
 	float Distance(Vector2 position);
 	float Angle(Vector2 position);
 	
@@ -127,7 +132,10 @@ public:
 	void UpdateState();
 	void ChangeAnimation(StateType state);
 	void CreateAnimatiom();
-
+	void Dead();
+	//-------------------------------------------------------//
+	//--------------1번스킬 HandShoot 함수들------------------//
+	//-------------------------------------------------------//
 	void HandShootShadow();
 	void HandShootHand();
 	void ChangeHandState(HandState hand);
@@ -135,7 +143,11 @@ public:
 	void CreateHandAnimation();
 	void ChangeShadowState(ShadowState shadow);
 	void NextAnimation();
-	void Dead();
+	//-------------------------------------------------------//
+	//--------------2번스킬 RockShoot 함수들------------------//
+	//-------------------------------------------------------//
+	void RockPattom();
+
 public:
 	void Init()override;
 	void Release()override;
