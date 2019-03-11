@@ -307,6 +307,7 @@ void CameraManager::SetTarget(GameObject * object)
 		this->state = MoveState::None;
 		this->position = object->GetPosition() - Vector2(WinSizeX/2,WinSizeY/2);
 		this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+		this->AmendCamera();
 	}
 }
 

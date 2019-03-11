@@ -8,6 +8,11 @@ class SceneManager
 public:
 	string nextSceneName;
 private:
+	enum class State
+	{
+		None,FadeOut,FadeIn,Load
+	};
+
 	typedef unordered_map<string, class SceneBase*>::iterator SceneIter;
 private:
 	unordered_map<string, class SceneBase*> sceneList;
@@ -17,6 +22,9 @@ private:
 	function<void(string,bool)> loadFunc;
 	string loadSceneName;
 	bool bInit;
+
+	State state;
+	float fadeAlpha;
 private:
 	void ChangeScene(string name, bool init);
 public:

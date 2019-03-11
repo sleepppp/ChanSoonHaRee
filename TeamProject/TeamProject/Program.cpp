@@ -46,6 +46,9 @@ void Program::Init()
 	_SceneManager->LoadScene("LoadingScene");
 
 	_SceneManager->SceneQueue();	
+
+	//1950,686
+	_Database->AddVector2Data("PlayerPosition", Vector2(1950, 686));
 }
 
 void Program::Release()

@@ -156,10 +156,12 @@ void TownScene::SoonInit()
 
 	_ObjectManager->AddObject(ObjectType::Object, new SceneChangeObject({ 703,0,850,12 }, []() 
 	{
+		//1241,1997
+		Database::Get()->AddVector2Data("PlayerPosition", Vector2(1241, 1997));
 		_SceneManager->LoadSceneByLoading("DungeonLobby");
 	}));
 
-	//_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
+	_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
 }
 
 
@@ -237,6 +239,8 @@ void DungeonLobby::SoonInit()
 
 	_ObjectManager->AddObject(ObjectType::Object, new SceneChangeObject({ 1182,2080,1327,2102}, []()
 	{
+		//770,51
+		_Database->AddVector2Data("PlayerPosition", Vector2(770, 51));
 		_SceneManager->LoadSceneByLoading("TownScene");
 	}));
 	
