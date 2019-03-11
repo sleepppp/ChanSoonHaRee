@@ -25,7 +25,7 @@ private:
 	class UIWeaponAndBag* _UIWeaponSwap;
 
 	class Animation* _mainAnimation;
-
+	
 	//vector <Arrow> _arrow;//화살 클래스 사용을 위한 선언
 
 
@@ -57,6 +57,7 @@ private:
 	bool _isAttacked;
 	bool _isChangeWeapon;
 	bool _isTwice;
+	bool _isEnemy;
 
 	int _alpha;
 

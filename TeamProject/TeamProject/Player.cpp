@@ -9,7 +9,7 @@
 #include "Inventory.h"
 #include "Arrow.h"
 #include "Effect.h"
-
+#include "DamageFontManager.h"
 
 //에너미 공ㅇ격 받을때 무적 판정(약 1초)	ok
 //에너미 데미지 값 받을 함수				ok
@@ -61,7 +61,7 @@ Player::Player(Vector2 pos)
 	this->_frameBow = 0.08f;
 	this->_swordWidth= 40;
 	this->_swordHeight= 20;
-
+	this->_isEnemy = false;
 	this->_isAttacked = false;
 	this->_isChangeWeapon = false;		//false는 칼, true는 활
 	_blink = 0;
@@ -444,70 +444,84 @@ void Player::ChangeState(State state)
 	switch (_state)
 	{
 	case Player::State::LeftIdle:
-		_isChangeSword = false;		
-		//_isChangeBow = false;
-		_isStandardMove = true;
+		_isChangeSword = false;				//검공격 이미지 렌더를 위한 bool
+		//_isChangeBow = false;			
+		_isStandardMove = true;				//기본 무브 이미지 렌더 bool
+		_isEnemy = false;					//롤링시 에너미 통과하기 위한 bool
 		break;
 	case Player::State::RightIdle:
 		_isChangeSword = false;
 		//_isChangeBow = false;
 		_isStandardMove = true;
+		_isEnemy = false;
 		break;
 	case Player::State::UpIdle:
 		_isChangeSword = false;
 		//_isChangeBow = false;
 		_isStandardMove = true;
+		_isEnemy = false;
 		break;
 	case Player::State::DownIdle:
 		_isChangeSword = false;
 		//_isChangeBow = false;
 		_isStandardMove = true;
+		_isEnemy = false;
 		break;
 	case Player::State::LeftRun:
 		_isChangeSword = false;
 		//_isChangeBow = false;
 		_isStandardMove = true;
+		_isEnemy = false;
 		break;
 	case Player::State::RightRun:
 		_isChangeSword = false;
 		//_isChangeBow = false;
 		_isStandardMove = true;
+		_isEnemy = false;
 		break;
 	case Player::State::UpRun:
 		_isChangeSword = false;
 		//_isChangeBow = false;
 		_isStandardMove = true;
+		_isEnemy = false;
 		break;
 	case Player::State::DownRun:
 		_isChangeSword = false;
 		//_isChangeBow = false;
 		_isStandardMove = true;
+		_isEnemy = false;
 		break;
+		//======================================================
 	case Player::State::LeftRoll:
 		_isChangeSword = false;
 		//_isChangeBow = false;
 		_isStandardMove = true;
+		_isEnemy = true;
 		break;
 	case Player::State::RightRoll:
 		_isChangeSword = false;
 		//_isChangeBow = false;
 		_isStandardMove = true;
+		_isEnemy = true;
 		break;
 	case Player::State::UpRoll:
 		_isChangeSword = false;
 		//_isChangeBow = false;
 		_isStandardMove = true;
+		_isEnemy = true;
 		break;
 	case Player::State::DownRoll:
 		_isChangeSword = false;
 		//_isChangeBow = false;
 		_isStandardMove = true;
+		_isEnemy = true;
 		break;
 		//======================================================
 	case Player::State::LeftSword1:
 		_isChangeSword = true;		
 		//_isChangeBow = false;
 		_isAttacked = false;
+		_isEnemy = false;
 		_isStandardMove = false;
 		//if(_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //칼 렉트
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //칼 렉트
@@ -516,6 +530,7 @@ void Player::ChangeState(State state)
 		_isChangeSword = true;
 		//_isChangeBow = false;
 		_isAttacked = false;	
+		_isEnemy = false;
 		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight); //칼 렉트 
 		break;
@@ -523,6 +538,7 @@ void Player::ChangeState(State state)
 		_isChangeSword = true;	
 		//_isChangeBow = false;
 		_isAttacked = false;	
+		_isEnemy = false;
 		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth); //칼 렉트
 		break;
@@ -530,6 +546,7 @@ void Player::ChangeState(State state)
 		_isChangeSword = true;
 		//_isChangeBow = false;
 		_isAttacked = false;
+		_isEnemy = false;
 		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth); //칼 렉트
 		break;
@@ -538,6 +555,7 @@ void Player::ChangeState(State state)
 		_isChangeSword = true;
 		//_isChangeBow = false;
 		_isAttacked = false;
+		_isEnemy = false;
 		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //칼 렉트
 		break;
@@ -545,6 +563,7 @@ void Player::ChangeState(State state)
 		_isChangeSword = true;
 		//_isChangeBow = false;
 		_isAttacked = false;
+		_isEnemy = false;
 		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight);  //칼 렉트
 		break;
@@ -552,6 +571,7 @@ void Player::ChangeState(State state)
 		_isChangeSword = true;
 		//_isChangeBow = false;
 		_isAttacked = false;
+		_isEnemy = false;
 		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth);  //칼 렉트
 		break;
@@ -559,6 +579,7 @@ void Player::ChangeState(State state)
 		_isChangeSword = true;
 		//_isChangeBow = false;
 		_isAttacked = false;
+		_isEnemy = false;
 		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth);  //칼 렉트
 		break;
@@ -566,6 +587,7 @@ void Player::ChangeState(State state)
 	case Player::State::LeftBow:
 		_isChangeSword = false;
 		//_isChangeBow = true;
+		_isEnemy = false;
 		_isStandardMove = false;
 		_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Left));
 		break;
@@ -573,6 +595,7 @@ void Player::ChangeState(State state)
 	case Player::State::RightBow:
 		_isChangeSword = false;
 		//_isChangeBow = true;
+		_isEnemy = false;
 		_isStandardMove = false;
 		_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Right));
 		break;
@@ -580,6 +603,7 @@ void Player::ChangeState(State state)
 	case Player::State::UpBow:
 		_isChangeSword = false;
 		//_isChangeBow = true;
+		_isEnemy = false;
 		_isStandardMove = false;
 		_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Up));
 		break;
@@ -587,6 +611,7 @@ void Player::ChangeState(State state)
 	case Player::State::DownBow:
 		_isChangeSword = false;
 		//_isChangeBow = true;
+		_isEnemy = false;
 		_isStandardMove = false;
 		_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Down));
 		break;
