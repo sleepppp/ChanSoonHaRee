@@ -26,7 +26,7 @@ void Program::LoadResourceChan()
 	_ImageManager->AddImage("InventoryWindow", L"../Resources/UI/newInventory.png", false);
 
 	//UI 무기 스왑
-	_ImageManager->AddFrameImage("UI_WeaponSwap", L"../Resources/UI/UI_WeaponSwap.png", 4, 1, false);
+	_ImageManager->AddFrameImage("UI_WeaponSwap", L"../Resources/UI/UI_WeaponSwap.png", 4, 2, false);
 	//UI 가방
 	_ImageManager->AddImage("UI_Bag", L"../Resources/UI/UI_Bag.png", false);
 
