@@ -8,6 +8,7 @@ private:
 		Follow = 0,
 		Attack,
 		Attacked,
+		Dead,
 		End
 	};
 
@@ -18,6 +19,10 @@ private:
 
 	PlanktonState _planktonState;	//이넘 스테이트 : 플랑크톤 상태
 
+	bool _isAttack;					//공격 bool 값
+	bool _isAtkedRender;			//피격 Render bool 값
+
+	RECT _atkRect;					//공격 렉트
 
 public:
 	Plankton(Vector2 position);
@@ -29,5 +34,11 @@ public:
 	void Render()override;
 
 	void PlanktonStates();
+
+	void AtkedState(Vector2 position, float angle, float speed, float countValue);
+
 };
+
+
+
 

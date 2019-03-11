@@ -26,17 +26,6 @@ void MainScene::Release()
 void MainScene::Update()
 {
 	_ObjectManager->Update();
-
-	if (_Input->GetKeyDown(VK_RETURN))
-	{
-		LoadingScene* loadingScene = dynamic_cast<LoadingScene*>(_SceneManager->FindScene("LoadingScene"));
-		if (loadingScene != nullptr)
-		{
-			loadingScene->SetNextSceneName("TownScene");
-			loadingScene->SetLoadingFunc([]() {_SceneManager->FindScene("TownScene")->Init(); });
-			_SceneManager->LoadScene("LoadingScene");
-		}
-	}
 }
 
 void MainScene::Render()

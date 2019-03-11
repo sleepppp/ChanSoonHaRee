@@ -19,6 +19,7 @@ LoadingScene::~LoadingScene()
 void LoadingScene::Init()
 {
 	_delayTime = 0.f;
+
 	_loadingWString = L"·ÎµùÁß";
 
 	if (_loading)

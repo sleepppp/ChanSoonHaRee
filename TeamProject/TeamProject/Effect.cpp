@@ -64,9 +64,9 @@ void Effect::SwordAtkEffect(string name, Vector2 position)
 		this->_position = position;
 		
 		//시작 프레임 x,y와 끝 프레임 x,y
-		_effectAnimation->SetStartEndFrame(0, 0, _effectIMG->GetMaxFrameX(), 0, false);
+		_effectAnimation->SetStartEndFrame(0, 0, _effectIMG->GetMaxFrameX() - 1, 0, false);
 		//루프 안함
-		_effectAnimation->SetIsLoop(false);
+		_effectAnimation->SetIsLoop(true);
 		//프레임 도는 시간
 		_effectAnimation->SetFrameUpdateTime(0.2f);
 
