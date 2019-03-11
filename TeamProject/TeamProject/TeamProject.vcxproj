@@ -244,6 +244,7 @@
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="FrameObject.cpp" />
     <ClCompile Include="Plankton.cpp" />
+    <ClCompile Include="PlayerAni.cpp" />
     <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="TestDeadman.cpp" />
     <ClCompile Include="TestHuman.cpp" />

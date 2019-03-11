@@ -644,6 +644,9 @@
     <ClCompile Include="Program.cpp">
       <Filter>MainEntry</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerAni.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TeamProject.rc">
