@@ -21,9 +21,9 @@ TitleFlowObject::TitleFlowObject()
 		if (loadingScene != nullptr)
 		{
 			_ObjectManager->ChangeZOrdering(true);
-			loadingScene->SetNextSceneName("Dungeon_Map_01");
+			loadingScene->SetNextSceneName("MainScene");
 			loadingScene->SetLoadingFunc([]() {
-				_SceneManager->FindScene("Dungeon_Map_01")->Init();
+				_SceneManager->FindScene("MainScene")->Init();
 			});
 			_SceneManager->LoadScene("LoadingScene");
 			return;
