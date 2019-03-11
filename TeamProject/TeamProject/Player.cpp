@@ -61,10 +61,9 @@ Player::Player(Vector2 pos)
 	this->_frameBow = 0.08f;
 	this->_swordWidth= 40;
 	this->_swordHeight= 20;
-	this->_isEnemy = false;
 	this->_isAttacked = false;
 	this->_isChangeWeapon = false;		//false´Â Ä®, true´Â È°
-	_blink = 0;
+	this->_blink = 0;
 	this->_alpha = 1.0f;
 
 	this->_isDelay = 0.f;
@@ -448,171 +447,124 @@ void Player::ChangeState(State state)
 		_isChangeSword = false;				//°Ë°ø°Ý ÀÌ¹ÌÁö ·»´õ¸¦ À§ÇÑ bool
 		//_isChangeBow = false;			
 		_isStandardMove = true;				//±âº» ¹«ºê ÀÌ¹ÌÁö ·»´õ bool
-		_isEnemy = false;					//·Ñ¸µ½Ã ¿¡³Ê¹Ì Åë°úÇÏ±â À§ÇÑ bool
 		break;
 	case Player::State::RightIdle:
 		_isChangeSword = false;
 		//_isChangeBow = false;
 		_isStandardMove = true;
-		_isEnemy = false;
 		break;
 	case Player::State::UpIdle:
 		_isChangeSword = false;
-		//_isChangeBow = false;
 		_isStandardMove = true;
-		_isEnemy = false;
 		break;
 	case Player::State::DownIdle:
 		_isChangeSword = false;
-		//_isChangeBow = false;
 		_isStandardMove = true;
-		_isEnemy = false;
 		break;
 	case Player::State::LeftRun:
 		_isChangeSword = false;
-		//_isChangeBow = false;
 		_isStandardMove = true;
-		_isEnemy = false;
 		break;
 	case Player::State::RightRun:
 		_isChangeSword = false;
-		//_isChangeBow = false;
 		_isStandardMove = true;
-		_isEnemy = false;
 		break;
 	case Player::State::UpRun:
 		_isChangeSword = false;
-		//_isChangeBow = false;
 		_isStandardMove = true;
-		_isEnemy = false;
 		break;
 	case Player::State::DownRun:
 		_isChangeSword = false;
-		//_isChangeBow = false;
 		_isStandardMove = true;
-		_isEnemy = false;
 		break;
 		//======================================================
 	case Player::State::LeftRoll:
 		_isChangeSword = false;
-		//_isChangeBow = false;
 		_isStandardMove = true;
-		_isEnemy = true;
 		break;
 	case Player::State::RightRoll:
 		_isChangeSword = false;
-		//_isChangeBow = false;
 		_isStandardMove = true;
-		_isEnemy = true;
 		break;
 	case Player::State::UpRoll:
 		_isChangeSword = false;
-		//_isChangeBow = false;
 		_isStandardMove = true;
-		_isEnemy = true;
 		break;
 	case Player::State::DownRoll:
 		_isChangeSword = false;
-		//_isChangeBow = false;
 		_isStandardMove = true;
-		_isEnemy = true;
 		break;
 		//======================================================
 	case Player::State::LeftSword1:
-		_isChangeSword = true;		
-		//_isChangeBow = false;
+		_isChangeSword = true;
 		_isAttacked = false;
-		_isEnemy = false;
 		_isStandardMove = false;
-		//if(_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //Ä® ·ºÆ®
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //Ä® ·ºÆ®
 		break;
 	case Player::State::RightSword1:
 		_isChangeSword = true;
-		//_isChangeBow = false;
-		_isAttacked = false;	
-		_isEnemy = false;
+		_isAttacked = false;
 		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight); //Ä® ·ºÆ® 
 		break;
 	case Player::State::UpSword1:
-		_isChangeSword = true;	
-		//_isChangeBow = false;
-		_isAttacked = false;	
-		_isEnemy = false;
+		_isChangeSword = true;
+		_isAttacked = false;
 		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth); //Ä® ·ºÆ®
 		break;
 	case Player::State::DownSword1:
 		_isChangeSword = true;
-		//_isChangeBow = false;
 		_isAttacked = false;
-		_isEnemy = false;
 		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth); //Ä® ·ºÆ®
 		break;
 		//======================================================
 	case Player::State::LeftSword2:
 		_isChangeSword = true;
-		//_isChangeBow = false;
 		_isAttacked = false;
-		_isEnemy = false;
 		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //Ä® ·ºÆ®
 		break;
 	case Player::State::RightSword2:
 		_isChangeSword = true;
-		//_isChangeBow = false;
 		_isAttacked = false;
-		_isEnemy = false;
 		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight);  //Ä® ·ºÆ®
 		break;
 	case Player::State::UpSword2:
 		_isChangeSword = true;
-		//_isChangeBow = false;
 		_isAttacked = false;
-		_isEnemy = false;
 		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth);  //Ä® ·ºÆ®
 		break;
 	case Player::State::DownSword2:
 		_isChangeSword = true;
-		//_isChangeBow = false;
 		_isAttacked = false;
-		_isEnemy = false;
 		_isStandardMove = false;
 		if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth);  //Ä® ·ºÆ®
 		break;
 		//======================================================
 	case Player::State::LeftBow:
 		_isChangeSword = false;
-		//_isChangeBow = true;
-		_isEnemy = false;
 		_isStandardMove = false;
 		_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Left));
 		break;
 
 	case Player::State::RightBow:
 		_isChangeSword = false;
-		//_isChangeBow = true;
-		_isEnemy = false;
 		_isStandardMove = false;
 		_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Right));
 		break;
 
 	case Player::State::UpBow:
 		_isChangeSword = false;
-		//_isChangeBow = true;
-		_isEnemy = false;
 		_isStandardMove = false;
 		_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Up));
 		break;
 
 	case Player::State::DownBow:
 		_isChangeSword = false;
-		//_isChangeBow = true;
-		_isEnemy = false;
 		_isStandardMove = false;
 		_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Down));
 		break;
