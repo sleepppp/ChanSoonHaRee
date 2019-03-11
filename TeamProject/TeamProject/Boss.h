@@ -3,7 +3,7 @@
 
 enum class ShadowState
 {
-	Chasing, Stop, End
+	Chasing, Stop, Idle, End
 };
 
 enum class HandState
@@ -18,7 +18,7 @@ private:
 	//보스의 상태 종류 , 플레이어를 마주치기 전, 마주치고나서  깨어날때, 죽을때, 손떨구기, 주먹발사, 돌떨구기., 
 	enum class StateType
 	{
-		Idle, Create,Dead, 
+		Idle, Create,Dead,Dead2, 
 		Hand_Shoot_First, Hand_Shoot_Second, Hand_Shoot_Last,
 		Rock_Shoot_First, Rock_Shoot_Second, Rock_Shoot_Last,
 		Fist_Shoot_First, Fist_Shoot_Second, Fist_Shoot_Last, 
@@ -66,14 +66,18 @@ private:
 	Vector2 _imagePosition;
 	Vector2 _imageSize;
 	RECT _imageRc;
+
 	//-------충돌을 위한 렉트-------//
 	RECT collsionRc;
+
 	//----------------손의 렉트--------------//
 	RECT _rockHandRc;				//오른손주먹도 맞으면 아프니까 렉트가있어야 하고,
+
 	//-----------------돌의 렉트--------------//
 	Vector2 _rockPosition;		//돌들마다 충돌이 되어야 하고 각자의 좌표를 뿌려줘야하니까 얘들의 좌표를 주기위해서 좌표가있어야겠지?
 	Vector2 _rockSize;			//돌들도 크기가 있을거 아녀 그럼 사이즈가잇어야겠지
 	RECT _rockRc;				//좌표 있고 크기 있으면 그려줘야지
+
 	//----------------주먹의 렉트-------------//
 	Vector2 _fistPosition;		//플레이어의 렉트와 내 슬라임의 쬰쬬니가 충돌시켜야하니까 쬰쬬니의 선을 그려주고, 
 	Vector2 _fistSize;			//쬰쪼니에 달린 주먹 크기도 있어야 할거 아녀
@@ -84,16 +88,24 @@ private:
 	Vector2 _handPosition;
 	Vector2 _handSize;
 	RECT _handRc;
+
 	//------플레이어를 추격하기 위한 그림자 렉트----//
 	Vector2 _shadowPosition;		//그림자 좌표
 	Vector2 _shadowSize;			//그림자 크기
 	RECT _shadowRc;					//그림자 렉트
 
+	HandState _hand;
+	Animation* _handAni;
+	typedef map <HandState, Animation*>::iterator _handIter;
+	map<HandState, Animation*> _handList;
+
+	ShadowState _shadow;
+	
 	float _timeCount;				//델타타임과 동기화 하기 위한 카운트
 	int _ChasingCount;
 	int _drapCount;
-	ShadowState _shadow;
-	HandState _hand;
+	
+	
 
 	//1스킬의 First가 끝나면 Second로 전환
 	//Second로 넘어가면 바로 그림자가 player를 추격
@@ -116,8 +128,13 @@ public:
 	void ChangeAnimation(StateType state);
 	void CreateAnimatiom();
 
-	void HandShoot();
-
+	void HandShootShadow();
+	void HandShootHand();
+	void ChangeHandState(HandState hand);
+	void ChangeHandAnimation(HandState hand);
+	void CreateHandAnimation();
+	void ChangeShadowState(ShadowState shadow);
+	void NextAnimation();
 	void Dead();
 public:
 	void Init()override;

@@ -49,6 +49,7 @@ public:
 	//상황에 맞게 자식객체들은 원하는 생성자를 사용하면 된다. 
 	GameObject();
 	GameObject(string name, Vector2 pos, Vector2 size, Pivot::Enum pivot);
+	GameObject(const RECT rect);
 	virtual ~GameObject();
 	//순수 가상함수로 지정하지 않은 이유는 GameObject클래스의 Release,Update에서도 실행되어야 할 내용들이 있기 때문이다.
 	virtual void Init() {}
@@ -81,6 +82,7 @@ public:
 	void SetSize(const Vector2 size);
 	void SetActive(const bool b);
 	void Destroy() { this->_isLive = false; }
+	void SetMainRect(const RECT rect);
 protected:
 	//피봇에 따라서 렉트들 업데이트 된다
 	void UpdateMainRect();

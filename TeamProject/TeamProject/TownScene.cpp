@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TownScene.h"
 
-
+#include "GameObject.h"
 TownScene::TownScene()
 {
 }
@@ -13,6 +13,8 @@ TownScene::~TownScene()
 
 void TownScene::Init()
 {
+	_townBackgroundImage = _ImageManager->AddImage("TownBackground", PathResources(L"Town/map.bmp"));
+
 	this->SoonInit();
 	this->ReeInit();
 	this->HaInit();
@@ -21,9 +23,14 @@ void TownScene::Init()
 	_ObjectManager->Init();
 	_ObjectManager->ChangeZOrdering(true);
 
-	_townBackgroundImage = _ImageManager->AddImage("TownBackground", PathResources(L"Town/map.bmp"));
+	GameObject* player = _ObjectManager->FindObject(ObjectType::Object, "Will");
+	if (player)
+	{
+		player->SetPosition(Vector2(_Database->GetVector2Data("PlayerPosition")));
+	}
+
 	_Camera->SetMapSize(Vector2((float)_townBackgroundImage->GetWidth(),(float) _townBackgroundImage->GetHeight()));
-	_Camera->SetTarget(_ObjectManager->FindObject(ObjectType::Object,"Will"));
+	_Camera->InitCameraToPlayer();
 }
 
 void TownScene::Release()

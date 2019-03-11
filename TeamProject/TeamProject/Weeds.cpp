@@ -17,11 +17,12 @@ Weeds::Weeds(Vector2 pos)
 	this->_isAttack = false;
 	this->_state = StateType::Chasing;
 	this->_attackTime = 0.f;
-	this->_weeds = _ImageManager->AddFrameImage("weeds", L"../Resources/Enemy/Weeds/Weeds.png", 12, 1);
-	this->_weeds_Red = _ImageManager->AddFrameImage("weeds_Red", L"../Resources/Enemy/Weeds/Weeds_Red.png", 12, 1);
-	this->_weeds_White = _ImageManager->AddFrameImage("weeds_White", L"../Resources/Enemy/weeds/Weeds_White.png", 12, 1);
 
-	this->_shadow =	_ImageManager->AddImage("shadow", L"../Resources/Object/Shadow.png");
+	this->_weeds = _ImageManager->FindImage("weeds");
+	this->_weeds_Red = _ImageManager->FindImage("weeds_Red");
+	this->_weeds_White = _ImageManager->FindImage("weeds_White");
+
+	this->_shadow = _ImageManager->FindImage("shadow");
 
 	this->_imageCount = 0;
 	this->_count = 0;
