@@ -8,6 +8,7 @@ private:
 	class Image* _imgArrow_up;
 	class Image* _imgArrow_down;
 
+	//class UI
 	//class Player* _player;
 	//vector <RECT> _bullet;
 	float _speed;

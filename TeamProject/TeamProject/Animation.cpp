@@ -49,11 +49,17 @@ bool Animation::UpdateFrame()
 			//프레임 인덱스가 프레임 데이터 사이즈보다 커질려고 한다면
 			if (currentFrameIndex >= CastingInt(this->frameList.size()))
 			{
-				//프레임 인덱스는 0
-				this->currentFrameIndex = 0;
 				//만약 루프 가 아니라면 플레이 상태 꺼주고 
 				if (isLoop == false)
+				{
 					isPlay = false;
+					--currentFrameIndex;
+				}
+				else
+				{
+					//프레임 인덱스는 0
+					this->currentFrameIndex = 0;
+				}
 				//만약 실행시킬 함수가 있다면 실행시켜라 //람다식 함수호출을 위한 함수 값
 				if (func != nullptr)
 					func();
