@@ -27,7 +27,7 @@ void TownScene::ReeInit()
 }
 void Dungeon_Map_01::ReeInit()
 {
-	_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(WinSizeX / 2, 500)));
+	_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(700, 500)));
 }
 
 void  Dungeon_Map_Boss::ReeInit()

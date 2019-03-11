@@ -49,7 +49,7 @@ Player::Player(Vector2 pos)
 	this->_speed = 400.0f;
 	this->UpdateMainRect();
 	this->_maxHp = 100;
-	this->_currentHp = 50;
+	this->_currentHp = 100;
 	this->_isMoveStop = false;			//움직임을 멈추기 위한 bool값
 	this->_isChangeSword = false;		//공격시 이미지 파일 변경을 위한 bool값
 	this->_isChangeBow = false;			//활 공격시 이미지 파일 변경을 위한 bool값
@@ -106,7 +106,7 @@ void Player::Release()
 /********************************************************************************/
 void Player::Update()
 {	
-	cout << _isEnemy << endl;
+	//cout << _isEnemy << endl;
 
 	//이동량 측정할 변수
 	Vector2 moveValue(0, 0);

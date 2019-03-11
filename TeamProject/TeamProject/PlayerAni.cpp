@@ -58,9 +58,11 @@ void Player::Move(Vector2 direction)
 		{	
 			//아이템 클래스 형변환으로 오브젝트 i로 불러온다.
 			MoveItem* item = dynamic_cast<MoveItem*>(object->at(i));
+			//에너미 클래스 형변환으로 오브젝트 i로 불러온다.
+			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));		
 
-			//값 반환이 없는 빈 내용물이 아닌 경우에만 사용한다.
-			if (item == nullptr)
+			//다이나믹 캐스트로 null값이 반환되는 경우
+			if (item == nullptr && item != nullptr)
 			{				
 				//만든 함수 InterRee로 플레이어 충돌용 함수와 전체 오브젝트를 충돌 검사한다.
 				if (this->InterRee(&_collisionRect, &object->at(i)->GetCollisionRect()))
@@ -85,22 +87,26 @@ void Player::Move(Vector2 direction)
 		//플레이어 자신을 제외하기 위한 조건문
 		if (object->at(i)->GetName() != this->_name)
 		{
+			//아이템 클래스 형변환으로 오브젝트 i로 불러온다.
+			MoveItem* item = dynamic_cast<MoveItem*>(object->at(i));
 			//에너미 클래스 형변환으로 오브젝트 i로 불러온다.
-			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));
+			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));		
 			
-			//값 반환이 없는 빈 내용물이 아닌 경우에만 사용한다.
-			if (enemy != nullptr)
+			if (item == nullptr && enemy == nullptr)
 			{			
-				//if (_isEnemy == false)continue;
 				//롤링시 통과하기 위한 bool값
-				
+				//if (_isEnemy == true) continue;
+				//cout << "Enemy:  "<<_isEnemy << endl;
+				if(Player::State::LeftSword2&&)
 				//만든 함수 InterRee로 플레이어 충돌용 함수와 전체 오브젝트를 충돌 검사한다.
 				if (this->InterRee(&_collisionRect, &object->at(i)->GetCollisionRect()))
-				{
+				{		
 					//충돌한 캐릭터 플레이어를 반대로 밀어주면서 그자리에 머문것처럼 한다.
 					_position.x = (_collisionRect.right - _collisionRect.left) / 2 + _collisionRect.left;
 					_position.y = (_collisionRect.bottom - _collisionRect.top) / 2 + _collisionRect.top;
 					_mainRect = RectMakeCenter(_position.x, _position.y, _size.x, _size.y);
+	
+					
 				}
 			}
 		}
