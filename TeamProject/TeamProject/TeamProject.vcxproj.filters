@@ -157,6 +157,12 @@
     <Filter Include="System\DebugSystem">
       <UniqueIdentifier>{d6e92e84-1e42-41f4-9a6a-2a0cebe0595b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainEntry\Scene\DungeonLobby">
+      <UniqueIdentifier>{707e51b0-2621-4449-bba9-78de58763920}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Soon\Module\Database">
+      <UniqueIdentifier>{1fc44241-7214-468d-912e-435940408178}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -348,9 +354,6 @@
     <ClInclude Include="Dungeon_Map_01.h">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
-    <ClInclude Include="TestDeadman.h">
-      <Filter>PrivateForder\Soon</Filter>
-    </ClInclude>
     <ClInclude Include="Dungeon_Map_02.h">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
@@ -393,11 +396,23 @@
     <ClInclude Include="testYap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="testYap.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="DebugSystem.h">
       <Filter>System\DebugSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonLobby.h">
+      <Filter>MainEntry\Scene\DungeonLobby</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugObject.h">
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="TestDeadman.h">
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneChangeObject.h">
+      <Filter>PrivateForder\Soon</Filter>
+    </ClInclude>
+    <ClInclude Include="Database.h">
+      <Filter>PrivateForder\Soon\Module\Database</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -590,9 +605,6 @@
     <ClCompile Include="Dungeon_Map_01.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
-    <ClCompile Include="TestDeadman.cpp">
-      <Filter>PrivateForder\Soon</Filter>
-    </ClCompile>
     <ClCompile Include="Dungeon_Map_02.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
@@ -635,14 +647,26 @@
     <ClCompile Include="testYap.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="testYap.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="DebugSystem.cpp">
       <Filter>System\DebugSystem</Filter>
     </ClCompile>
     <ClCompile Include="Program.cpp">
       <Filter>MainEntry</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonLobby.cpp">
+      <Filter>MainEntry\Scene\DungeonLobby</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugObject.cpp">
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="TestDeadman.cpp">
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneChangeObject.cpp">
+      <Filter>PrivateForder\Soon</Filter>
+    </ClCompile>
+    <ClCompile Include="Database.cpp">
+      <Filter>PrivateForder\Soon\Module\Database</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

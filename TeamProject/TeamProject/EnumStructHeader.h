@@ -67,7 +67,7 @@ namespace ObjectType
 {
 	enum Enum : int
 	{
-		BackGround = 0, Object, Effect, UI, End
+		BackGround = 0, Object, UpObject, Effect, UI, End
 	};
 }
 

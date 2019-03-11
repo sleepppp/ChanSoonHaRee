@@ -4,28 +4,21 @@
 #include "Dungeon_Map_01.h"
 #include "Dungeon_Map_Boss.h"
 #include "Dungeon_Map_02.h"
+#include "DungeonLobby.h"
 #include "TestPlayer.h"
 #include "TestInventory.h"
+#include "SceneChangeObject.h"
 
 #include "StaticObject.h"
 #include "DebugCollider.h"
+#include "DebugObject.h"
 #include "FrameObject.h"
 #include "Tree.h"
 #include "Program.h"
+#include "Player.h"
 
 void Program::LoadResourceSoon()
 {
-	_ImageManager->AddImage("Shadow", L"../Resources/Object/Shadow.png");
-	_ImageManager->AddImage("build_Retaile", PathResources(L"Object/build_Retaile.png"));
-	_ImageManager->AddImage("build_Enchant", PathResources(L"Object/build_Enchant.png"));
-	_ImageManager->AddImage("build_fountain", PathResources(L"Object/build_fountain.png"));
-	_ImageManager->AddImage("build_Top1", PathResources(L"Object/build_Top1.png"));
-	_ImageManager->AddImage("build_Shop", PathResources(L"Object/build_Shop.png"));
-	_ImageManager->AddImage("build_Board", PathResources(L"Object/build_Board.png"));
-	_ImageManager->AddImage("build_Bottom1", PathResources(L"Object/build_Bottom1.png"));
-	_ImageManager->AddImage("build_Bottom2", PathResources(L"Object/build_Bottom2.png"));
-	_ImageManager->AddImage("build_Forge", PathResources(L"object/build_Forge.png"));
-	_ImageManager->AddImage("build_Bottom3", PathResources(L"Object/build_Bottom3.png"));
 	_ImageManager->AddFrameImage("tree", PathResources(L"Object/tree.png"), 4, 1);
 	_ImageManager->AddFrameImage("RivalFauntain", PathResources(L"Object/RivalFauntain.png"), 9, 1);
 
@@ -35,9 +28,13 @@ void Program::LoadResourceSoon()
 	_ImageManager->AddImage("Selector", PathResources(L"Scene/Selector.png"));
 	_ImageManager->AddFrameImage("door_light", PathResources(L"Scene/door_light.png"), 30, 1, false);
 
+	_ImageManager->AddImage("Dungeon_Lobby", PathResources(L"Scene/Dungeon_Lobby.png"));
+
 	_SoundManager->AddSound("DoorOpen", PathSounds("door.wav"));
 	_SoundManager->AddSound("introBGM", PathSounds("introBGM.mp3"), true, true);
 	_SoundManager->SetMusicVolume(0.1f);
+
+	_ImageManager->LoadFolder("../Resources/Object/", "*.png");
 }
 
 
@@ -57,11 +54,27 @@ void Dungeon_Map_02::SoonInit()
 
 void Dungeon_Map_Boss::SoonInit()
 {
+	_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
 
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({0,1340,2101,1422}));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 0,0,73,1422 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 0,0,2101,84 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 2020,0,2096,1420 }));
+
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 249,291,1852,372 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 1344,1258,2014,1337 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 1582,1115,2013,1280 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 1743,944,2016,1340 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 1834,655,2018,966 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 1961,533,2020,687 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 465,1247,848,1339 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 69,1086,482,1336 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 80,947,402,1102 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 61,750,264,993 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 71,568,148,798 }));
 }
 void TownScene::SoonInit()
 {
-
 	StaticObject* tempObject = nullptr;
 	tempObject = new StaticObject("build_Retaile", Vector2(20, 290));
 	tempObject->SetCollisionRect({ 314,312,650,676 });
@@ -133,8 +146,98 @@ void TownScene::SoonInit()
 	tempFrameObject = new Tree(Vector2(2201, 1868));
 	_ObjectManager->AddObject(ObjectType::Object, tempFrameObject);
 
-	//_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ -10, -10, (LONG)_townBackgroundImage->GetWidth() + 10, 0 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ -10, -10, 0, (LONG)_townBackgroundImage->GetHeight() }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ -10,(LONG)_townBackgroundImage->GetHeight() ,
+		(LONG)_townBackgroundImage->GetWidth() + 10 ,(LONG)_townBackgroundImage->GetHeight() + 10 }));
 
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ (LONG)_townBackgroundImage->GetWidth(),0,
+		(LONG)_townBackgroundImage->GetWidth() + 10, (LONG)_townBackgroundImage->GetHeight() + 10 }));
+
+	_ObjectManager->AddObject(ObjectType::Object, new SceneChangeObject({ 703,0,850,12 }, []() 
+	{
+		_SceneManager->LoadSceneByLoading("DungeonLobby");
+	}));
+
+	//_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
 }
 
 
+void DungeonLobby::SoonInit()
+{
+	//_ObjectManager->AddObject(ObjectType::UI, new DebugObject("dungeonLobby_bottomRight2Rock"));
+	_ObjectManager->AddObject(ObjectType::UI, new DebugCollider());
+	_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(1000, 1000)));
+
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 578,1172,1180,1195 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 1307,1168,1890,1195 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 577,850,618,1186 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 576,848,874,910 }));
+
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 1849,847,1889,1192 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 1608,843,1879,929 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 1608,527,1642,927 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 1422,527,1642,637 }));
+
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 1385,182,1422,637 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 1053,184,1413,301 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 1051,184,1091,633 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 831,526,874,886 }));
+
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 831,524,1075,634 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 828,761,906,816 }));
+
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 935,668,990,699 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 1489,664,1538,689 }));
+
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ -10, -10, (LONG)_background->GetWidth() + 10, 0 }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ -10, -10, 0, (LONG)_background->GetHeight() }));
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ -10,(LONG)_background->GetHeight() ,
+		(LONG)_background->GetWidth() + 10 ,(LONG)_background->GetHeight() + 10 }));
+
+	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ (LONG)_background->GetWidth(),0,
+		(LONG)_background->GetWidth() + 10, (LONG)_background->GetHeight() + 10 }));
+
+	//1020,409
+	_ObjectManager->AddObject(ObjectType::UpObject, new StaticObject("dungeonLobby_top3LongBoard", Vector2(1020, 409)));
+	//791,458
+	_ObjectManager->AddObject(ObjectType::UpObject, new StaticObject("dungeonLobby_topRope", Vector2(791, 458)));
+	//563,988
+	_ObjectManager->AddObject(ObjectType::UpObject, new StaticObject("dungeonLobby_bottomLeftTent", Vector2(563, 988)));
+	//1175,1076
+	_ObjectManager->AddObject(ObjectType::UpObject, new StaticObject("dungeonLobby_entryStructureFlag", Vector2(1175, 1076)));
+
+	StaticObject* temp = new StaticObject("dungeonLobby_entryStructureLeft", Vector2(1059, 1058));
+	temp->SetCollisionRect({ 1059,1169,1181,1224 });
+	_ObjectManager->AddObject(ObjectType::Object, temp);
+	//1307,1058
+	temp = new StaticObject("dungeonLobby_entryStructureRight", Vector2(1307, 1058));
+	temp->SetCollisionRect({ 1307,1169,1427,1224 });
+	_ObjectManager->AddObject(ObjectType::Object, temp);
+
+	//1333,1247
+	temp = new StaticObject("forgeBoard", Vector2(1333, 1247));
+	_ObjectManager->AddObject(ObjectType::Object, temp);
+
+	//1042,1308
+	temp = new StaticObject("dungeonLobby_topLeft3Rock", Vector2(1042,1308));
+	_ObjectManager->AddObject(ObjectType::Object, temp);
+
+	temp = new StaticObject("dungeonLobby_middleLeftRock", Vector2(906,1791));
+	_ObjectManager->AddObject(ObjectType::Object, temp);
+
+	temp = new StaticObject("dungeonLobby_middleRighttRock", Vector2(1367,1333));
+	_ObjectManager->AddObject(ObjectType::Object, temp);
+
+	temp = new StaticObject("dungeonLobby_middleRighttRock", Vector2(1336,1639));
+	_ObjectManager->AddObject(ObjectType::Object, temp);
+
+	temp = new StaticObject("dungeonLobby_bottomRight2Rock", Vector2(1422, 1871));
+	_ObjectManager->AddObject(ObjectType::Object, temp);
+
+	_ObjectManager->AddObject(ObjectType::Object, new SceneChangeObject({ 1182,2080,1327,2102}, []()
+	{
+		_SceneManager->LoadSceneByLoading("TownScene");
+	}));
+	
+}

@@ -208,6 +208,7 @@ void Window::CreateManager()
 	ObjectManager::Create();
 	SceneManager::Create();
 	DamageFontManager::Create();
+	Database::Create();
 }
 /*********************************************************************************
 ## DeleteManager ##
@@ -225,6 +226,7 @@ void Window::DeleteManager()
 	SoundManager::Delete();
 	ImGui::Delete();
 	DXRenderer::Delete();
+	Database::Delete();
 }
 
 /**********************************************************************************
