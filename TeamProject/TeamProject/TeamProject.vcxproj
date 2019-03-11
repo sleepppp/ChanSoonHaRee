@@ -167,6 +167,7 @@
     <ClInclude Include="FrameObject.h" />
     <ClInclude Include="Plankton.h" />
     <ClInclude Include="ProgressBar.h" />
+    <ClInclude Include="Rock.h" />
     <ClInclude Include="SceneChangeObject.h" />
     <ClInclude Include="TestDeadman.h" />
     <ClInclude Include="TestHuman.h" />
@@ -254,6 +255,7 @@
     <ClCompile Include="Plankton.cpp" />
     <ClCompile Include="PlayerAni.cpp" />
     <ClCompile Include="ProgressBar.cpp" />
+    <ClCompile Include="Rock.cpp" />
     <ClCompile Include="SceneChangeObject.cpp" />
     <ClCompile Include="TestDeadman.cpp" />
     <ClCompile Include="TestHuman.cpp" />

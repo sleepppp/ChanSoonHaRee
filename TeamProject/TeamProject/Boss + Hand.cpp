@@ -11,8 +11,8 @@ void Boss::HandShootHand()
 	{
 		float angle;
 		float distance;
+		
 	case HandState::Up:
-		cout << "up" << endl;
 
 		//그림자와 손과의 거리
 		distance = Math::GetDistance(_handPosition.x, _handPosition.y, _shadowPosition.x, _shadowPosition.y);
@@ -23,6 +23,7 @@ void Boss::HandShootHand()
 			//위로 올라가라.
 			_handPosition.y -= (_speed * 0.7) * _TimeManager->DeltaTime();
 		}
+		_handRc = Figure::RectMakeCenter(_handPosition, _handSize);
 		//어느정도 올라갔으면
 		if (distance >= 700)
 		{	
@@ -31,27 +32,30 @@ void Boss::HandShootHand()
 		}
 		break;
 	case HandState::Down:
+		
 		//손과 그림자의 앵글값.
 		angle = Math::GetAngle(_handPosition.x, _handPosition.y, _shadowPosition.x, _shadowPosition.y);
 		//그림자와 손과의 거리
 		distance = Math::GetDistance(_handPosition.x, _handPosition.y, _shadowPosition.x, _shadowPosition.y);
-		cout << "down" << endl;
+
 		//그림자와 손의 Y축이 같지 않다면
 		if (distance > 10)
 		{
 			//그림자의 Y축으로 이동해라.
 			_handPosition.y += -sinf(angle) * (_speed * 3) * _TimeManager->DeltaTime();
 		}
-
+		_handRc = Figure::RectMakeCenter(_handPosition, _handSize);
 		//만약 같다면 
 		if (distance <= 10)
 		{
+			_Camera->Shake(5.f, 0.5f);
 			//잠시간멈춰있어라.
 			this->ChangeHandState(HandState::Stay);
 		}
 		break;
 	case HandState::Stay:
-		cout << "stay" << endl;
+		
+
 
 		_timeCount += _TimeManager->DeltaTime();
 		if (_timeCount > 7)
@@ -59,9 +63,15 @@ void Boss::HandShootHand()
 			//손의 상태를 올라가는 상태로 바꿔준다.
 			this->ChangeHandState(HandState::Up);
 		}
+		RECT temp;
+		if (IntersectRect(&temp, &_handRc, &_player->GetCollisionRect()))
+		{
+			_player->AttackedDamage(_damage);
+		}
+		_handRc = Figure::RectMakeCenter(_handPosition, _handSize);
 		break;
 	case HandState::Chasing:
-		cout << "chasing" << endl;
+		
 		//손의 X축은 언제나 그림자의 X축을 따라다닌다.
 		angle = Math::GetAngle(_handPosition.x, _handPosition.y, _shadowPosition.x, _shadowPosition.y);
 		_handPosition.x = _shadowPosition.x;
@@ -70,6 +80,7 @@ void Boss::HandShootHand()
 		{
 			this->ChangeState(StateType::Hand_Shoot_Last);
 		}
+		_handRc = Figure::RectMakeCenter(_handPosition, _handSize);
 		break;
 	case HandState::End:
 		break;
