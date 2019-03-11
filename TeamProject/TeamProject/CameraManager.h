@@ -65,6 +65,7 @@ public:
 	void Shake(float strength = CameraDefaultStrength,float shakeTime = CameraDefaultShakeTime);
 	void InitCameraToPlayer();
 	void SetState(MoveState state) { this->state = state; }
+	void SetFreeCamera();
 private:
 	void UpdateRenderRect();
 	void UpdateFreeCameraMode();
