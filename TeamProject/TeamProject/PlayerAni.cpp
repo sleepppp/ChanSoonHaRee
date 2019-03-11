@@ -9,6 +9,7 @@
 #include "Inventory.h"
 #include "Arrow.h"
 #include "Effect.h"
+#include "DamageFontManager.h"
 
 using namespace Figure;
 
@@ -41,6 +42,8 @@ void Player::Move(Vector2 direction)
 	//mainRect의 위치도 갱신
 	this->UpdateMainRect();
 
+	
+
 	//=======================================
 	//오브젝트와 충돌(InterRect함수 사용)
 	//=======================================
@@ -48,24 +51,32 @@ void Player::Move(Vector2 direction)
 	object = _ObjectManager->GetObjectListPointer(ObjectType::Object);
 
 	//모든 오브젝트를  for문으로 충돌 검사를 해준다.
-	//enemy와의 충돌도 담음
-	//enemy가 값을 호출하면(!=) 충돌 검사를 한다.
 	for (int i = 0; i < object->size(); i++)
 	{
 		//플레이어 자신을 제외하기 위한 조건문
 		if (object->at(i)->GetName() != this->_name)
-		{
-			//에너미 클래스 형변환으로 오브젝트 i로 불러온다.
-			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));
+		{	
 			//아이템 클래스 형변환으로 오브젝트 i로 불러온다.
 			MoveItem* item = dynamic_cast<MoveItem*>(object->at(i));
+			//에너미 클래스 형변환으로 오브젝트 i로 불러온다.
+			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));		
 
-			//값 반환이 없는 빈 내용물이 아닌 경우에만 사용한다.
-			if (enemy == nullptr && item == nullptr)
-			{
+			//다이나믹 캐스트로 null값이 반환되는 경우
+			if (item == nullptr || enemy == nullptr)
+			{	
 				//만든 함수 InterRee로 플레이어 충돌용 함수와 전체 오브젝트를 충돌 검사한다.
 				if (this->InterRee(&_collisionRect, &object->at(i)->GetCollisionRect()))
 				{
+					//검사하는 오브젝트 i가 enemy일 경우, Roll 상태일때 통과하여 넘어간다.
+					if (object->at(i)==enemy )
+					{
+						if (_state == Player::State::LeftRoll || _state == Player::State::RightRoll ||
+							_state == Player::State::UpRoll || _state == Player::State::DownRoll)
+						{
+							continue;
+						}
+					}
+					
 					//충돌한 캐릭터 플레이어를 반대로 밀어주면서 그자리에 머문것처럼 한다.
 					_position.x = (_collisionRect.right - _collisionRect.left) / 2 + _collisionRect.left;
 					_position.y = (_collisionRect.bottom - _collisionRect.top) / 2 + _collisionRect.top;
@@ -74,6 +85,8 @@ void Player::Move(Vector2 direction)
 			}
 		}
 	}
+	//롤링시 통과하기 위한 bool값
+	
 	//에너미와의 충돌	
 	//this->SendCallbackMessage(TagMessage("PlayerHP",0.0f, this->_currentHp));
 
@@ -86,8 +99,8 @@ void Player::Move(Vector2 direction)
 
 
 /********************************************************************************/
-//## InterRect ##
-//오브젝트와 충돌을 위한 함수
+//## InterRee ##
+//모든 오브젝트와 충돌 검사만을 위한 함수
 /********************************************************************************/
 bool Player::InterRee(RECT* moveRc, RECT* unMoveRc)
 {
@@ -190,7 +203,9 @@ void Player::Attack()
 
 			if (_isAttacked == true)
 			{
-				Effect::PlayEffect(EFFECT_SWORDATK, Vector2(_swordRect.left, _swordRect.top));
+				Effect::PlayEffect(EFFECT_SWORDATK, Vector2(_swordRect.left, _swordRect.top));				
+				//데미지 폰트 출력
+				//_DamageFontManager->ShowDamage(_damage);
 			}
 		}
 	}

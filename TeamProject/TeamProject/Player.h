@@ -25,7 +25,7 @@ private:
 	class UIWeaponAndBag* _UIWeaponSwap;
 
 	class Animation* _mainAnimation;
-
+	
 	//vector <Arrow> _arrow;//화살 클래스 사용을 위한 선언
 
 
@@ -33,7 +33,7 @@ private:
 	State _state;
 	
 	RECT _collisionRect;	//충돌용 RECT
-	RECT _swordRect;			//공격용 RECT
+	RECT _swordRect;		//칼 공격용 RECT
 	RECT _shieldRect;		//방어용 RECT
 	
 	float _speed;
@@ -57,6 +57,7 @@ private:
 	bool _isAttacked;
 	bool _isChangeWeapon;
 	bool _isTwice;
+	bool _isEnemy;
 
 	int _alpha;
 
@@ -91,7 +92,8 @@ public:
 	POINT GetPlayerIndex();
 
 	RECT GetCollisionRect()const override {	return _collisionRect;}
-	
+	RECT GetSwordRect() const { return _swordRect; }
+
 	//에너미 클래스에 넘겨주기 위한 함수
 	int GetPlayerDamage() { return _damage; }
 	
