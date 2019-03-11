@@ -57,7 +57,6 @@ void Boss::Init()
 {
 	//플레이어의 이름으로 불러와서 내가 쓸수 있게 만들어 준다.
 	this->_player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
-	this->_rock = (Rock*)_ObjectManager->FindObject(ObjectType::Object, "Rock");
 }
 
 void Boss::Release()
@@ -86,12 +85,12 @@ void Boss::Update()
 	HandShootHand();
 	HandShootShadow();
 
+	
+
 	if (_Input->GetKeyDown('Q'))
 	{
 		_hp -= 800;
 	}
-	cout << _hp << endl;
-
 	_aniImage->_animation->UpdateFrame();
 }
 
@@ -145,6 +144,7 @@ void Boss::ChangeState(StateType state)
 	switch (_state)
 	{
 	case Boss::StateType::Idle:
+		RockPattom();
 		break;
 	case Boss::StateType::Create:
 		break;
@@ -377,13 +377,20 @@ void Boss::NextAnimation()
 	}
 
 }
-// (Math::PI / 2); (Math::PI / 2) < Math::PI; i + 0.225
+
 void Boss::RockPattom()
 {
-	if (_Input->GetKeyDown('Z'))
+	for (int j = 0; j < 5; ++j)
 	{
+		for (int i = 0; i < 6; ++i)
+		{
+			//float x = (WinSizeX / 2) + cosf(Math::PI + (Math::PI / 5) * i) * (100 * j);
+			//float y = (_position.y + 100) + (-sinf(Math::PI + (Math::PI / 5) * i)) * (100 * j);
+			_ObjectManager->AddObject(ObjectType::Object, new Rock(Vector2((WinSizeX / 2) + cosf(Math::PI + (Math::PI / 5) * i) * (100 * j),
+				(_position.y - 1000) + (-sinf(Math::PI + (Math::PI / 5) * i)) * (100 * j))));
+		}
+		//보스 포지션 기준으로 떨구기?
 	}
-	
 }
 //피격시 이미지
 void Boss::AttackedDamage(int damage)

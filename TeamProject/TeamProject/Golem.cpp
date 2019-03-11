@@ -30,35 +30,35 @@ Golem::Golem(Vector2 pos)
 	this->_golemAttack_White = _ImageManager->FindImage("GolemAttack_White");
 
 	this->_shadow = _ImageManager->FindImage("Shadow");
+
 	//각종 카운트 초기화
 	this->_moveCount = 0;
 	this->_attackCount = 0;
 	this->_attackedCount = 0;
 	this->_countMove = 0.f;
 	this->_countAttack = 0.f;
+
 	//공격 렉트를 위한 포지션 초기화
 	this->_positionLeft = Vector2(_position.x - 110, _position.y - 10);
 	this->_positionRight = Vector2(_position.x + 10, _position.y - 15);
 	this->_positionTop = Vector2(_position.x, _position.y - 10);
 	this->_positionBottom = Vector2(_position.x, _position.y + 110);
+
 	//공격 렉트를 위한 사이즈 설정 및 초기화
 	this->_sizeLeft = Vector2(100, 60);
 	this->_sizeRight = Vector2(100, 60);
 	this->_sizeTop = Vector2(60, 70);
 	this->_sizeBottom = Vector2(60, 80);
+
 	//공격여부확인을 위한 불변수 초기화
 	this->_isAttackTop = false;
 	this->_isAttackLeft = false;
 	this->_isAttackRight = false;
 	this->_isAttackBottom = false;
+
+	//인벤토리가 열리고 닫힐때 움직임에 제한을 주기 위해서 넣어놓은 콜백메세지
 	this->AddCallbackMessage("InventoryOpen", [this](TagMessage message) {this->InvenStop(1); });
 	this->AddCallbackMessage("InventoryClose", [this](TagMessage message) {this->InvenStop(0); });
-
-	//공격렉트 초기화
-	//this->_attackLeft = UpdateRect(_positionLeft, _sizeLeft, Pivot::LEFT_TOP);
-	//this->_attackRight = UpdateRect(_positionRight, _sizeRight, Pivot::LEFT_TOP);
-	//this->_attackTop = UpdateRect(_positionTop, _sizeTop, Pivot::BOTTOM);
-	//this->_attackBottom = UpdateRect(_positionBottom, _sizeBottom, Pivot::BOTTOM);
 }
 
 Golem::~Golem()
@@ -149,6 +149,7 @@ void Golem::Attack()
 	}
 }
 
+//각기 공격렉트들의 방향을 조정해주고 공격했을시에 새로 업데이트 해주는 부분.
 void Golem::AttackPosition()
 {
 	this->_positionLeft = Vector2(_position.x - 110, _position.y - 10);
@@ -186,6 +187,7 @@ void Golem::AttackPosition()
 	}
 }
 
+//공격렉트들의 렌더링에 관한 부분.
 void Golem::AttackRender()
 {
 	if (_state == StateType::attack)
@@ -209,6 +211,7 @@ void Golem::AttackRender()
 	}
 }
 
+//플레이어와 내 공격렉트나 또는 내 골램의 몸과 충돌처리에 관한 부분.
 void Golem::Collision()
 {
 	RECT CollisionRc = { 0 };
@@ -264,6 +267,7 @@ void Golem::Collision()
 	}
 }
 
+//디버깅을 위해서 렉트를 보여주기 위해서 만든 렉트 렌더링용 함수.
 void Golem::RectRender()
 {
 	if (_isDebug == true)
@@ -281,6 +285,7 @@ void Golem::RectRender()
 	}
 }
 
+//이미지를 렌더링 해주는 함수.
 void Golem::ImageRender()
 {
 	_shadow->SetSize(_shadow->GetFrameSize(0));
@@ -461,6 +466,7 @@ void Golem::ImageRender()
 	}
 }
 
+//인벤토리의 온오프시 움직임에 제한을 주려고 만든 함수.
 void Golem::InvenStop(bool stop)
 {
 	_isStop = stop;

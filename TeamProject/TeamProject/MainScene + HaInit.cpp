@@ -62,28 +62,22 @@ void MainScene::HaInit()
 
 void Dungeon_Map_01::HaInit()
 {
-	//_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(500, 500)));
-	
 	_ObjectManager->AddObject(ObjectType::Object, new Golem(Vector2(100, 100)));
 	_ObjectManager->AddObject(ObjectType::Object, new Golem(Vector2(400, 100)));
 	_ObjectManager->AddObject(ObjectType::Object, new Weeds(Vector2(300, 400)));
 	_ObjectManager->AddObject(ObjectType::Object, new Weeds(Vector2(700, 500)));
+}
 
-
+void Dungeon_Map_02::HaInit()
+{
 }
 
 void Dungeon_Map_Boss::HaInit()
 {
-	//_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(500, 500)));
 	_ObjectManager->AddObject(ObjectType::Object, new Boss());
-	//_ObjectManager->AddObject(ObjectType::Object, new Rock(Vector2(500, 500)));
 }
 
 void TownScene::HaInit()
 {
 }
 
-
-void Dungeon_Map_02::HaInit()
-{
-}

@@ -20,14 +20,20 @@ void Enemy::Init()
 //내 뎀지를 넘기기 위한 함수.
 void Enemy::AttackedDemege(int damage)
 {
+	//누나가 데미지를 넘겨주면 데미지만큼 내 체력을 깎는다.
 	_hp -= damage;
+	//hp가 0보다 작거나 같으면
 	if (_hp <= 0)
 	{
+		//사라져라. 다른 죽는 모션이 존재할 경우 가상함수 상속을 통해서 내용을 바꿀 수도 있다.
 		this->Destroy();
 	}
+	//죽지 않았다면
 	else
 	{
+		//피격을 당했다는 변수를 트루로 만들어 주고
 		_attacked = true;
+		//뒤로 밀려난다. 플레이어의 앵글을 먼저 넣어주면 기존에 추격하면 방향에서 반대로 앵글값이 나오므로 반대방향으로 밀러날 수 있다.
 		this->_attackedAngle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
 	}
 }
@@ -57,18 +63,22 @@ RECT Enemy::UpdateRect(Vector2 position, Vector2 size, Pivot::Enum _pivot)
 //앵글값에 따라서 무브 타입을 결정.
 void Enemy::EnemyMoveType()
 {
+	//45도 ~ 135도의 방향에서는 탑을 바라보게 한다.
 	if (_angle > Math::PI / 4.f && _angle < ((3 * Math::PI) / 4.f))
 	{
 		_move = MoveType::Top;
 	}
+	//135도 ~ 225도의 방향에서는 레프트를 바라보게 한다. 
 	else if (_angle > ((3.f * Math::PI) / 4.f) && _angle < (Math::PI + (Math::PI / 4.f)))
 	{
 		_move = MoveType::Left;
 	}
+	//225도 ~ 315도의 방향에서는 바텀을 바라보게 한다.
 	else if (_angle > (Math::PI + (Math::PI / 4.f)) && _angle < (Math::PI + ((3.f * Math::PI) / 4.f)))
 	{
 		_move = MoveType::Bottom;
 	}
+	//셋중 무엇도 아니라면 라이트를 바라보게한다.
 	else
 	{
 		_move = MoveType::Right;
