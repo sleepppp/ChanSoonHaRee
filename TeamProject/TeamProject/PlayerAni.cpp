@@ -203,6 +203,7 @@ void Player::Attack()
 
 			if (_isAttacked == true)
 			{
+				//충돌 이펙트 발생
 				Effect::PlayEffect(EFFECT_SWORDATK, Vector2(_swordRect.left, _swordRect.top));				
 				//데미지 폰트 출력
 				//_DamageFontManager->ShowDamage(_damage);
@@ -211,6 +212,7 @@ void Player::Attack()
 	}
 
 }
+
 
 //=======================================
 //인벤토리 on/off 버튼용 함수
@@ -228,7 +230,7 @@ void Player::AttackedDamage(int damage)
 {
 	if (_isDelay == false)
 	{
-		cout << "Fucking " << endl;
+		//cout << "Fucking " << endl;
 		this->_currentHp -= damage;
 		_isDelay = true;
 		_blink = 0;

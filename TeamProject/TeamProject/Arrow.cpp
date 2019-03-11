@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Arrow.h"
 #include "Image.h"
+#include "Enemy.h"
+#include "Effect.h"
 //#include "Animation.h"
 //#include "Timer.h"
 //#include "Player.h"
@@ -98,3 +100,38 @@ void Arrow::Render()
 		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, true);
 	}	
 }
+
+
+
+//===================================
+//화살 충돌 함수
+//===================================
+void Arrow::ArrowAttack()
+{
+	const vector<class GameObject*>* object;
+	object = _ObjectManager->GetObjectListPointer(ObjectType::Object);
+
+	for (UINT i = 0; i < object->size(); ++i)
+	{
+		if (object->at(i)->GetName() != this->_name)
+		{
+			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));
+
+			if (enemy == nullptr)
+			{
+				RECT temp;
+				if(IntersectRect(&temp, &_mainRect, &object->at(i)->GetCollisionRect()))
+				{
+					//데미지 값을 넘겨준다
+					enemy->AttackedDemege(this->_damage);
+					Effect::PlayEffect(EFFECT_SWORDATK, Vector2(_mainRect.left, _mainRect.top));
+				}
+			}
+
+
+		}
+	}
+
+
+}
+

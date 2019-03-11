@@ -3,7 +3,7 @@
 #include "Image.h"
 #include "Animation.h"
 #include "Player.h"
-
+#include "Rock.h"
 
 Boss::Boss()
 {
@@ -19,7 +19,8 @@ Boss::Boss()
 	this->_angle = 0.f;						//앵글값 (직선거리와 같음)
 	this->_imageRc = Figure::RectMakeCenter(_imagePosition, _imageSize); //렉트생성.
 	this->CreateAnimatiom();
-	
+	this->_bossCollisionSize = Vector2(500, 500);
+	this->_bossCollisionRc = Figure::RectMakeCenter(_position, _bossCollisionSize);
 	//------------1번 공격을 위한 변수들-----------------//
 	this->_shadowPosition = Vector2(_imagePosition.x, _imagePosition.y);
 	this->_shadowSize = Vector2(50, 50);
@@ -32,6 +33,8 @@ Boss::Boss()
 	this->_drapCount = 0;
 	this->_handFrame = 0;
 	CreateHandAnimation();
+
+	//--------------2번공격을 위한 변수들------------------//
 	//그림자도 아무런 값을 가지면 안되니까 기본상태로 넣어주고
 	_shadow = ShadowState::Stop;
 	this->ChangeShadowState(ShadowState::Idle);
@@ -53,7 +56,8 @@ Boss::~Boss()
 void Boss::Init()
 {
 	//플레이어의 이름으로 불러와서 내가 쓸수 있게 만들어 준다.
-	this->_player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");	
+	this->_player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
+	this->_rock = (Rock*)_ObjectManager->FindObject(ObjectType::Object, "Rock");
 }
 
 void Boss::Release()
@@ -75,7 +79,7 @@ void Boss::Release()
 
 void Boss::Update()
 {
-	
+	this->_bossCollisionRc = Figure::RectMakeCenter(_position, _bossCollisionSize);
 	//조건별로 처리할 부분은 여기에서
 	UpdateState();
 	//------------손날리기 스킬----------//
@@ -95,15 +99,18 @@ void Boss::Render()
 {
 	_aniImage->_bossImage->SetSize(_size);
 	_aniImage->_bossImage->FrameRender((int)_imagePosition.x, (int)_imagePosition.y, _aniImage->_animation->GetNowFrameX(), _aniImage->_animation->GetNowFrameY(), _pivot, true);
-	if (_handAni != nullptr)
+	if (_state != StateType::Dead)
 	{
-		_handImage->SetSize(_handSize);
-		_handImage->FrameRender((int)_handPosition.x, (int)_handPosition.y, _handAni->GetNowFrameX(), _handAni->GetNowFrameY(), Pivot::CENTER, true);
-	}
+		if (_handAni != nullptr)
+		{
+			_handImage->SetSize(_handSize);
+			_handImage->FrameRender((int)_handPosition.x, (int)_handPosition.y, _handAni->GetNowFrameX(), _handAni->GetNowFrameY(), Pivot::CENTER, true);
+		}
 
-	_shadowImage->SetSize(_shadowImage->GetFrameSize(0));
-	_shadowImage->SetAlpha(0.3f);
-	_shadowImage->SetScale(0.7f);
+		_shadowImage->SetSize(_shadowImage->GetFrameSize(0));
+		_shadowImage->SetAlpha(0.3f);
+		_shadowImage->SetScale(0.7f);
+	}
 	if (_shadow == ShadowState::Chasing)
 	{
 		_shadowImage->Render(_shadowPosition.x, _shadowPosition.y, Pivot::CENTER, true);
@@ -111,10 +118,16 @@ void Boss::Render()
 	
 	if (_isDebug == true)
 	{
+	
 		_DXRenderer->DrawRectangle(_shadowRc, DefaultBrush::yello, true);
 		_DXRenderer->DrawRectangle(_handRc, DefaultBrush::yello, true);
+		if (_hand == HandState::Stay)
+		{
+			_DXRenderer->DrawRectangle(_handRc, DefaultBrush::red, true);
+		}
 		_DXRenderer->DrawRectangle(_imageRc, DefaultBrush::blue, true);
 		_DXRenderer->DrawEllipse(Vector2(_imagePosition.x, _imagePosition.y), _size.x * 0.7f, DefaultBrush::blue, true);
+		_DXRenderer->DrawRectangle(_bossCollisionRc, DefaultBrush::blue);
 	}
 }
 
@@ -136,6 +149,10 @@ void Boss::ChangeState(StateType state)
 	case Boss::StateType::Create:
 		break;
 	case Boss::StateType::Dead:
+		//_imagePosition.y = 380.f;
+		break;
+	case Boss::StateType::Dead2:
+		
 		break;
 	case Boss::StateType::Hand_Shoot_First:
 		break;
@@ -183,7 +200,8 @@ void Boss::UpdateState()
 		}
 		break;
 	case Boss::StateType::Dead:
-
+		ChangeHandState(HandState::End);
+		ChangeShadowState(ShadowState::End);
 		break;
 	case Boss::StateType::Hand_Shoot_First:
 		//현재 진행되고있는프레임이 마지막 프레임이라면
@@ -206,16 +224,31 @@ void Boss::UpdateState()
 
 		if (_aniImage->_animation->GetNowFrameX() == 10)
 		{
-			//this->ChangeState(StateType::Hand_Shoot_First);
+			this->ChangeState(StateType::Rock_Shoot_First);
 		}
 
 		this->Dead();
 		break;
 	case Boss::StateType::Rock_Shoot_First:
+		cout << "First" << endl;
+		if (_aniImage->_animation->GetNowFrameX() == 15)
+		{
+			this->ChangeState(StateType::Rock_Shoot_Second);
+		}
 		break;
 	case Boss::StateType::Rock_Shoot_Second:
+		cout << "Second" << endl;
+		if (_aniImage->_animation->GetNowFrameX() == 25)
+		{
+			this->ChangeState(StateType::Rock_Shoot_Last);
+		}
 		break;
 	case Boss::StateType::Rock_Shoot_Last:
+		cout << "Last" << endl;
+		if (_aniImage->_animation->GetNowFrameX() == 31)
+		{
+			this->ChangeState(StateType::Rock_Shoot_First);
+		}
 		break;
 	case Boss::StateType::Fist_Shoot_First:
 		break;
@@ -272,6 +305,7 @@ void Boss::CreateAnimatiom()
 	dead1->_animation->SetCallbackFunc([this]() {this->NextAnimation(); });
 	_aniImgList.insert(make_pair(StateType::Dead, dead1));
 	
+	//보스가 죽을때 나오는 애니& 이미지2
 	AniAndImage* dead2 = new AniAndImage;
 	dead2->_animation = new Animation;
 	dead2->_bossImage = _ImageManager->FindImage("dead2");
@@ -307,16 +341,62 @@ void Boss::CreateAnimatiom()
 	hand_Shoot_Last->_animation->SetFrameUpdateTime(0.2f);
 	_aniImgList.insert(make_pair(StateType::Hand_Shoot_Last, hand_Shoot_Last));
 
+	//보스의 2번째 스킬 땅을 내려찍는부분.
+	AniAndImage* Rock_Shoot_First = new AniAndImage;
+	Rock_Shoot_First->_animation = new Animation;
+	Rock_Shoot_First->_bossImage = _ImageManager->FindImage("Rock_Shoot");
+	Rock_Shoot_First->_animation->SetStartEndFrame(0, 0, 15, 0, false);
+	Rock_Shoot_First->_animation->SetIsLoop(false);
+	Rock_Shoot_First->_animation->SetFrameUpdateTime(0.2f);
+	_aniImgList.insert(make_pair(StateType::Rock_Shoot_First, Rock_Shoot_First));
+	//보스의 2번째 스킬 돌이떨어지는걸 기다리면서 대기하는부분.
+	AniAndImage* Rock_Shoot_Second = new AniAndImage;
+	Rock_Shoot_Second->_animation = new Animation;
+	Rock_Shoot_Second->_bossImage = _ImageManager->FindImage("Rock_Shoot");
+	Rock_Shoot_Second->_animation->SetStartEndFrame(15, 0, 25, 0, false);
+	Rock_Shoot_Second->_animation->SetIsLoop(false);
+	Rock_Shoot_Second->_animation->SetFrameUpdateTime(0.2f);
+	_aniImgList.insert(make_pair(StateType::Rock_Shoot_Second, Rock_Shoot_Second));
+	//보스의 2번째 스킬 돌이 사라지고 기본상태로 돌아오는 부분.
+	AniAndImage* Rock_Shoot_Last = new AniAndImage;
+	Rock_Shoot_Last->_animation = new Animation;
+	Rock_Shoot_Last->_bossImage = _ImageManager->FindImage("Rock_Shoot");
+	Rock_Shoot_Last->_animation->SetStartEndFrame(25, 0, 31, 0, false);
+	Rock_Shoot_Last->_animation->SetIsLoop(false);
+	Rock_Shoot_Last->_animation->SetFrameUpdateTime(0.2f);
+	_aniImgList.insert(make_pair(StateType::Rock_Shoot_Last, Rock_Shoot_Last));
 
 }
-
+//보스가 죽는이미지가 커서 쪼갬.
 void Boss::NextAnimation()
 {
 	if (_state == StateType::Dead)
 	{
 		ChangeAnimation(StateType::Dead2);
+		_imagePosition.y = 435.f;
 	}
 
+}
+// (Math::PI / 2); (Math::PI / 2) < Math::PI; i + 0.225
+void Boss::RockPattom()
+{
+	if (_Input->GetKeyDown('Z'))
+	{
+	}
+	
+}
+//피격시 이미지
+void Boss::AttackedDamage(int damage)
+{
+	_hp = damage;
+	if (_hp <= 0)
+	{
+		ChangeState(StateType::Dead);
+	}
+	else
+	{
+
+	}
 }
 //죽을때 불러와질 함수.
 void Boss::Dead()

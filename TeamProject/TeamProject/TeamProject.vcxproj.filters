@@ -411,6 +411,9 @@
     <ClInclude Include="Database.h">
       <Filter>PrivateForder\Soon\Module\Database</Filter>
     </ClInclude>
+    <ClInclude Include="Rock.h">
+      <Filter>PrivateForder\Ha</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -665,11 +668,14 @@
     <ClCompile Include="PlayerAni.cpp">
       <Filter>PrivateForder\Ree</Filter>
     </ClCompile>
-    <ClCompile Include="Boss + Hand.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Boss + Shadow.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>PrivateForder\Ha</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss + Hand.cpp">
+      <Filter>PrivateForder\Ha</Filter>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>PrivateForder\Ha</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

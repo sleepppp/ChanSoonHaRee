@@ -33,6 +33,9 @@ public:
 	void Update()override;
 	void Render()override;
 
+
+	void ArrowAttack();
+
 };
 
 //new 贸府肺 茄惯究 阂房
