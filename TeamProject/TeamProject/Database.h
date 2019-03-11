@@ -1,5 +1,5 @@
 #pragma once
-#include <string>
+
 class Database
 {
 	SingletonHeader(Database)
@@ -17,3 +17,5 @@ public:
 	void AddVector2Data(const string key, const Vector2 data);
 	void AddStringData(const string key,const string data);
 };
+
+#define _Database Database::Get()

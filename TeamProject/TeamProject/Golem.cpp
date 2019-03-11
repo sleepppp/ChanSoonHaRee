@@ -21,15 +21,15 @@ Golem::Golem(Vector2 pos)
 	this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
 
 	//내 이미지 찾기!
-	this->_golemMove = _ImageManager->AddFrameImage("GolemMove", L"../Resources/Enemy/Golem/GolemMove.png", 8, 4);
-	this->_golemMove_Red = _ImageManager->AddFrameImage("GolemMove_Red", L"../Resources/Enemy/Golem/GolemMove_Red.png", 8, 4);
-	this->_golemMove_white = _ImageManager->AddFrameImage("GolemMove_White", L"../Resources/Enemy/Golem/GolemMove_White.png", 8, 4);
+	this->_golemMove = _ImageManager->FindImage("GolemMove");
+	this->_golemMove_Red = _ImageManager->FindImage("GolemMove_Red");
+	this->_golemMove_white = _ImageManager->FindImage("GolemMove_White");
 
-	this->_golemAttack = _ImageManager->AddFrameImage("GolemAttack", L"../Resources/Enemy/Golem/GolemAttack.png", 13, 4);
-	this->_golemAttack_Red = _ImageManager->AddFrameImage("GolemAttack_Red", L"../Resources/Enemy/Golem/GolemAttack_Red.png", 13, 4);
-	this->_golemAttack_White = _ImageManager->AddFrameImage("GolemAttack_White", L"../Resources/Enemy/Golem/GolemAttack_White.png", 13, 4);
+	this->_golemAttack = _ImageManager->FindImage("GolemAttack");
+	this->_golemAttack_Red = _ImageManager->FindImage("GolemAttack_Red");
+	this->_golemAttack_White = _ImageManager->FindImage("GolemAttack_White");
 
-	this->_shadow = _ImageManager->AddImage("shadow", L"../Resources/Object/Shadow.png");
+	this->_shadow = _ImageManager->FindImage("Shadow");
 	//각종 카운트 초기화
 	this->_moveCount = 0;
 	this->_attackCount = 0;

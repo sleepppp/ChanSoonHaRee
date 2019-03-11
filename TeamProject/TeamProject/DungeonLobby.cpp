@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "DungeonLobby.h"
 
-
+#include "GameObject.h"
 void DungeonLobby::Init()
 {
 	_background = _ImageManager->FindImage("Dungeon_Lobby");
@@ -11,6 +11,13 @@ void DungeonLobby::Init()
 	this->ChanInit();
 
 	_ObjectManager->Init();
+
+	GameObject* player = _ObjectManager->FindObject(ObjectType::Object, "Will");
+	if (player)
+	{
+		player->SetPosition(Vector2(_Database->GetVector2Data("PlayerPosition")));
+	}
+
 	_Camera->SetMapSize(Vector2(CastingInt(_background->GetWidth()), CastingInt(_background->GetHeight())));
 	_Camera->InitCameraToPlayer();
 }
