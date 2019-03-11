@@ -61,7 +61,7 @@ void Player::Move(Vector2 direction)
 
 			//값 반환이 없는 빈 내용물이 아닌 경우에만 사용한다.
 			if (item == nullptr)
-			{
+			{				
 				//만든 함수 InterRee로 플레이어 충돌용 함수와 전체 오브젝트를 충돌 검사한다.
 				if (this->InterRee(&_collisionRect, &object->at(i)->GetCollisionRect()))
 				{
@@ -89,8 +89,9 @@ void Player::Move(Vector2 direction)
 			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));
 			
 			//값 반환이 없는 빈 내용물이 아닌 경우에만 사용한다.
-			if (enemy == nullptr&&_isEnemy==false)
-			{
+			if (enemy != nullptr)
+			{			
+				//if (_isEnemy == false)continue;
 				//롤링시 통과하기 위한 bool값
 				
 				//만든 함수 InterRee로 플레이어 충돌용 함수와 전체 오브젝트를 충돌 검사한다.

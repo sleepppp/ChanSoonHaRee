@@ -106,6 +106,7 @@ void Player::Release()
 /********************************************************************************/
 void Player::Update()
 {	
+	cout << _isEnemy << endl;
 
 	//이동량 측정할 변수
 	Vector2 moveValue(0, 0);
