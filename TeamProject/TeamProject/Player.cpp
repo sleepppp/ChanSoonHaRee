@@ -70,16 +70,12 @@ Player::Player(Vector2 pos)
 	this->_isDelay = 0.f;
 	this->_count = 0;
 	//정밀 충돌용 렉트 위치 초기화
-	this->_collisionRect = RectMakeCenter(_position, Vector2(60.f, 60.f));	
+	this->_collisionRect = RectMakeCenter(_position, Vector2(30.0f, 40.0f));	
 	//상태별 애니메이션 전부 생성하여 맵에 담아둔다.
 	this->CreateAnimation();
 
 	// 처음 시작 상태를 위한 세팅
 	this->ChangeState(State::DownIdle);
-
-	//화살 클래스
-	//_arrow = new Arrow(_pos, state);
-	
 }
 Player::~Player() {}
 
@@ -852,57 +848,31 @@ void Player::EndAnimation()
 		break;
 		//================================================================
 	case Player::State::LeftSword2:
-		//if (_Input->GetKey('J')) this->ChangeAnimation(State::LeftSword1);
-		//else if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-		//else					this->ChangeState(State::LeftIdle);
 		this->ChangeState(State::LeftIdle);
 		break;
 	case Player::State::RightSword2:
-		//if (_Input->GetKey('J')) this->ChangeAnimation(State::RightSword1);
-		//else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-		//else					this->ChangeState(State::RightIdle);
 		this->ChangeState(State::RightIdle);
 		break;
 	case Player::State::UpSword2:
-		//if (_Input->GetKey('J')) this->ChangeAnimation(State::UpSword1);
-		//else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-		//else					this->ChangeState(State::UpIdle);
 		this->ChangeState(State::UpIdle);
 		break;
 	case Player::State::DownSword2:
-		//if (_Input->GetKey('J')) this->ChangeAnimation(State::DownSword1);
-		//else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-		//else					this->ChangeState(State::DownIdle);		
 		this->ChangeState(State::DownIdle);
 		break;
 		//==============================================================
 	case Player::State::LeftBow:
-		//if (_Input->GetKeyDown('J')) this->ChangeState(State::LeftBow);
-		//else if (_Input->GetKey('A')) this->ChangeAnimation(State::LeftRun);
-		//else							this->ChangeState(State::LeftIdle);
 		this->ChangeState(State::LeftIdle);
 		break;
 
 	case Player::State::RightBow:
-		//if (_Input->GetKeyDown('J')) this->ChangeState(State::RightBow);
-		//else if (_Input->GetKey('S')) this->ChangeAnimation(State::RightRun);
-		//else this->ChangeState(State::RightIdle);
 		this->ChangeState(State::RightIdle);
 		break;
 
 	case Player::State::UpBow:
-		//if (_Input->GetKeyDown('J')) this->ChangeState(State::UpBow);
-		//else if (_Input->GetKey('S')) this->ChangeAnimation(State::UpRun);
-		//else this->ChangeState(State::UpIdle);
 		this->ChangeState(State::UpIdle);
 		break;
 
 	case Player::State::DownBow:
-		//if (_Input->GetKeyDown('J')) this->ChangeState(State::DownBow);
-		//else
-		//{
-		//	this->ChangeState(State::DownIdle);
-		//}
 		this->ChangeState(State::DownIdle);
 		break;
 

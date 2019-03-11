@@ -36,7 +36,7 @@ void Player::Move(Vector2 direction)
 	//현 좌표는 방향*스피드*델타타임
 	this->_position += direction.Normalize()*_speed*_TimeManager->DeltaTime();
 	//이동했으니 정밀 충돌 렉트 위치도 갱신한다.
-	_collisionRect = RectMakeCenter(_position, Vector2(60.0f, 60.0f));
+	_collisionRect = RectMakeCenter(_position, Vector2(30.0f, 40.0f));
 
 	//mainRect의 위치도 갱신
 	this->UpdateMainRect();
