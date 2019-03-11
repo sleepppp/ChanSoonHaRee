@@ -21,7 +21,7 @@ Weeds::Weeds(Vector2 pos)
 	this->_weeds_Red = _ImageManager->AddFrameImage("weeds_Red", L"../Resources/Enemy/Weeds/Weeds_Red.png", 12, 1);
 	this->_weeds_White = _ImageManager->AddFrameImage("weeds_White", L"../Resources/Enemy/weeds/Weeds_White.png", 12, 1);
 
-	this->_shadow = _ImageManager->AddImage("shadow", L"../Resources/Object/Shadow.png");
+	this->_shadow =	_ImageManager->AddImage("shadow", L"../Resources/Object/Shadow.png");
 
 	this->_imageCount = 0;
 	this->_count = 0;
