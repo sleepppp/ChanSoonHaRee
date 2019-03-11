@@ -11,7 +11,7 @@ BigSlime::BigSlime(Vector2 pos)
 	_size = Vector2(200, 200);
 	_pivot = Pivot::CENTER;
 	_hp = 500;
-	_demage = 46;
+	_damage = 46;
 
 }
 

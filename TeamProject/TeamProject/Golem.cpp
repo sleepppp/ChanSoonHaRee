@@ -14,7 +14,7 @@ Golem::Golem(Vector2 pos)
 	this->_pivot = Pivot::CENTER;			//내 기준은 중심에있어
 	this->_speed = 90.0f;					//속도는 90.0f
 	this->_hp = 200;						//200의 체력
-	this->_demage = 34;						//34의 뎀지
+	this->_damage = 34;						//34의 뎀지
 
 	this->_isAttack = false;				//공격은 처음에는 안하고있지
 	bool _attackedColor = false;
@@ -252,7 +252,7 @@ void Golem::Collision()
 		if (_isAttack == true)
 		{
 			//내 뎀지를 넘겨줘라.
-			_player->AttackedDamage(_demage);
+			_player->AttackedDamage(_damage);
 			//공격을 완료 했으면 데미지를 주는 변수를 펄스시켜라.
 			_isAttack = false;
 

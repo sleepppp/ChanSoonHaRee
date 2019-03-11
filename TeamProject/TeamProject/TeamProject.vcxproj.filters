@@ -151,7 +151,7 @@
     <Filter Include="PrivateForder\Chan\Effect">
       <UniqueIdentifier>{5ca445c5-d344-47bf-9928-4267c328661b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PrivateForder\Chan\Enemy">
+    <Filter Include="PrivateForder\Chan\Effect\Enemy">
       <UniqueIdentifier>{1de75822-83fa-4fc0-afed-bfdbcf96b6ba}</UniqueIdentifier>
     </Filter>
     <Filter Include="System\DebugSystem">
@@ -388,7 +388,10 @@
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClInclude>
     <ClInclude Include="Plankton.h">
-      <Filter>PrivateForder\Chan\Enemy</Filter>
+      <Filter>PrivateForder\Chan\Effect\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="testYap.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="testYap.h">
       <Filter>헤더 파일</Filter>
@@ -627,7 +630,10 @@
       <Filter>MainEntry\Scene\Dungeon</Filter>
     </ClCompile>
     <ClCompile Include="Plankton.cpp">
-      <Filter>PrivateForder\Chan\Enemy</Filter>
+      <Filter>PrivateForder\Chan\Effect\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="testYap.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="testYap.cpp">
       <Filter>소스 파일</Filter>

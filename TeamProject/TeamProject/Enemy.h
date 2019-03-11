@@ -18,7 +18,7 @@ protected:
 	float _distance;		//직선거리를 구하기 위한 변수
 	float _angle;			//앵글
 	float _attackedAngle;	//공격을 받았을 시에 튕겨져 나갈 방향.
-	int _demage;			//공격력
+	int _damage;			//공격력
 	int _hp;				//체력
 	RECT _renderRect;		//이미지를 위해서 만든 렉트
 	float _count;
