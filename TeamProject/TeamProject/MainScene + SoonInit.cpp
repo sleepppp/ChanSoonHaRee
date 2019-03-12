@@ -51,6 +51,7 @@ void Program::LoadResourceSoon()
 	_SoundManager->AddSound("poolRoomBGM", PathSounds("poolRoomBGM.mp3"), true, true);
 	_SoundManager->AddSound("dungeonBGM", PathSounds("dungeonBGM.mp3"), true, true);
 	_SoundManager->AddSound("dungeon_entrance_slime_door_absorb", PathSounds("dungeon_entrance_slime_door_absorb.wav"));
+	_SoundManager->AddSound("dungeon_entrance_slime_door_spit", PathSounds("dungeon_entrance_slime_door_spit.wav"));
 
 	_SoundManager->SetMusicVolume(0.1f);
 
