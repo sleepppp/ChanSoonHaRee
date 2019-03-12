@@ -126,20 +126,15 @@ void Arrow::ArrowAttack()
 				RECT temp;
 				if(IntersectRect(&temp, &this->_mainRect, &object->at(i)->GetCollisionRect()))
 				{
-
-					enemy->AttackedDemege(1);
+					enemy->AttackedDemege(_damage);
 					Effect::PlayEffect(EFFECT_SWORDATK, Vector2(this->_mainRect.left, this->_mainRect.top));
 					this->Destroy();
 					break;
 				}
 				this->_isColiArrow = false;
 			}
-
-
 		}
 	}
-
-
 }
 
 void Arrow::Coli()
@@ -153,6 +148,4 @@ void Arrow::Coli()
 		this->_position.y = (this->_mainRect.bottom - this->_mainRect.top) / 2 + this->_mainRect.top;
 		this->_mainRect = Figure::RectMakeCenter(this->_position.x, this->_position.y, this->_size.x, this->_size.y);
 	}
-	
-
 }

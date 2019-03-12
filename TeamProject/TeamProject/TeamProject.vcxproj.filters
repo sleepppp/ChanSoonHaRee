@@ -686,9 +686,6 @@
     <ClCompile Include="Database.cpp">
       <Filter>PrivateForder\Soon\Module\Database</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerAni.cpp">
-      <Filter>PrivateForder\Ree</Filter>
-    </ClCompile>
     <ClCompile Include="Boss + Shadow.cpp">
       <Filter>PrivateForder\Ha</Filter>
     </ClCompile>
@@ -718,6 +715,15 @@
     </ClCompile>
     <ClCompile Include="Cloud.cpp">
       <Filter>PrivateForder\Soon</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss + SlimeArm.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory+SprayItem.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Player + Ani.cpp">
+      <Filter>PrivateForder\Ree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

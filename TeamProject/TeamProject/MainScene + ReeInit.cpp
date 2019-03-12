@@ -35,12 +35,11 @@ void Dungeon_Map_01::ReeInit()
 {
 	_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(700, 500)));
 }
-
-void  Dungeon_Map_Boss::ReeInit()
+void Dungeon_Map_02::ReeInit()
 {
 	_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(WinSizeX / 2, 500)));
 }
-void Dungeon_Map_02::ReeInit()
+void  Dungeon_Map_Boss::ReeInit()
 {
 	_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(WinSizeX / 2, 500)));
 }
