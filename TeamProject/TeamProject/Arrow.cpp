@@ -15,7 +15,7 @@ Arrow::Arrow(Vector2 pos, State state)
 	this->_speed = 400.0f;
 	this->_damage = 20.f;		
 	this->_state = state;
-	
+	this->_isColiArrow = false;
 	_ImageManager->AddImage("arrow_left", L"../Resources/Player/arrow_left.png");
 	this->_imgArrow_left = _ImageManager->FindImage("arrow_left");
 	_ImageManager->AddImage("arrow_right", L"../Resources/Player/arrow_right.png");
@@ -41,36 +41,40 @@ void Arrow::Release()
 
 void Arrow::Update()
 {
+	if (_isColiArrow == false)
+	{
+		switch (_state)
+		{
+		case Arrow::State::Left:
+			_position.x -= _speed * _TimeManager->DeltaTime();
+			_size = Vector2(52, 10);
+			this->_mainRect = Figure::RectMakeCenter(_position, _size);
+			break;
+		case Arrow::State::Right:
+			_position.x += _speed * _TimeManager->DeltaTime();
+			_size = Vector2(52, 10);
+			this->_mainRect = Figure::RectMakeCenter(_position, _size);
+			break;
+		case Arrow::State::Up:
+			_position.y -= _speed * _TimeManager->DeltaTime();
+			_size = Vector2(10, 52);
+			this->_mainRect = Figure::RectMakeCenter(_position, _size);
+			break;
+		case Arrow::State::Down:
+			_position.y += _speed * _TimeManager->DeltaTime();
+			_size = Vector2(10, 52);
+			this->_mainRect = Figure::RectMakeCenter(_position, _size);
+			break;
+		}
+		RECT renderRc = _Camera->GetRelativeRect(_mainRect);
+		if (renderRc.left > WinSizeX + 100 || renderRc.right < -100 ||
+			renderRc.top > WinSizeY + 100 || renderRc.bottom < -100)
+		{
+			this->Destroy();
+		}
+		this->ArrowAttack();
+	}
 	
-	switch (_state)
-	{
-	case Arrow::State::Left:
-		_position.x -= _speed * _TimeManager->DeltaTime();
-		_size = Vector2(52,10);
-		this->_mainRect = Figure::RectMakeCenter(_position, _size);
-		break;
-	case Arrow::State::Right:
-		_position.x += _speed * _TimeManager->DeltaTime();
-		_size = Vector2(52, 10);
-		this->_mainRect = Figure::RectMakeCenter(_position, _size);
-		break;
-	case Arrow::State::Up:
-		_position.y -= _speed * _TimeManager->DeltaTime();
-		_size = Vector2(10, 52);
-		this->_mainRect = Figure::RectMakeCenter(_position, _size);
-		break;
-	case Arrow::State::Down:
-		_position.y += _speed * _TimeManager->DeltaTime();
-		_size = Vector2(10, 52);
-		this->_mainRect = Figure::RectMakeCenter(_position, _size);
-		break;
-	}
-	RECT renderRc = _Camera->GetRelativeRect(_mainRect);
-	if (renderRc.left > WinSizeX + 100 || renderRc.right < -100 ||
-		renderRc.top > WinSizeY + 100 || renderRc.bottom < -100)
-	{
-		this->Destroy();
-	}
 	
 }
 
@@ -117,15 +121,18 @@ void Arrow::ArrowAttack()
 		{
 			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));
 
-			if (enemy == nullptr)
+			if (enemy != nullptr)
 			{
 				RECT temp;
-				if(IntersectRect(&temp, &_mainRect, &object->at(i)->GetCollisionRect()))
+				if(IntersectRect(&temp, &this->_mainRect, &object->at(i)->GetCollisionRect()))
 				{
-					//데미지 값을 넘겨준다
-					enemy->AttackedDemege(this->_damage);
-					Effect::PlayEffect(EFFECT_SWORDATK, Vector2(_mainRect.left, _mainRect.top));
+
+					enemy->AttackedDemege(1);
+					Effect::PlayEffect(EFFECT_SWORDATK, Vector2(this->_mainRect.left, this->_mainRect.top));
+					this->Destroy();
+					break;
 				}
+				this->_isColiArrow = false;
 			}
 
 
@@ -135,3 +142,17 @@ void Arrow::ArrowAttack()
 
 }
 
+void Arrow::Coli()
+{
+	if (_isColiArrow == true)
+	{
+		Effect::PlayEffect(EFFECT_SWORDATK, Vector2(this->_mainRect.left, this->_mainRect.top));
+
+		//충돌한 캐릭터 플레이어를 반대로 밀어주면서 그자리에 머문것처럼 한다.
+		this->_position.x = (this->_mainRect.right - this->_mainRect.left) / 2 + this->_mainRect.left;
+		this->_position.y = (this->_mainRect.bottom - this->_mainRect.top) / 2 + this->_mainRect.top;
+		this->_mainRect = Figure::RectMakeCenter(this->_position.x, this->_position.y, this->_size.x, this->_size.y);
+	}
+	
+
+}

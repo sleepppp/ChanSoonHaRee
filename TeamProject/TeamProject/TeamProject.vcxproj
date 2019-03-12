@@ -245,6 +245,7 @@
     <ClCompile Include="BigSlime.cpp" />
     <ClCompile Include="Boss + Hand.cpp" />
     <ClCompile Include="Boss + Shadow.cpp" />
+    <ClCompile Include="Boss + SlimeArm.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="Cloud.cpp" />

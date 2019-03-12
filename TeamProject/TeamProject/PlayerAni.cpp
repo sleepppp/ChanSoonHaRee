@@ -23,7 +23,6 @@ PlayerAni::~PlayerAni()
 {
 }
 
-
 /********************************************************************************/
 //## Move ##
 //Vector2 direction:방향
@@ -60,8 +59,12 @@ void Player::Move(Vector2 direction)
 			MoveItem* item = dynamic_cast<MoveItem*>(object->at(i));
 			//에너미 클래스 형변환으로 오브젝트 i로 불러온다.
 			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));		
+			//화살 클래스
+			Arrow* arrow = dynamic_cast<Arrow*>(object->at(i));
+
 
 			//다이나믹 캐스트로 null값이 반환되는 경우
+			//플레이어 몸과 충돌검사
 			if (item == nullptr || enemy == nullptr)
 			{	
 				//만든 함수 InterRee로 플레이어 충돌용 함수와 전체 오브젝트를 충돌 검사한다.
@@ -76,13 +79,29 @@ void Player::Move(Vector2 direction)
 							continue;
 						}
 					}
-					
+					//아이템인 경우 continue
+					if(object->at(i)==item)
+					{
+						continue;
+					}
+
 					//충돌한 캐릭터 플레이어를 반대로 밀어주면서 그자리에 머문것처럼 한다.
 					_position.x = (_collisionRect.right - _collisionRect.left) / 2 + _collisionRect.left;
 					_position.y = (_collisionRect.bottom - _collisionRect.top) / 2 + _collisionRect.top;
 					_mainRect = RectMakeCenter(_position.x, _position.y, _size.x, _size.y);
 				}
 			}
+
+			//nullptr을 보내는 것은 값이 있다는 뜻
+			//if (object->at(i)==arrow)
+			//{
+			//	if (this->InterRee(&_arrow->GetMainRect(), &object->at(i)->GetCollisionRect()))
+			//	{
+			//		//_arrow->MoveStop();
+			//		cout << "arrow test" << endl;
+			//	}
+			//	
+			//}
 		}
 	}
 	//롤링시 통과하기 위한 bool값
@@ -179,6 +198,7 @@ void Player::Attack()
 	{
 		const vector <class GameObject*>* object;
 		object = _ObjectManager->GetObjectListPointer(ObjectType::Object);
+
 		for (int i = 0; i < object->size(); i++)
 		{
 			//플레이어 자신을 제외하기 위한 조건문

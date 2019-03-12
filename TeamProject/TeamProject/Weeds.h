@@ -12,6 +12,9 @@ private:
 	bool _isAttack;
 	int	 _attackedCount;		//피격시 뒤로 밀리는 타이밍을 재기 위한 카운트
 	float _attackTime;
+	float _countMove;
+	int _moveCount;
+	bool _isStop;
 public:
 	void Init()override;
 	void Release()override;
@@ -19,6 +22,7 @@ public:
 	void Render()override;
 	void Collision();
 	void Move();
+	void InvenStop(bool stop);
 public:
 	Weeds(Vector2 pos);
 	~Weeds();

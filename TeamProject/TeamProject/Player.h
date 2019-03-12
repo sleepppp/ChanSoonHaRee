@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "GameObject.h"
 
 class Player : public GameObject
@@ -11,30 +11,32 @@ class Player : public GameObject
 		LeftSword1, RightSword1, UpSword1, DownSword1,
 		LeftSword2, RightSword2, UpSword2, DownSword2,
 		LeftBow,RightBow,UpBow,DownBow,
+		Die,
 		end
 	};
 
 private:
-	//¾Ö´Ï¸ŞÀÌ¼ÇÀ» ´ãÀ» ¸ÊÀÇ ¹İº¹ÀÚ
+	//ì• ë‹ˆë©”ì´ì…˜ì„ ë‹´ì„ ë§µì˜ ë°˜ë³µì
 	typedef map<State, class Animation*>::iterator AnimationIter;
 private:
-	class Image* _imgMove;		//ÇÃ·¹ÀÌ¾î ±âº» ¿òÁ÷ÀÓ
-	class Image* _imgAtkSword;	//ÇÃ·¹ÀÌ¾î °ø°İ ½º¿öµå ÀÌ¹ÌÁö
-	class Image* _imgAtkBow;	//ÇÃ·¹ÀÌ¾î °ø°İ È° ÀÌ¹ÌÁö
+	class Image* _imgMove;		//í”Œë ˆì´ì–´ ê¸°ë³¸ ì›€ì§ì„
+	class Image* _imgAtkSword;	//í”Œë ˆì´ì–´ ê³µê²© ìŠ¤ì›Œë“œ ì´ë¯¸ì§€
+	class Image* _imgAtkBow;	//í”Œë ˆì´ì–´ ê³µê²© í™œ ì´ë¯¸ì§€
+	class Image* _imgShadow;
 
 	class UIWeaponAndBag* _UIWeaponSwap;
-
+	class Arrow* _arrow;
 	class Animation* _mainAnimation;
 	
-	//vector <Arrow> _arrow;//È­»ì Å¬·¡½º »ç¿ëÀ» À§ÇÑ ¼±¾ğ
+	//vector <Arrow> _arrow;//í™”ì‚´ í´ë˜ìŠ¤ ì‚¬ìš©ì„ ìœ„í•œ ì„ ì–¸
 
 
-	map<State, class Animation*> _animationList;	//»óÅÂº° ¾Ö´Ï¸¦ °ü¸®ÇÏ±â À§ÇØ ¸Ê »ç¿ë
+	map<State, class Animation*> _animationList;	//ìƒíƒœë³„ ì• ë‹ˆë¥¼ ê´€ë¦¬í•˜ê¸° ìœ„í•´ ë§µ ì‚¬ìš©
 	State _state;
 	
-	RECT _collisionRect;	//Ãæµ¹¿ë RECT
-	RECT _swordRect;		//Ä® °ø°İ¿ë RECT
-	RECT _shieldRect;		//¹æ¾î¿ë RECT
+	RECT _collisionRect;	//ì¶©ëŒìš© RECT
+	RECT _swordRect;		//ì¹¼ ê³µê²©ìš© RECT
+	RECT _shieldRect;		//ë°©ì–´ìš© RECT
 	
 	float _speed;
 	
@@ -47,7 +49,7 @@ private:
 	float _frameBow;
 
 	bool _isMoveStop;
-	bool _isChangeSword;		//Ä® ÀÌ¹ÌÁö¿Í ½ºÅÄµå ¹«ºê ÀüÈ¯¿ë bool°ª
+	bool _isChangeSword;		//ì¹¼ ì´ë¯¸ì§€ì™€ ìŠ¤íƒ ë“œ ë¬´ë¸Œ ì „í™˜ìš© boolê°’
 	bool _isChangeBow;
 	bool _isStandardMove;
 
@@ -92,9 +94,8 @@ public:
 	int GetPlayerMaxHp() { return _maxHp; }
 	RECT GetCollisionRect()const override { return _collisionRect; }
 	RECT GetSwordRect() const { return _swordRect; }
-	int GetPlayerDamage() { return _damage; }		//¿¡³Ê¹Ì Å¬·¡½º¿¡ ³Ñ°ÜÁÖ±â À§ÇÑ ÇÔ¼ö
-	State GetState() { return _state; }				//µ¿ÀÛ enum°ª Àü´Ş ÇÔ¼ö
-
+	int GetPlayerDamage() { return _damage; }		//ì—ë„ˆë¯¸ í´ë˜ìŠ¤ì— ë„˜ê²¨ì£¼ê¸° ìœ„í•œ í•¨ìˆ˜
+	State GetState() { return _state; }				//ë™ì‘ enumê°’ ì „ë‹¬ í•¨ìˆ˜
 };
 
 class PlayerAni

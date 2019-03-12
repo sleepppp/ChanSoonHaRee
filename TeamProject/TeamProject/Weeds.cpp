@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "MoveItem.h"
 
+
 Weeds::Weeds(Vector2 pos)
 {
 	this->_name = "Weeds";
@@ -26,6 +27,13 @@ Weeds::Weeds(Vector2 pos)
 
 	this->_imageCount = 0;
 	this->_count = 0;
+	this->_isStop = false;
+
+	this->_moveCount = 0;
+	this->_countMove = 0;
+	//인벤토리가 열리고 닫힐때 움직임에 제한을 주기 위해서 넣어놓은 콜백메세지
+	this->AddCallbackMessage("InventoryOpen", [this](TagMessage message) {this->InvenStop(1); });
+	this->AddCallbackMessage("InventoryClose", [this](TagMessage message) {this->InvenStop(0); });
 }
 Weeds::~Weeds() {}
 
@@ -38,8 +46,16 @@ void Weeds::Release() {}
 
 void Weeds::Update()
 {
-	this->Move();
-
+	_countMove += _TimeManager->DeltaTime();
+	if (_countMove >= 1.f / 6.0f)
+	{
+		_countMove = 0;
+		_moveCount++;
+	}
+	if (!_isStop)
+	{
+		this->Move();
+	}
 	Collision();
 
 	RECT collisionRc;
@@ -168,4 +184,9 @@ void Weeds::Move()
 	}
 
 
+}
+//인벤토리의 온오프시 움직임에 제한을 주려고 만든 함수.
+void Weeds::InvenStop(bool stop)
+{
+	_isStop = stop;
 }

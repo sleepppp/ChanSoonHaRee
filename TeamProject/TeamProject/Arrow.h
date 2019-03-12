@@ -8,14 +8,11 @@ private:
 	class Image* _imgArrow_up;
 	class Image* _imgArrow_down;
 
-	//class UI
-	//class Player* _player;
-	//vector <RECT> _bullet;
 	float _speed;
 	int _max;
 	int _damage;
-	bool fire;
-	
+	bool _isColiArrow;
+
 public:
 	enum class State
 	{
@@ -35,7 +32,9 @@ public:
 
 
 	void ArrowAttack();
-
+	void Coli();
+	//void MoveStop();
+	RECT ArrowRc() { return this->_mainRect; }
 };
 
 //new 贸府肺 茄惯究 阂房
