@@ -203,7 +203,7 @@ void Plankton::PlanktonStates()
 	//상태 : 피격 Attacked
 	case Plankton::PlanktonState::Attacked:
 		//피격 상태인 경우, 밀리기와 컬러 렌더 시간 조절용 함수
-		this->AtkedState(_position, _attackedAngle, 1000.f, 0.2f);
+		this->AtkedState(_position, _attackedAngle, 100.0f, 0.2f);
 		break;
 
 	//상태 : 죽음 Dead
@@ -231,9 +231,9 @@ void Plankton::AtkedState(Vector2 position, float angle, float speed, float coun
 	if (deltaTimeCount <= 0.5f) 
 	{
 		//포지션과 렉트 조정
-		position.x += cosf(angle) * speed * _TimeManager->DeltaTime();
-		position.y -= sinf(angle) * speed * _TimeManager->DeltaTime();
-		this->_renderRect = UpdateRect(position, _size, Pivot::CENTER);
+		_position.x += cosf(angle) * speed * _TimeManager->DeltaTime();
+		_position.y -= sinf(angle) * speed * _TimeManager->DeltaTime();
+		this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
 
 		//피격 카운트에 따라 피격 렌더 설정하기
 		if (atkedCount < countValue)
