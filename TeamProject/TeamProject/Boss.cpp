@@ -237,36 +237,42 @@ void Boss::UpdateState()
 			_Camera->Shake(3.8f, 0.9f);
 			this->ChangeState(StateType::Rock_Shoot_Second);
 		}
+		this->Dead();
 		break;
 	case Boss::StateType::Rock_Shoot_Second:
 		if (_aniImage->_animation->GetNowFrameX() == 25)
 		{
 			this->ChangeState(StateType::Rock_Shoot_Last);
 		}
+		this->Dead();
 		break;
 	case Boss::StateType::Rock_Shoot_Last:
 		if (_aniImage->_animation->GetNowFrameX() == 31)
 		{
 			this->ChangeState(StateType::Rock_Shoot_First);
 		}
+		this->Dead();
 		break;
 	case Boss::StateType::Fist_Shoot_First:
 		if (_aniImage->_animation->GetNowFrameX() == 16)
 		{
 			this->ChangeState(StateType::Fist_Shoot_Second);
 		}
+		this->Dead();
 		break;
 	case Boss::StateType::Fist_Shoot_Second:
 		if (_aniImage->_animation->GetNowFrameX() == 21)
 		{
 			this->ChangeState(StateType::Fist_Shoot_Last);
 		}
+		this->Dead();
 		break;
 	case Boss::StateType::Fist_Shoot_Last:
 		if (_aniImage->_animation->GetNowFrameX() == 15)
 		{
 			this->ChangeState(StateType::Fist_Shoot_First);
 		}
+		this->Dead();
 		break;
 	case Boss::StateType::End:
 		break;
