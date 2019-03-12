@@ -45,7 +45,7 @@ Boss::Boss()
 
 	//초기 상태값은 보스가 움직이지 않아야 하니까 가만히 있는 상태를 만들어준다.
 	_state = StateType::Create;
-	this->ChangeState(StateType::Fist_Shoot_First);
+	this->ChangeState(StateType::Rock_Shoot_First);
 }
 
 
@@ -249,7 +249,7 @@ void Boss::UpdateState()
 	case Boss::StateType::Rock_Shoot_Last:
 		if (_aniImage->_animation->GetNowFrameX() == 31)
 		{
-			this->ChangeState(StateType::Rock_Shoot_First);
+			this->ChangeState(StateType::Fist_Shoot_First);
 		}
 		this->Dead();
 		break;

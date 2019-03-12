@@ -16,6 +16,7 @@ Rock::Rock(Vector2 pos, float time)
 	_pivot = Pivot::CENTER;
 	this->UpdateMainRect();
 	_rockImage = _ImageManager->FindImage("rock");
+	_player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
 }
 
 
@@ -26,7 +27,6 @@ Rock::~Rock()
 
 void Rock::Init()
 {
-	_player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
 }
 void Rock::Release()
 {
