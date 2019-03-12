@@ -30,6 +30,9 @@ private:
 
 	float _atkCount;						//공격 카운트
 
+	float deltaTimeCount;					//델타 타임 카운트
+	float atkedCount;						//피격 카운트
+
 public:
 	Plankton(Vector2 position);
 	~Plankton();
