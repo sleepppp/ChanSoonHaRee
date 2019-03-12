@@ -48,17 +48,17 @@ void UIWeaponAndBag::Release()
 void UIWeaponAndBag::Update()
 {
 	//인벤토리
-	if (_Input->GetKeyDown(VK_F4))
-	{
-		GameObject* object = _ObjectManager->FindObject(ObjectType::UI, "Inventory");
-		if (object)
-		{
-			if (object->GetActive() == false)
-			{
-				object->SetActive(true);
-			}
-		}
-	}
+	//if (_Input->GetKeyDown(VK_F4))
+	//{
+	//	GameObject* object = _ObjectManager->FindObject(ObjectType::UI, "Inventory");
+	//	if (object)
+	//	{
+	//		if (object->GetActive() == false)
+	//		{
+	//			object->SetActive(true);
+	//		}
+	//	}
+	//}
 
 	//무기 스왑 Z키
 	if (_Input->GetKeyDown('Z'))
