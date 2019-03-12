@@ -10,6 +10,7 @@
 #include "Arrow.h"
 #include "Effect.h"
 #include "DamageFontManager.h"
+#include "Boss.h"
 
 using namespace Figure;
 
@@ -61,29 +62,34 @@ void Player::Move(Vector2 direction)
 			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));		
 			//화살 클래스
 			Arrow* arrow = dynamic_cast<Arrow*>(object->at(i));
-
+			Boss* boss = dynamic_cast<Boss*>(object->at(i));
 
 			//다이나믹 캐스트로 null값이 반환되는 경우
 			//플레이어 몸과 충돌검사
-			if (item == nullptr || enemy == nullptr)
+			//아이템(먹고 흡수해야해서 충돌x)
+			//에너미(따로 검사?
+			if (item == nullptr || enemy == nullptr)//||boss==nullptr)
 			{	
 				//만든 함수 InterRee로 플레이어 충돌용 함수와 전체 오브젝트를 충돌 검사한다.
 				if (this->InterRee(&_collisionRect, &object->at(i)->GetCollisionRect()))
 				{
 					//검사하는 오브젝트 i가 enemy일 경우, Roll 상태일때 통과하여 넘어간다.
-					if (object->at(i)==enemy )
+					if (object->at(i)==enemy)
 					{
 						if (_state == Player::State::LeftRoll || _state == Player::State::RightRoll || _state == Player::State::UpRoll || _state == Player::State::DownRoll)
 						{
 							continue;
 						}
 					}
-					//아이템인 경우 continue
+					//아이템인 경우 무조건 통과
 					if(object->at(i)==item)
 					{
 						continue;
 					}
-
+					//if (object->at(i) == boss)
+					//{
+					//
+					//}
 					//충돌한 캐릭터 플레이어를 반대로 밀어주면서 그자리에 머문것처럼 한다.
 					_position.x = (_collisionRect.right - _collisionRect.left) / 2 + _collisionRect.left;
 					_position.y = (_collisionRect.bottom - _collisionRect.top) / 2 + _collisionRect.top;
@@ -254,14 +260,10 @@ void Player::AttackedDamage(int damage)
 		if (_state == Player::State::LeftRoll || _state == Player::State::RightRoll || _state == Player::State::UpRoll || _state == Player::State::DownRoll)
 		{
 			this->_currentHp -= 0;
-			//cout << "Damage" << endl;
-			//_isDelay = true;
-			//_blink = 0;
 		}		
 		else
 		{
 			this->_currentHp -= damage;
-			//cout << "Damage" << endl;
 			_isDelay = true;
 			_blink = 0;
 		}

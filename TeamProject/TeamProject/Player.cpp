@@ -56,7 +56,7 @@ Player::Player(Vector2 pos)
 	this->_isChangeSword = false;		//공격시 이미지 파일 변경을 위한 bool값
 	this->_isChangeBow = false;			//활 공격시 이미지 파일 변경을 위한 bool값
 	this->_isStandardMove = true;
-	this->_damage = 20;					//플레이어 기본 무기 데미지
+	this->_damage = 25;					//플레이어 기본 무기 데미지
 
 	this->_frameIdle = 0.1f;			//스피드 변경을 위한 변수
 	this->_frameRun = 0.1f;				//스피드 변경을 위한 변수
@@ -80,6 +80,7 @@ Player::Player(Vector2 pos)
 
 	this->SetActive(_Database->GetIntData("PlayerActive"));
 	_Database->AddIntData("PlayerActive", 1);
+	this->_currentHp = _Database->GetIntData("PlayerHP");
 }
 Player::~Player() {}
 
@@ -103,6 +104,15 @@ void Player::Release()
 		SafeDelete(iter->second);
 	}
 	_animationList.clear();
+
+	if (_currentHp <= 0)
+	{
+		_Database->AddIntData("PlayerHP", 100);
+	}
+	else
+	{
+		_Database->AddIntData("PlayerHP", this->_currentHp);
+	}
 }
 
 /********************************************************************************/
@@ -915,7 +925,14 @@ void Player::EndAnimation()
 		break;
 
 	case Player::State::Die:
-		//this->SendCallbackMessage(TagMessage("Die"));
+		//GameObject* objec = _ObjectManager->FindObjects(ObjectType::Object, "a");
+		//_ObjectManager->SendCallbackMessage(TagMessage("Die"));
+		//
+		//
+		//GameObject* flowObject = _ObjectManager->FindObject(ObjectType::Object, "TitleFlowObject");
+		//if (flowObject)
+		//	flowObject->SendCallbackMessage(TagMessage("DoorOpened", 1.0f));
+		
 		_Database->AddVector2Data("PlayerPosition", Vector2(716, 996));
 		_Database->AddIntData("PlayerActive", 0);
 		_Database->AddIntData("GateState", 5);
