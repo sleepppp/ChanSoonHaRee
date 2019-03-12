@@ -251,12 +251,20 @@ void Player::AttackedDamage(int damage)
 	{
 		//cout << "Fucking " << endl;
 		//검사하는 오브젝트 i가 enemy일 경우, Roll 상태일때 통과하여 넘어간다.
-		if (_state != Player::State::LeftRoll || _state != Player::State::RightRoll || _state != Player::State::UpRoll || _state != Player::State::DownRoll)
+		if (_state == Player::State::LeftRoll || _state == Player::State::RightRoll || _state == Player::State::UpRoll || _state == Player::State::DownRoll)
+		{
+			this->_currentHp -= 0;
+			//cout << "Damage" << endl;
+			//_isDelay = true;
+			//_blink = 0;
+		}		
+		else
 		{
 			this->_currentHp -= damage;
+			//cout << "Damage" << endl;
 			_isDelay = true;
 			_blink = 0;
-		}		
+		}
 	}
 }
 
@@ -290,11 +298,6 @@ void Player::AtkDelay2()
 	}
 }
 
-//에너미 클래스에 넘겨주기 위한 함수
-int Player::GetPlayerDamage() 
-{ 
-	if (_isDam == true)
-	{
-		return _damage;
-	}
-}		
+
+
+	

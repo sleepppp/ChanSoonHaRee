@@ -268,7 +268,7 @@
     <ClCompile Include="OilLamp.cpp" />
     <ClCompile Include="OilLampLight.cpp" />
     <ClCompile Include="Plankton.cpp" />
-    <ClCompile Include="PlayerAni.cpp" />
+    <ClCompile Include="Player + Ani.cpp" />
     <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="SceneChangeObject.cpp" />

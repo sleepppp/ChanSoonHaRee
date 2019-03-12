@@ -111,7 +111,7 @@ void Player::Release()
 void Player::Update()
 {	
 	//cout << "HP: " << _currentHp << endl;
-	cout << "_isDelay: " << _isDelay << endl;
+	//cout << "_isDelay: " << _isDelay << endl;
 	//%%%%%%%%%%%%%%%%%%-------------------------------치트키------------------------------%%%%%%%%%%%%%%%%%%%%%%%%%
 	//나중에 지울 것:: 칫흐키 강한 플레이어
 	if (_Input->GetKeyDown('E')) this->_currentHp = 100;
@@ -146,8 +146,8 @@ void Player::Update()
 			_isChangeBow = !_isChangeBow;
 			
 			//테스트용
-			if (_isChangeBow)cout << "Bow" << endl;
-			else  if (!_isChangeBow)cout << "Sword" << endl;
+			//if (_isChangeBow)cout << "Bow" << endl;
+			//else  if (!_isChangeBow)cout << "Sword" << endl;
 		}
 
 		//if (_isMoveStop == false)			//인벤토리  on/off용
