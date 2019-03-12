@@ -27,9 +27,9 @@ void DamageFontManager::Render()
 	{
 		//텍스트 렌더
 		//(폰트 포지션 x,y, 스트링헬퍼:: 해당 인덱스 데미지, 색상, 알파, 폰트 크기, 출력되는 피벗, 카메라 보정, 폰트 종류)
-		_DXRenderer->RenderText(_vDamageFont[i].position.x, _vDamageFont[i].position.y,
+		_DXRenderer->RenderText(_vDamageFont[i].position.x - 15, _vDamageFont[i].position.y - 90,
 			StringHelper::StringToWString(to_string(_vDamageFont[i].damage)),
-			RGB(25, 42, 225), _vDamageFont[i].alpha, 30, DWRITE_TEXT_ALIGNMENT_LEADING, true,L"Cooper Std");
+			RGB(25, 42, 225), _vDamageFont[i].alpha, 22, DWRITE_TEXT_ALIGNMENT_LEADING, true,L"Cooper Std");
 	}
 
 }

@@ -33,6 +33,10 @@ void Enemy::AttackedDemege(int damage)
 	{
 		//피격을 당했다는 변수를 트루로 만들어 주고
 		_attacked = true;
+
+		//데미지 폰트 출력용
+		_DamageFontManager->ShowDamage(_position, _player->GetPlayerDamage());
+
 		//뒤로 밀려난다. 플레이어의 앵글을 먼저 넣어주면 기존에 추격하면 방향에서 반대로 앵글값이 나오므로 반대방향으로 밀러날 수 있다.
 		this->_attackedAngle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
 	}
