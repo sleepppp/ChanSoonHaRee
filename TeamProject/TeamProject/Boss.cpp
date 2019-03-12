@@ -19,8 +19,8 @@ Boss::Boss()
 	this->_angle = 0.f;						//앵글값 (직선거리와 같음)
 	this->_imageRc = Figure::RectMakeCenter(_imagePosition, _imageSize); //렉트생성.
 	this->CreateAnimatiom();
-	this->_bossCollisionSize = Vector2(500, 500);
-	this->_bossCollisionRc = Figure::RectMakeCenter(_position, _bossCollisionSize);
+	this->_bossCollisionSize = Vector2(335, 300);
+	this->_bossCollisionRc = Figure::RectMakeCenter(Vector2(_imagePosition.x - 35, _imagePosition.y + 70), _bossCollisionSize);
 	//------------1번 공격을 위한 변수들-----------------//
 	this->_shadowPosition = Vector2(_imagePosition.x, _imagePosition.y);
 	this->_shadowSize = Vector2(50, 50);
@@ -34,7 +34,7 @@ Boss::Boss()
 	this->_handFrame = 0;
 	CreateHandAnimation();
 	//----------------3번 공격을 위한 변수들------------//
-	this->_slimePosition = Vector2(_imagePosition.x - 100, _imagePosition.y - 60);
+	this->_slimePosition = Vector2(_imagePosition.x - 100, _imagePosition.y - 20);
 	this->_slimeSize = Vector2(20, 20);
 	this->_slimeRc = Figure::RectMakeCenter(_slimePosition, _slimeSize);
 
@@ -128,7 +128,7 @@ void Boss::Render()
 		}
 		_DXRenderer->DrawRectangle(_imageRc, DefaultBrush::blue, true);
 		_DXRenderer->DrawEllipse(Vector2(_imagePosition.x, _imagePosition.y), _size.x * 0.7f, DefaultBrush::blue, true);
-		_DXRenderer->DrawRectangle(_bossCollisionRc, DefaultBrush::blue);
+		_DXRenderer->DrawRectangle(_bossCollisionRc, DefaultBrush::blue, true);
 		_DXRenderer->DrawRectangle(_slimeRc, DefaultBrush::green, true);
 	}
 
