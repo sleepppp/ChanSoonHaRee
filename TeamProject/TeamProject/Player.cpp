@@ -48,8 +48,8 @@ Player::Player(Vector2 pos)
 	this->_pivot = Pivot::CENTER;
 	this->_speed = 400.0f;
 	this->UpdateMainRect();
-	this->_maxHp = 100;
-	this->_currentHp = 100;
+	this->_maxHp = 500;
+	this->_currentHp = 500;
 	this->_isMoveStop = false;			//움직임을 멈추기 위한 bool값
 	this->_isChangeSword = false;		//공격시 이미지 파일 변경을 위한 bool값
 	this->_isChangeBow = false;			//활 공격시 이미지 파일 변경을 위한 bool값
@@ -396,7 +396,7 @@ void Player::Render()
 	//무기 교체만 하는 상태에도 기본 무브 사용해야 하므로 공격 버튼 누를때만 렌더하도록 다른 조건을 줄 것
 	
 	if (_isStandardMove == true)
-	{
+	{		
 		_imgMove->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
 	}
 	else if (_isChangeSword == true)
