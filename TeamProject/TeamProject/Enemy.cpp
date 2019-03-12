@@ -3,6 +3,8 @@
 #include "Enemy.h"
 #include "MoveItem.h"
 #include "Player.h"
+#include "Effect.h"
+
 Enemy::Enemy()
 {
 }
@@ -25,7 +27,13 @@ void Enemy::AttackedDemege(int damage)
 	//hp가 0보다 작거나 같으면
 	if (_hp <= 0)
 	{
-		_SoundManager->Play("enemyDeath", 1.0f);
+		//카메라 흔들기
+		_Camera->Shake();
+
+		//이팩트 : 폭발
+		Effect::PlayEffect(EFFECT_BOOM, _position);
+
+
 		//사라져라. 다른 죽는 모션이 존재할 경우 가상함수 상속을 통해서 내용을 바꿀 수도 있다.
 		this->Destroy();
 	}
@@ -34,6 +42,9 @@ void Enemy::AttackedDemege(int damage)
 	{
 		//피격을 당했다는 변수를 트루로 만들어 주고
 		_attacked = true;
+
+		//카메라 흔들기
+		_Camera->Shake();
 
 		//데미지 폰트 출력용
 		_DamageFontManager->ShowDamage(_position, _player->GetPlayerDamage());

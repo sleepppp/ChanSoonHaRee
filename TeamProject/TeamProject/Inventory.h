@@ -85,6 +85,8 @@ private:
 	//인벤토리에 플레이어 상태 표시 이미지
 	class Image* _invenPlayer;					//인벤토리에 플레이어 상태 표시 이미지
 
+	class Player* _player;						//플레이어 클래스 선언
+
 	//인벤토리에 플레이어 상태 표시용 렉트
 	RECT _invenPlayerRect;						//인벤토리 플레이어 상태 표시용 렉트
 	Vector2 _invenPlayerPosition;				//인벤토리 플레이어 상태 표시용 포지션
@@ -110,5 +112,7 @@ public:
 	{
 		_targetState = InvenTargetState::PlayerTarget;
 	}
+
+	void SprayItemPlayer();						//아이템 뿌리기 함수
 };
 

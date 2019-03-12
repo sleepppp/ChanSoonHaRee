@@ -73,8 +73,7 @@ void Player::Move(Vector2 direction)
 					//검사하는 오브젝트 i가 enemy일 경우, Roll 상태일때 통과하여 넘어간다.
 					if (object->at(i)==enemy )
 					{
-						if (_state == Player::State::LeftRoll || _state == Player::State::RightRoll ||
-							_state == Player::State::UpRoll || _state == Player::State::DownRoll)
+						if (_state == Player::State::LeftRoll || _state == Player::State::RightRoll || _state == Player::State::UpRoll || _state == Player::State::DownRoll)
 						{
 							continue;
 						}
@@ -214,8 +213,8 @@ void Player::Attack()
 					{
 						//충돌했을때 false상태일때(그 전에 충돌 상태가 아니었을때)
 
-						//데미지값을 받아서 체력을 깎는다
-						enemy->AttackedDemege(_damage);
+						//데미지값을 받아서 체력을 깎는다(전달)
+						enemy->AttackedDemege(_damage);						
 						_isAttacked = true;
 					}
 				}
@@ -251,9 +250,13 @@ void Player::AttackedDamage(int damage)
 	if (_isDelay == false)
 	{
 		//cout << "Fucking " << endl;
-		this->_currentHp -= damage;
-		_isDelay = true;
-		_blink = 0;
+		//검사하는 오브젝트 i가 enemy일 경우, Roll 상태일때 통과하여 넘어간다.
+		if (_state != Player::State::LeftRoll || _state != Player::State::RightRoll || _state != Player::State::UpRoll || _state != Player::State::DownRoll)
+		{
+			this->_currentHp -= damage;
+			_isDelay = true;
+			_blink = 0;
+		}		
 	}
 }
 
@@ -264,19 +267,34 @@ void Player::AtkDelay2()
 {
 	if (_isDelay == true)
 	{
-		_count += _TimeManager->DeltaTime();
-		if (_count > 0.2f)
+		if (_currentHp > 0)
 		{
-			_blink++;
-			_count = 0;
-			_alpha = !_alpha;
-
-			if (_blink == 6)
+			_count += _TimeManager->DeltaTime();
+			
+			if (_count > 0.2f)
 			{
-				_isDelay = false;
-				_alpha = 1.0f;
+				_blink++;
+				_count = 0;
+				_alpha = !_alpha;
+				_isDam = true;
+				if (_blink == 6)
+				{
+					_isDelay = false;
+					_alpha = 1.0f;
+					_isDam = false;
+				}
 			}
 		}
+		
 
 	}
 }
+
+//에너미 클래스에 넘겨주기 위한 함수
+int Player::GetPlayerDamage() 
+{ 
+	if (_isDam == true)
+	{
+		return _damage;
+	}
+}		

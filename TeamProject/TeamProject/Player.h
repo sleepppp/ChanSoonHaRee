@@ -59,12 +59,13 @@ private:
 	bool _isAttacked;
 	bool _isChangeWeapon;
 	bool _isTwice;
-
+	bool _isDam;
 	int _alpha;
 
 	bool _isDelay;
 	float _count;
 	int _blink;
+
 
 public:
 	Player(Vector2 pos);
@@ -94,7 +95,7 @@ public:
 	int GetPlayerMaxHp() { return _maxHp; }
 	RECT GetCollisionRect()const override { return _collisionRect; }
 	RECT GetSwordRect() const { return _swordRect; }
-	int GetPlayerDamage() { return _damage; }		//에너미 클래스에 넘겨주기 위한 함수
+	int GetPlayerDamage();
 	State GetState() { return _state; }				//동작 enum값 전달 함수
 };
 
