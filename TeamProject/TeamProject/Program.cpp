@@ -50,6 +50,7 @@ void Program::Init()
 	//1950,686
 	//_Database->AddVector2Data("PlayerPosition", Vector2(1950, 686));
 	_Database->AddVector2Data("PlayerPosition", Vector2(1050, 686));
+	_Database->AddIntData("GateState", 0);
 }
 
 void Program::Release()

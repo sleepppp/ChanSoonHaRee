@@ -63,12 +63,25 @@ DungeonGate::DungeonGate()
 	enterInfo.animation->SetFrameUpdateTime(0.1f);
 	enterInfo.animation->SetCallbackFunc([this]() 
 	{
-		this->ChangeState(State::Exit);
+		_SceneManager->LoadSceneByLoading("Dungeon_Map_01");
+		this->ChangeState(State::End);
 	});
 	_renderInfoList.insert(make_pair(State::Enter, enterInfo));
 
+	TagRenderInfo exitInfo;
+	exitInfo.image = _ImageManager->FindImage("dungeonLobby_goOutDungeon");
+	exitInfo.animation = new Animation;
+	exitInfo.animation->SetStartEndFrame(0, 0, exitInfo.image->GetMaxFrameX() - 1, 0, false);
+	exitInfo.animation->SetIsLoop(false);
+	exitInfo.animation->SetFrameUpdateTime(0.1f);
+	exitInfo.animation->SetCallbackFunc([this]() 
+	{
+		this->ChangeState(State::Idle);
+	});
+	_renderInfoList.insert(make_pair(State::Exit, exitInfo));
 
-	this->ChangeState(State::Idle);
+	this->ChangeState((State)_Database->GetIntData("GateState"));
+	_Database->AddIntData("GateState", (int)_state);
 }
 
 
@@ -128,8 +141,7 @@ void DungeonGate::Update()
 
 			break;
 		case DungeonGate::State::Exit:
-			_SceneManager->LoadSceneByLoading("Dungeon_Map_01");
-			ChangeState(State::End);
+			
 			break;
 		default:
 			break;

@@ -2,7 +2,11 @@
 #include "GameObject.h" 
 class DungeonGate : public GameObject
 {
-	
+public:
+	enum class State : int
+	{
+		Idle = 0, Opening, OpenIdle, Closing, Enter, Exit, End
+	};
 private:
 	struct TagRenderInfo
 	{
@@ -10,10 +14,7 @@ private:
 		class Image* image; 
 	};
 
-	enum class State
-	{
-		Idle,Opening,OpenIdle,Closing,Enter,Exit,End
-	}_state;
+	State _state;
 
 	map<State, TagRenderInfo> _renderInfoList; 
 	typedef map<State, TagRenderInfo>::iterator RenderInfoIter;
