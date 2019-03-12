@@ -153,9 +153,11 @@
     <ClInclude Include="BigSlime.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Arrow.h" />
+    <ClInclude Include="Cloud.h" />
     <ClInclude Include="DamageFontManager.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="DebugCollider.h" />
+    <ClInclude Include="DebugFrameObject.h" />
     <ClInclude Include="DebugObject.h" />
     <ClInclude Include="DebugSystem.h" />
     <ClInclude Include="DungeonGate.h" />
@@ -166,6 +168,10 @@
     <ClInclude Include="Dungeon_Map_02.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="FrameObject.h" />
+    <ClInclude Include="LightParticle.h" />
+    <ClInclude Include="LightParticleSystem.h" />
+    <ClInclude Include="OilLamp.h" />
+    <ClInclude Include="OilLampLight.h" />
     <ClInclude Include="Plankton.h" />
     <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="Rock.h" />
@@ -242,9 +248,11 @@
     <ClCompile Include="Boss + SlimeArm.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Arrow.cpp" />
+    <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="DamageFontManager.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="DebugCollider.cpp" />
+    <ClCompile Include="DebugFrameObject.cpp" />
     <ClCompile Include="DebugObject.cpp" />
     <ClCompile Include="DebugSystem.cpp" />
     <ClCompile Include="DungeonGate.cpp" />
@@ -255,6 +263,10 @@
     <ClCompile Include="Dungeon_Map_02.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="FrameObject.cpp" />
+    <ClCompile Include="LightParticle.cpp" />
+    <ClCompile Include="LightParticleSystem.cpp" />
+    <ClCompile Include="OilLamp.cpp" />
+    <ClCompile Include="OilLampLight.cpp" />
     <ClCompile Include="Plankton.cpp" />
     <ClCompile Include="PlayerAni.cpp" />
     <ClCompile Include="ProgressBar.cpp" />

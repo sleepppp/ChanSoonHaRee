@@ -22,3 +22,4 @@ ex) 싱글톤,유틸 클래스들 등등
 #include "SceneManager.h"
 #include "DamageFontManager.h"
 #include "Database.h"
+#include "LightSystem.h"

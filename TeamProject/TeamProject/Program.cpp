@@ -61,6 +61,13 @@ void Program::Update()
 {
 	if (_Input->GetKeyDown(VK_F1))
 		_isDebug = !_isDebug;
+	if (_Input->GetKeyDown(VK_F2))
+		_LightingSystem->ChangeState(LightSystem::State::Afternoon);
+	else if (_Input->GetKeyDown(VK_F3))
+		_LightingSystem->ChangeState(LightSystem::State::Evening);
+	else if (_Input->GetKeyDown(VK_F4))
+		_LightingSystem->ChangeState(LightSystem::State::Night);
+
 
 	_SceneManager->Update();
 }

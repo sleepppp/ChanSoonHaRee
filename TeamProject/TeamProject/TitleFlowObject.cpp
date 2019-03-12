@@ -21,11 +21,12 @@ TitleFlowObject::TitleFlowObject()
 		if (loadingScene != nullptr)
 		{
 			_ObjectManager->ChangeZOrdering(true);
-			loadingScene->SetNextSceneName("Dungeon_Map_Boss");
+			loadingScene->SetNextSceneName("TownScene");
 			loadingScene->SetLoadingFunc([]() {
-				_SceneManager->FindScene("Dungeon_Map_Boss")->Init(); });
-
+				_SceneManager->FindScene("TownScene")->Init();
+			});
 			_SceneManager->LoadScene("LoadingScene");
+			_LightingSystem->ChangeState(LightSystem::State::Afternoon);
 			return;
 		}
 

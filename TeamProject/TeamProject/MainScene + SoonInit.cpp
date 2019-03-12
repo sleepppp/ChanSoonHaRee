@@ -17,6 +17,13 @@
 #include "Program.h"
 #include "Player.h"
 #include "DungeonGate.h"
+#include "DebugFrameObject.h"
+#include "Animation.h"
+#include "OilLamp.h"
+#include "PointLight.h"
+#include "OilLampLight.h"
+#include "LightParticleSystem.h"
+#include "Cloud.h"
 
 void Program::LoadResourceSoon()
 {
@@ -174,13 +181,54 @@ void TownScene::SoonInit()
 	}));
 
 	_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
+
+	//1310,1220
+	OilLamp* oilLamp = new OilLamp("Village_OilLamps_1", Vector2(2310, 1220));
+	_ObjectManager->AddObject(ObjectType::Object, oilLamp);
+	//22310,1406
+	_ObjectManager->AddObject(ObjectType::Object, new OilLamp("Village_OilLamps_1", Vector2(2310, 1406)));
+	//1524,652
+	_ObjectManager->AddObject(ObjectType::Object, new OilLamp("Village_OilLamps_2", Vector2(1524, 652)));
+	//2216,652
+	_ObjectManager->AddObject(ObjectType::Object, new OilLamp("Village_OilLamps_2", Vector2(2216, 652)));
+
+	//1524,552
+	_ObjectManager->AddObject(ObjectType::UpObject, new OilLampLight(Vector2(1524, 552)));
+	//2216,554
+	_ObjectManager->AddObject(ObjectType::UpObject,new OilLampLight(Vector2(2216,554)));
+
+	_ObjectManager->AddObject(ObjectType::UpObject, new OilLampLight(Vector2(2288, 1312)));
+	//1127
+	_ObjectManager->AddObject(ObjectType::UpObject, new OilLampLight(Vector2(2288, 1127)));
+	//1588,1161
+	_ObjectManager->AddObject(ObjectType::UpObject, new OilLampLight(Vector2(1588,1161),30.f));
+	//1761,1161
+	_ObjectManager->AddObject(ObjectType::UpObject, new OilLampLight(Vector2(1761, 1161), 30.f));
+
+	//1244,892
+	_ObjectManager->AddObject(ObjectType::Object, new OilLamp("Village_OilLamps_2", Vector2(1244, 892)));
+	//1468
+	_ObjectManager->AddObject(ObjectType::Object, new OilLamp("Village_OilLamps_2", Vector2(1244, 1468)));
+	//1244,790
+	_ObjectManager->AddObject(ObjectType::UpObject, new OilLampLight(Vector2(1244, 790)));
+	//1242,1367
+	_ObjectManager->AddObject(ObjectType::UpObject, new OilLampLight(Vector2(1242, 1367)));
+
+	_ObjectManager->AddObject(ObjectType::UpObject, new LightParticleSystem(Vector2(1242, 1000)));
+
+	for (UINT i = 0; i < 10; ++i)
+	{
+		Vector2 randomPos = Vector2(Math::Random(0.f, this->_townBackgroundImage->GetSize().x), Math::Random(0.f, this->_townBackgroundImage->GetSize().y));
+		_ObjectManager->AddObject(ObjectType::UpObject, new Cloud(randomPos));
+	}
 }
 
 
 void DungeonLobby::SoonInit()
 {
 	//_ObjectManager->AddObject(ObjectType::UI, new DebugObject("dungeonLobby_bottomRight2Rock"));
-	_ObjectManager->AddObject(ObjectType::UI, new DebugCollider());
+	//_ObjectManager->AddObject(ObjectType::UI, new DebugCollider());
+
 	_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(1000, 1000)));
 
 	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 578,1172,1180,1195 }));
@@ -213,20 +261,20 @@ void DungeonLobby::SoonInit()
 		(LONG)_background->GetWidth() + 10, (LONG)_background->GetHeight() + 10 }));
 
 	//1020,409
-	_ObjectManager->AddObject(ObjectType::UpObject, new StaticObject("dungeonLobby_top3LongBoard", Vector2(1020, 409)));
+	_ObjectManager->AddObject(ObjectType::UpObject, new StaticObject("dungeonLobby_top3LongBoard", Vector2(1020, 410)));
 	//791,458
-	_ObjectManager->AddObject(ObjectType::UpObject, new StaticObject("dungeonLobby_topRope", Vector2(791, 458)));
+	_ObjectManager->AddObject(ObjectType::UpObject, new StaticObject("dungeonLobby_topRope", Vector2(792, 458)));
 	//563,988
-	_ObjectManager->AddObject(ObjectType::UpObject, new StaticObject("dungeonLobby_bottomLeftTent", Vector2(563, 988)));
+	//_ObjectManager->AddObject(ObjectType::UpObject, new StaticObject("dungeonLobby_bottomLeftTent", Vector2(563, 988)));
 	//1175,1076
-	_ObjectManager->AddObject(ObjectType::UpObject, new StaticObject("dungeonLobby_entryStructureFlag", Vector2(1175, 1076)));
+	_ObjectManager->AddObject(ObjectType::UpObject, new StaticObject("dungeonLobby_entryStructureFlag", Vector2(1176, 1076)));
 
 	StaticObject* temp = new StaticObject("dungeonLobby_entryStructureLeft", Vector2(1059, 1058));
 	temp->SetCollisionRect({ 1059,1169,1181,1224 });
 	_ObjectManager->AddObject(ObjectType::Object, temp);
 	//1307,1058
-	temp = new StaticObject("dungeonLobby_entryStructureRight", Vector2(1307, 1058));
-	temp->SetCollisionRect({ 1307,1169,1427,1224 });
+	temp = new StaticObject("dungeonLobby_entryStructureRight", Vector2(1308, 1058));
+	temp->SetCollisionRect({ 1306,1170,1428,1224 });
 	_ObjectManager->AddObject(ObjectType::Object, temp);
 
 	//1333,1247
@@ -234,28 +282,41 @@ void DungeonLobby::SoonInit()
 	_ObjectManager->AddObject(ObjectType::Object, temp);
 
 	//1042,1308
-	temp = new StaticObject("dungeonLobby_topLeft3Rock", Vector2(1042,1308));
+	temp = new StaticObject("dungeonLobby_topLeft3Rock", Vector2(1042, 1308));
 	_ObjectManager->AddObject(ObjectType::Object, temp);
 
-	temp = new StaticObject("dungeonLobby_middleLeftRock", Vector2(906,1791));
+	temp = new StaticObject("dungeonLobby_middleLeftRock", Vector2(906, 1792));
 	_ObjectManager->AddObject(ObjectType::Object, temp);
 
-	temp = new StaticObject("dungeonLobby_middleRighttRock", Vector2(1367,1333));
+	temp = new StaticObject("dungeonLobby_middleRighttRock", Vector2(1366, 1334));
 	_ObjectManager->AddObject(ObjectType::Object, temp);
 
-	temp = new StaticObject("dungeonLobby_middleRighttRock", Vector2(1336,1639));
+	temp = new StaticObject("dungeonLobby_middleRighttRock", Vector2(1336, 1638));
 	_ObjectManager->AddObject(ObjectType::Object, temp);
 
-	temp = new StaticObject("dungeonLobby_bottomRight2Rock", Vector2(1422, 1871));
+	temp = new StaticObject("dungeonLobby_bottomRight2Rock", Vector2(1422, 1872));
 	_ObjectManager->AddObject(ObjectType::Object, temp);
 
 	_ObjectManager->AddObject(ObjectType::Object, new DungeonGate);
 
-	_ObjectManager->AddObject(ObjectType::Object, new SceneChangeObject({ 1182,2080,1327,2102}, []()
+	_ObjectManager->AddObject(ObjectType::Object, new SceneChangeObject({ 1182,2080,1328,2102 }, []()
 	{
 		//770,51
 		_Database->AddVector2Data("PlayerPosition", Vector2(770, 51));
 		_SceneManager->LoadSceneByLoading("TownScene");
 	}));
-	
+
+	//_ObjectManager->AddObject(ObjectType::UI, new DebugFrameObject("dungeonLobby_bottomLeftTent"));
+
+	FrameObject* tent = new FrameObject("dungeonLobby_bottomLeftTent", Vector2(518, 985));
+	tent->SetSize(Vector2(256.f, 256.f));
+	tent->SetPivot(Pivot::LEFT_TOP);
+	tent->GetAnimation()->SetFrameUpdateTime(0.1f);
+	_ObjectManager->AddObject(ObjectType::UpObject, tent);
+
+	for (UINT i = 0; i < 10; ++i)
+	{
+		Vector2 randomPos = Vector2(Math::Random(0.f, this->_background->GetSize().x), Math::Random(0.f, this->_background->GetSize().y));
+		_ObjectManager->AddObject(ObjectType::UpObject, new Cloud(randomPos));
+	}
 }

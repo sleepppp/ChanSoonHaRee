@@ -21,7 +21,7 @@ void Dungeon_Map_02::Init()
 	_timeCount = 0.f;
 	_isTransScene = false;
 	
-	_map = _ImageManager->AddImage("map02", L"../Resources/Scene/Dungeon_Map_02.bmp");
+	_map = _ImageManager->AddImage("map02", L"../Resources/Scene/Dungeon_Map_02.png");
 	
 	_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(WinSizeX / 2, WinSizeY /2)));
 
@@ -65,6 +65,7 @@ void Dungeon_Map_02::Init()
 	_Camera->SetState(CameraManager::MoveState::End);
 
 	_SoundManager->PlayBGM("dungeonBGM");
+	_LightingSystem->ChangeState(LightSystem::State::Afternoon);
 }
 
 void Dungeon_Map_02::Release()

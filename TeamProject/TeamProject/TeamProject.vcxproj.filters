@@ -414,8 +414,26 @@
     <ClInclude Include="Rock.h">
       <Filter>PrivateForder\Ha</Filter>
     </ClInclude>
+    <ClInclude Include="DebugFrameObject.h">
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
+    </ClInclude>
     <ClInclude Include="DungeonGate.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>MainEntry\Scene\DungeonLobby</Filter>
+    </ClInclude>
+    <ClInclude Include="OilLamp.h">
+      <Filter>MainEntry\Scene\TownScene\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="OilLampLight.h">
+      <Filter>PrivateForder\Soon\Module\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="LightParticle.h">
+      <Filter>PrivateForder\Soon\Module\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="LightParticleSystem.h">
+      <Filter>PrivateForder\Soon\Module\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Cloud.h">
+      <Filter>PrivateForder\Soon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -680,11 +698,26 @@
     <ClCompile Include="Rock.cpp">
       <Filter>PrivateForder\Ha</Filter>
     </ClCompile>
-    <ClCompile Include="DungeonGate.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="DebugFrameObject.cpp">
+      <Filter>PrivateForder\Soon\Tutorial</Filter>
     </ClCompile>
-    <ClCompile Include="Boss + SlimeArm.cpp">
-      <Filter>PrivateForder\Ha</Filter>
+    <ClCompile Include="DungeonGate.cpp">
+      <Filter>MainEntry\Scene\DungeonLobby</Filter>
+    </ClCompile>
+    <ClCompile Include="OilLamp.cpp">
+      <Filter>MainEntry\Scene\TownScene\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="OilLampLight.cpp">
+      <Filter>PrivateForder\Soon\Module\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="LightParticle.cpp">
+      <Filter>PrivateForder\Soon\Module\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="LightParticleSystem.cpp">
+      <Filter>PrivateForder\Soon\Module\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Cloud.cpp">
+      <Filter>PrivateForder\Soon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
