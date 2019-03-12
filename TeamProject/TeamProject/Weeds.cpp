@@ -13,7 +13,7 @@ Weeds::Weeds(Vector2 pos)
 	this->_pivot = Pivot::CENTER;
 	this->_renderRect = UpdateRect(_position, _size, _pivot);
 	this->_speed = 70.0f;
-	this->_hp = 100;
+	this->_hp = 40;
 	this->_damage = 16;
 	this->_isAttack = false;
 	this->_state = StateType::Chasing;
@@ -127,7 +127,7 @@ void Weeds::Collision()
 	{
 		Player* player = dynamic_cast<Player*>((*object)[i]);
 		MoveItem* item = dynamic_cast<MoveItem*>((*object)[i]);
-		if (player == nullptr && this != (*object)[i] && item == nullptr)
+		if (this != (*object)[i] && item == nullptr)
 		{
 			if (this->IntersectReaction(&_renderRect, &(*object)[i]->GetCollisionRect()))
 			{

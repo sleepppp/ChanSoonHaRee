@@ -21,7 +21,7 @@ void Boss::HandShootShadow()
 		}
 			_timeCount += _TimeManager->DeltaTime();
 			//일정 타임카운트가 넘어가면
-			if (_timeCount > 10.0f)
+			if (_timeCount > 4.0f)
 			{
 				_timeCount = 0.f;
 				this->ChangeShadowState(ShadowState::Stop);
