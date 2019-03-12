@@ -61,8 +61,7 @@ void Player::Move(Vector2 direction)
 			//에너미 클래스 형변환으로 오브젝트 i로 불러온다.
 			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));		
 			//화살 클래스
-			Arrow* arrow = dynamic_cast<Arrow*>(object->at(i));
-			//Boss* boss = dynamic_cast<Boss*>(object->at(i));
+			Arrow* arrow = dynamic_cast<Arrow*>(object->at(i));			
 
 			//다이나믹 캐스트로 null값이 반환되는 경우
 			//플레이어 몸과 충돌검사
@@ -183,7 +182,7 @@ POINT Player::GetPlayerIndex()
 }
 
 //=======================================
-//검 공격함수
+//플레이어 검 + 에너미 = 에너미 체력 감소
 //=======================================
 void Player::Attack()
 {
@@ -198,6 +197,7 @@ void Player::Attack()
 			if (object->at(i)->GetName() != this->_name)
 			{
 				Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));
+				Boss* boss = dynamic_cast<Boss*>(object->at(i));
 
 				//무기와 에너미 충돌, 가져온 오브젝트에 값이 있을 경우만 검사
 				if (enemy != nullptr)
@@ -212,17 +212,29 @@ void Player::Attack()
 						_isAttacked = true;
 					}
 				}
+				
+				if (boss != nullptr)
+				{
+					RECT temp;
+					if (IntersectRect(&temp, &_swordRect, &object->at(i)->GetCollisionRect()))
+					{
+						cout << "충돌 확인" << endl;
+						//충돌했을때 false상태일때(그 전에 충돌 상태가 아니었을때)
+				
+						//데미지값을 받아서 체력을 깎는다(전달)
+						boss->AttackedDamage(_damage);
+						_isAttacked = true;
+					}
+				}
 			}
 
 			if (_isAttacked == true)
 			{
 				//충돌 이펙트 발생
-				Effect::PlayEffect(EFFECT_SWORDATK, Vector2(_swordRect.left, _swordRect.top));			
-				
+				Effect::PlayEffect(EFFECT_SWORDATK, Vector2(_swordRect.left, _swordRect.top));						
 			}
 		}
 	}
-
 }
 
 
@@ -235,14 +247,12 @@ void Player::InventoryOnOff()
 }
 
 //=======================================
-//데미지값 받아서 플레이어 체력을 깎는 함수
-//조건은 에너미에서, 이 함수를 받아 체력이 깎이면 무기와 플레이어 몸체가 충돌한 것
+//에너미 무기 + 플레이어 몸체 = 플레이어 체력 감소
 //=======================================
 void Player::AttackedDamage(int damage)
 {
 	if (_isDelay == false)
 	{
-		//cout << "Fucking " << endl;
 		//검사하는 오브젝트 i가 enemy일 경우, Roll 상태일때 통과하여 넘어간다.
 		if (_state == Player::State::LeftRoll || _state == Player::State::RightRoll || _state == Player::State::UpRoll || _state == Player::State::DownRoll)
 		{
@@ -284,8 +294,6 @@ void Player::AtkDelay2()
 				}
 			}
 		}
-		
-
 	}
 }
 
