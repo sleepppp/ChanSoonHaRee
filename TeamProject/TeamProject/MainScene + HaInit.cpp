@@ -37,8 +37,27 @@ void Program::LoadResourceHa()
 	//---------------3번 스킬----------------//
 	//보스 이미지
 	_ImageManager->AddFrameImage("FistShoot", L"../Resources/Enemy/Boss/FistShoot.png", 22, 3, true);
-	//슬라임의 조준상태일때의 주먹.
-	_ImageManager->AddImage("SlimeTargetFist", L"../Resources/Enemy/Boss/Boss_SlimeTargetHand.png", true);
+
+	//++++++++++++++++++++++++++++++++++++++++++보스 충돌 시 이미지++++++++++++++++++++++++++++++++++++++++++//
+	//손날리는 처음모션 피격
+	_ImageManager->AddFrameImage("hand_Shoot_First_Red", L"../Resources/Enemy/Boss/hand_Shoot_First_Red.png", 20, 1, true);
+	_ImageManager->AddFrameImage("hand_Shoot_First_White", L"../Resources/Enemy/Boss/hand_Shoot_First_White.png", 20, 1, true);
+	//손날리는 중간모션 피격
+	_ImageManager->AddFrameImage("hand_Shoot_second_Red", L"../Resources/Enemy/Boss/hand_Shoot_second_Red.png", 30, 1, true);
+	_ImageManager->AddFrameImage("hand_Shoot_second_White", L"../Resources/Enemy/Boss/hand_Shoot_second_White.png", 30, 1, true);
+	//손날리는 마지막모션 피격
+	_ImageManager->AddFrameImage("hand_Shoot_Last_Red", L"../Resources/Enemy/Boss/hand_Shoot_Last_Red.png", 11, 1, true);
+	_ImageManager->AddFrameImage("hand_Shoot_Last_White", L"../Resources/Enemy/Boss/hand_Shoot_Last_White.png", 11, 1, true);
+	//손 피격
+	_ImageManager->AddFrameImage("hand_Red", L"../Resources/Enemy/Boss/hand_Red.png", 19, 1, true);
+	_ImageManager->AddFrameImage("hand_White", L"../Resources/Enemy/Boss/hand_White.png", 19, 1, true);
+	//2번스킬 보스 이미지 피격
+	_ImageManager->AddFrameImage("Rock_Shoot_Red", L"../Resources/Enemy/Boss/Rock_Shoot_Red.png", 32, 1, true);
+	_ImageManager->AddFrameImage("Rock_Shoot_White", L"../Resources/Enemy/Boss/Rock_Shoot_White.png", 32, 1, true);
+	//3번스킬 보스 이미지 피격
+	_ImageManager->AddFrameImage("FistShoot_Red", L"../Resources/Enemy/Boss/FistShoot_Red.png", 22, 3, true);
+	_ImageManager->AddFrameImage("FistShoot_White", L"../Resources/Enemy/Boss/FistShoot_White.png", 22, 3, true);
+
 	//------------골렘 이미지-----------------//
 	_ImageManager->AddFrameImage("GolemMove", L"../Resources/Enemy/Golem/GolemMove.png", 8, 4, true);
 	_ImageManager->AddFrameImage("GolemMove_Red", L"../Resources/Enemy/Golem/GolemMove_Red.png", 8, 4,true);

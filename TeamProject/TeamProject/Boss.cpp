@@ -128,7 +128,7 @@ void Boss::Render()
 		}
 	}
 	_aniImage->_bossImage->SetSize(_size);
-		_aniImage->_bossImage->FrameRender((int)_imagePosition.x, (int)_imagePosition.y, _aniImage->_animation->GetNowFrameX(), _aniImage->_animation->GetNowFrameY(), _pivot, true);
+	_aniImage->_bossImage->FrameRender((int)_imagePosition.x, (int)_imagePosition.y, _aniImage->_animation->GetNowFrameX(), _aniImage->_animation->GetNowFrameY(), _pivot, true);
 
 	if (_isDebug == true)
 	{
@@ -353,6 +353,7 @@ void Boss::CreateAnimatiom()
 	dead2->_animation->SetIsLoop(false);
 	dead2->_animation->SetFrameUpdateTime(0.15f);
 	_aniImgList.insert(make_pair(StateType::Dead2, dead2));
+	//-------------------------------------------------------------------------//
 
 	//보스의 1번째 공격패턴 손날려서 공격하기의 전조 손을 날리는 애니&이미지
 	AniAndImage* hand_Shoot_First = new AniAndImage;
@@ -430,7 +431,6 @@ void Boss::CreateAnimatiom()
 	Fist_Shoot_Last->_animation->SetIsLoop(false);
 	Fist_Shoot_Last->_animation->SetFrameUpdateTime(0.15f);
 	_aniImgList.insert(make_pair(StateType::Fist_Shoot_Last, Fist_Shoot_Last));
-
 }
 //보스가 죽는이미지가 커서 쪼갬.
 void Boss::NextAnimation()
