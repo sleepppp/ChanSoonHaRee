@@ -25,6 +25,10 @@ LightSystem::LightSystem()
 	pointLightBuffer = new PointLightBuffer;
 	//미리 최대 라이팅 수 만큼 벡터 할당
 	pointLightList.reserve(_MaxPointLight);
+
+	this->CreateTable();
+	state = State::Default;
+	//this->ChangeState(State::Afternoon);
 }
 
 /*********************************************************************************************
@@ -132,3 +136,35 @@ void LightSystem::RequestLighting(PointLight * light)
 {
 	pointLightList.push_back(light);
 }
+
+void LightSystem::CreateTable()
+{
+	SunLightBuffer::BufferData afternoonData;
+	afternoonData.sunColor = GameColor(1.f, 1.f, 1.f, 1.f);
+	afternoonData.sunIntensity = 0.5f;
+	afternoonData.worldAmbient = 0.5f;
+	sunDataTable.insert(make_pair(State::Afternoon, afternoonData));
+
+	SunLightBuffer::BufferData eveningData;
+	eveningData.sunColor = GameColor(1.f, 0.6f,0.137f, 1.f);
+	eveningData.sunIntensity = 0.8f;
+	eveningData.worldAmbient = 0.3f;
+	sunDataTable.insert(make_pair(State::Evening, eveningData));
+
+	SunLightBuffer::BufferData nightData;
+	nightData.sunColor = GameColor(0.06f, 0.155f, 0.675f, 1.f);
+	nightData.sunIntensity = 0.744f;
+	nightData.worldAmbient = 0.135f;
+	sunDataTable.insert(make_pair(State::Night, nightData));
+}
+
+void LightSystem::ChangeState(State state)
+{
+	this->state = state;
+	DataTableIter iter = sunDataTable.find(state);
+	if (iter != sunDataTable.end())
+	{
+		sunBuffer->data = iter->second;
+	}
+}
+

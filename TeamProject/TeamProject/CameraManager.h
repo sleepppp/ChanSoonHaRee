@@ -6,9 +6,9 @@
 
 #define CameraMoveStartDistance 30.f		
 
-#define CameraMaxSpeed 330.0f			//카메라 최대 스피드
-#define CameraMinSpeed 100.0f				//카메라 최소 스피드
-#define CameraMaxDistance 300.f			
+#define CameraMaxSpeed 400.0f			//카메라 최대 스피드
+#define CameraMinSpeed 100.0f			//카메라 최소 스피드
+#define CameraMaxDistance 250.f			
 #define CameraMinDistance 30.f 
 
 #define CameraZoomMax 2.5f				//카메라 줌 최대값

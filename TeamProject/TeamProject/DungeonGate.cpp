@@ -8,7 +8,7 @@ DungeonGate::DungeonGate()
 {
 	Image* sizeImage = _ImageManager->FindImage("dungeonLobby_doorOpen");;
 
-	_mainRect = { 672,898, (LONG)(672 + sizeImage->GetFrameSize(0).x),(LONG)(898 + sizeImage->GetFrameSize(0).y) };
+	_mainRect = { 672,898, (LONG)(672 + sizeImage->GetFrameSize(0).x) + 2,(LONG)(898 + sizeImage->GetFrameSize(0).y) };
 	_collider = { _mainRect.left,_collider.top,_collider.right,_collider.bottom - 10 };
 	_position.x = _mainRect.left + (_mainRect.right - _mainRect.left)/2;
 	_position.y = _mainRect.top + (_mainRect.bottom - _mainRect.top)/2;
@@ -116,7 +116,7 @@ void DungeonGate::Update()
 			}
 			else
 			{
-				if (Math::Abs(_position.x -  _player->GetPosition().x) < 10.f)
+				if (Math::Abs(_position.x -  _player->GetPosition().x) < 20.f)
 				{
 					if (_Input->GetKeyDown('J'))
 					{

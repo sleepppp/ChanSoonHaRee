@@ -2,6 +2,7 @@
 #include "GameObject.h"
 class StaticObject : public GameObject
 {
+protected:
 	class Image* _image;
 	float _angle;
 	RECT _collisionRect;

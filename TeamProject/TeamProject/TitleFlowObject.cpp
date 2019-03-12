@@ -21,11 +21,12 @@ TitleFlowObject::TitleFlowObject()
 		if (loadingScene != nullptr)
 		{
 			_ObjectManager->ChangeZOrdering(true);
-			loadingScene->SetNextSceneName("MainScene");
+			loadingScene->SetNextSceneName("TownScene");
 			loadingScene->SetLoadingFunc([]() {
-				_SceneManager->FindScene("MainScene")->Init();
+				_SceneManager->FindScene("TownScene")->Init();
 			});
 			_SceneManager->LoadScene("LoadingScene");
+			_LightingSystem->ChangeState(LightSystem::State::Afternoon);
 			return;
 		}
 

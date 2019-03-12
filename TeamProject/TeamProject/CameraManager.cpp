@@ -49,7 +49,7 @@ void CameraManager::Update()
 			shakeTime -= _TimeManager->DeltaTime();
 			shakeStrength -= (shakeTime / totalShakeTime) *_TimeManager->DeltaTime();
 			float strengh = shakeStrength * shakeDirection;
-			position += Vector2(0.f, strengh);
+			position += Vector2(strengh, 0.f);
 			this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
 
 			if (shakeTime <= 0.f)
@@ -254,7 +254,7 @@ void CameraManager::UpdateTargetCameraMode()
 			shakeTime -= _TimeManager->DeltaTime();
 			shakeStrength -= (shakeTime / totalShakeTime) *_TimeManager->DeltaTime();
 			float strengh = shakeStrength * shakeDirection;
-			position += Vector2(0.f, strengh);
+			position += Vector2(strengh, 0.f);
 			this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
 			
 			if (shakeTime <= 0.f)
@@ -347,5 +347,6 @@ void CameraManager::InitCameraToPlayer()
 	if (object)
 	{
 		this->SetTarget(object);
+		zoomFactor = 1.f;
 	}
 }
