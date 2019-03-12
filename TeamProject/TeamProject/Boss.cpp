@@ -33,19 +33,22 @@ Boss::Boss()
 	this->_drapCount = 0;
 	this->_handFrame = 0;
 	CreateHandAnimation();
+	//----------------3번 공격을 위한 변수들------------//
+	this->_slimePosition = Vector2(_imagePosition.x - 100, _imagePosition.y - 60);
+	this->_slimeSize = Vector2(20, 20);
+	this->_slimeRc = Figure::RectMakeCenter(_slimePosition, _slimeSize);
 
-	//--------------2번공격을 위한 변수들------------------//
+	//--------------상태값 초기화------------------//
 	//그림자도 아무런 값을 가지면 안되니까 기본상태로 넣어주고
 	_shadow = ShadowState::Stop;
 	this->ChangeShadowState(ShadowState::Idle);
-
-	//손은 그림자를 x축으롬 나쫒아가게 둬도안보이니까 체이싱상태로 두고
+	//손은 그림자를 x축으로 쫒아가게 둬도안보이니까 체이싱상태로 두고
 	_hand = HandState::Up;
 	this->ChangeHandState(HandState::Chasing);
 
 	//초기 상태값은 보스가 움직이지 않아야 하니까 가만히 있는 상태를 만들어준다.
 	_state = StateType::Create;
-	this->ChangeState(StateType::Rock_Shoot_First);
+	this->ChangeState(StateType::Fist_Shoot_First);
 }
 
 
@@ -78,7 +81,6 @@ void Boss::Release()
 
 void Boss::Update()
 {
-	this->_bossCollisionRc = Figure::RectMakeCenter(_position, _bossCollisionSize);
 	//조건별로 처리할 부분은 여기에서
 	UpdateState();
 	//------------손날리기 스킬----------//
@@ -127,6 +129,7 @@ void Boss::Render()
 		_DXRenderer->DrawRectangle(_imageRc, DefaultBrush::blue, true);
 		_DXRenderer->DrawEllipse(Vector2(_imagePosition.x, _imagePosition.y), _size.x * 0.7f, DefaultBrush::blue, true);
 		_DXRenderer->DrawRectangle(_bossCollisionRc, DefaultBrush::blue);
+		_DXRenderer->DrawRectangle(_slimeRc, DefaultBrush::green, true);
 	}
 
 	GameObject::Render();
