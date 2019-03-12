@@ -2,39 +2,6 @@
 #include "ShaderBuffer.h"
 #define _MaxPointLight 30
 
-/*********************************************************
-## LightManager ##
-**********************************************************/
-class LightSystem
-{
-private:
-	class RenderTargetBuffer* copyResource;
-	class RenderTargetBuffer* renderTargetBuffer;
-
-	class Shader* lightingShader;
-	class Shader* deferredShader;
-
-	class SunLightBuffer* sunBuffer;
-	class PointLightBuffer* pointLightBuffer;
-
-	vector<class PointLight*> pointLightList;
-public:
-	LightSystem();
-	~LightSystem();
-
-	void BeginLighting();
-	void Lighting();
-	void EndLighting();
-
-	void OnGui();
-
-	void RequestLighting(class PointLight* light);
-};
-
-/*********************************************************
-## ShaderLightBuffer ##
-**********************************************************/
-
 class SunLightBuffer : public ShaderBuffer
 {
 public:
@@ -55,6 +22,53 @@ public:
 	}
 
 };
+
+/*********************************************************
+## LightManager ##
+**********************************************************/
+class LightSystem
+{
+public:
+	enum class State : int
+	{
+		Default = 0,Afternoon ,Evening,Night
+	};
+private:
+	typedef map<State, SunLightBuffer::BufferData>::iterator DataTableIter;
+private:
+	class RenderTargetBuffer* copyResource;
+	class RenderTargetBuffer* renderTargetBuffer;
+
+	class Shader* lightingShader;
+	class Shader* deferredShader;
+
+	class SunLightBuffer* sunBuffer;
+	class PointLightBuffer* pointLightBuffer;
+
+	vector<class PointLight*> pointLightList;
+
+	State state;
+	map<State, SunLightBuffer::BufferData> sunDataTable;
+public:
+	LightSystem();
+	~LightSystem();
+
+	void BeginLighting();
+	void Lighting();
+	void EndLighting();
+
+	void OnGui();
+
+	void RequestLighting(class PointLight* light);
+	void ChangeState(State state);
+	const State GetState()const { return this->state; }
+private:
+	void CreateTable();
+};
+
+/*********************************************************
+## ShaderLightBuffer ##
+**********************************************************/
 
 
 class PointLightBuffer : public ShaderBuffer

@@ -32,8 +32,12 @@ void TownScene::Init()
 	_Camera->SetMapSize(Vector2((float)_townBackgroundImage->GetWidth(),(float) _townBackgroundImage->GetHeight()));
 	_Camera->SetCameraMoveDistance();
 	_Camera->InitCameraToPlayer();
+	//_Camera->SetState(CameraManager::MoveState::FreeCamera);
 
 	_SoundManager->PlayBGM("townBGM");
+
+	if(_LightingSystem->GetState() == LightSystem::State::Evening)
+		_LightingSystem->ChangeState(LightSystem::State::Night);
 }
 
 void TownScene::Release()

@@ -24,7 +24,7 @@ void TitleScene::Init()
 	_ObjectManager->AddObject(ObjectType::Object, new TitleDoor("RightDoor", Vector2(1, 0), Vector2(WinSizeX / 2 + 4, 0), Vector2(WinSizeX / 2, WinSizeY)));
 	_ObjectManager->AddObject(ObjectType::Object, new TitleLogo);
 	_ObjectManager->AddObject(ObjectType::Object, new TitleFlowObject);
-	_ObjectManager->AddObject(ObjectType::UI, new PointLight(Vector2(768.f, 0.f), 400.f, 1.7f, GameColor(1.f, 1.f, 1.f, 1.f)));
+	_ObjectManager->AddObject(ObjectType::UI, new PointLight(Vector2(WinSizeX / 2, 0), 400.f, 1.7f, GameColor(1.f, 1.f, 1.f, 1.f)));
 
 	_ObjectManager->Init();
 }

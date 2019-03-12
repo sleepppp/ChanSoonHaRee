@@ -12,6 +12,7 @@ enum class HandState
 };
 
 
+
 class Boss : public GameObject
 {
 private:
@@ -87,6 +88,11 @@ private:
 	RECT _fistRc;				//쬰쬬니에 달린 주먹의 렉트도 있어야 겠지?
 	RECT _attackedRc;			//공격을 맞기 위한 렉트가 있어야 하고,
 	
+	//보스의 슬라임의 중심좌표.
+	Vector2 _slimePosition;
+	Vector2 _slimeSize;
+	RECT _slimeRc;
+
 	//---------------손공격을 위한 렉트-------//
 	Vector2 _handPosition;
 	Vector2 _handSize;

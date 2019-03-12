@@ -16,5 +16,6 @@ public:
 
 	RECT GetCollisionRect()const override { return this->_collisionRect; }
 	void SetCollisionRect(RECT rc) { this->_collisionRect = rc; }
+	class Animation* GetAnimation()const { return this->_animation; }
 };
 

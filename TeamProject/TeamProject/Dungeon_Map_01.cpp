@@ -47,6 +47,7 @@ void Dungeon_Map_01::Init()
 	_Camera->SetState(CameraManager::MoveState::End);
 
 	_SoundManager->PlayBGM("dungeonBGM");
+	_LightingSystem->ChangeState(LightSystem::State::Afternoon);
 }
 
 void Dungeon_Map_01::Release()

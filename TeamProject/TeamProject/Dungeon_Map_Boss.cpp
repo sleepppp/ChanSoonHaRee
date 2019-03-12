@@ -22,6 +22,7 @@ void Dungeon_Map_Boss::Init()
 	_map = _ImageManager->AddImage("BoosRoom", L"../Resources/Scene/BossRoom.png", true);
 	_Camera->SetMapSize(Vector2((float)_map->GetWidth(), (float)_map->GetHeight()));
 	_Camera->InitCameraToPlayer();
+	_LightingSystem->ChangeState(LightSystem::State::Afternoon);
 }
 
 void Dungeon_Map_Boss::Release()
