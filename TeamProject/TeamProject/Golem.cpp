@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "MoveItem.h"
 #include "Golem.h"
-
+#include "Effect.h"
 
 Golem::Golem(Vector2 pos)
 {
@@ -13,7 +13,7 @@ Golem::Golem(Vector2 pos)
 	this->_size = Vector2(100, 100);		//크기도 100, 100이야
 	this->_pivot = Pivot::CENTER;			//내 기준은 중심에있어
 	this->_speed = 90.0f;					//속도는 90.0f
-	this->_hp = 200;						//200의 체력
+	this->_hp = 60;						//200의 체력
 	this->_damage = 12;						//34의 뎀지
 
 	this->_isAttack = false;				//공격은 처음에는 안하고있지
@@ -480,6 +480,12 @@ void Golem::AttackedDemege(int damage)
 	//hp가 0보다 작거나 같으면
 	if (_hp <= 0)
 	{
+		//카메라 흔들기
+		_Camera->Shake();
+
+		//이팩트 : 폭발
+		Effect::PlayEffect(EFFECT_BOOM, _position);
+
 		_SoundManager->Play("enemyDeath", 1.0f);
 		//사라져라. 다른 죽는 모션이 존재할 경우 가상함수 상속을 통해서 내용을 바꿀 수도 있다.
 		this->Destroy();
@@ -490,12 +496,14 @@ void Golem::AttackedDemege(int damage)
 		//피격을 당했다는 변수를 트루로 만들어 주고
 		_attacked = true;
 
+		//카메라 흔들기
+		_Camera->Shake();
+
 		//데미지 폰트 출력용
-		_DamageFontManager->ShowDamage(_position, _player->GetPlayerDamage());
+		_DamageFontManager->ShowDamage(_position, damage);
 
 		//뒤로 밀려난다. 플레이어의 앵글을 먼저 넣어주면 기존에 추격하면 방향에서 반대로 앵글값이 나오므로 반대방향으로 밀러날 수 있다.
 		this->_attackedAngle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
-
 	}
 }
 
