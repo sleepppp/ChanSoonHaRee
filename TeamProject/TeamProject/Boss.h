@@ -63,8 +63,8 @@ private:
 	float _distance;			//플레이어가 일정거리 안에 들어서면 움직여야하니까 플레이어의 거리를 재기 위해서 디스턴스도 있어야 하고,
 	int _handFrame;
 
+	float _shadowScale;
 	Vector2 _bossCollisionSize;	//충돌렉트 사이즈
-	RECT _bossCollisionRc;		//충돌 렉트
 
 	//-----------------보스 이미지 생성을 위한 렉트-----------------//
 	Vector2 _imagePosition;

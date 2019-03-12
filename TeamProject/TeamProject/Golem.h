@@ -69,6 +69,8 @@ public:
 	void ImageRender();
 
 	void InvenStop(bool stop);
+	//golemHit
+	void AttackedDemege(int damage)override;
 public:
 	void Init()override;
 	void Release()override;

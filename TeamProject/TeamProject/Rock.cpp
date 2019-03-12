@@ -16,6 +16,7 @@ Rock::Rock(Vector2 pos, float time)
 	_pivot = Pivot::CENTER;
 	this->UpdateMainRect();
 	_rockImage = _ImageManager->FindImage("rock");
+	_shadowImage = _ImageManager->FindImage("shadow");
 	_player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
 }
 
@@ -38,6 +39,12 @@ void Rock::Update()
 }
 void Rock::Render()
 {
+	if (_state == State::Move)
+	{
+		_shadowImage->SetSize(_size);
+		_shadowImage->SetAlpha(0.4f);
+		_shadowImage->Render(_firstPosition.x, _firstPosition.y + 1000, _pivot, true);
+	}
 	_rockImage->SetSize(_size);
 	_rockImage->SetAlpha(1.f - _AlphaCount);
 	_rockImage->Render(_position.x, _position.y, _pivot, true);
@@ -66,6 +73,7 @@ void Rock::UpdateState()
 			_Camera->Shake(3.5f, 0.7f);
 			ChangeState(State::Stop);
 		}
+
 		break;
 	case Rock::State::Stop:
 		_timeCount += _TimeManager->DeltaTime();

@@ -14,7 +14,7 @@ Golem::Golem(Vector2 pos)
 	this->_pivot = Pivot::CENTER;			//내 기준은 중심에있어
 	this->_speed = 90.0f;					//속도는 90.0f
 	this->_hp = 200;						//200의 체력
-	this->_damage = 34;						//34의 뎀지
+	this->_damage = 12;						//34의 뎀지
 
 	this->_isAttack = false;				//공격은 처음에는 안하고있지
 	bool _attackedColor = false;
@@ -472,6 +472,33 @@ void Golem::InvenStop(bool stop)
 	_isStop = stop;
 }
 
+void Golem::AttackedDemege(int damage)
+{
+	_SoundManager->Play("golemHit", 1.0f);
+	//누나가 데미지를 넘겨주면 데미지만큼 내 체력을 깎는다.
+	_hp -= damage;
+	//hp가 0보다 작거나 같으면
+	if (_hp <= 0)
+	{
+		_SoundManager->Play("enemyDeath", 1.0f);
+		//사라져라. 다른 죽는 모션이 존재할 경우 가상함수 상속을 통해서 내용을 바꿀 수도 있다.
+		this->Destroy();
+	}
+	//죽지 않았다면
+	else
+	{
+		//피격을 당했다는 변수를 트루로 만들어 주고
+		_attacked = true;
+
+		//데미지 폰트 출력용
+		_DamageFontManager->ShowDamage(_position, _player->GetPlayerDamage());
+
+		//뒤로 밀려난다. 플레이어의 앵글을 먼저 넣어주면 기존에 추격하면 방향에서 반대로 앵글값이 나오므로 반대방향으로 밀러날 수 있다.
+		this->_attackedAngle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
+
+	}
+}
+
 //쫒거나 피격당했을 시 움직이기 위한 함수.
 //아파요 싫어요 하지마세요
 void Golem::Move()
@@ -492,8 +519,8 @@ void Golem::Move()
 		_count += _TimeManager->DeltaTime();
 		if (_count <= 0.5f)
 		{
-			this->_position.x += cosf(_attackedAngle) * _speed * _TimeManager->DeltaTime()* 0.7f;
-			this->_position.y += -sinf(_attackedAngle) * _speed * _TimeManager->DeltaTime()* 0.7;
+			this->_position.x += cosf(_attackedAngle) * _speed * _TimeManager->DeltaTime()* 1.2f;
+			this->_position.y += -sinf(_attackedAngle) * _speed * _TimeManager->DeltaTime()* 1.2f;
 			this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
 
 			if (_count < 0.2f)
