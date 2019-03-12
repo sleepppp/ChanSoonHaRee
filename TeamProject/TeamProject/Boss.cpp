@@ -4,7 +4,7 @@
 #include "Animation.h"
 #include "Player.h"
 #include "Rock.h"
-
+#include "Plankton.h"
 Boss::Boss()
 {
 	//보스의 몸통을 생성할 기본적인 골격들
@@ -271,9 +271,10 @@ void Boss::UpdateState()
 		this->Dead();
 		break;
 	case Boss::StateType::Fist_Shoot_Last:
+		
 		if (_aniImage->_animation->GetNowFrameX() == 15)
 		{
-			this->ChangeState(StateType::Fist_Shoot_First);
+			this->ChangeState(StateType::Hand_Shoot_First);
 		}
 		this->Dead();
 		break;
