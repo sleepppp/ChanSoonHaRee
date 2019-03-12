@@ -31,7 +31,7 @@ void Program::LoadResourceSoon()
 	_ImageManager->AddFrameImage("tree", PathResources(L"Object/tree.png"), 4, 1);
 	_ImageManager->AddFrameImage("RivalFauntain", PathResources(L"Object/RivalFauntain.png"), 9, 1);
 	_ImageManager->AddFrameImage("dungeonLobby_goInDungeon", PathResources(L"Object/dungeonLobby_goInDungeon.png"), 21, 1);
-	_ImageManager->AddFrameImage("dungeonLobby_goOutDungeon", PathResources(L"Object/dungeonLobby_goOutDungeon.png"), 55, 1);
+	_ImageManager->AddFrameImage("dungeonLobby_goOutDungeon", PathResources(L"Object/dungeonLobby_goOutDungeon.png"), 56, 1);
 	_ImageManager->AddFrameImage("dungeonLobby_doorOpen", PathResources(L"Object/dungeonLobby_doorOpen.png"), 16, 1);
 	_ImageManager->AddFrameImage("DungeonGateOpenIdle", PathResources(L"Object/DungeonGateOpenIdle.png"), 6, 1);
 	_ImageManager->AddFrameImage("dungeonLobby_bottomLeftTent", PathResources(L"Object/dungeonLobby_bottomLeftTent.png"), 8, 1);

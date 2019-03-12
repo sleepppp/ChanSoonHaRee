@@ -77,6 +77,9 @@ Player::Player(Vector2 pos)
 
 	// 처음 시작 상태를 위한 세팅
 	this->ChangeState(State::DownIdle);
+
+	this->SetActive(_Database->GetIntData("PlayerActive"));
+	_Database->AddIntData("PlayerActive", 1);
 }
 Player::~Player() {}
 
@@ -912,8 +915,12 @@ void Player::EndAnimation()
 		break;
 
 	case Player::State::Die:
-		SendCallbackMessage(TagMessage ("Die"));
-		_Database->AddVector2Data("PlayerPosition", Vector2(672, 898));
+		//this->SendCallbackMessage(TagMessage("Die"));
+		_Database->AddVector2Data("PlayerPosition", Vector2(716, 955));
+		_Database->AddIntData("PlayerActive", 0);
+		_Database->AddIntData("GateState", 5);
+		_SoundManager->FadeoutBGM();
+		_SceneManager->LoadSceneByLoading("DungeonLobby");
 		break;
 
 	default:

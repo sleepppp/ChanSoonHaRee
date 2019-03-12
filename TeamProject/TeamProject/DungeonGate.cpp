@@ -77,6 +77,8 @@ DungeonGate::DungeonGate()
 	exitInfo.animation->SetCallbackFunc([this]() 
 	{
 		this->ChangeState(State::Idle);
+		GameObject* object = _ObjectManager->FindObject(ObjectType::Object, "Will");
+		object->SetActive(true);
 	});
 	_renderInfoList.insert(make_pair(State::Exit, exitInfo));
 
