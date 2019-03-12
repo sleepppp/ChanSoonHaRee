@@ -5,6 +5,7 @@
 #include "Player.h"
 Inventory::Inventory()
 {
+	this->SetActive(false);
 }
 
 
@@ -555,12 +556,12 @@ void Inventory::InvenState()
 
 		//### 인벤토리가 계속 내려가는 걸 방지하기 위함 ###
 		//만일 포지션 y가 화면 중앙이거나 더 작으면  
-		if (_position.y <= WinSizeY / 2)
-		{
-			//포지션 y를 화면 중앙에 고정시키고
-			_position.y = WinSizeY / 2;
-			_invenPlayerPosition.y = WinSizeY / 2;
-		}
+		//if (_position.y <= WinSizeY / 2)
+		//{
+		//	//포지션 y를 화면 중앙에 고정시키고
+		//	_position.y = WinSizeY / 2;
+		//	_invenPlayerPosition.y = WinSizeY / 2;
+		//}
 
 		//만일 포지션 y가 화면 밖으로 완전히 사라지면
 		if (_position.y > WinSizeY + 1000)

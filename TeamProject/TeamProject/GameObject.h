@@ -1,74 +1,74 @@
-#pragma once
+ï»¿#pragma once
 /*****************************************************************
 ## GameObject ##
-±âÁ¸ GameObject¿Í ´Þ¶óÁø Á¡ :
+ê¸°ì¡´ GameObjectì™€ ë‹¬ë¼ì§„ ì  :
 RECT _rc -> _mainRect 
-+ _callbackList;Ãß°¡
-+ _reserveMessageList;Ãß°¡
++ _callbackList;ì¶”ê°€
++ _reserveMessageList;ì¶”ê°€
 *****************************************************************/
 class GameObject
 {
 protected:
-	//unordered_mapÀº ÇØ½¬ Å×ÀÌºí·Î ÀÌ·ç¾îÁ® ÀÖ´Â mapÀ¸·Î¼­ ÇØ½ÌÇÔ¼ö¸¦ ÅëÇØ Å°°ªÀ» ¹è¿­ÀÇ 
-	//ÀÎµ¦½º·Î ¹Ù²Ù´Â ¹æ½ÄÀ» »ç¿ëÇÏ¹Ç·Î ¸Å¿ì ºü¸¥ Å½»ö¼Óµµ¸¦ °¡Áø´Ù.ÃÖ»óÀÇ °æ¿ì ½Ã°£º¹Àâµµ »ó¼ö¸¦ °¡Áü 
-	//»ç¿ë ¹æ¹ýÀº ±âÁ¸ÀÇ map°ú µ¿ÀÏÇÏ´Ù. ÀÌ·±°Ô ÀÖ´Ù Á¤µµ·Î ¾Ë¾ÆµÎÀÚ
+	//unordered_mapì€ í•´ì‰¬ í…Œì´ë¸”ë¡œ ì´ë£¨ì–´ì ¸ ìžˆëŠ” mapìœ¼ë¡œì„œ í•´ì‹±í•¨ìˆ˜ë¥¼ í†µí•´ í‚¤ê°’ì„ ë°°ì—´ì˜ 
+	//ì¸ë±ìŠ¤ë¡œ ë°”ê¾¸ëŠ” ë°©ì‹ì„ ì‚¬ìš©í•˜ë¯€ë¡œ ë§¤ìš° ë¹ ë¥¸ íƒìƒ‰ì†ë„ë¥¼ ê°€ì§„ë‹¤.ìµœìƒì˜ ê²½ìš° ì‹œê°„ë³µìž¡ë„ ìƒìˆ˜ë¥¼ ê°€ì§ 
+	//ì‚¬ìš© ë°©ë²•ì€ ê¸°ì¡´ì˜ mapê³¼ ë™ì¼í•˜ë‹¤. ì´ëŸ°ê²Œ ìžˆë‹¤ ì •ë„ë¡œ ì•Œì•„ë‘ìž
 
-	//first¿¡´Â ½ÇÇà½ÃÅ³ ÇÔ¼öÀÇ Å°°ª, second¿¡´Â ½ÇÇà½ÃÅ³ ÇÔ¼ö¸¦ ´ã¾ÆµÐ´Ù
-	//function<void(struct TagMessage)>´Â ÇÔ¼ö¸¦ ´ãÀ»¼öÀÖ´Â º¯¼ö ÇüÀ¸·Î¼­ ¸Ê¾È¿¡ ´ã°ÜÀÖ´Â ÀÚ·áÇüÀº ´ÙÀ½°ú °°Àº ÀÇ¹Ì¸¦ °¡Áø´Ù
-	//¹ÝÈ¯ÇüÀÌ voidÀÌ°í ÀÎÀÚ·Î´Â struct TagMessage¸¦ ¹Þ´Â ÇÔ¼ö 
+	//firstì—ëŠ” ì‹¤í–‰ì‹œí‚¬ í•¨ìˆ˜ì˜ í‚¤ê°’, secondì—ëŠ” ì‹¤í–‰ì‹œí‚¬ í•¨ìˆ˜ë¥¼ ë‹´ì•„ë‘”ë‹¤
+	//function<void(struct TagMessage)>ëŠ” í•¨ìˆ˜ë¥¼ ë‹´ì„ìˆ˜ìžˆëŠ” ë³€ìˆ˜ í˜•ìœ¼ë¡œì„œ ë§µì•ˆì— ë‹´ê²¨ìžˆëŠ” ìžë£Œí˜•ì€ ë‹¤ìŒê³¼ ê°™ì€ ì˜ë¯¸ë¥¼ ê°€ì§„ë‹¤
+	//ë°˜í™˜í˜•ì´ voidì´ê³  ì¸ìžë¡œëŠ” struct TagMessageë¥¼ ë°›ëŠ” í•¨ìˆ˜ 
 	
-	//´ÙÀ½°ú °°ÀÌ ¸Ê¿¡ ÇÔ¼ö¸¦ ´ã¾ÆµÎ´Â ÀÌÀ¯´Â ´õ ¿øÈ°ÇÑ °´Ã¼°£ÀÇ Åë½ÅÀ» À§ÇØ °£´ÜÇÑ ¸Þ¼¼ÁöÅë½Å ±â¹ýÀ» ±¸ÇöÇÏ±â À§ÇÔÀÌ´Ù. 
-	//¿¹¸¦ µé¾î ¾î¶² °´Ã¼¿¡¼­ GameObject¸¦ »ó¼Ó¹ÞÀº Enemy¶ó´Â °´Ã¼ÀÇ AttackÀÌ¶ó´Â ÇÔ¼ö¸¦ È£ÃâÇÏ°í ½ÍÀ» ¶§ ¿ì¸®´Â 
+	//ë‹¤ìŒê³¼ ê°™ì´ ë§µì— í•¨ìˆ˜ë¥¼ ë‹´ì•„ë‘ëŠ” ì´ìœ ëŠ” ë” ì›í™œí•œ ê°ì²´ê°„ì˜ í†µì‹ ì„ ìœ„í•´ ê°„ë‹¨í•œ ë©”ì„¸ì§€í†µì‹  ê¸°ë²•ì„ êµ¬í˜„í•˜ê¸° ìœ„í•¨ì´ë‹¤. 
+	//ì˜ˆë¥¼ ë“¤ì–´ ì–´ë–¤ ê°ì²´ì—ì„œ GameObjectë¥¼ ìƒì†ë°›ì€ Enemyë¼ëŠ” ê°ì²´ì˜ Attackì´ë¼ëŠ” í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ê³  ì‹¶ì„ ë•Œ ìš°ë¦¬ëŠ” 
 	//Enemy* enemy = (Enemy*)ObjectManager->FindObject("sdas); enemy->Attack();
-	//°ú °°Àº ÇÔ¼ö¸¦ Çüº¯È¯À» ÇÑ ÈÄ¿¡ Á÷Á¢ÀûÀ¸·Î È£ÃâÇØÁÖ¾î¾ß Çß¾ú´Ù
-	//ÀÌ ÄÚµåÀÇ ¹®Á¦Á¡Àº Ã£¾Æ¿Â GameObject*°¡ EnemyÅ¬·¡½º°¡ ¾Æ´Ò °æ¿ì¿Í ÄÚµåÀÇ À¯Áöº¸¼ö°¡ ¾î·Æ´Ù´Â Á¡ÀÌ´Ù. 
+	//ê³¼ ê°™ì€ í•¨ìˆ˜ë¥¼ í˜•ë³€í™˜ì„ í•œ í›„ì— ì§ì ‘ì ìœ¼ë¡œ í˜¸ì¶œí•´ì£¼ì–´ì•¼ í–ˆì—ˆë‹¤
+	//ì´ ì½”ë“œì˜ ë¬¸ì œì ì€ ì°¾ì•„ì˜¨ GameObject*ê°€ Enemyí´ëž˜ìŠ¤ê°€ ì•„ë‹ ê²½ìš°ì™€ ì½”ë“œì˜ ìœ ì§€ë³´ìˆ˜ê°€ ì–´ë µë‹¤ëŠ” ì ì´ë‹¤. 
 	
-	//¸Þ¼¼Áö Åë½ÅÀÇ »ç¿ë¹ýÀº EnemyÅ¬·¡½º¿¡¼­´Â ¹Ì¸® ÀÚ½ÅÀÇ callbackList¿¡ "Attack"ÀÌ¶ó´Â Å°°ª°ú ÇÔ²² Attack()ÇÔ¼ö¸¦ ´ã¾ÆµÐ´Ù. 
-	//¿ÜºÎÀÇ °´Ã¼¿¡¼­´Â EnemyÅ¬·¡½º¿¡°Ô °ø°ÝÇß´Ù°í ¾Ë·ÁÁÖ°í ½ÍÀ» ¶§ enemy->SendMessage(TagMessage("Attack")); °ú °°ÀÌ 
-	//ÇÔ¼ö¸¸ È£ÃâÇØÁÖ¸é µÈ´Ù. ÀÌ·¸°Ô µÇ¸é ÇÃ·¹ÀÌ¾î Å¬·¡½º¿¡¼­´Â EnemyÅ¬·¡½ºÀÇ Çì´õ¸¦ ´Þ ÇÊ¿ä°¡ ¾ø¾îÁö°í Enemy*·Î ´Ù¿î Ä³½ºÆÃÀ» ÇÒ ÇÊ¿äµµ
-	//¾ø¾îÁø´Ù.
+	//ë©”ì„¸ì§€ í†µì‹ ì˜ ì‚¬ìš©ë²•ì€ Enemyí´ëž˜ìŠ¤ì—ì„œëŠ” ë¯¸ë¦¬ ìžì‹ ì˜ callbackListì— "Attack"ì´ë¼ëŠ” í‚¤ê°’ê³¼ í•¨ê»˜ Attack()í•¨ìˆ˜ë¥¼ ë‹´ì•„ë‘”ë‹¤. 
+	//ì™¸ë¶€ì˜ ê°ì²´ì—ì„œëŠ” Enemyí´ëž˜ìŠ¤ì—ê²Œ ê³µê²©í–ˆë‹¤ê³  ì•Œë ¤ì£¼ê³  ì‹¶ì„ ë•Œ enemy->SendMessage(TagMessage("Attack")); ê³¼ ê°™ì´ 
+	//í•¨ìˆ˜ë§Œ í˜¸ì¶œí•´ì£¼ë©´ ëœë‹¤. ì´ë ‡ê²Œ ë˜ë©´ í”Œë ˆì´ì–´ í´ëž˜ìŠ¤ì—ì„œëŠ” Enemyí´ëž˜ìŠ¤ì˜ í—¤ë”ë¥¼ ë‹¬ í•„ìš”ê°€ ì—†ì–´ì§€ê³  Enemy*ë¡œ ë‹¤ìš´ ìºìŠ¤íŒ…ì„ í•  í•„ìš”ë„
+	//ì—†ì–´ì§„ë‹¤.
 	typedef unordered_map < string, function<void(struct TagMessage)>> CallbackHashmap;
 	typedef unordered_map<string, function<void(struct TagMessage)>>::iterator CallbackHashmapIter;
 protected:
-	string _name;			//ÀÌ¸§
-	Pivot::Enum _pivot;		//ÇÇº¿
-	Vector2 _position;		//ÁÂÇ¥
-	Vector2 _size;			//»çÀÌÁî
-	RECT _mainRect;			//¸ÞÀÎ ·ºÆ®
-	bool _isActive;			//È°¼º ¿©ºÎ
-private:	//¾Æ·¡ÀÇ º¯¼öµéÀº ÀÚ½Ä °´Ã¼¿¡¼­ ÇÔºÎ·Î °Çµé¸é ¾ÈµÇ±â ¶§¹®¿¡ private·Î ¿«´Â´Ù. 
-	bool _isLive;			//°´Ã¼ »ýÁ¸ ¿©ºÎ(ÇØ´ç ºÒ°ªÀ» ²ô¸é ObjectManager¿¡¼­ °´Ã¼¸¦ »èÁ¦ÇÑ´Ù) 
+	string _name;			//ì´ë¦„
+	Pivot::Enum _pivot;		//í”¼ë´‡
+	Vector2 _position;		//ì¢Œí‘œ
+	Vector2 _size;			//ì‚¬ì´ì¦ˆ
+	RECT _mainRect;			//ë©”ì¸ ë ‰íŠ¸
+	bool _isActive;			//í™œì„± ì—¬ë¶€
+private:	//ì•„ëž˜ì˜ ë³€ìˆ˜ë“¤ì€ ìžì‹ ê°ì²´ì—ì„œ í•¨ë¶€ë¡œ ê±´ë“¤ë©´ ì•ˆë˜ê¸° ë•Œë¬¸ì— privateë¡œ ì—®ëŠ”ë‹¤. 
+	bool _isLive;			//ê°ì²´ ìƒì¡´ ì—¬ë¶€(í•´ë‹¹ ë¶ˆê°’ì„ ë„ë©´ ObjectManagerì—ì„œ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤) 
 
-	CallbackHashmap _callbackList;	//¸Þ¼¼Áö Åë½Å¿¡ »ç¿ëÇÒ ¸Ê(ÀÌ°÷¿¡ ¹Ì¸® Å°°ª°ú ÇÔ²² ÇÔ¼ö¸¦ ´ã¾ÆµÐ´Ù) 
-	//¿¹¾à ¸Þ¼¼Áö ¸®½ºÆ® 
-	//¸¸¾à º¸³½ ¸Þ¼¼ÁöÀÇ delayTimeÀÌ ¼³Á¤µÇ¾î ÀÖÀ¸¸é ¹Ù·Î ÇÔ¼ö¸¦ ½ÇÇà½ÃÅ°Áö ¾Ê°í ÀÌ°÷À¸·Î º¸³½´Ù. 
-	//GameObjectÀÇ ¾÷µ¥ÀÌÆ®¿¡¼­´Â ÇØ´ç ¸Þ¼¼ÁöÀÇ µô·¹ÀÌ Å¸ÀÓÀ» °è»êÇÏ´Ù°¡ ÇØ´ç ÇÔ¼ö¸¦ ½ÇÇà ½ÃÄÑÁØ´Ù. 
+	CallbackHashmap _callbackList;	//ë©”ì„¸ì§€ í†µì‹ ì— ì‚¬ìš©í•  ë§µ(ì´ê³³ì— ë¯¸ë¦¬ í‚¤ê°’ê³¼ í•¨ê»˜ í•¨ìˆ˜ë¥¼ ë‹´ì•„ë‘”ë‹¤) 
+	//ì˜ˆì•½ ë©”ì„¸ì§€ ë¦¬ìŠ¤íŠ¸ 
+	//ë§Œì•½ ë³´ë‚¸ ë©”ì„¸ì§€ì˜ delayTimeì´ ì„¤ì •ë˜ì–´ ìžˆìœ¼ë©´ ë°”ë¡œ í•¨ìˆ˜ë¥¼ ì‹¤í–‰ì‹œí‚¤ì§€ ì•Šê³  ì´ê³³ìœ¼ë¡œ ë³´ë‚¸ë‹¤. 
+	//GameObjectì˜ ì—…ë°ì´íŠ¸ì—ì„œëŠ” í•´ë‹¹ ë©”ì„¸ì§€ì˜ ë”œë ˆì´ íƒ€ìž„ì„ ê³„ì‚°í•˜ë‹¤ê°€ í•´ë‹¹ í•¨ìˆ˜ë¥¼ ì‹¤í–‰ ì‹œì¼œì¤€ë‹¤. 
 	vector<struct TagMessage> _reserveMessageList;
 public:
-	//»ý¼ºÀÚ ¿À¹ö·Îµù 
-	//»óÈ²¿¡ ¸Â°Ô ÀÚ½Ä°´Ã¼µéÀº ¿øÇÏ´Â »ý¼ºÀÚ¸¦ »ç¿ëÇÏ¸é µÈ´Ù. 
+	//ìƒì„±ìž ì˜¤ë²„ë¡œë”© 
+	//ìƒí™©ì— ë§žê²Œ ìžì‹ê°ì²´ë“¤ì€ ì›í•˜ëŠ” ìƒì„±ìžë¥¼ ì‚¬ìš©í•˜ë©´ ëœë‹¤. 
 	GameObject();
 	GameObject(string name, Vector2 pos, Vector2 size, Pivot::Enum pivot);
 	GameObject(const RECT rect);
 	virtual ~GameObject();
-	//¼ø¼ö °¡»óÇÔ¼ö·Î ÁöÁ¤ÇÏÁö ¾ÊÀº ÀÌÀ¯´Â GameObjectÅ¬·¡½ºÀÇ Release,Update¿¡¼­µµ ½ÇÇàµÇ¾î¾ß ÇÒ ³»¿ëµéÀÌ ÀÖ±â ¶§¹®ÀÌ´Ù.
+	//ìˆœìˆ˜ ê°€ìƒí•¨ìˆ˜ë¡œ ì§€ì •í•˜ì§€ ì•Šì€ ì´ìœ ëŠ” GameObjectí´ëž˜ìŠ¤ì˜ Release,Updateì—ì„œë„ ì‹¤í–‰ë˜ì–´ì•¼ í•  ë‚´ìš©ë“¤ì´ ìžˆê¸° ë•Œë¬¸ì´ë‹¤.
 	virtual void Init() {}
 	virtual void Release();
 	virtual void Update();
 	virtual void Render();
-	//È°¼ºÈ­µÉ ¶§ ½ÇÇàµÇ´Â ÇÔ¼ö (°ÔÀÓ¿ÀºêÁ§Æ®¸¦ »ó¼Ó¹ÞÀº °´Ã¼¿¡¼­ ¸¸¾à È°¼ºÈ­ µÇ´Â ¼ø°£¿¡ ½ÇÇàÇØ¾ß µÉ ³»¿ëÀÌ ÀÖ´Ù¸é ÇØ´ç ÇÔ¼ö¸¦ 
-	//¿À¹ö¶óÀÌµùÇØ¼­ ³»¿ëÀ» ÀÛ¼ºÇÏ¸é µÈ´Ù. 
+	//í™œì„±í™”ë  ë•Œ ì‹¤í–‰ë˜ëŠ” í•¨ìˆ˜ (ê²Œìž„ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì†ë°›ì€ ê°ì²´ì—ì„œ ë§Œì•½ í™œì„±í™” ë˜ëŠ” ìˆœê°„ì— ì‹¤í–‰í•´ì•¼ ë  ë‚´ìš©ì´ ìžˆë‹¤ë©´ í•´ë‹¹ í•¨ìˆ˜ë¥¼ 
+	//ì˜¤ë²„ë¼ì´ë”©í•´ì„œ ë‚´ìš©ì„ ìž‘ì„±í•˜ë©´ ëœë‹¤. 
 	virtual void Enable() {}
-	//ºñÈ°¼ºÈ­µÉ ¶§ ½ÇÇàµÇ´Â ÇÔ¼ö
+	//ë¹„í™œì„±í™”ë  ë•Œ ì‹¤í–‰ë˜ëŠ” í•¨ìˆ˜
 	virtual void Disable() {}
-	//ÇØ´ç °´Ã¼¿¡ ¸Þ¼¼Áö¸¦ º¸³½´Ù.
+	//í•´ë‹¹ ê°ì²´ì— ë©”ì„¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 	void SendCallbackMessage(const struct TagMessage message);
-	//ÇØ´ç °´Ã¼¿¡ ¹Ì¸® ¸Þ¼¼Áö¸¦ ¹Þ¾ÒÀ» ¶§ ½ÇÇàÇÒ ÇÔ¼ö¸¦ µî·Ï
+	//í•´ë‹¹ ê°ì²´ì— ë¯¸ë¦¬ ë©”ì„¸ì§€ë¥¼ ë°›ì•˜ì„ ë•Œ ì‹¤í–‰í•  í•¨ìˆ˜ë¥¼ ë“±ë¡
 	void AddCallbackMessage(const string name, const function<void(struct TagMessage)> func);
 
 	virtual RECT GetCollisionRect()const { return this->_mainRect; }
 public:
-	//Á¢±ÙÀÚ¸ç ¼³Á¤ÀÚµé
+	//ì ‘ê·¼ìžë©° ì„¤ì •ìžë“¤
 	string GetName()const { return this->_name; }
 	Vector2 GetPosition()const { return this->_position; }
 	Vector2 GetSize()const { return this->_size; }
@@ -84,7 +84,7 @@ public:
 	void Destroy() { this->_isLive = false; }
 	void SetMainRect(const RECT rect);
 protected:
-	//ÇÇº¿¿¡ µû¶ó¼­ ·ºÆ®µé ¾÷µ¥ÀÌÆ® µÈ´Ù
+	//í”¼ë´‡ì— ë”°ë¼ì„œ ë ‰íŠ¸ë“¤ ì—…ë°ì´íŠ¸ ëœë‹¤
 	void UpdateMainRect();
 };
 

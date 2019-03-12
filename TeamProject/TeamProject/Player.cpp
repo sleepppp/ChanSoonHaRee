@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Player.h"
 
 #include "Image.h"
@@ -12,26 +12,26 @@
 #include "DamageFontManager.h"
 //#include "MainScene + ReeInit.cpp"
 
-//¿¡³Ê¹Ì °ø¤·°İ ¹ŞÀ»¶§ ¹«Àû ÆÇÁ¤(¾à 1ÃÊ)	ok
-//¿¡³Ê¹Ì µ¥¹ÌÁö °ª ¹ŞÀ» ÇÔ¼ö				ok
-//¸ÂÀ¸¸é ¾ËÆÄ°ª ±ôºıÀÓ							ok		
-//¹«±â º¸¿ì, ¹æÆĞ
-//ÇÑ¹ø¸¸ Ä® ÈÖµÎ¸£°Ô
-//µÎ¹ø ´©¸¦¶§ µÎ¹ø ÈÖµÎ¸£°Ô
-//ÈÖµÎ¸£´Â µ¿¾È Á¦´ë·Î ·ºÆ®°¡ ÇÑ¹ø¾¿ ¸ÔÈ÷µµ·Ï ¼öÁ¤ÇÑ´Ù.
+//ì—ë„ˆë¯¸ ê³µã…‡ê²© ë°›ì„ë•Œ ë¬´ì  íŒì •(ì•½ 1ì´ˆ)	ok
+//ì—ë„ˆë¯¸ ë°ë¯¸ì§€ ê°’ ë°›ì„ í•¨ìˆ˜				ok
+//ë§ìœ¼ë©´ ì•ŒíŒŒê°’ ê¹œë¹¡ì„							ok		
+//ë¬´ê¸° ë³´ìš°, ë°©íŒ¨
+//í•œë²ˆë§Œ ì¹¼ íœ˜ë‘ë¥´ê²Œ
+//ë‘ë²ˆ ëˆ„ë¥¼ë•Œ ë‘ë²ˆ íœ˜ë‘ë¥´ê²Œ
+//íœ˜ë‘ë¥´ëŠ” ë™ì•ˆ ì œëŒ€ë¡œ ë ‰íŠ¸ê°€ í•œë²ˆì”© ë¨¹íˆë„ë¡ ìˆ˜ì •í•œë‹¤.
 
-//0310:º¸½º »ı¼º(ÃÖÃÊ) ÀÌ¹ÌÁö¿¡¼­ µŞÂÊÀ¸·Î »ìÂ¦ Æ¢´Â ÇÁ·¹ÀÓ µÎ¾î°³Âë ÀÖÀ½
-//´ë°¢¼± ·Ñ¸µ ¿Ï·á
-//Ä® ³ª´©¾î¼­ ÈÖµÎ¸£±â ¾î»öÇØ¼­ Àç¼öÁ¤
+//0310:ë³´ìŠ¤ ìƒì„±(ìµœì´ˆ) ì´ë¯¸ì§€ì—ì„œ ë’·ìª½ìœ¼ë¡œ ì‚´ì§ íŠ€ëŠ” í”„ë ˆì„ ë‘ì–´ê°œì¯¤ ìˆìŒ
+//ëŒ€ê°ì„  ë¡¤ë§ ì™„ë£Œ
+//ì¹¼ ë‚˜ëˆ„ì–´ì„œ íœ˜ë‘ë¥´ê¸° ì–´ìƒ‰í•´ì„œ ì¬ìˆ˜ì •
 
 using namespace Figure;
 
-//¾À º¯°æÀ¸·Î TItleScene¿¡¼­ TitleObjectÀÇ TitleFlowObject.cpp
-//23,27¹ø Dungeon_map_02 ¸ÊÀ¸·Î ¼öÁ¤ÇÔ 
+//ì”¬ ë³€ê²½ìœ¼ë¡œ TItleSceneì—ì„œ TitleObjectì˜ TitleFlowObject.cpp
+//23,27ë²ˆ Dungeon_map_02 ë§µìœ¼ë¡œ ìˆ˜ì •í•¨ 
 
 Player::Player(Vector2 pos)
 {
-	//ÀÌ¹ÌÁö Ãß°¡, ¸Å´ÏÀú¿¡¼­ FInd ÇÏ¿© Ã£¾Æ¿È
+	//ì´ë¯¸ì§€ ì¶”ê°€, ë§¤ë‹ˆì €ì—ì„œ FInd í•˜ì—¬ ì°¾ì•„ì˜´
 	_ImageManager->AddFrameImage("Will", L"../Resources/Player/will_dungeon.png", 10, 13);
 	this->_imgMove = _ImageManager->FindImage("Will");
 	_ImageManager->AddFrameImage("Will_Sword", L"../Resources/Player/will_sword.png", 11, 4);
@@ -41,41 +41,41 @@ Player::Player(Vector2 pos)
 	_ImageManager->AddImage("Shadow", L"../Resources/Object/Shadow.png");
 	this->_imgShadow = _ImageManager->FindImage("Shadow");
 
-	//±âº» º¯¼ö ÃÊ±âÈ­
+	//ê¸°ë³¸ ë³€ìˆ˜ ì´ˆê¸°í™”
 	this->_name = "Will";
 	this->_size = Vector2(120, 120);
 	this->_position = Vector2(627, 120);
-	this->_position = pos;	//µû·Î°ª ÀÔ·Â ¾ÈÇÏ¸é ¸ŞÀÎ½Å¿¡¼­ °ªÀ» ÀÔ·ÂÇÑ´ë·Î
+	this->_position = pos;	//ë”°ë¡œê°’ ì…ë ¥ ì•ˆí•˜ë©´ ë©”ì¸ì‹ ì—ì„œ ê°’ì„ ì…ë ¥í•œëŒ€ë¡œ
 	this->_isActive = true;
 	this->_pivot = Pivot::CENTER;
 	this->_speed = 400.0f;
 	this->UpdateMainRect();
 	this->_maxHp = 500;
 	this->_currentHp = 500;
-	this->_isMoveStop = false;			//¿òÁ÷ÀÓÀ» ¸ØÃß±â À§ÇÑ bool°ª
-	this->_isChangeSword = false;		//°ø°İ½Ã ÀÌ¹ÌÁö ÆÄÀÏ º¯°æÀ» À§ÇÑ bool°ª
-	this->_isChangeBow = false;			//È° °ø°İ½Ã ÀÌ¹ÌÁö ÆÄÀÏ º¯°æÀ» À§ÇÑ bool°ª
+	this->_isMoveStop = false;			//ì›€ì§ì„ì„ ë©ˆì¶”ê¸° ìœ„í•œ boolê°’
+	this->_isChangeSword = false;		//ê³µê²©ì‹œ ì´ë¯¸ì§€ íŒŒì¼ ë³€ê²½ì„ ìœ„í•œ boolê°’
+	this->_isChangeBow = false;			//í™œ ê³µê²©ì‹œ ì´ë¯¸ì§€ íŒŒì¼ ë³€ê²½ì„ ìœ„í•œ boolê°’
 	this->_isStandardMove = true;
-	this->_damage = 20;					//ÇÃ·¹ÀÌ¾î ±âº» ¹«±â µ¥¹ÌÁö
+	this->_damage = 20;					//í”Œë ˆì´ì–´ ê¸°ë³¸ ë¬´ê¸° ë°ë¯¸ì§€
 
-	this->_frameIdle = 0.1f;			//½ºÇÇµå º¯°æÀ» À§ÇÑ º¯¼ö
-	this->_frameRun = 0.1f;				//½ºÇÇµå º¯°æÀ» À§ÇÑ º¯¼ö
+	this->_frameIdle = 0.1f;			//ìŠ¤í”¼ë“œ ë³€ê²½ì„ ìœ„í•œ ë³€ìˆ˜
+	this->_frameRun = 0.1f;				//ìŠ¤í”¼ë“œ ë³€ê²½ì„ ìœ„í•œ ë³€ìˆ˜
 	this->_frameBow = 0.08f;
 	this->_swordWidth= 40;
 	this->_swordHeight= 20;
 	this->_isAttacked = false;
-	this->_isChangeWeapon = false;		//false´Â Ä®, true´Â È°
+	this->_isChangeWeapon = false;		//falseëŠ” ì¹¼, trueëŠ” í™œ
 	this->_blink = 0;
 	this->_alpha = 1.0f;
 
 	this->_isDelay = 0.f;
 	this->_count = 0;
-	//Á¤¹Ğ Ãæµ¹¿ë ·ºÆ® À§Ä¡ ÃÊ±âÈ­
+	//ì •ë°€ ì¶©ëŒìš© ë ‰íŠ¸ ìœ„ì¹˜ ì´ˆê¸°í™”
 	this->_collisionRect = RectMakeCenter(_position, Vector2(30.0f, 40.0f));	
-	//»óÅÂº° ¾Ö´Ï¸ŞÀÌ¼Ç ÀüºÎ »ı¼ºÇÏ¿© ¸Ê¿¡ ´ã¾ÆµĞ´Ù.
+	//ìƒíƒœë³„ ì• ë‹ˆë©”ì´ì…˜ ì „ë¶€ ìƒì„±í•˜ì—¬ ë§µì— ë‹´ì•„ë‘”ë‹¤.
 	this->CreateAnimation();
 
-	// Ã³À½ ½ÃÀÛ »óÅÂ¸¦ À§ÇÑ ¼¼ÆÃ
+	// ì²˜ìŒ ì‹œì‘ ìƒíƒœë¥¼ ìœ„í•œ ì„¸íŒ…
 	this->ChangeState(State::DownIdle);
 }
 Player::~Player() {}
@@ -107,44 +107,48 @@ void Player::Release()
 /********************************************************************************/
 void Player::Update()
 {	
-	//%%%%%%%%%%%%%%%%%%-------------------------------Ä¡Æ®Å°------------------------------%%%%%%%%%%%%%%%%%%%%%%%%%
-	//³ªÁß¿¡ Áö¿ï °Í:: Ä©ÈåÅ° °­ÇÑ ÇÃ·¹ÀÌ¾î
+	//%%%%%%%%%%%%%%%%%%-------------------------------ì¹˜íŠ¸í‚¤------------------------------%%%%%%%%%%%%%%%%%%%%%%%%%
+	//ë‚˜ì¤‘ì— ì§€ìš¸ ê²ƒ:: ì¹«íí‚¤ ê°•í•œ í”Œë ˆì´ì–´
 	if (_Input->GetKeyDown('E')) this->_currentHp = 100;
-	//Á×À½
+	//ì£½ìŒ
 	if (_Input->GetKeyDown('R')) this->_currentHp = 0;
-	//%%%%%%%%%%%%%%%%%%-------------------------------Ä¡Æ®Å°------------------------------%%%%%%%%%%%%%%%%%%%%%%%%%
+	//%%%%%%%%%%%%%%%%%%-------------------------------ì¹˜íŠ¸í‚¤------------------------------%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-	//ÇÃ·¹ÀÌ¾î Á×À½
+	//í”Œë ˆì´ì–´ ì£½ìŒ
 	if (_currentHp <= 0)
 	{
 		this->ChangeState(Player::State::Die);
 	}
 
-	//ÀÌµ¿·® ÃøÁ¤ÇÒ º¯¼ö
+	//ì´ë™ëŸ‰ ì¸¡ì •í•  ë³€ìˆ˜
 	Vector2 moveValue(0, 0);
 	
 	
 		if (_Input->GetKeyDown('I'))
 		{
 			GameObject* _inventory = (Inventory*)_ObjectManager->FindObject(ObjectType::UI, "Inventory");
-			_isMoveStop = true;
-			_inventory->SetActive(true);	
+			//_isMoveStop = true;
+			if (_inventory->GetActive() == false)
+			{
+				_isMoveStop = !_isMoveStop;
+				_inventory->SetActive(true);
+			} 
 		}
 
-		//¹«±â º¯°æ(Ä®<->È°)
+		//ë¬´ê¸° ë³€ê²½(ì¹¼<->í™œ)
 		if (_Input->GetKeyDown('Z'))
 		{
 			_isChangeBow = !_isChangeBow;
 			
-			//Å×½ºÆ®¿ë
+			//í…ŒìŠ¤íŠ¸ìš©
 			if (_isChangeBow)cout << "Bow" << endl;
 			else  if (!_isChangeBow)cout << "Sword" << endl;
 		}
 
-		if (_isMoveStop == false)			//ÀÎº¥Åä¸®  on/off¿ë
+		//if (_isMoveStop == false)			//ì¸ë²¤í† ë¦¬  on/offìš©
 		{
-			//&&&&&&°ø°İ ¹«ºê OK
-			//»óÅÂ¿¡ µû¶ó ´Ù¸£°Ô ¾÷µ¥ÀÌÆ®
+			//&&&&&&ê³µê²© ë¬´ë¸Œ OK
+			//ìƒíƒœì— ë”°ë¼ ë‹¤ë¥´ê²Œ ì—…ë°ì´íŠ¸
 			switch (_state)
 			{
 			case Player::State::LeftIdle:
@@ -189,26 +193,26 @@ void Player::Update()
 				break;
 
 			case Player::State::LeftRun:
-				if (_Input->GetKey('A')) moveValue += Vector2(-1.0f, 0.0f);		//¿Ş´©¸£±â
-				if (_Input->GetKeyUp('A')) this->ChangeState(State::LeftIdle); //¿Ş¶¼±â
+				if (_Input->GetKey('A')) moveValue += Vector2(-1.0f, 0.0f);		//ì™¼ëˆ„ë¥´ê¸°
+				if (_Input->GetKeyUp('A')) this->ChangeState(State::LeftIdle); //ì™¼ë–¼ê¸°
 
-				//´ë°¢¼± ½ÃÀÛ		
-				if (_Input->GetKey('W'))										//´ë°¢¼± À§ ´©¸£±â
+				//ëŒ€ê°ì„  ì‹œì‘		
+				if (_Input->GetKey('W'))										//ëŒ€ê°ì„  ìœ„ ëˆ„ë¥´ê¸°
 				{
 					ChangeAnimation(Player::State::UpRun);
 					moveValue += Vector2(0.0f, -1.0f);
 				}
-				else if (_Input->GetKey('S'))									//´ë°¢¼± ¾Æ·¡ ´©¸£±â
+				else if (_Input->GetKey('S'))									//ëŒ€ê°ì„  ì•„ë˜ ëˆ„ë¥´ê¸°
 				{
 					moveValue += Vector2(0.0f, 1.0f);
 					ChangeAnimation(Player::State::DownRun);
 				}
 
-				if (_Input->GetKeyUp('W'))			//´ë°¢¼± À§ ¶¼±â
+				if (_Input->GetKeyUp('W'))			//ëŒ€ê°ì„  ìœ„ ë–¼ê¸°
 				{
 					ChangeAnimation(Player::State::LeftRun);
 				}
-				else if (_Input->GetKeyUp('S'))			//´ë°¢¼± ¾Æ·¡ ¶¼±â
+				else if (_Input->GetKeyUp('S'))			//ëŒ€ê°ì„  ì•„ë˜ ë–¼ê¸°
 				{
 					this->ChangeState(State::LeftRun);
 				}
@@ -222,13 +226,13 @@ void Player::Update()
 				if (_Input->GetKey('D')) moveValue += Vector2(1.0f, 0.0f);
 				if (_Input->GetKeyUp('D')) this->ChangeState(State::RightIdle);
 
-				//´ë°¢¼± ½ÃÀÛ
-				if (_Input->GetKey('W'))	//´ë°¢¼± À§
+				//ëŒ€ê°ì„  ì‹œì‘
+				if (_Input->GetKey('W'))	//ëŒ€ê°ì„  ìœ„
 				{
 					ChangeAnimation(Player::State::UpRun);
 					moveValue += Vector2(0.0f, -1.0f);
 				}
-				else if (_Input->GetKey('S'))	//´ë°¢¼± ¾Æ·¡
+				else if (_Input->GetKey('S'))	//ëŒ€ê°ì„  ì•„ë˜
 				{
 					moveValue += Vector2(0.0f, 1.0f);
 					ChangeAnimation(Player::State::DownRun);
@@ -275,12 +279,12 @@ void Player::Update()
 			case Player::State::LeftRoll:
 				moveValue += Vector2(-2.0f, 0.0f);
 
-				//´ë°¢¼± ½ÃÀÛ		
-				if (_Input->GetKey('W'))										//´ë°¢¼± À§ ´©¸£±â
+				//ëŒ€ê°ì„  ì‹œì‘		
+				if (_Input->GetKey('W'))										//ëŒ€ê°ì„  ìœ„ ëˆ„ë¥´ê¸°
 				{
 					moveValue += Vector2(0.0f, -2.0f);
 				}
-				else if (_Input->GetKey('S'))										//´ë°¢¼± À§ ´©¸£±â
+				else if (_Input->GetKey('S'))										//ëŒ€ê°ì„  ìœ„ ëˆ„ë¥´ê¸°
 				{
 					moveValue += Vector2(0.0f, 2.0f);
 				}
@@ -289,12 +293,12 @@ void Player::Update()
 			case Player::State::RightRoll:
 				moveValue += Vector2(2.0f, 0.0f);
 
-				//´ë°¢¼± ½ÃÀÛ		
-				if (_Input->GetKey('W'))										//´ë°¢¼± À§ ´©¸£±â
+				//ëŒ€ê°ì„  ì‹œì‘		
+				if (_Input->GetKey('W'))										//ëŒ€ê°ì„  ìœ„ ëˆ„ë¥´ê¸°
 				{
 					moveValue += Vector2(0.0f, -2.0f);
 				}
-				else if (_Input->GetKey('S'))										//´ë°¢¼± À§ ´©¸£±â
+				else if (_Input->GetKey('S'))										//ëŒ€ê°ì„  ìœ„ ëˆ„ë¥´ê¸°
 				{
 					moveValue += Vector2(0.0f, 2.0f);
 				}
@@ -303,12 +307,12 @@ void Player::Update()
 			case Player::State::UpRoll:
 				moveValue += Vector2(0.0f, -2.0f);
 
-				//´ë°¢¼± ½ÃÀÛ		
-				if (_Input->GetKey('A'))										//´ë°¢¼± À§ ´©¸£±â
+				//ëŒ€ê°ì„  ì‹œì‘		
+				if (_Input->GetKey('A'))										//ëŒ€ê°ì„  ìœ„ ëˆ„ë¥´ê¸°
 				{
 					moveValue += Vector2(-2.0f, 0.0f);
 				}
-				else if (_Input->GetKey('D'))										//´ë°¢¼± À§ ´©¸£±â
+				else if (_Input->GetKey('D'))										//ëŒ€ê°ì„  ìœ„ ëˆ„ë¥´ê¸°
 				{
 					moveValue += Vector2(2.0f, 0.0f);
 				}
@@ -317,12 +321,12 @@ void Player::Update()
 			case Player::State::DownRoll:
 				moveValue += Vector2(0.0f, 2.0f);
 
-				//´ë°¢¼± ½ÃÀÛ		
-				if (_Input->GetKey('A'))										//´ë°¢¼± À§ ´©¸£±â
+				//ëŒ€ê°ì„  ì‹œì‘		
+				if (_Input->GetKey('A'))										//ëŒ€ê°ì„  ìœ„ ëˆ„ë¥´ê¸°
 				{
 					moveValue += Vector2(-2.0f, 0.0f);
 				}
-				else if (_Input->GetKey('D'))										//´ë°¢¼± À§ ´©¸£±â
+				else if (_Input->GetKey('D'))										//ëŒ€ê°ì„  ìœ„ ëˆ„ë¥´ê¸°
 				{
 					moveValue += Vector2(2.0f, 0.0f);
 				}
@@ -362,19 +366,19 @@ void Player::Update()
 				break;
 				//=====================================================================================
 			case Player::State::LeftBow:
-				this->Enable();
+				//this->Enable();
 				break;
 
 			case Player::State::RightBow:
-				this->Enable();
+				//this->Enable();
 				break;
 
 			case Player::State::UpBow:
-				this->Enable();
+				//this->Enable();
 				break;
 
 			case Player::State::DownBow:
-				this->Enable();
+				//this->Enable();
 				break;
 
 			case Player::State::Die:
@@ -387,14 +391,14 @@ void Player::Update()
 				break;
 			}
 		}
-		//ÀÌµ¿ ¹× Ãæµ¹°ü·Ã ÇÔ¼ö È£ÃâÇÔ
+		//ì´ë™ ë° ì¶©ëŒê´€ë ¨ í•¨ìˆ˜ í˜¸ì¶œí•¨
 		this->Move(moveValue);
 	
 
-	//ÇÁ·¹ÀÓÀ» ¾÷µ¥ÀÌÆ® ÇØÁØ´Ù.
+	//í”„ë ˆì„ì„ ì—…ë°ì´íŠ¸ í•´ì¤€ë‹¤.
 	_mainAnimation->UpdateFrame();
 	
-	//°ø°İ ÆÇÁ¤ ÀÌÈÄ Ã³¸® ÇÔ¼ö
+	//ê³µê²© íŒì • ì´í›„ ì²˜ë¦¬ í•¨ìˆ˜
 	this->AtkDelay2();
 
 }
@@ -404,21 +408,21 @@ void Player::Update()
 /********************************************************************************/
 void Player::Render()
 {
-	//±×¸²ÀÚ
+	//ê·¸ë¦¼ì
 	_imgShadow->SetAlpha(0.4f);
 	_imgShadow->SetSize(Vector2(48, 24));
 	_imgShadow->Render(this->_position.x, this->_position.y+24, Pivot::CENTER,true);
 	   
 
-	//ÀÌ¹ÌÁö »çÀÌÁî ÁöÁ¤
+	//ì´ë¯¸ì§€ ì‚¬ì´ì¦ˆ ì§€ì •
 	_imgMove->SetSize(_size);
 	_imgAtkSword->SetSize(_size);
 	_imgAtkBow->SetSize(_size);
 	_imgMove->SetAlpha(_alpha);
 
 
-	//·»´õ¸µ: µÎ°³ÀÇ ÀÌ¹ÌÁö¸¦ »óÈ²¿¡ ¸Â°Ô ¹ø°¥¾Æ°¡¸é¼­ »ç¿ëÇÏµµ·Ï Á¶°ÇÀ» ÁØ´Ù.
-	//¹«±â ±³Ã¼¸¸ ÇÏ´Â »óÅÂ¿¡µµ ±âº» ¹«ºê »ç¿ëÇØ¾ß ÇÏ¹Ç·Î °ø°İ ¹öÆ° ´©¸¦¶§¸¸ ·»´õÇÏµµ·Ï ´Ù¸¥ Á¶°ÇÀ» ÁÙ °Í
+	//ë Œë”ë§: ë‘ê°œì˜ ì´ë¯¸ì§€ë¥¼ ìƒí™©ì— ë§ê²Œ ë²ˆê°ˆì•„ê°€ë©´ì„œ ì‚¬ìš©í•˜ë„ë¡ ì¡°ê±´ì„ ì¤€ë‹¤.
+	//ë¬´ê¸° êµì²´ë§Œ í•˜ëŠ” ìƒíƒœì—ë„ ê¸°ë³¸ ë¬´ë¸Œ ì‚¬ìš©í•´ì•¼ í•˜ë¯€ë¡œ ê³µê²© ë²„íŠ¼ ëˆ„ë¥¼ë•Œë§Œ ë Œë”í•˜ë„ë¡ ë‹¤ë¥¸ ì¡°ê±´ì„ ì¤„ ê²ƒ
 	
 	if (_isStandardMove == true)
 	{		
@@ -433,12 +437,12 @@ void Player::Render()
 		_imgAtkBow->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
 	}
 	
-	//µğ¹ö±× ¸ğµå¶ó¸é µğ¹ö±× ·ºÆ®µé ·»´õ¸µ (F1)
+	//ë””ë²„ê·¸ ëª¨ë“œë¼ë©´ ë””ë²„ê·¸ ë ‰íŠ¸ë“¤ ë Œë”ë§ (F1)
 	if (_isDebug)
 	{
 		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, true);
 		_DXRenderer->DrawRectangle(_collisionRect, DefaultBrush::red, true);
-		//°ø°İ¸ğ¼Ç(ÀÌ¹ÌÁö)°¡ trueÀÌ°í °ø°İÆÇÁ¤ÀÌ falseÀÏ¶§¸¸ ±×¸°´Ù
+		//ê³µê²©ëª¨ì…˜(ì´ë¯¸ì§€)ê°€ trueì´ê³  ê³µê²©íŒì •ì´ falseì¼ë•Œë§Œ ê·¸ë¦°ë‹¤
 		
 		if (_isChangeSword && !_isAttacked)_DXRenderer->DrawRectangle(_swordRect, DefaultBrush::green, true);
 		//_DXRenderer->DrawRectangle(_obColliRect, DefaultBrush::green, true);
@@ -447,32 +451,29 @@ void Player::Render()
 
 /********************************************************************************/
 //## ChangeState ##
-//»óÅÂ¸¦ ¹Ù²Ü ¶§´Â _state=state; º¸´Ù´Â Á÷Á¢ ÇÔ¼ö¸¦ ÅëÇØ¼­ º¯°æÇÏ¸é 
-//µğ¹ö±ë ¹× ÄÚµå °ü¸®°¡ ½¬¿öÁø´Ù.
+//ìƒíƒœë¥¼ ë°”ê¿€ ë•ŒëŠ” _state=state; ë³´ë‹¤ëŠ” ì§ì ‘ í•¨ìˆ˜ë¥¼ í†µí•´ì„œ ë³€ê²½í•˜ë©´ 
+//ë””ë²„ê¹… ë° ì½”ë“œ ê´€ë¦¬ê°€ ì‰¬ì›Œì§„ë‹¤.
 /********************************************************************************/
 void Player::ChangeState(State state)
 {
-	
+	//'I'ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ ì›€ì§ì´ì§€ ì•Šê³  ë©ˆì¶¤
+	if (_isMoveStop == true) return;
 
-	//Çö »óÅÂ¿Í µ¿ÀÏÇÏ´Ù¸é ½ÇÇà½ÃÅ°Áö ¾Ê°í ºüÁ®³ª°£´Ù
+	//í˜„ ìƒíƒœì™€ ë™ì¼í•˜ë‹¤ë©´ ì‹¤í–‰ì‹œí‚¤ì§€ ì•Šê³  ë¹ ì ¸ë‚˜ê°„ë‹¤
 	if (_state == state) return;
 
-	//Çö »óÅÂ¿Í µ¿ÀÏÇÏÁö ¾Ê´Ù¸é º¯°æÇÑ´Ù.
+	//í˜„ ìƒíƒœì™€ ë™ì¼í•˜ì§€ ì•Šë‹¤ë©´ ë³€ê²½í•œë‹¤.
 	_state = state;
-	//»óÅÂ°¡ ¹Ù²î¸é¼­ ¾Ö´Ï¸ŞÀÌ¼Çµµ º¯°æÇÑ´Ù
+	//ìƒíƒœê°€ ë°”ë€Œë©´ì„œ ì• ë‹ˆë©”ì´ì…˜ë„ ë³€ê²½í•œë‹¤
 	this->ChangeAnimation(state);
-
-	
-		//'I'¹öÆ°À» ´©¸£¸é ¿òÁ÷ÀÌÁö ¾Ê°í ¸ØÃã
-		if (_isMoveStop == true) return;
-
-		//»óÅÂ°¡ ¹Ù²î´Â ¼ø°£ Ã³¸®ÇÒ ..»çÇ×À» Àû±â À§ÇÔ
-		switch (_state)
+		
+	//ìƒíƒœê°€ ë°”ë€ŒëŠ” ìˆœê°„ ì²˜ë¦¬í•  ..ì‚¬í•­ì„ ì ê¸° ìœ„í•¨
+	switch (_state)
 		{
 		case Player::State::LeftIdle:
-			_isChangeSword = false;				//°Ë°ø°İ ÀÌ¹ÌÁö ·»´õ¸¦ À§ÇÑ bool
+			_isChangeSword = false;				//ê²€ê³µê²© ì´ë¯¸ì§€ ë Œë”ë¥¼ ìœ„í•œ bool
 			//_isChangeBow = false;			
-			_isStandardMove = true;				//±âº» ¹«ºê ÀÌ¹ÌÁö ·»´õ bool
+			_isStandardMove = true;				//ê¸°ë³¸ ë¬´ë¸Œ ì´ë¯¸ì§€ ë Œë” bool
 			break;
 		case Player::State::RightIdle:
 			_isChangeSword = false;
@@ -529,28 +530,28 @@ void Player::ChangeState(State state)
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
-			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //Ä® ·ºÆ®
+			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //ì¹¼ ë ‰íŠ¸
 			_SoundManager->Play("will_swordAtk", 1.0f);
 			break;
 		case Player::State::RightSword1:
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
-			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight); //Ä® ·ºÆ® 
+			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight); //ì¹¼ ë ‰íŠ¸ 
 			_SoundManager->Play("will_swordAtk", 1.0f);
 			break;
 		case Player::State::UpSword1:
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
-			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth); //Ä® ·ºÆ®
+			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth); //ì¹¼ ë ‰íŠ¸
 			_SoundManager->Play("will_swordAtk", 1.0f);
 			break;
 		case Player::State::DownSword1:
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
-			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth); //Ä® ·ºÆ®
+			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth); //ì¹¼ ë ‰íŠ¸
 			_SoundManager->Play("will_swordAtk", 1.0f);
 			break;
 			//======================================================
@@ -558,28 +559,28 @@ void Player::ChangeState(State state)
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
-			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //Ä® ·ºÆ®
+			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //ì¹¼ ë ‰íŠ¸
 			_SoundManager->Play("will_swordAtk", 1.0f);
 			break;
 		case Player::State::RightSword2:
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
-			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight);  //Ä® ·ºÆ®
+			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight);  //ì¹¼ ë ‰íŠ¸
 			_SoundManager->Play("will_swordAtk", 1.0f);
 			break;
 		case Player::State::UpSword2:
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
-			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth);  //Ä® ·ºÆ®
+			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth);  //ì¹¼ ë ‰íŠ¸
 			_SoundManager->Play("will_swordAtk", 1.0f);
 			break;
 		case Player::State::DownSword2:
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
-			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth);  //Ä® ·ºÆ®
+			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth);  //ì¹¼ ë ‰íŠ¸
 			_SoundManager->Play("will_swordAtk", 1.0f);
 			break;
 			//======================================================
@@ -626,14 +627,14 @@ void Player::ChangeState(State state)
 
 /********************************************************************************/
 //## ChangeAnimation ##
-//»óÅÂ¿¡ µû¶ó ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ¹Ù²ãÁØ´Ù. (Å°°ªÀº State state)
+//ìƒíƒœì— ë”°ë¼ ì• ë‹ˆë©”ì´ì…˜ì„ ë°”ê¿”ì¤€ë‹¤. (í‚¤ê°’ì€ State state)
 /********************************************************************************/
 void Player::ChangeAnimation(State state)
 {
-	//¹İº¹ÀÚ¸¦ ÅëÇØ ¸Ê¿¡¼­ ÇØ´ç Å°°ªÀÇ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Ã£´Â´Ù.
+	//ë°˜ë³µìë¥¼ í†µí•´ ë§µì—ì„œ í•´ë‹¹ í‚¤ê°’ì˜ ì• ë‹ˆë©”ì´ì…˜ì„ ì°¾ëŠ”ë‹¤.
 	AnimationIter iter = _animationList.find(state);
 
-	//¸¸¾à ³¡ÀÌ ¾Æ´Ï¸é Ã£Àº °ÍÀÌ´Ï Çö ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ¹Ù²Ü ¾Ö´Ï¸ŞÀÌ¼ÇÀ¸·Î ±³Ã¼ÇÑ´Ù.
+	//ë§Œì•½ ëì´ ì•„ë‹ˆë©´ ì°¾ì€ ê²ƒì´ë‹ˆ í˜„ ì• ë‹ˆë©”ì´ì…˜ì„ ë°”ê¿€ ì• ë‹ˆë©”ì´ì…˜ìœ¼ë¡œ êµì²´í•œë‹¤.
 	if (iter != _animationList.end())
 	{
 		if (iter->second != _mainAnimation)
@@ -647,15 +648,15 @@ void Player::ChangeAnimation(State state)
 
 /********************************************************************************/
 //## CreateAnimation ##
-//¾Ö´Ï¸ŞÀÌ¼Ç ÀüºÎ ¹Ì¸® »ı¼º ¹× ÃÊ±âÈ­ ÇØÁØ ÈÄ ¸Ê¿¡ ´ã¾Æ¼­ °ü¸®
+//ì• ë‹ˆë©”ì´ì…˜ ì „ë¶€ ë¯¸ë¦¬ ìƒì„± ë° ì´ˆê¸°í™” í•´ì¤€ í›„ ë§µì— ë‹´ì•„ì„œ ê´€ë¦¬
 /********************************************************************************/
 void Player::CreateAnimation()
 {
-	Animation* leftIdle = new Animation;							//»óÅÂº°·Î ÇÏ³ª¾¿ new·Î ¸Íµé¾úÁö··
-	leftIdle->SetStartEndFrame(0, 9, 9, 9, false);					//ÇÑµ¿ÀÛÀÇ ½ÃÀÛx,y,³¡x,y Àú¾ïÀ¸½Ã¿À
-	leftIdle->SetIsLoop(true);										//·çÇÁµ¹¸±Áö true, fa¤Óse
-	leftIdle->SetFrameUpdateTime(_frameIdle);						//ÇÁ·¹ÀÓ´ç ½Ã°£À» ³Ö¾îÁÖ¸é µÊ¹Ì´Ù
-	_animationList.insert(make_pair(State::LeftIdle, leftIdle));	//°ª ´Ù ¸¸µå¼ÌÀ¸¸é inset·Î ¸Ê¿¡ Äã ¹ÚÀ¸¼î
+	Animation* leftIdle = new Animation;							//ìƒíƒœë³„ë¡œ í•˜ë‚˜ì”© newë¡œ ë§¹ë“¤ì—ˆì§€ë 
+	leftIdle->SetStartEndFrame(0, 9, 9, 9, false);					//í•œë™ì‘ì˜ ì‹œì‘x,y,ëx,y ì €ì–µìœ¼ì‹œì˜¤
+	leftIdle->SetIsLoop(true);										//ë£¨í”„ëŒë¦´ì§€ true, faã…£se
+	leftIdle->SetFrameUpdateTime(_frameIdle);						//í”„ë ˆì„ë‹¹ ì‹œê°„ì„ ë„£ì–´ì£¼ë©´ ë¨ë¯¸ë‹¤
+	_animationList.insert(make_pair(State::LeftIdle, leftIdle));	//ê°’ ë‹¤ ë§Œë“œì…¨ìœ¼ë©´ insetë¡œ ë§µì— ì½± ë°•ìœ¼ì‡¼
 
 	Animation* rightIdle = new Animation;
 	rightIdle->SetStartEndFrame(0, 8, 9, 8, false);
@@ -710,21 +711,21 @@ void Player::CreateAnimation()
 	rightRoll->SetStartEndFrame(0, 4, 7, 4, false);
 	rightRoll->SetIsLoop(false);
 	rightRoll->SetFrameUpdateTime(_frameRun);
-	rightRoll->SetCallbackFunc([this]() {this->EndAnimation(); });	//¶÷´Ù½Ä ÇÔ¼ö È£Ãâ
+	rightRoll->SetCallbackFunc([this]() {this->EndAnimation(); });	//ëŒë‹¤ì‹ í•¨ìˆ˜ í˜¸ì¶œ
 	_animationList.insert(make_pair(State::RightRoll, rightRoll));
 
 	Animation* upRoll = new Animation;
 	upRoll->SetStartEndFrame(0, 6, 7, 6, false);
 	upRoll->SetIsLoop(false);
 	upRoll->SetFrameUpdateTime(_frameRun);
-	upRoll->SetCallbackFunc([this]() {this->EndAnimation(); });		//ÇÁ·¹ÀÓÀÌ ´Ù µ¹¸é Á¾·áÇÑ´Ù
+	upRoll->SetCallbackFunc([this]() {this->EndAnimation(); });		//í”„ë ˆì„ì´ ë‹¤ ëŒë©´ ì¢…ë£Œí•œë‹¤
 	_animationList.insert(make_pair(State::UpRoll, upRoll));
 
 	Animation* downRoll = new Animation;
 	downRoll->SetStartEndFrame(0, 7, 7, 7, false);
 	downRoll->SetIsLoop(false);
 	downRoll->SetFrameUpdateTime(_frameRun);
-	downRoll->SetCallbackFunc([this]() {this->EndAnimation(); });	//ÀÌ ¹æ½ÄÀº public¿¡ ¼±¾ğµÈ ¾Ö¸¸ °¡´ÉÇØ!
+	downRoll->SetCallbackFunc([this]() {this->EndAnimation(); });	//ì´ ë°©ì‹ì€ publicì— ì„ ì–¸ëœ ì• ë§Œ ê°€ëŠ¥í•´!
 	_animationList.insert(make_pair(State::DownRoll, downRoll)); 
 	//======================================================================
 	Animation* leftSword1 = new Animation;
@@ -820,7 +821,7 @@ void Player::CreateAnimation()
 
 }
 
-//ÇØ´ç »óÅÂ Á¾·á ÈÄ º¯°æÇÒ »óÅÂ 
+//í•´ë‹¹ ìƒíƒœ ì¢…ë£Œ í›„ ë³€ê²½í•  ìƒíƒœ 
 void Player::EndAnimation()
 {
 	switch (_state)
@@ -910,7 +911,7 @@ void Player::EndAnimation()
 		break;
 
 	case Player::State::Die:
-		//¾À º¯°æ¾î¶»°Ô ÇÔ?
+		//ì”¬ ë³€ê²½ì–´ë–»ê²Œ í•¨?
 		break;
 
 	default:
