@@ -62,13 +62,15 @@ void Player::Move(Vector2 direction)
 			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));		
 			//화살 클래스
 			Arrow* arrow = dynamic_cast<Arrow*>(object->at(i));
-			Boss* boss = dynamic_cast<Boss*>(object->at(i));
+			//Boss* boss = dynamic_cast<Boss*>(object->at(i));
 
 			//다이나믹 캐스트로 null값이 반환되는 경우
 			//플레이어 몸과 충돌검사
-			//아이템(먹고 흡수해야해서 충돌x)
-			//에너미(따로 검사?
-			if (item == nullptr || enemy == nullptr)//||boss==nullptr)
+			//아이템(먹고 흡수해야해서 충돌x) //에너미(따로 검사?
+
+			
+			//아이템이 아닌 경우, 에너미가 아닌 경우->벽과 나무일 경우
+			if (item == nullptr || enemy == nullptr)// || boss!=nullptr)
 			{	
 				//만든 함수 InterRee로 플레이어 충돌용 함수와 전체 오브젝트를 충돌 검사한다.
 				if (this->InterRee(&_collisionRect, &object->at(i)->GetCollisionRect()))
@@ -86,27 +88,13 @@ void Player::Move(Vector2 direction)
 					{
 						continue;
 					}
-					//if (object->at(i) == boss)
-					//{
-					//
-					//}
+					
 					//충돌한 캐릭터 플레이어를 반대로 밀어주면서 그자리에 머문것처럼 한다.
 					_position.x = (_collisionRect.right - _collisionRect.left) / 2 + _collisionRect.left;
 					_position.y = (_collisionRect.bottom - _collisionRect.top) / 2 + _collisionRect.top;
 					_mainRect = RectMakeCenter(_position.x, _position.y, _size.x, _size.y);
 				}
 			}
-
-			//nullptr을 보내는 것은 값이 있다는 뜻
-			//if (object->at(i)==arrow)
-			//{
-			//	if (this->InterRee(&_arrow->GetMainRect(), &object->at(i)->GetCollisionRect()))
-			//	{
-			//		//_arrow->MoveStop();
-			//		cout << "arrow test" << endl;
-			//	}
-			//	
-			//}
 		}
 	}
 	//롤링시 통과하기 위한 bool값
@@ -229,9 +217,8 @@ void Player::Attack()
 			if (_isAttacked == true)
 			{
 				//충돌 이펙트 발생
-				Effect::PlayEffect(EFFECT_SWORDATK, Vector2(_swordRect.left, _swordRect.top));				
-				//데미지 폰트 출력
-				//_DamageFontManager->ShowDamage(_damage);
+				Effect::PlayEffect(EFFECT_SWORDATK, Vector2(_swordRect.left, _swordRect.top));			
+				
 			}
 		}
 	}
@@ -262,10 +249,12 @@ void Player::AttackedDamage(int damage)
 			this->_currentHp -= 0;
 		}		
 		else
-		{
-			this->_currentHp -= damage;
+		{						
 			_isDelay = true;
 			_blink = 0;
+			this->_currentHp -= damage;
+			//데미지 폰트 출력
+			_DamageFontManager->ShowDamage(Vector2(_position),_damage);
 		}
 	}
 }
