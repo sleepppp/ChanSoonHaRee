@@ -22,8 +22,6 @@ void Dungeon_Map_02::Init()
 	_isTransScene = false;
 	
 	_map = _ImageManager->AddImage("map02", L"../Resources/Scene/Dungeon_Map_02.png");
-	
-	_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(WinSizeX / 2, WinSizeY /2)));
 
 	GameObject* object = new GameObject;
 	object->SetPosition(Vector2(0, 0));
@@ -50,7 +48,7 @@ void Dungeon_Map_02::Init()
 	_ObjectManager->AddObject(ObjectType::Object, object3);
 	
 	Door* _door = new Door(Vector2((WinSizeX / 2 - 90), 0), Vector2(155, 100));
-	Door::_mapName = "Dungeon_Map_01";
+	Door::_mapName = "Dungeon_Map_Boss";
 	_ObjectManager->AddObject(ObjectType::Object, _door);
 
 	this->ChanInit();
