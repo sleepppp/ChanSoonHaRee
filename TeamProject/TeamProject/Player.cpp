@@ -916,7 +916,7 @@ void Player::EndAnimation()
 
 	case Player::State::Die:
 		//this->SendCallbackMessage(TagMessage("Die"));
-		_Database->AddVector2Data("PlayerPosition", Vector2(716, 955));
+		_Database->AddVector2Data("PlayerPosition", Vector2(716, 996));
 		_Database->AddIntData("PlayerActive", 0);
 		_Database->AddIntData("GateState", 5);
 		_SoundManager->FadeoutBGM();
