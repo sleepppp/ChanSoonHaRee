@@ -48,8 +48,8 @@ Player::Player(Vector2 pos)
 	this->_pivot = Pivot::CENTER;
 	this->_speed = 400.0f;
 	this->UpdateMainRect();
-	this->_maxHp = 100;
-	this->_currentHp = 100;
+	this->_maxHp = 500;
+	this->_currentHp = 500;
 	this->_isMoveStop = false;			//움직임을 멈추기 위한 bool값
 	this->_isChangeSword = false;		//공격시 이미지 파일 변경을 위한 bool값
 	this->_isChangeBow = false;			//활 공격시 이미지 파일 변경을 위한 bool값
