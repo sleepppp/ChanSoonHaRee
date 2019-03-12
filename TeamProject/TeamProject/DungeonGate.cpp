@@ -194,6 +194,7 @@ void DungeonGate::ChangeState(State state)
 		_SoundManager->FadeoutBGM();
 		break;
 	case DungeonGate::State::Exit:
+		_size.y = _mainImage->GetFrameSize(0).y;
 		break;
 	default:
 		break;
