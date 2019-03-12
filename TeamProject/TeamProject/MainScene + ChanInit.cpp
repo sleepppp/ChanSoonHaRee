@@ -42,9 +42,12 @@ void Program::LoadResourceChan()
 	/**********************
 			¿Ã∆—∆Æ
 	***********************/
+	//º“µÂ ∞¯∞› ¿Ã∆—∆Æ
 	_ImageManager->AddFrameImage("swordAtkEffect", L"../Resources/Effect/fx_hit_shortsword.png", 3, 1, false);
-
-
+	//∆¯πﬂ ¿Ã∆—∆Æ
+	_ImageManager->AddFrameImage("boomEffect", L"../Resources/Effect/fx_boom.png", 10, 1, false);
+	//»∞ ∞¯∞› ¿Ã∆—∆Æ
+	_ImageManager->AddFrameImage("bowAtkEffect", L"../Resources/Effect/fx_hit_bow.png", 3, 1, false);
 
 	/**********************
 			æ∆¿Ã≈€

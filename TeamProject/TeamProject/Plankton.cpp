@@ -30,7 +30,7 @@ Plankton::Plankton(Vector2 position)
 	//포지션
 	this->_position = position;
 	//데미지
-	this->_damage = 15;
+	this->_damage = 20;
 	//HP	
 	this->_hp = 75;
 	//스피드
@@ -40,7 +40,7 @@ Plankton::Plankton(Vector2 position)
 	//피벗
 	this->_pivot = Pivot::CENTER;
 	//렉트 생성
-	this->UpdateRect(_position, _size, _pivot);
+	this->_renderRect = UpdateRect(_position, _size, _pivot);
 
 	//기본 상태는 따라가기
 	this->_planktonState = PlanktonState::Follow;
@@ -87,28 +87,33 @@ void Plankton::Release()
 
 void Plankton::Update()
 {
+	_renderRect = UpdateRect(_position, _size, _pivot);
+
+	//공격 렉트 생성
+	_atkRect = UpdateRect(_position, _size, Pivot::CENTER);
+
 	//플랑크톤 렉트와 플레이어 렉트가 충돌하면 상태를 공격 상태로 변경
 	RECT temp;
 	if (IntersectRect(&temp, &_renderRect, &_player->GetCollisionRect()))
 	{
 		//공격 상태 변경
+		cout << "박음" << endl;
 		_planktonState = PlanktonState::Attack;
 	}
 
-	//피격 상태 true
-	if (_attacked == true) 
+	if (_planktonState != PlanktonState::Attack) 
 	{
-		//피격 상태 변경
-		_planktonState = PlanktonState::Attacked;
+		//피격 상태 true
+		if (_attacked == true)
+		{
+			//피격 상태 변경
+			_planktonState = PlanktonState::Attacked;
+		}
+		else
+		{
+			_planktonState = PlanktonState::Follow;
+		}
 	}
-	else 
-	{
-		_planktonState = PlanktonState::Follow;
-	}
-
-	//공격 렉트 생성
-	_atkRect = UpdateRect(_position, _size, Pivot::CENTER);
-
 
 	//오브젝트 충돌 체크 함수
 	this->ObjectCollision();
@@ -121,7 +126,6 @@ void Plankton::Update()
 
 	//플랑크톤 프레임 업데이트
 	_planktonAnimation->UpdateFrame();
-	
 }
 
 void Plankton::Render()
@@ -171,6 +175,7 @@ void Plankton::Render()
 //플랑크톤 상태 함수 (switch문)
 void Plankton::PlanktonStates()
 {
+	cout << (int)_planktonState << endl;
 	switch (_planktonState)
 	{
 	//상태 : 따라가기 Follow

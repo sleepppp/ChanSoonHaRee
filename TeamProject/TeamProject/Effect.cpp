@@ -54,7 +54,7 @@ void Effect::Render()
 	_effectIMG->FrameRender(_position.x, _position.y, _effectAnimation->GetNowFrameX(), _effectAnimation->GetNowFrameY(), Pivot::CENTER, true);
 }
 
-void Effect::SwordAtkEffect(string name, Vector2 position)
+void Effect::ComeEffect(string name, Vector2 position)
 {
 	if (this->_isActive == false) 
 	{
@@ -95,7 +95,7 @@ void Effect::PlayEffect(string name, Vector2 position)
 			//static_cast<Effect*>(_effectTest->at(i));
 			if (dynamic_cast<Effect*>(_effectTest->at(i)) != nullptr)
 			{
-				dynamic_cast<Effect*>(_effectTest->at(i))->SwordAtkEffect(name, position);
+				dynamic_cast<Effect*>(_effectTest->at(i))->ComeEffect(name, position);
 				break;
 			}
 

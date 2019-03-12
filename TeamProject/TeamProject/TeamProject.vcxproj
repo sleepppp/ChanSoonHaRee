@@ -330,6 +330,7 @@
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Weeds.cpp" />
     <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Inventory+SprayItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TeamProject.rc" />
