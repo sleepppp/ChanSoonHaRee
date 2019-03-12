@@ -84,6 +84,11 @@ DungeonGate::DungeonGate()
 
 	this->ChangeState((State)_Database->GetIntData("GateState"));
 	_Database->AddIntData("GateState", (int)_state);
+
+	this->AddCallbackMessage("PlaySound", [this](TagMessage message) 
+	{
+		_SoundManager->Play("dungeon_entrance_slime_door_spit");
+	});
 }
 
 
@@ -110,6 +115,7 @@ void DungeonGate::Update()
 {
 	if (_player)
 	{
+		GameObject::Update();
 		switch (_state)
 		{
 		case DungeonGate::State::Idle:
@@ -143,7 +149,6 @@ void DungeonGate::Update()
 
 			break;
 		case DungeonGate::State::Exit:
-			
 			break;
 		default:
 			break;
@@ -181,6 +186,7 @@ void DungeonGate::ChangeState(State state)
 	{
 	case DungeonGate::State::Idle:
 		_size.y = _mainImage->GetFrameSize(0).y;
+		
 		break;
 	case DungeonGate::State::OpenIdle:
 		_size.y = _mainImage->GetFrameSize(0).y;
@@ -196,6 +202,7 @@ void DungeonGate::ChangeState(State state)
 	case DungeonGate::State::Exit:
 		_size.y = _mainImage->GetFrameSize(0).y;
 		_LightingSystem->ChangeState(LightSystem::State::Evening);
+		this->SendCallbackMessage(TagMessage("PlaySound", 0.8f));
 		break;
 	default:
 		break;

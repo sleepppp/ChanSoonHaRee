@@ -1,5 +1,5 @@
-ï»¿#pragma once
-#include "GameObject.h"
+#pragma once
+#include "Enemy.h"
 
 enum class ShadowState
 {
@@ -13,11 +13,10 @@ enum class HandState
 
 
 
-class Boss : public GameObject
+class Boss : public Enemy
 {
 private:
-	
-	//ë³´ìŠ¤ì˜ ìƒíƒœ ì¢…ë¥˜ , í”Œë ˆì´ì–´ë¥¼ ë§ˆì£¼ì¹˜ê¸° ì „, ë§ˆì£¼ì¹˜ê³ ë‚˜ì„œ  ê¹¨ì–´ë‚ ë•Œ, ì£½ì„ë•Œ, ì†ë–¨êµ¬ê¸°, ì£¼ë¨¹ë°œì‚¬, ëŒë–¨êµ¬ê¸°., 
+	//º¸½ºÀÇ »óÅÂ Á¾·ù , ÇÃ·¹ÀÌ¾î¸¦ ¸¶ÁÖÄ¡±â Àü, ¸¶ÁÖÄ¡°í³ª¼­  ±ú¾î³¯¶§, Á×À»¶§, ¼Õ¶³±¸±â, ÁÖ¸Ô¹ß»ç, µ¹¶³±¸±â., 
 	enum class StateType
 	{
 		Idle, Create,Dead,Dead2, 
@@ -33,76 +32,76 @@ private:
 		class Animation* _animation;
 	};
 private:
-	//í”Œë ˆì´ì–´ë¥¼ ë¶ˆëŸ¬ì˜¤ìž.
+	//ÇÃ·¹ÀÌ¾î¸¦ ºÒ·¯¿ÀÀÚ.
 	class Player* _player;
-	//ìƒíƒœë¥¼ ë¶ˆëŸ¬ì˜¤ê¸°ìœ„í•´ì„œ ì´ë„˜ê°’ë„ ê°€ì ¸ì˜¤ìž.
+	//»óÅÂ¸¦ ºÒ·¯¿À±âÀ§ÇØ¼­ ÀÌ³Ñ°ªµµ °¡Á®¿ÀÀÚ.
 	StateType _state;
 	AniAndImage* _aniImage;
 
 	typedef map<StateType, AniAndImage*>::iterator AniImgIter;
 	map<StateType, AniAndImage*> _aniImgList;
 
-//ì´ë¯¸ì§€
+//ÀÌ¹ÌÁö
 #pragma region Image
-	class Image* _shadowImage;		//ê·¸ë¦¼ìž ì´ë¯¸ì§€
+	class Image* _shadowImage;		//±×¸²ÀÚ ÀÌ¹ÌÁö
 
-	class Image* _handImage;		//ì† ë‚ ë¦¬ê¸° ìŠ¤í‚¬ì˜ ì† ì´ë¯¸ì§€
+	class Image* _handImage;		//¼Õ ³¯¸®±â ½ºÅ³ÀÇ ¼Õ ÀÌ¹ÌÁö
 										 
-	class Image* _rockImgae1;		//ëŒ ë˜ì§€ê¸° ìŠ¤í‚¬ì˜ ëŒë˜ì§€ê¸° 1
-	class Image* _rockImage2;		//ëŒ ë˜ì§€ê¸° ìŠ¤í‚¬ì˜ ëŒë˜ì§€ê¸° 2
-	class Image* _rockImage3;		//ëŒ ë˜ì§€ê¸° ìŠ¤í‚¬ì˜ ëŒë˜ì§€ê¸° 3
+	class Image* _rockImgae1;		//µ¹ ´øÁö±â ½ºÅ³ÀÇ µ¹´øÁö±â 1
+	class Image* _rockImage2;		//µ¹ ´øÁö±â ½ºÅ³ÀÇ µ¹´øÁö±â 2
+	class Image* _rockImage3;		//µ¹ ´øÁö±â ½ºÅ³ÀÇ µ¹´øÁö±â 3
 	
-	class Image* _slimeArmImage1;	//ì† ë˜ì§€ê¸° ìŠ¤í‚¬ì˜ ìŠ¬ë¼ìž„ íŒ” 1
-	class Image* _slimeArmImage2;	//ì† ë˜ì§€ê¸° ìŠ¤í‚¬ì˜ ìŠ¬ë¼ìž„ íŒ” 2
+	class Image* _slimeArmImage1;	//¼Õ ´øÁö±â ½ºÅ³ÀÇ ½½¶óÀÓ ÆÈ 1
+	class Image* _slimeArmImage2;	//¼Õ ´øÁö±â ½ºÅ³ÀÇ ½½¶óÀÓ ÆÈ 2
 #pragma endregion	
 
-	int _hp;					//ì²´ë ¥ì´ ìžˆì–´ì•¼ í•  ê±°ê³ 
-	int _damage;				//í”Œë ˆì´ì–´ë¥¼ ê³µê²©í•´ì•¼í•˜ë‹ˆê¹Œ ë°ë¯¸ì§€ë„ ìžˆì„ ê²ƒì´ê³ ,
-	float _speed;				//ê° ê³µê²©ë“¤ì€ ì†ë„ë¥¼ ê°€ì ¸ì•¼í•˜ë‹ˆê¹Œ ì†ë„ë„ ë“¤ì–´ê°€ê² ì§€ ë­
+	int _hp;					//Ã¼·ÂÀÌ ÀÖ¾î¾ß ÇÒ °Å°í
+	int _damage;				//ÇÃ·¹ÀÌ¾î¸¦ °ø°ÝÇØ¾ßÇÏ´Ï±î µ¥¹ÌÁöµµ ÀÖÀ» °ÍÀÌ°í,
+	float _speed;				//°¢ °ø°ÝµéÀº ¼Óµµ¸¦ °¡Á®¾ßÇÏ´Ï±î ¼Óµµµµ µé¾î°¡°ÚÁö ¹¹
 	float _mainSpeed;
-	float _angle;				//ê°ë„ë¥¼ ê³„ì‚°í•´ì•¼í•˜ë‹ˆê¹Œ ì•µê¸€ê°’ë„ ìžˆì„ ê²ƒì´ê³ ,
-	float _distance;			//í”Œë ˆì´ì–´ê°€ ì¼ì •ê±°ë¦¬ ì•ˆì— ë“¤ì–´ì„œë©´ ì›€ì§ì—¬ì•¼í•˜ë‹ˆê¹Œ í”Œë ˆì´ì–´ì˜ ê±°ë¦¬ë¥¼ ìž¬ê¸° ìœ„í•´ì„œ ë””ìŠ¤í„´ìŠ¤ë„ ìžˆì–´ì•¼ í•˜ê³ ,
+	float _angle;				//°¢µµ¸¦ °è»êÇØ¾ßÇÏ´Ï±î ¾Þ±Û°ªµµ ÀÖÀ» °ÍÀÌ°í,
+	float _distance;			//ÇÃ·¹ÀÌ¾î°¡ ÀÏÁ¤°Å¸® ¾È¿¡ µé¾î¼­¸é ¿òÁ÷¿©¾ßÇÏ´Ï±î ÇÃ·¹ÀÌ¾îÀÇ °Å¸®¸¦ Àç±â À§ÇØ¼­ µð½ºÅÏ½ºµµ ÀÖ¾î¾ß ÇÏ°í,
 	int _handFrame;
 
 	float _shadowScale;
-	Vector2 _bossCollisionSize;	//ì¶©ëŒë ‰íŠ¸ ì‚¬ì´ì¦ˆ
+	Vector2 _bossCollisionSize;	//Ãæµ¹·ºÆ® »çÀÌÁî
 
-	//-----------------ë³´ìŠ¤ ì´ë¯¸ì§€ ìƒì„±ì„ ìœ„í•œ ë ‰íŠ¸-----------------//
+	//-----------------º¸½º ÀÌ¹ÌÁö »ý¼ºÀ» À§ÇÑ ·ºÆ®-----------------//
 	Vector2 _imagePosition;
 	Vector2 _imageSize;
 	RECT _imageRc;
 
-	//-------ì¶©ëŒì„ ìœ„í•œ ë ‰íŠ¸-------//
+	//-------Ãæµ¹À» À§ÇÑ ·ºÆ®-------//
 	RECT collsionRc;
 
-	//----------------ì†ì˜ ë ‰íŠ¸--------------//
-	RECT _rockHandRc;				//ì˜¤ë¥¸ì†ì£¼ë¨¹ë„ ë§žìœ¼ë©´ ì•„í”„ë‹ˆê¹Œ ë ‰íŠ¸ê°€ìžˆì–´ì•¼ í•˜ê³ ,
+	//----------------¼ÕÀÇ ·ºÆ®--------------//
+	RECT _rockHandRc;				//¿À¸¥¼ÕÁÖ¸Ôµµ ¸ÂÀ¸¸é ¾ÆÇÁ´Ï±î ·ºÆ®°¡ÀÖ¾î¾ß ÇÏ°í,
 
-	//-----------------ëŒì˜ ë ‰íŠ¸--------------//
-	Vector2 _rockPosition;		//ëŒë“¤ë§ˆë‹¤ ì¶©ëŒì´ ë˜ì–´ì•¼ í•˜ê³  ê°ìžì˜ ì¢Œí‘œë¥¼ ë¿Œë ¤ì¤˜ì•¼í•˜ë‹ˆê¹Œ ì–˜ë“¤ì˜ ì¢Œí‘œë¥¼ ì£¼ê¸°ìœ„í•´ì„œ ì¢Œí‘œê°€ìžˆì–´ì•¼ê² ì§€?
-	Vector2 _rockSize;			//ëŒë“¤ë„ í¬ê¸°ê°€ ìžˆì„ê±° ì•„ë…€ ê·¸ëŸ¼ ì‚¬ì´ì¦ˆê°€ìž‡ì–´ì•¼ê² ì§€
-	RECT _rockRc;				//ì¢Œí‘œ ìžˆê³  í¬ê¸° ìžˆìœ¼ë©´ ê·¸ë ¤ì¤˜ì•¼ì§€
+	//-----------------µ¹ÀÇ ·ºÆ®--------------//
+	Vector2 _rockPosition;		//µ¹µé¸¶´Ù Ãæµ¹ÀÌ µÇ¾î¾ß ÇÏ°í °¢ÀÚÀÇ ÁÂÇ¥¸¦ »Ñ·ÁÁà¾ßÇÏ´Ï±î ¾êµéÀÇ ÁÂÇ¥¸¦ ÁÖ±âÀ§ÇØ¼­ ÁÂÇ¥°¡ÀÖ¾î¾ß°ÚÁö?
+	Vector2 _rockSize;			//µ¹µéµµ Å©±â°¡ ÀÖÀ»°Å ¾Æ³à ±×·³ »çÀÌÁî°¡ÀÕ¾î¾ß°ÚÁö
+	RECT _rockRc;				//ÁÂÇ¥ ÀÖ°í Å©±â ÀÖÀ¸¸é ±×·ÁÁà¾ßÁö
 
-	//----------------ì£¼ë¨¹ì˜ ë ‰íŠ¸-------------//
-	Vector2 _fistPosition;		//í”Œë ˆì´ì–´ì˜ ë ‰íŠ¸ì™€ ë‚´ ìŠ¬ë¼ìž„ì˜ ì¬°ì¬¬ë‹ˆê°€ ì¶©ëŒì‹œì¼œì•¼í•˜ë‹ˆê¹Œ ì¬°ì¬¬ë‹ˆì˜ ì„ ì„ ê·¸ë ¤ì£¼ê³ , 
-	Vector2 _fistSize;			//ì¬°ìª¼ë‹ˆì— ë‹¬ë¦° ì£¼ë¨¹ í¬ê¸°ë„ ìžˆì–´ì•¼ í• ê±° ì•„ë…€
-	RECT _fistRc;				//ì¬°ì¬¬ë‹ˆì— ë‹¬ë¦° ì£¼ë¨¹ì˜ ë ‰íŠ¸ë„ ìžˆì–´ì•¼ ê² ì§€?
-	RECT _attackedRc;			//ê³µê²©ì„ ë§žê¸° ìœ„í•œ ë ‰íŠ¸ê°€ ìžˆì–´ì•¼ í•˜ê³ ,
+	//----------------ÁÖ¸ÔÀÇ ·ºÆ®-------------//
+	Vector2 _fistPosition;		//ÇÃ·¹ÀÌ¾îÀÇ ·ºÆ®¿Í ³» ½½¶óÀÓÀÇ §g§c´Ï°¡ Ãæµ¹½ÃÄÑ¾ßÇÏ´Ï±î §g§c´ÏÀÇ ¼±À» ±×·ÁÁÖ°í, 
+	Vector2 _fistSize;			//§gÂÉ´Ï¿¡ ´Þ¸° ÁÖ¸Ô Å©±âµµ ÀÖ¾î¾ß ÇÒ°Å ¾Æ³à
+	RECT _fistRc;				//§g§c´Ï¿¡ ´Þ¸° ÁÖ¸ÔÀÇ ·ºÆ®µµ ÀÖ¾î¾ß °ÚÁö?
+	RECT _attackedRc;			//°ø°ÝÀ» ¸Â±â À§ÇÑ ·ºÆ®°¡ ÀÖ¾î¾ß ÇÏ°í,
 	
-	//ë³´ìŠ¤ì˜ ìŠ¬ë¼ìž„ì˜ ì¤‘ì‹¬ì¢Œí‘œ.
+	//º¸½ºÀÇ ½½¶óÀÓÀÇ Áß½ÉÁÂÇ¥.
 	Vector2 _slimePosition;
 	Vector2 _slimeSize;
 	RECT _slimeRc;
 
-	//---------------ì†ê³µê²©ì„ ìœ„í•œ ë ‰íŠ¸-------//
+	//---------------¼Õ°ø°ÝÀ» À§ÇÑ ·ºÆ®-------//
 	Vector2 _handPosition;
 	Vector2 _handSize;
 	RECT _handRc;
 
-	//------í”Œë ˆì´ì–´ë¥¼ ì¶”ê²©í•˜ê¸° ìœ„í•œ ê·¸ë¦¼ìž ë ‰íŠ¸----//
-	Vector2 _shadowPosition;		//ê·¸ë¦¼ìž ì¢Œí‘œ
-	Vector2 _shadowSize;			//ê·¸ë¦¼ìž í¬ê¸°
-	RECT _shadowRc;					//ê·¸ë¦¼ìž ë ‰íŠ¸
+	//------ÇÃ·¹ÀÌ¾î¸¦ Ãß°ÝÇÏ±â À§ÇÑ ±×¸²ÀÚ ·ºÆ®----//
+	Vector2 _shadowPosition;		//±×¸²ÀÚ ÁÂÇ¥
+	Vector2 _shadowSize;			//±×¸²ÀÚ Å©±â
+	RECT _shadowRc;					//±×¸²ÀÚ ·ºÆ®
 
 	HandState _hand;
 	Animation* _handAni;
@@ -111,24 +110,24 @@ private:
 
 	ShadowState _shadow;
 	
-	float _timeCount;				//ë¸íƒ€íƒ€ìž„ê³¼ ë™ê¸°í™” í•˜ê¸° ìœ„í•œ ì¹´ìš´íŠ¸
+	float _timeCount;				//µ¨Å¸Å¸ÀÓ°ú µ¿±âÈ­ ÇÏ±â À§ÇÑ Ä«¿îÆ®
 	int _ChasingCount;
 	int _drapCount;
 	
 	class Rock* _rock;
 	
 
-	//1ìŠ¤í‚¬ì˜ Firstê°€ ëë‚˜ë©´ Secondë¡œ ì „í™˜
-	//Secondë¡œ ë„˜ì–´ê°€ë©´ ë°”ë¡œ ê·¸ë¦¼ìžê°€ playerë¥¼ ì¶”ê²©
-	//ê·¸ë¦¼ìžì˜ RECTê°€ í”Œë ˆì´ì–´ì™€ ì¶©ëŒë˜ëŠ”ë™ì•ˆ Countë¥¼ ì¶”ê°€í•˜ê³ ,
-	//ì¼ì • ì¹´ìš´íŠ¸ê°€ ì–´ëŠì •ë„ ì§„í–‰ëœë‹¤ë©´,
-	//ê·¸ë¦¼ìžì˜ RECTë¥¼ ì •ì§€ì‹œí‚¤ê³  íŒ”ì„ ë¶ˆëŸ¬ì˜¤ê¸° ìœ„í•œ ë¶ˆë³€ìˆ˜ë¥¼ Trueë¡œ ë°”ê¾¸ì–´
-	//ë§µì˜ ë°–ì—ì„œ Xì¶• ì¶”ì ì„ ê³„ì† í•˜ê³  ìžˆë˜ íŒ”ì˜ Xì¶• Speedë¥¼ ë©ˆì¶”ê³  Yì¶•ì˜ ì†ë„ë¥¼
-	//ì¤˜ì„œ ë¹ ë¥´ê²Œ ë‚™í•˜ì‹œí‚¨ë‹¤.
+	//1½ºÅ³ÀÇ First°¡ ³¡³ª¸é Second·Î ÀüÈ¯
+	//Second·Î ³Ñ¾î°¡¸é ¹Ù·Î ±×¸²ÀÚ°¡ player¸¦ Ãß°Ý
+	//±×¸²ÀÚÀÇ RECT°¡ ÇÃ·¹ÀÌ¾î¿Í Ãæµ¹µÇ´Âµ¿¾È Count¸¦ Ãß°¡ÇÏ°í,
+	//ÀÏÁ¤ Ä«¿îÆ®°¡ ¾î´ÀÁ¤µµ ÁøÇàµÈ´Ù¸é,
+	//±×¸²ÀÚÀÇ RECT¸¦ Á¤Áö½ÃÅ°°í ÆÈÀ» ºÒ·¯¿À±â À§ÇÑ ºÒº¯¼ö¸¦ True·Î ¹Ù²Ù¾î
+	//¸ÊÀÇ ¹Û¿¡¼­ XÃà ÃßÀûÀ» °è¼Ó ÇÏ°í ÀÖ´ø ÆÈÀÇ XÃà Speed¸¦ ¸ØÃß°í YÃàÀÇ ¼Óµµ¸¦
+	//Áà¼­ ºü¸£°Ô ³«ÇÏ½ÃÅ²´Ù.
 
-	//ê·¸ë¦¼ìžì˜ positionê³¼ íŒ”ì˜ positiomì´ ê°™ë‹¤ë©´ 1ì´ˆì˜ Countê°€ ì§€ë‚œ í›„ ë‹¤ì‹œ
-	//ì˜¬ë¼ê°€ê²Œ í•˜ê³ ì„œ íšŸìˆ˜ ì¹´ìš´íŠ¸ë¥¼ 1 ì¶”ê°€ì‹œí‚¨ë‹¤.
-	//5ì˜ íšŸìˆ˜ì¹´ìš´íŠ¸ê°€ ì±„ì›Œì§„ë‹¤ë©´ ì¹´ìš´íŠ¸ë¥¼ 0ìœ¼ë¡œ ë°”ê¿”ì£¼ê³  Lastìƒíƒœë¡œ ëŒìž…í•œë‹¤.
+	//±×¸²ÀÚÀÇ position°ú ÆÈÀÇ positiomÀÌ °°´Ù¸é 1ÃÊÀÇ Count°¡ Áö³­ ÈÄ ´Ù½Ã
+	//¿Ã¶ó°¡°Ô ÇÏ°í¼­ È½¼ö Ä«¿îÆ®¸¦ 1 Ãß°¡½ÃÅ²´Ù.
+	//5ÀÇ È½¼öÄ«¿îÆ®°¡ Ã¤¿öÁø´Ù¸é Ä«¿îÆ®¸¦ 0À¸·Î ¹Ù²ãÁÖ°í Last»óÅÂ·Î µ¹ÀÔÇÑ´Ù.
 
 public:
 	virtual void AttackedDamage(int damage);
@@ -141,7 +140,7 @@ public:
 	void CreateAnimatiom();
 	void Dead();
 	//-------------------------------------------------------//
-	//--------------1ë²ˆìŠ¤í‚¬ HandShoot í•¨ìˆ˜ë“¤------------------//
+	//--------------1¹ø½ºÅ³ HandShoot ÇÔ¼öµé------------------//
 	//-------------------------------------------------------//
 	void HandShootShadow();
 	void HandShootHand();
@@ -151,7 +150,7 @@ public:
 	void ChangeShadowState(ShadowState shadow);
 	void NextAnimation();
 	//-------------------------------------------------------//
-	//--------------2ë²ˆìŠ¤í‚¬ RockShoot í•¨ìˆ˜ë“¤------------------//
+	//--------------2¹ø½ºÅ³ RockShoot ÇÔ¼öµé------------------//
 	//-------------------------------------------------------//
 	void RockPattom();
 

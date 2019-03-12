@@ -33,7 +33,7 @@ void Enemy::AttackedDemege(int damage)
 		//이팩트 : 폭발
 		Effect::PlayEffect(EFFECT_BOOM, _position);
 
-
+		_SoundManager->Play("enemyDeath", 1.0f);
 		//사라져라. 다른 죽는 모션이 존재할 경우 가상함수 상속을 통해서 내용을 바꿀 수도 있다.
 		this->Destroy();
 	}
@@ -47,7 +47,7 @@ void Enemy::AttackedDemege(int damage)
 		_Camera->Shake();
 
 		//데미지 폰트 출력용
-		_DamageFontManager->ShowDamage(_position, _player->GetPlayerDamage());
+		_DamageFontManager->ShowDamage(_position, damage);
 
 		//뒤로 밀려난다. 플레이어의 앵글을 먼저 넣어주면 기존에 추격하면 방향에서 반대로 앵글값이 나오므로 반대방향으로 밀러날 수 있다.
 		this->_attackedAngle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
