@@ -14,7 +14,7 @@ Boss::Boss()
 	this->_pivot = Pivot::CENTER;			//중심위치
 	this->_hp = 800;						//체력
 	this->_speed = 300.0f;					//속도
-	this->_damage = 0;						//공격력
+	this->_damage = 25;						//공격력
 	this->_distance = 0.f;					//직선거리 (나중에 넣을거고 코드만짜려고)
 	this->_angle = 0.f;						//앵글값 (직선거리와 같음)
 	this->_imageRc = Figure::RectMakeCenter(_imagePosition, _imageSize); //렉트생성.
@@ -462,7 +462,7 @@ void Boss::RockPattom()
 //피격시 이미지
 void Boss::AttackedDamage(int damage)
 {
-	_hp = damage;
+	_hp -= damage;
 	if (_hp <= 0)
 	{
 		ChangeState(StateType::Dead);
