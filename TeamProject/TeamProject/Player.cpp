@@ -50,8 +50,8 @@ Player::Player(Vector2 pos)
 	this->_pivot = Pivot::CENTER;
 	this->_speed = 400.0f;
 	this->UpdateMainRect();
-	this->_maxHp = 500;
-	this->_currentHp = 500;
+	this->_maxHp = 100;
+	this->_currentHp = 100;
 	this->_isMoveStop = false;			//움직임을 멈추기 위한 bool값
 	this->_isChangeSword = false;		//공격시 이미지 파일 변경을 위한 bool값
 	this->_isChangeBow = false;			//활 공격시 이미지 파일 변경을 위한 bool값
@@ -67,7 +67,7 @@ Player::Player(Vector2 pos)
 	this->_isChangeWeapon = false;		//false는 칼, true는 활
 	this->_blink = 0;
 	this->_alpha = 1.0f;
-
+	this->_isDam = false;
 	this->_isDelay = 0.f;
 	this->_count = 0;
 	//정밀 충돌용 렉트 위치 초기화
@@ -86,7 +86,7 @@ Player::~Player() {}
 void Player::Init()
 {	
 	//AddCallbackMessage("InventoryOpen", [this](TagMessage message) {this->InventoryOnOff(); });
-	AddCallbackMessage("InventoryClose", [this](TagMessage message) {this->InventoryOnOff(); });
+	AddCallbackMessage("InventoryClose", [this](TagMessage message) {this->InventoryOnOff(); });	
 }
 
 /********************************************************************************/
@@ -107,6 +107,8 @@ void Player::Release()
 /********************************************************************************/
 void Player::Update()
 {	
+	//cout << "HP: " << _currentHp << endl;
+	cout << "_isDelay: " << _isDelay << endl;
 	//%%%%%%%%%%%%%%%%%%-------------------------------치트키------------------------------%%%%%%%%%%%%%%%%%%%%%%%%%
 	//나중에 지울 것:: 칫흐키 강한 플레이어
 	if (_Input->GetKeyDown('E')) this->_currentHp = 100;
@@ -423,7 +425,7 @@ void Player::Render()
 
 	//렌더링: 두개의 이미지를 상황에 맞게 번갈아가면서 사용하도록 조건을 준다.
 	//무기 교체만 하는 상태에도 기본 무브 사용해야 하므로 공격 버튼 누를때만 렌더하도록 다른 조건을 줄 것
-	
+
 	if (_isStandardMove == true)
 	{		
 		_imgMove->FrameRender((int)_position.x, _position.y, _mainAnimation->GetNowFrameX(), _mainAnimation->GetNowFrameY(), Pivot::CENTER, true);
@@ -813,12 +815,11 @@ void Player::CreateAnimation()
 	_animationList.insert(make_pair(State::DownBow, downBow));
 
 	Animation* die = new Animation;
-	die->SetStartEndFrame(0, 12, 10, 12, false);
+	die->SetStartEndFrame(0, 12, 9, 12, false);
 	die->SetIsLoop(false);
-	die->SetFrameUpdateTime(_frameIdle);
+	die->SetFrameUpdateTime(0.2f);	
 	die->SetCallbackFunc([this]() {this->EndAnimation(); });
 	_animationList.insert(make_pair(State::Die, die));
-
 }
 
 //해당 상태 종료 후 변경할 상태 
@@ -911,7 +912,8 @@ void Player::EndAnimation()
 		break;
 
 	case Player::State::Die:
-		//씬 변경어떻게 함?
+		SendCallbackMessage(TagMessage ("Die"));
+		_Database->AddVector2Data("PlayerPosition", Vector2(672, 898));
 		break;
 
 	default:
