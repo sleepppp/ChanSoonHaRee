@@ -50,7 +50,7 @@ Boss::Boss()
 
 	//초기 상태값은 보스가 움직이지 않아야 하니까 가만히 있는 상태를 만들어준다.
 	_state = StateType::Create;
-	this->ChangeState(StateType::Idle);
+	this->ChangeState(StateType::Fist_Shoot_First);
 }
 
 
@@ -190,6 +190,12 @@ void Boss::ChangeState(StateType state)
 	case Boss::StateType::Fist_Shoot_Second:
 		break;
 	case Boss::StateType::Fist_Shoot_Last:
+		//for (int i = 0; i < 10; ++i)
+		//{
+		//	float x = _imagePosition.x + cosf(Math::PI + ((Math::PI / 10) * i) * 300);
+		//	float y = _imagePosition.y + -sinf(Math::PI + ((Math::PI / 6) * i) * 300);
+		//	_ObjectManager->AddObject(ObjectType::Object, new Plankton(Vector2(x, y)));
+		//}
 		break;
 	case Boss::StateType::End:
 		break;
@@ -284,7 +290,6 @@ void Boss::UpdateState()
 		this->Dead();
 		break;
 	case Boss::StateType::Fist_Shoot_Last:
-		
 		if (_aniImage->_animation->GetNowFrameX() == 15)
 		{
 			this->ChangeState(StateType::Hand_Shoot_First);
