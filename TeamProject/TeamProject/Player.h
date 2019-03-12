@@ -11,6 +11,7 @@ class Player : public GameObject
 		LeftSword1, RightSword1, UpSword1, DownSword1,
 		LeftSword2, RightSword2, UpSword2, DownSword2,
 		LeftBow,RightBow,UpBow,DownBow,
+		Die,
 		end
 	};
 
@@ -21,9 +22,10 @@ private:
 	class Image* _imgMove;		//플레이어 기본 움직임
 	class Image* _imgAtkSword;	//플레이어 공격 스워드 이미지
 	class Image* _imgAtkBow;	//플레이어 공격 활 이미지
+	class Image* _imgShadow;
 
 	class UIWeaponAndBag* _UIWeaponSwap;
-
+	class Arrow* _arrow;
 	class Animation* _mainAnimation;
 	
 	//vector <Arrow> _arrow;//화살 클래스 사용을 위한 선언
@@ -94,7 +96,6 @@ public:
 	RECT GetSwordRect() const { return _swordRect; }
 	int GetPlayerDamage() { return _damage; }		//에너미 클래스에 넘겨주기 위한 함수
 	State GetState() { return _state; }				//동작 enum값 전달 함수
-
 };
 
 class PlayerAni
