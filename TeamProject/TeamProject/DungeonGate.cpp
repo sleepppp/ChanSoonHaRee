@@ -195,6 +195,7 @@ void DungeonGate::ChangeState(State state)
 		break;
 	case DungeonGate::State::Exit:
 		_size.y = _mainImage->GetFrameSize(0).y;
+		_LightingSystem->ChangeState(LightSystem::State::Evening);
 		break;
 	default:
 		break;

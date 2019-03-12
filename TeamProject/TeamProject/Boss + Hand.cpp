@@ -10,22 +10,21 @@ void Boss::HandShootHand()
 	switch (_hand)
 	{
 		float angle;
-		float distance;
 		
 	case HandState::Up:
 
 		//그림자와 손과의 거리
-		distance = Math::GetDistance(_handPosition.x, _handPosition.y, _shadowPosition.x, _shadowPosition.y);
+		_distance = Math::GetDistance(_handPosition.x, _handPosition.y, _shadowPosition.x, _shadowPosition.y);
 		
 		//거리가 500보다 작으면
-		if (distance <= 700)
+		if (_distance <= 700)
 		{
 			//위로 올라가라.
 			_handPosition.y -= (_speed * 0.7) * _TimeManager->DeltaTime();
 		}
 		_handRc = Figure::RectMakeCenter(_handPosition, _handSize);
 		//어느정도 올라갔으면
-		if (distance >= 700)
+		if (_distance >= 700)
 		{	
 			_handPosition.y -= (_speed * 0.0f) * _TimeManager->DeltaTime();
 			this->ChangeShadowState(ShadowState::Chasing);
@@ -36,17 +35,17 @@ void Boss::HandShootHand()
 		//손과 그림자의 앵글값.
 		angle = Math::GetAngle(_handPosition.x, _handPosition.y, _shadowPosition.x, _shadowPosition.y);
 		//그림자와 손과의 거리
-		distance = Math::GetDistance(_handPosition.x, _handPosition.y, _shadowPosition.x, _shadowPosition.y);
+		_distance = Math::GetDistance(_handPosition.x, _handPosition.y, _shadowPosition.x, _shadowPosition.y);
 
 		//그림자와 손의 Y축이 같지 않다면
-		if (distance > 10)
+		if (_distance > 10)
 		{
 			//그림자의 Y축으로 이동해라.
-			_handPosition.y += -sinf(angle) * (_speed * 3) * _TimeManager->DeltaTime();
+			_handPosition.y += -sinf(angle) * (_speed * 4) * _TimeManager->DeltaTime();
 		}
 		_handRc = Figure::RectMakeCenter(_handPosition, _handSize);
 		//만약 같다면 
-		if (distance <= 10)
+		if (_distance <= 10)
 		{
 			_Camera->Shake(5.f, 0.5f);
 			//잠시간멈춰있어라.
@@ -54,19 +53,12 @@ void Boss::HandShootHand()
 		}
 		break;
 	case HandState::Stay:
-		
-
 
 		_timeCount += _TimeManager->DeltaTime();
-		if (_timeCount > 7)
+		if (_timeCount > 2.f)
 		{
 			//손의 상태를 올라가는 상태로 바꿔준다.
 			this->ChangeHandState(HandState::Up);
-		}
-		RECT temp;
-		if (IntersectRect(&temp, &_handRc, &_player->GetCollisionRect()))
-		{
-			_player->AttackedDamage(_damage);
 		}
 		_handRc = Figure::RectMakeCenter(_handPosition, _handSize);
 		break;
@@ -78,6 +70,7 @@ void Boss::HandShootHand()
 		//다섯번떨궜으면 스킬공격을 멈춰라.
 		if (_drapCount == 5)
 		{
+			_drapCount = 0;
 			this->ChangeState(StateType::Hand_Shoot_Last);
 		}
 		_handRc = Figure::RectMakeCenter(_handPosition, _handSize);
@@ -108,6 +101,11 @@ void Boss::ChangeHandState(HandState hand)
 	case HandState::Down:
 		break;
 	case HandState::Stay:
+		RECT temp;
+		if (IntersectRect(&temp, &_handRc, &_player->GetCollisionRect()))
+		{
+			_player->AttackedDamage(_damage);
+		}
 		break;
 	case HandState::Chasing:
 		break;
@@ -139,19 +137,19 @@ void Boss::CreateHandAnimation()
 	_handList.insert(make_pair(HandState::Chasing, chasing));
 
 	Animation* up = new Animation;
-	up->SetStartEndFrame(0, 0, 2, 0, false);
+	up->SetStartEndFrame(16, 0, 18, 0, false);
 	up->SetIsLoop(false);
-	up->SetFrameUpdateTime(0.2f);
+	up->SetFrameUpdateTime(0.1f);
 	_handList.insert(make_pair(HandState::Up, up));
 
 	Animation* down = new Animation;
-	down->SetStartEndFrame(16, 0, 18, 0, false);
+	down->SetStartEndFrame(0, 0, 3, 0, false);
 	down->SetIsLoop(false);
-	down->SetFrameUpdateTime(0.2f);
+	down->SetFrameUpdateTime(0.1f);
 	_handList.insert(make_pair(HandState::Down, down));
 
 	Animation* stay = new Animation;
-	stay->SetStartEndFrame(2, 0, 16, 0, false);
+	stay->SetStartEndFrame(3, 0, 16, 0, false);
 	stay->SetIsLoop(false);
 	stay->SetFrameUpdateTime(0.1f);
 	_handList.insert(make_pair(HandState::Stay, stay));

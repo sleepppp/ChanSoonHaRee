@@ -9,6 +9,7 @@ class Rock : public GameObject
 private:
 	class Player* _player;
 	class Image* _rockImage;
+	class Image* _shadowImage;
 	float _stayTime;
 	float _timeCount;
 	float _AlphaCount;

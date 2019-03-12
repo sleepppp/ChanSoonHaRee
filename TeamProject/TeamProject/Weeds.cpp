@@ -127,7 +127,7 @@ void Weeds::Collision()
 	{
 		Player* player = dynamic_cast<Player*>((*object)[i]);
 		MoveItem* item = dynamic_cast<MoveItem*>((*object)[i]);
-		if (player == nullptr && this != (*object)[i] && item == nullptr)
+		if (this != (*object)[i] && item == nullptr)
 		{
 			if (this->IntersectReaction(&_renderRect, &(*object)[i]->GetCollisionRect()))
 			{
