@@ -66,6 +66,8 @@ private:
 	float _shadowScale;
 	Vector2 _bossCollisionSize;	//충돌렉트 사이즈
 
+	bool _isAttacked;		//false = Not Attacked, true = Attacked;	
+	bool _isAttackedColor;	//false = Red, true = White;
 	//-----------------보스 이미지 생성을 위한 렉트-----------------//
 	Vector2 _imagePosition;
 	Vector2 _imageSize;
