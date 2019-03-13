@@ -82,16 +82,6 @@ void MainScene::ChanInit()
 	//인벤토리 등록
 	_ObjectManager->AddObject(ObjectType::UI, new Inventory);
 	
-	//무브 아이템 등록 및 랜덤한 개수 맵 뿌리기
-	//for (UINT i = 0; i < 15; ++i) 
-	//{
-	//	_ObjectManager->AddObject(ObjectType::Object, new MoveItem("brench", Vector2(Math::Random(0, WinSizeX), Math::Random(0, WinSizeY))));
-	//}
-
- 	_ObjectManager->AddObject(ObjectType::Object, new MoveItem("item_brench",Vector2(0,0)));
-	
-	//_ObjectManager->AddObject(ObjectType::Object, new MoveItem("item_golemCore", Vector2(0, 2)));
-
 	//UI 무기 스왑 / UI 가방
 	_ObjectManager->AddObject(ObjectType::UI, new UIWeaponAndBag);
 

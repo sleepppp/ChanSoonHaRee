@@ -35,12 +35,9 @@ void Enemy::AttackedDemege(int damage)
 
 		_SoundManager->Play("enemyDeath", 1.0f);
 
-		const vector<GameObject*>* _pObjectList = _ObjectManager->GetObjectListPointer(ObjectType::Object);
+		//아이템 뿌리기
+		this->SprayItemEnemy();
 
-		for (UINT i = 0; i < _pObjectList->size(); ++i)
-		{
-			_pObjectList->at(i)->SendCallbackMessage(TagMessage("EnemyDeath"));
-		}
 		//사라져라. 다른 죽는 모션이 존재할 경우 가상함수 상속을 통해서 내용을 바꿀 수도 있다.
 		this->Destroy();
 	}
