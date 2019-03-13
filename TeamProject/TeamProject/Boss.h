@@ -34,6 +34,7 @@ private:
 private:
 	//플레이어를 불러오자.
 	class Player* _player;
+	class Plankton* _plankton;
 	//상태를 불러오기위해서 이넘값도 가져오자.
 	StateType _state;
 	AniAndImage* _aniImage;
@@ -68,6 +69,7 @@ private:
 
 	bool _isAttacked;		//false = Not Attacked, true = Attacked;	
 	bool _isAttackedColor;	//false = Red, true = White;
+	float _attackedTimeCount;
 	//-----------------보스 이미지 생성을 위한 렉트-----------------//
 	Vector2 _imagePosition;
 	Vector2 _imageSize;
@@ -141,6 +143,7 @@ public:
 	void ChangeAnimation(StateType state);
 	void CreateAnimatiom();
 	void Dead();
+	void AttackedChangeColor();
 	//-------------------------------------------------------//
 	//--------------1번스킬 HandShoot 함수들------------------//
 	//-------------------------------------------------------//
