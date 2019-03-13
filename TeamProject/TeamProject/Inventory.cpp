@@ -184,6 +184,17 @@ void Inventory::Init()
 	//인벤토리 플레이어 렉트 생성
 	_invenPlayerRect = Figure::RectMake(_invenPlayerPosition.x, _invenPlayerPosition.y, 290, 290);
 
+
+	//플레이어 사망 시 메시지 받기
+	this->AddCallbackMessage("PlayerDie", [this](TagMessage message)
+	{
+		this->SprayItemPlayer();
+	});
+
+	//테스트용
+	for (UINT i = 0; i < 200; ++i)
+		this->AddItem("brench");
+
 } 
 
 //인벤토리 Release
