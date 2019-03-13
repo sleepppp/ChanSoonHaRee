@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Dungeon_Map_Boss.h"
 #include "Door.h"
-
 Dungeon_Map_Boss::Dungeon_Map_Boss()
 {
 }
@@ -30,6 +29,7 @@ void Dungeon_Map_Boss::Init()
 	_Camera->SetMapSize(Vector2((float)_map->GetWidth(), (float)_map->GetHeight()));
 	_Camera->InitCameraToPlayer();
 	_LightingSystem->ChangeState(LightSystem::State::Afternoon);
+
 	_SoundManager->Play("GolemKingRoom", 0.5f);
 }
 
