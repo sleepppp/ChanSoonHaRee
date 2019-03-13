@@ -21,7 +21,7 @@ Door::Door(Vector2 pos, Vector2 size)
 	rcPosition = Vector2(_position.x + 50, _position.y + 40);
 	rcSize = Vector2(_size.x - 100, _size.y - 30);
 	rc = Figure::RectMake(rcPosition, rcSize);
-
+	this->testCollision = Figure::RectMake(Vector2(0, 0), Vector2(WinSizeX, WinSizeY));
 	_isDoorChange = false;
 }
 
@@ -43,33 +43,35 @@ void Door::Release()
 void Door::Update()
 {
 	RECT collisionRc;
+
+	_timeCount += _TimeManager->DeltaTime();
+	if (_timeCount > 1.f)
+	{
+		_timeCount = 0;
+		_doorCount++;
+	}
+	if (_doorCount >= 4)
+	{
+		_doorCount = 4;
+	}
+
 	if (IntersectRect(&collisionRc, &rc, &_player->GetCollisionRect()))
 	{
-		_timeCount += _TimeManager->DeltaTime();
-		if (_timeCount > 1.f)
+		if (_doorCount == 4)
 		{
-			_timeCount = 0;
-			_doorCount++;
+			LoadingScene* loadingScene = dynamic_cast<LoadingScene*>(_SceneManager->FindScene("LoadingScene"));
+			if (loadingScene != nullptr)
+			{
+				loadingScene->SetNextSceneName(Door::_mapName);
+				loadingScene->SetLoadingFunc([]() {
+					_SceneManager->FindScene(Door::_mapName)->Init();
+				});
+				_SceneManager->LoadScene("LoadingScene");
+				_SoundManager->FadeoutBGM();
+				return;
+			}
+			_doorCount = 0;
 		}
-		if (_doorCount >= 4)
-		{
-			_doorCount = 4;
-		}
-	}
-	if (_doorCount == 4)
-	{
-		LoadingScene* loadingScene = dynamic_cast<LoadingScene*>(_SceneManager->FindScene("LoadingScene"));
-		if (loadingScene != nullptr)
-		{
-			loadingScene->SetNextSceneName(Door::_mapName);
-			loadingScene->SetLoadingFunc([]() {
-				_SceneManager->FindScene(Door::_mapName)->Init(); 
-			});
-			_SceneManager->LoadScene("LoadingScene");
-			_SoundManager->FadeoutBGM();
-			return;
-		}
-		_doorCount = 0;
 	}
 }
 

@@ -4,7 +4,6 @@
 #include "Animation.h"
 #include "Player.h"
 #include "Rock.h"
-#include "Plankton.h"
 Boss::Boss()
 {
 	//보스의 몸통을 생성할 기본적인 골격들
@@ -35,6 +34,9 @@ Boss::Boss()
 
 	this->_shadowScale = 0.f;
 
+	this->_isAttacked = false;			//피격상황 펄스
+	this->_isAttackedColor = false;		//초기색 붉은 색
+	this->_attackedTimeCount = 0.f;
 
 	CreateHandAnimation();
 	//----------------3번 공격을 위한 변수들------------//
@@ -90,7 +92,6 @@ void Boss::Update()
 	//------------손날리기 스킬----------//
 	HandShootHand();
 	HandShootShadow();
-
 	cout << _hp << endl;
 	if (_Input->GetKeyDown('Q'))
 	{
@@ -154,6 +155,7 @@ void Boss::Render()
 void Boss::ChangeState(StateType state)
 {
 	//현제 상태와 바꿀 상태가 같다면 이 함수를 빠져나가라.
+	//멍충아
 	if (_state == state)
 		return;
 	//그게 아니라면 상태를 바꿔라.
@@ -192,12 +194,6 @@ void Boss::ChangeState(StateType state)
 	case Boss::StateType::Fist_Shoot_Second:
 		break;
 	case Boss::StateType::Fist_Shoot_Last:
-		//for (int i = 0; i < 10; ++i)
-		//{
-		//	float x = _imagePosition.x + cosf(Math::PI + ((Math::PI / 10) * i) * 300);
-		//	float y = _imagePosition.y + -sinf(Math::PI + ((Math::PI / 6) * i) * 300);
-		//	_ObjectManager->AddObject(ObjectType::Object, new Plankton(Vector2(x, y)));
-		//}
 		break;
 	case Boss::StateType::End:
 		break;
@@ -319,6 +315,7 @@ void Boss::ChangeAnimation(StateType state)
 
 void Boss::CreateAnimatiom()
 {
+	
 	//플레이어가 에너미의 인지반경 밖에 있을경우 실행되는 애니메이션과 이미지
 	AniAndImage* idle = new AniAndImage;
 	idle->_animation = new Animation;
@@ -346,7 +343,7 @@ void Boss::CreateAnimatiom()
 	dead1->_animation->SetFrameUpdateTime(0.15f);
 	dead1->_animation->SetCallbackFunc([this]() {this->NextAnimation(); });
 	_aniImgList.insert(make_pair(StateType::Dead, dead1));
-	
+
 	//보스가 죽을때 나오는 애니& 이미지2
 	AniAndImage* dead2 = new AniAndImage;
 	dead2->_animation = new Animation;
@@ -433,11 +430,12 @@ void Boss::CreateAnimatiom()
 	Fist_Shoot_Last->_animation->SetIsLoop(false);
 	Fist_Shoot_Last->_animation->SetFrameUpdateTime(0.15f);
 	_aniImgList.insert(make_pair(StateType::Fist_Shoot_Last, Fist_Shoot_Last));
-
+	/*
 	//----------------------------------------------------------------------------//
 	//------------------------------피격일때 이미지---------------------------------//
 	//----------------------------------------------------------------------------//
-
+	
+	//================Red=====================//
 	//보스의 1번째 공격패턴 손날려서 공격하기의 전조 손을 날리는 애니&이미지
 	AniAndImage* hand_Shoot_First_Red = new AniAndImage;
 	hand_Shoot_First_Red->_animation = new Animation;
@@ -446,15 +444,6 @@ void Boss::CreateAnimatiom()
 	hand_Shoot_First_Red->_animation->SetIsLoop(false);
 	hand_Shoot_First_Red->_animation->SetFrameUpdateTime(0.15f);
 	_aniImgList.insert(make_pair(StateType::Hand_Shoot_First, hand_Shoot_First_Red));
-
-	AniAndImage* hand_Shoot_First_White = new AniAndImage;
-	hand_Shoot_First_White->_animation = new Animation;
-	hand_Shoot_First_White->_bossImage = _ImageManager->FindImage("hand_Shoot_First_White");
-	hand_Shoot_First_White->_animation->SetStartEndFrame(0, 0, 19, 0, false);
-	hand_Shoot_First_White->_animation->SetIsLoop(false);
-	hand_Shoot_First_White->_animation->SetFrameUpdateTime(0.15f);
-	_aniImgList.insert(make_pair(StateType::Hand_Shoot_First, hand_Shoot_First_White));
-	//---------------------------------------------------------------------------------//
 	//보스의 1번째 공격패턴 손날려서 공격하기의 손은 이미 날아가고 난뒤의 몸의 애니&이미지
 	AniAndImage* hand_Shoot_Second_Red = new AniAndImage;
 	hand_Shoot_Second_Red->_animation = new Animation;
@@ -463,15 +452,6 @@ void Boss::CreateAnimatiom()
 	hand_Shoot_Second_Red->_animation->SetIsLoop(true);
 	hand_Shoot_Second_Red->_animation->SetFrameUpdateTime(0.15f);
 	_aniImgList.insert(make_pair(StateType::Hand_Shoot_Second, hand_Shoot_Second_Red));
-
-	AniAndImage* hand_Shoot_Second_White = new AniAndImage;
-	hand_Shoot_Second_White->_animation = new Animation;
-	hand_Shoot_Second_White->_bossImage = _ImageManager->FindImage("hand_Shoot_Second_White");
-	hand_Shoot_Second_White->_animation->SetStartEndFrame(0, 0, 29, 0, false);
-	hand_Shoot_Second_White->_animation->SetIsLoop(true);
-	hand_Shoot_Second_White->_animation->SetFrameUpdateTime(0.15f);
-	_aniImgList.insert(make_pair(StateType::Hand_Shoot_Second, hand_Shoot_Second_White));
-	//---------------------------------------------------------------------------------//
 	//보스의 1번째 공격패턴 손날려서 공격하기의 손이 돌아오는 애니&이미지
 	AniAndImage* hand_Shoot_Last_Red = new AniAndImage;
 	hand_Shoot_Last_Red->_animation = new Animation;
@@ -480,15 +460,6 @@ void Boss::CreateAnimatiom()
 	hand_Shoot_Last_Red->_animation->SetIsLoop(false);
 	hand_Shoot_Last_Red->_animation->SetFrameUpdateTime(0.15f);
 	_aniImgList.insert(make_pair(StateType::Hand_Shoot_Last, hand_Shoot_Last_Red));
-
-	AniAndImage* hand_Shoot_Last_White = new AniAndImage;
-	hand_Shoot_Last_White->_animation = new Animation;
-	hand_Shoot_Last_White->_bossImage = _ImageManager->FindImage("hand_Shoot_Last_White");
-	hand_Shoot_Last_White->_animation->SetStartEndFrame(0, 0, 10, 0, false);
-	hand_Shoot_Last_White->_animation->SetIsLoop(false);
-	hand_Shoot_Last_White->_animation->SetFrameUpdateTime(0.15f);
-	_aniImgList.insert(make_pair(StateType::Hand_Shoot_Last, hand_Shoot_Last_White));
-	//---------------------------------------------------------------------------------//
 	//보스의 2번째 스킬 땅을 내려찍는부분.
 	AniAndImage* Rock_Shoot_First_Red = new AniAndImage;
 	Rock_Shoot_First_Red->_animation = new Animation;
@@ -497,15 +468,6 @@ void Boss::CreateAnimatiom()
 	Rock_Shoot_First_Red->_animation->SetIsLoop(false);
 	Rock_Shoot_First_Red->_animation->SetFrameUpdateTime(0.15f);
 	_aniImgList.insert(make_pair(StateType::Rock_Shoot_First, Rock_Shoot_First_Red));
-
-	AniAndImage* Rock_Shoot_First_White = new AniAndImage;
-	Rock_Shoot_First_White->_animation = new Animation;
-	Rock_Shoot_First_White->_bossImage = _ImageManager->FindImage("Rock_Shoot_White");
-	Rock_Shoot_First_White->_animation->SetStartEndFrame(0, 0, 15, 0, false);
-	Rock_Shoot_First_White->_animation->SetIsLoop(false);
-	Rock_Shoot_First_White->_animation->SetFrameUpdateTime(0.15f);
-	_aniImgList.insert(make_pair(StateType::Rock_Shoot_First, Rock_Shoot_First_White));
-	//---------------------------------------------------------------------------------//
 	//보스의 2번째 스킬 돌이떨어지는걸 기다리면서 대기하는부분.
 	AniAndImage* Rock_Shoot_Second_Red = new AniAndImage;
 	Rock_Shoot_Second_Red->_animation = new Animation;
@@ -514,15 +476,6 @@ void Boss::CreateAnimatiom()
 	Rock_Shoot_Second_Red->_animation->SetIsLoop(false);
 	Rock_Shoot_Second_Red->_animation->SetFrameUpdateTime(0.15f);
 	_aniImgList.insert(make_pair(StateType::Rock_Shoot_Second, Rock_Shoot_Second_Red));
-
-	AniAndImage* Rock_Shoot_Second_White = new AniAndImage;
-	Rock_Shoot_Second_White->_animation = new Animation;
-	Rock_Shoot_Second_White->_bossImage = _ImageManager->FindImage("Rock_Shoot_White");
-	Rock_Shoot_Second_White->_animation->SetStartEndFrame(15, 0, 25, 0, false);
-	Rock_Shoot_Second_White->_animation->SetIsLoop(false);
-	Rock_Shoot_Second_White->_animation->SetFrameUpdateTime(0.15f);
-	_aniImgList.insert(make_pair(StateType::Rock_Shoot_Second, Rock_Shoot_Second_White));
-	//---------------------------------------------------------------------------------//
 	//보스의 2번째 스킬 돌이 사라지고 기본상태로 돌아오는 부분.
 	AniAndImage* Rock_Shoot_Last_Red = new AniAndImage;
 	Rock_Shoot_Last_Red->_animation = new Animation;
@@ -531,15 +484,6 @@ void Boss::CreateAnimatiom()
 	Rock_Shoot_Last_Red->_animation->SetIsLoop(false);
 	Rock_Shoot_Last_Red->_animation->SetFrameUpdateTime(0.15f);
 	_aniImgList.insert(make_pair(StateType::Rock_Shoot_Last, Rock_Shoot_Last_Red));
-
-	AniAndImage* Rock_Shoot_Last_White = new AniAndImage;
-	Rock_Shoot_Last_White->_animation = new Animation;
-	Rock_Shoot_Last_White->_bossImage = _ImageManager->FindImage("Rock_Shoot_White");
-	Rock_Shoot_Last_White->_animation->SetStartEndFrame(25, 0, 31, 0, false);
-	Rock_Shoot_Last_White->_animation->SetIsLoop(false);
-	Rock_Shoot_Last_White->_animation->SetFrameUpdateTime(0.15f);
-	_aniImgList.insert(make_pair(StateType::Rock_Shoot_Last, Rock_Shoot_Last_White));
-	//---------------------------------------------------------------------------------//
 	//보스의 3번째 스킬 플레이어를 공격하기 전의 준비상태.
 	AniAndImage* Fist_Shoot_First_Red = new AniAndImage;
 	Fist_Shoot_First_Red->_animation = new Animation;
@@ -548,15 +492,6 @@ void Boss::CreateAnimatiom()
 	Fist_Shoot_First_Red->_animation->SetIsLoop(false);
 	Fist_Shoot_First_Red->_animation->SetFrameUpdateTime(0.15f);
 	_aniImgList.insert(make_pair(StateType::Fist_Shoot_First, Fist_Shoot_First_Red));
-
-	AniAndImage* Fist_Shoot_First_White = new AniAndImage;
-	Fist_Shoot_First_White->_animation = new Animation;
-	Fist_Shoot_First_White->_bossImage = _ImageManager->FindImage("FistShoot_White");
-	Fist_Shoot_First_White->_animation->SetStartEndFrame(0, 0, 16, 0, false);
-	Fist_Shoot_First_White->_animation->SetIsLoop(false);
-	Fist_Shoot_First_White->_animation->SetFrameUpdateTime(0.15f);
-	_aniImgList.insert(make_pair(StateType::Fist_Shoot_First, Fist_Shoot_First_White));
-	//---------------------------------------------------------------------------------//
 	//보스가 플레이어를 향해 팔을 조준하고 있는 상태.
 	AniAndImage* Fist_Shoot_Second_Red = new AniAndImage;
 	Fist_Shoot_Second_Red->_animation = new Animation;
@@ -565,15 +500,6 @@ void Boss::CreateAnimatiom()
 	Fist_Shoot_Second_Red->_animation->SetIsLoop(false);
 	Fist_Shoot_Second_Red->_animation->SetFrameUpdateTime(0.15f);
 	_aniImgList.insert(make_pair(StateType::Fist_Shoot_Second, Fist_Shoot_Second_Red));
-
-	AniAndImage* Fist_Shoot_Second_White = new AniAndImage;
-	Fist_Shoot_Second_White->_animation = new Animation;
-	Fist_Shoot_Second_White->_bossImage = _ImageManager->FindImage("FistShoot_White");
-	Fist_Shoot_Second_White->_animation->SetStartEndFrame(0, 1, 21, 1, false);
-	Fist_Shoot_Second_White->_animation->SetIsLoop(false);
-	Fist_Shoot_Second_White->_animation->SetFrameUpdateTime(0.15f);
-	_aniImgList.insert(make_pair(StateType::Fist_Shoot_Second, Fist_Shoot_Second_White));
-	//---------------------------------------------------------------------------------//
 	//보스가 플레이어를 향해 팔을 쏘고 휘두르며 원래대로 돌아오게 하는 상태.
 	AniAndImage* Fist_Shoot_Last_Red = new AniAndImage;
 	Fist_Shoot_Last_Red->_animation = new Animation;
@@ -582,7 +508,73 @@ void Boss::CreateAnimatiom()
 	Fist_Shoot_Last_Red->_animation->SetIsLoop(false);
 	Fist_Shoot_Last_Red->_animation->SetFrameUpdateTime(0.15f);
 	_aniImgList.insert(make_pair(StateType::Fist_Shoot_Last, Fist_Shoot_Last_Red));
-
+	
+	//=====================White=================//
+	//보스의 1번째 공격패턴 손날려서 공격하기의 손은 이미 날아가고 난뒤의 몸의 애니&이미지
+	AniAndImage* hand_Shoot_Second_White = new AniAndImage;
+	hand_Shoot_Second_White->_animation = new Animation;
+	hand_Shoot_Second_White->_bossImage = _ImageManager->FindImage("hand_Shoot_Second_White");
+	hand_Shoot_Second_White->_animation->SetStartEndFrame(0, 0, 29, 0, false);
+	hand_Shoot_Second_White->_animation->SetIsLoop(true);
+	hand_Shoot_Second_White->_animation->SetFrameUpdateTime(0.15f);
+	_aniImgList.insert(make_pair(StateType::Hand_Shoot_Second, hand_Shoot_Second_White));
+	//보스의 1번째 공격패턴 손날려서 공격하기의 전조 손을 날리는 애니&이미지
+	AniAndImage* hand_Shoot_First_White = new AniAndImage;
+	hand_Shoot_First_White->_animation = new Animation;
+	hand_Shoot_First_White->_bossImage = _ImageManager->FindImage("hand_Shoot_First_White");
+	hand_Shoot_First_White->_animation->SetStartEndFrame(0, 0, 19, 0, false);
+	hand_Shoot_First_White->_animation->SetIsLoop(false);
+	hand_Shoot_First_White->_animation->SetFrameUpdateTime(0.15f);
+	_aniImgList.insert(make_pair(StateType::Hand_Shoot_First, hand_Shoot_First_White));
+	//보스의 1번째 공격패턴 손날려서 공격하기의 손이 돌아오는 애니&이미지
+	AniAndImage* hand_Shoot_Last_White = new AniAndImage;
+	hand_Shoot_Last_White->_animation = new Animation;
+	hand_Shoot_Last_White->_bossImage = _ImageManager->FindImage("hand_Shoot_Last_White");
+	hand_Shoot_Last_White->_animation->SetStartEndFrame(0, 0, 10, 0, false);
+	hand_Shoot_Last_White->_animation->SetIsLoop(false);
+	hand_Shoot_Last_White->_animation->SetFrameUpdateTime(0.15f);
+	_aniImgList.insert(make_pair(StateType::Hand_Shoot_Last, hand_Shoot_Last_White));
+	//보스의 2번째 스킬 땅을 내려찍는부분.
+	AniAndImage* Rock_Shoot_First_White = new AniAndImage;
+	Rock_Shoot_First_White->_animation = new Animation;
+	Rock_Shoot_First_White->_bossImage = _ImageManager->FindImage("Rock_Shoot_White");
+	Rock_Shoot_First_White->_animation->SetStartEndFrame(0, 0, 15, 0, false);
+	Rock_Shoot_First_White->_animation->SetIsLoop(false);
+	Rock_Shoot_First_White->_animation->SetFrameUpdateTime(0.15f);
+	_aniImgList.insert(make_pair(StateType::Rock_Shoot_First, Rock_Shoot_First_White));
+	//보스의 2번째 스킬 돌이떨어지는걸 기다리면서 대기하는부분.
+	AniAndImage* Rock_Shoot_Second_White = new AniAndImage;
+	Rock_Shoot_Second_White->_animation = new Animation;
+	Rock_Shoot_Second_White->_bossImage = _ImageManager->FindImage("Rock_Shoot_White");
+	Rock_Shoot_Second_White->_animation->SetStartEndFrame(15, 0, 25, 0, false);
+	Rock_Shoot_Second_White->_animation->SetIsLoop(false);
+	Rock_Shoot_Second_White->_animation->SetFrameUpdateTime(0.15f);
+	_aniImgList.insert(make_pair(StateType::Rock_Shoot_Second, Rock_Shoot_Second_White));
+	//보스의 2번째 스킬 돌이 사라지고 기본상태로 돌아오는 부분.
+	AniAndImage* Rock_Shoot_Last_White = new AniAndImage;
+	Rock_Shoot_Last_White->_animation = new Animation;
+	Rock_Shoot_Last_White->_bossImage = _ImageManager->FindImage("Rock_Shoot_White");
+	Rock_Shoot_Last_White->_animation->SetStartEndFrame(25, 0, 31, 0, false);
+	Rock_Shoot_Last_White->_animation->SetIsLoop(false);
+	Rock_Shoot_Last_White->_animation->SetFrameUpdateTime(0.15f);
+	_aniImgList.insert(make_pair(StateType::Rock_Shoot_Last, Rock_Shoot_Last_White));
+	//보스의 3번째 스킬 플레이어를 공격하기 전의 준비상태.
+	AniAndImage* Fist_Shoot_First_White = new AniAndImage;
+	Fist_Shoot_First_White->_animation = new Animation;
+	Fist_Shoot_First_White->_bossImage = _ImageManager->FindImage("FistShoot_White");
+	Fist_Shoot_First_White->_animation->SetStartEndFrame(0, 0, 16, 0, false);
+	Fist_Shoot_First_White->_animation->SetIsLoop(false);
+	Fist_Shoot_First_White->_animation->SetFrameUpdateTime(0.15f);
+	_aniImgList.insert(make_pair(StateType::Fist_Shoot_First, Fist_Shoot_First_White));
+	//보스가 플레이어를 향해 팔을 조준하고 있는 상태.
+	AniAndImage* Fist_Shoot_Second_White = new AniAndImage;
+	Fist_Shoot_Second_White->_animation = new Animation;
+	Fist_Shoot_Second_White->_bossImage = _ImageManager->FindImage("FistShoot_White");
+	Fist_Shoot_Second_White->_animation->SetStartEndFrame(0, 1, 21, 1, false);
+	Fist_Shoot_Second_White->_animation->SetIsLoop(false);
+	Fist_Shoot_Second_White->_animation->SetFrameUpdateTime(0.15f);
+	_aniImgList.insert(make_pair(StateType::Fist_Shoot_Second, Fist_Shoot_Second_White));
+	//보스가 플레이어를 향해 팔을 쏘고 휘두르며 원래대로 돌아오게 하는 상태.
 	AniAndImage* Fist_Shoot_Last_White = new AniAndImage;
 	Fist_Shoot_Last_White->_animation = new Animation;
 	Fist_Shoot_Last_White->_bossImage = _ImageManager->FindImage("FistShoot_White");
@@ -590,7 +582,7 @@ void Boss::CreateAnimatiom()
 	Fist_Shoot_Last_White->_animation->SetIsLoop(false);
 	Fist_Shoot_Last_White->_animation->SetFrameUpdateTime(0.15f);
 	_aniImgList.insert(make_pair(StateType::Fist_Shoot_Last, Fist_Shoot_Last_White));
-	
+	*/
 }
 //보스가 죽는이미지가 커서 쪼갬.
 void Boss::NextAnimation()
@@ -629,7 +621,8 @@ void Boss::AttackedDamage(int damage)
 	}
 	else
 	{
-
+		_Camera->Shake(2.0f, 0.8f);
+		_isAttacked = true;
 	}
 }
 //죽을때 불러와질 함수.
@@ -643,6 +636,38 @@ void Boss::Dead()
 	}
 }
 
+void Boss::AttackedChangeColor()
+{
+	if (_isAttacked == true)
+	{
+		_attackedTimeCount += _TimeManager->DeltaTime();
+		if (_attackedTimeCount <= 0.5f)
+		{
+			if (_attackedTimeCount <= 0.25f)
+			{
+				_isAttackedColor = false;
+			}
+			if (_attackedTimeCount > 0.25f)
+			{
+				_isAttackedColor = true;
+			}
+		}
+		else if (_attackedTimeCount > 0.5f)
+		{
+			_attackedTimeCount = 0.0f;
+			_isAttacked = false;
+		}
+	}
+
+	if (_isAttackedColor == false)
+	{
+
+	}
+	if (_isAttackedColor == true)
+	{
+
+	}
+}
 
 //직선거리 길이 구하는 공식.
 float Boss::Distance(Vector2 position)

@@ -163,6 +163,27 @@
     <Filter Include="PrivateForder\Chan\Enemy">
       <UniqueIdentifier>{1de75822-83fa-4fc0-afed-bfdbcf96b6ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PrivateForder\Ha\Enemy">
+      <UniqueIdentifier>{41e91560-27fe-4a08-a307-8565a197d594}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Ha\Enemy\momEnemy">
+      <UniqueIdentifier>{47f0f6cc-daf9-4068-9af9-62c756a3b70a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Ha\Enemy\BigSlime">
+      <UniqueIdentifier>{79f36bd8-2dde-4440-8ac1-264496ec3e70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Ha\Enemy\Boss">
+      <UniqueIdentifier>{3badd277-f47c-498b-a29e-caacc2056ed0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Ha\Enemy\Golem">
+      <UniqueIdentifier>{4f720de0-5c77-40cb-955b-91f29a99b98b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Ha\Enemy\Slime">
+      <UniqueIdentifier>{27ba23c2-a0ec-4cc2-8bcc-98e0615db678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Ha\Enemy\Weeds">
+      <UniqueIdentifier>{b3d7532e-c8a9-47f8-a2ef-5f32d7fa6481}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -234,9 +255,6 @@
     <ClInclude Include="TextFile.h">
       <Filter>Utility\File</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>PrivateForder\Ha</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>PrivateForder\Ree</Filter>
     </ClInclude>
@@ -263,9 +281,6 @@
     </ClInclude>
     <ClInclude Include="TitleFlowObject.h">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Golem.h">
-      <Filter>PrivateForder\Ha</Filter>
     </ClInclude>
     <ClInclude Include="Buffer.h">
       <Filter>Shading\Buffer</Filter>
@@ -315,12 +330,6 @@
     <ClInclude Include="Timer.h">
       <Filter>PrivateForder\Soon\Module\Timer</Filter>
     </ClInclude>
-    <ClInclude Include="Slime.h">
-      <Filter>PrivateForder\Ha</Filter>
-    </ClInclude>
-    <ClInclude Include="Weeds.h">
-      <Filter>PrivateForder\Ha</Filter>
-    </ClInclude>
     <ClInclude Include="TitleDoorParticle.h">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClInclude>
@@ -344,12 +353,6 @@
     </ClInclude>
     <ClInclude Include="Tree.h">
       <Filter>MainEntry\Scene\TownScene\FrameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="BigSlime.h">
-      <Filter>PrivateForder\Ha</Filter>
-    </ClInclude>
-    <ClInclude Include="Boss.h">
-      <Filter>PrivateForder\Ha</Filter>
     </ClInclude>
     <ClInclude Include="Dungeon_Map_01.h">
       <Filter>MainEntry\Scene\Dungeon</Filter>
@@ -411,9 +414,6 @@
     <ClInclude Include="Database.h">
       <Filter>PrivateForder\Soon\Module\Database</Filter>
     </ClInclude>
-    <ClInclude Include="Rock.h">
-      <Filter>PrivateForder\Ha</Filter>
-    </ClInclude>
     <ClInclude Include="DebugFrameObject.h">
       <Filter>PrivateForder\Soon\Tutorial</Filter>
     </ClInclude>
@@ -434,6 +434,27 @@
     </ClInclude>
     <ClInclude Include="Cloud.h">
       <Filter>PrivateForder\Soon</Filter>
+    </ClInclude>
+    <ClInclude Include="BigSlime.h">
+      <Filter>PrivateForder\Ha\Enemy\BigSlime</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>PrivateForder\Ha\Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Rock.h">
+      <Filter>PrivateForder\Ha\Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Weeds.h">
+      <Filter>PrivateForder\Ha\Enemy\Weeds</Filter>
+    </ClInclude>
+    <ClInclude Include="Golem.h">
+      <Filter>PrivateForder\Ha\Enemy\Golem</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>PrivateForder\Ha\Enemy\momEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>PrivateForder\Ha\Enemy\Slime</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -503,9 +524,6 @@
     <ClCompile Include="MainScene + ChanInit.cpp">
       <Filter>PrivateForder\Chan</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>PrivateForder\Ha</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>PrivateForder\Ree</Filter>
     </ClCompile>
@@ -532,9 +550,6 @@
     </ClCompile>
     <ClCompile Include="TitleFlowObject.cpp">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Golem.cpp">
-      <Filter>PrivateForder\Ha</Filter>
     </ClCompile>
     <ClCompile Include="Buffer.cpp">
       <Filter>Shading\Buffer</Filter>
@@ -587,12 +602,6 @@
     <ClCompile Include="MainScene + SoonInit.cpp">
       <Filter>PrivateForder\Soon</Filter>
     </ClCompile>
-    <ClCompile Include="Slime.cpp">
-      <Filter>PrivateForder\Ha</Filter>
-    </ClCompile>
-    <ClCompile Include="Weeds.cpp">
-      <Filter>PrivateForder\Ha</Filter>
-    </ClCompile>
     <ClCompile Include="TitleDoorParticle.cpp">
       <Filter>MainEntry\Scene\TitleScene\TitleObject</Filter>
     </ClCompile>
@@ -616,12 +625,6 @@
     </ClCompile>
     <ClCompile Include="Tree.cpp">
       <Filter>MainEntry\Scene\TownScene\FrameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="BigSlime.cpp">
-      <Filter>PrivateForder\Ha</Filter>
-    </ClCompile>
-    <ClCompile Include="Boss.cpp">
-      <Filter>PrivateForder\Ha</Filter>
     </ClCompile>
     <ClCompile Include="Dungeon_Map_01.cpp">
       <Filter>MainEntry\Scene\Dungeon</Filter>
@@ -686,15 +689,6 @@
     <ClCompile Include="Database.cpp">
       <Filter>PrivateForder\Soon\Module\Database</Filter>
     </ClCompile>
-    <ClCompile Include="Boss + Shadow.cpp">
-      <Filter>PrivateForder\Ha</Filter>
-    </ClCompile>
-    <ClCompile Include="Boss + Hand.cpp">
-      <Filter>PrivateForder\Ha</Filter>
-    </ClCompile>
-    <ClCompile Include="Rock.cpp">
-      <Filter>PrivateForder\Ha</Filter>
-    </ClCompile>
     <ClCompile Include="DebugFrameObject.cpp">
       <Filter>PrivateForder\Soon\Tutorial</Filter>
     </ClCompile>
@@ -727,6 +721,33 @@
     </ClCompile>
     <ClCompile Include="Enemy + SprayItem.cpp">
       <Filter>PrivateForder\Chan\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="BigSlime.cpp">
+      <Filter>PrivateForder\Ha\Enemy\BigSlime</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss + Hand.cpp">
+      <Filter>PrivateForder\Ha\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss + Shadow.cpp">
+      <Filter>PrivateForder\Ha\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>PrivateForder\Ha\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>PrivateForder\Ha\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Weeds.cpp">
+      <Filter>PrivateForder\Ha\Enemy\Weeds</Filter>
+    </ClCompile>
+    <ClCompile Include="Golem.cpp">
+      <Filter>PrivateForder\Ha\Enemy\Golem</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>PrivateForder\Ha\Enemy\momEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>PrivateForder\Ha\Enemy\Slime</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
