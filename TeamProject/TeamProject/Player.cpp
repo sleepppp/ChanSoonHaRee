@@ -173,7 +173,7 @@ void Player::Update()
 			_isChangeBow = !_isChangeBow;
 		}
 
-		//			//인벤토리  on/off용
+		//인벤토리  on/off용
 		{
 			//상태에 따라 다르게 업데이트
 			switch (_state)
