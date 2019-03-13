@@ -3,9 +3,9 @@
 #include "Image.h"
 #include "Enemy.h"
 #include "Effect.h"
-//#include "Animation.h"
-//#include "Timer.h"
-//#include "Player.h"
+#include "Boss.h"
+#include "MoveItem.h"
+#include "Player.h"
 
 Arrow::Arrow(Vector2 pos, State state)
 {
@@ -66,13 +66,18 @@ void Arrow::Update()
 			this->_mainRect = Figure::RectMakeCenter(_position, _size);
 			break;
 		}
+
+		this->ArrowAttack();
+
+
+		//화면 밖으로 나가면 삭제
 		RECT renderRc = _Camera->GetRelativeRect(_mainRect);
 		if (renderRc.left > WinSizeX + 100 || renderRc.right < -100 ||
 			renderRc.top > WinSizeY + 100 || renderRc.bottom < -100)
 		{
 			this->Destroy();
 		}
-		this->ArrowAttack();
+
 	}
 	
 	
@@ -117,31 +122,71 @@ void Arrow::ArrowAttack()
 
 	for (UINT i = 0; i < object->size(); ++i)
 	{
-		if (object->at(i)->GetName() != this->_name)
-		{
-			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));
+		Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));
+		Boss* boss = dynamic_cast<Boss*>(object->at(i));
+		Player* player = dynamic_cast<Player*>(object->at(i));
+		MoveItem* item = dynamic_cast<MoveItem*>(object->at(i));
 
+		//화살 자신과의 충돌을 제외함
+		if (object->at(i)->GetName() != this->_name)// && player == nullptr)// && object->at(i)->GetName() !="WIll")
+		{
+			cout << "test" << endl;
+
+			//에너미제외,보스제외,아이템 제외,플레이어 제외한 벽등의 오브젝트들
+			RECT temp0;
+			if (IntersectRect(&temp0, &this->_mainRect, &object->at(i)->GetCollisionRect()))
+			{
+				if (enemy == nullptr && boss == nullptr && item == nullptr && player == nullptr)
+				{
+
+					Effect::PlayEffect(EFFECT_BOWATK, Vector2(this->_mainRect.left, this->_mainRect.top));
+					this->Destroy();
+					break;
+				}
+			}
+
+
+			//에너미일 경우
 			if (enemy != nullptr)
 			{
 				RECT temp;
 				if(IntersectRect(&temp, &this->_mainRect, &object->at(i)->GetCollisionRect()))
 				{
 					enemy->AttackedDemege(_damage);
-					Effect::PlayEffect(EFFECT_SWORDATK, Vector2(this->_mainRect.left, this->_mainRect.top));
+					Effect::PlayEffect(EFFECT_BOWATK, Vector2(this->_mainRect.left, this->_mainRect.top));
 					this->Destroy();
 					break;
 				}
 				this->_isColiArrow = false;
 			}
+
+			//보스일 경우
+			if (boss != nullptr)
+			{
+				RECT temp;
+				if (IntersectRect(&temp, &this->_mainRect, &object->at(i)->GetCollisionRect()))
+				{
+					boss->AttackedDamage(_damage);
+					Effect::PlayEffect(EFFECT_BOWATK, Vector2(this->_mainRect.left, this->_mainRect.top));
+					this->Destroy();
+					break;
+				}
+				this->_isColiArrow = false;
+			}
+
+			
 		}
 	}
 }
 
+//===================================
+//화살 충돌 함수
+//===================================
 void Arrow::Coli()
 {
 	if (_isColiArrow == true)
 	{
-		Effect::PlayEffect(EFFECT_SWORDATK, Vector2(this->_mainRect.left, this->_mainRect.top));
+		Effect::PlayEffect(EFFECT_BOWATK, Vector2(this->_mainRect.left, this->_mainRect.top));
 
 		//충돌한 캐릭터 플레이어를 반대로 밀어주면서 그자리에 머문것처럼 한다.
 		this->_position.x = (this->_mainRect.right - this->_mainRect.left) / 2 + this->_mainRect.left;

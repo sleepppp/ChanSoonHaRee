@@ -7,7 +7,6 @@
 #include "Enemy.h"
 #include "MoveItem.h"
 #include "Inventory.h"
-#include "Arrow.h"
 #include "Effect.h"
 #include "DamageFontManager.h"
 #include "Boss.h"
@@ -59,9 +58,7 @@ void Player::Move(Vector2 direction)
 			//아이템 클래스 형변환으로 오브젝트 i로 불러온다.
 			MoveItem* item = dynamic_cast<MoveItem*>(object->at(i));
 			//에너미 클래스 형변환으로 오브젝트 i로 불러온다.
-			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));		
-			//화살 클래스
-			Arrow* arrow = dynamic_cast<Arrow*>(object->at(i));			
+			Enemy* enemy = dynamic_cast<Enemy*>(object->at(i));				
 
 			//다이나믹 캐스트로 null값이 반환되는 경우
 			//플레이어 몸과 충돌검사
