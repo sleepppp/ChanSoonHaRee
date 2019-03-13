@@ -435,6 +435,7 @@ void Player::Render()
 	_imgAtkBow->SetSize(_size);
 	_imgMove->SetAlpha(_alpha);
 
+	//
 
 	//렌더링: 두개의 이미지를 상황에 맞게 번갈아가면서 사용하도록 조건을 준다.
 	//무기 교체만 하는 상태에도 기본 무브 사용해야 하므로 공격 버튼 누를때만 렌더하도록 다른 조건을 줄 것
