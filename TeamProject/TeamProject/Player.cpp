@@ -142,9 +142,26 @@ void Player::Update()
 		if (_Input->GetKeyDown('I'))
 		{
 			GameObject* _inventory = (Inventory*)_ObjectManager->FindObject(ObjectType::UI, "Inventory");
-			//_isMoveStop = true;
+			
 			if (_inventory->GetActive() == false)
 			{
+				if (_state == Player::State::LeftRun || _state == Player::State::LeftRoll || _state == Player::State::LeftSword1 || _state == Player::State::LeftSword2 || _state == Player::State::LeftBow)
+				{
+					_state = Player::State::LeftIdle;
+				}
+				else if (_state == Player::State::RightRun || _state == Player::State::RightRoll || _state == Player::State::RightSword1 || _state == Player::State::RightSword2 || _state == Player::State::RightBow)
+				{
+					_state = Player::State::RightIdle;
+				}
+				else if (_state == Player::State::UpRun || _state == Player::State::UpRoll || _state == Player::State::UpSword1 || _state == Player::State::UpSword2 || _state == Player::State::UpBow)
+				{
+					_state = Player::State::UpIdle;
+				}
+				else if (_state == Player::State::DownRun || _state == Player::State::DownRoll || _state == Player::State::DownSword1 || _state == Player::State::DownSword2 || _state == Player::State::DownBow)
+				{
+					_state = Player::State::DownIdle;
+				}
+
 				_isMoveStop = !_isMoveStop;
 				_inventory->SetActive(true);
 			} 
@@ -154,57 +171,64 @@ void Player::Update()
 		if (_Input->GetKeyDown('Z'))
 		{
 			_isChangeBow = !_isChangeBow;
-			
-			//테스트용
-			//if (_isChangeBow)cout << "Bow" << endl;
-			//else  if (!_isChangeBow)cout << "Sword" << endl;
 		}
 
-		//if (_isMoveStop == false)			//인벤토리  on/off용
+		//			//인벤토리  on/off용
 		{
-			//&&&&&&공격 무브 OK
 			//상태에 따라 다르게 업데이트
 			switch (_state)
 			{
 			case Player::State::LeftIdle:
-				if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-				else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-				else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-				else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-				else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
-				else if (!_isChangeBow && _Input->GetKey('J')) this->ChangeState(State::LeftSword1);
-				else if (_isChangeBow && _Input->GetKey('J')) this->ChangeState(State::LeftBow);
-				//else if(_Input->GetKeyDown('Z'))
+				if (_isMoveStop == false)
+				{
+					if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+					else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+					else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
+					else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
+					else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
+					else if (!_isChangeBow && _Input->GetKey('J')) this->ChangeState(State::LeftSword1);
+					else if (_isChangeBow && _Input->GetKey('J')) this->ChangeState(State::LeftBow);
+				}
+				
 				break;
 
 			case Player::State::RightIdle:
-				if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-				else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-				else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-				else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-				else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
-				else if (!_isChangeBow && _Input->GetKey('J')) this->ChangeState(State::RightSword1);
-				else if (_isChangeBow && _Input->GetKey('J')) this->ChangeState(State::RightBow);
+				if (_isMoveStop == false)
+				{
+					if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+					else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+					else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
+					else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
+					else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::RightRoll);
+					else if (!_isChangeBow && _Input->GetKey('J')) this->ChangeState(State::RightSword1);
+					else if (_isChangeBow && _Input->GetKey('J')) this->ChangeState(State::RightBow);
+				}
 				break;
 
 			case Player::State::UpIdle:
-				if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-				else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-				else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-				else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-				else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
-				else if (!_isChangeBow&&_Input->GetKey('J')) this->ChangeState(State::UpSword1);
-				else if (_isChangeBow&& _Input->GetKey('J')) this->ChangeState(State::UpBow);
+				if (_isMoveStop == false)
+				{
+					if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+					else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+					else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
+					else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
+					else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::UpRoll);
+					else if (!_isChangeBow&&_Input->GetKey('J')) this->ChangeState(State::UpSword1);
+					else if (_isChangeBow&& _Input->GetKey('J')) this->ChangeState(State::UpBow);
+				}
 				break;
 
 			case Player::State::DownIdle:
-				if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
-				else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
-				else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
-				else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
-				else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
-				else if (!_isChangeBow&&_Input->GetKey('J')) this->ChangeState(State::DownSword1);
-				else if (_isChangeBow&&_Input->GetKey('J')) this->ChangeState(State::DownBow);
+				if (_isMoveStop == false)
+				{
+					if (_Input->GetKey('A')) this->ChangeState(State::LeftRun);
+					else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
+					else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
+					else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
+					else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::DownRoll);
+					else if (!_isChangeBow&&_Input->GetKey('J')) this->ChangeState(State::DownSword1);
+					else if (_isChangeBow&&_Input->GetKey('J')) this->ChangeState(State::DownBow);
+				}
 				break;
 
 			case Player::State::LeftRun:
@@ -472,9 +496,6 @@ void Player::Render()
 /********************************************************************************/
 void Player::ChangeState(State state)
 {
-	//'I'버튼을 누르면 움직이지 않고 멈춤
-	if (_isMoveStop == true) return;
-
 	//현 상태와 동일하다면 실행시키지 않고 빠져나간다
 	if (_state == state) return;
 
@@ -524,22 +545,22 @@ void Player::ChangeState(State state)
 		case Player::State::LeftRoll:
 			_isChangeSword = false;
 			_isStandardMove = true;
-			_SoundManager->Play("will_roll", 1.0f);
+			_SoundManager->Play("will_roll", 0.6f);
 			break;
 		case Player::State::RightRoll:
 			_isChangeSword = false;
 			_isStandardMove = true;
-			_SoundManager->Play("will_roll", 1.0f);
+			_SoundManager->Play("will_roll", 0.6f);
 			break;
 		case Player::State::UpRoll:
 			_isChangeSword = false;
 			_isStandardMove = true;
-			_SoundManager->Play("will_roll", 1.0f);
+			_SoundManager->Play("will_roll", 0.6f);
 			break;
 		case Player::State::DownRoll:
 			_isChangeSword = false;
 			_isStandardMove = true;
-			_SoundManager->Play("will_roll", 1.0f);
+			_SoundManager->Play("will_roll", 0.6f);
 			break;
 			//======================================================
 		case Player::State::LeftSword1:
@@ -547,28 +568,28 @@ void Player::ChangeState(State state)
 			_isAttacked = false;
 			_isStandardMove = false;
 			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //칼 렉트
-			_SoundManager->Play("will_swordAtk", 1.0f);
+			_SoundManager->Play("will_swordAtk", 0.6f);
 			break;
 		case Player::State::RightSword1:
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
 			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight); //칼 렉트 
-			_SoundManager->Play("will_swordAtk", 1.0f);
+			_SoundManager->Play("will_swordAtk", 0.6f);
 			break;
 		case Player::State::UpSword1:
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
 			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth); //칼 렉트
-			_SoundManager->Play("will_swordAtk", 1.0f);
+			_SoundManager->Play("will_swordAtk", 0.6f);
 			break;
 		case Player::State::DownSword1:
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
 			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth); //칼 렉트
-			_SoundManager->Play("will_swordAtk", 1.0f);
+			_SoundManager->Play("will_swordAtk", 0.6f);
 			break;
 			//======================================================
 		case Player::State::LeftSword2:
@@ -576,60 +597,60 @@ void Player::ChangeState(State state)
 			_isAttacked = false;
 			_isStandardMove = false;
 			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x - 40, _position.y, _swordWidth, _swordHeight); //칼 렉트
-			_SoundManager->Play("will_swordAtk", 1.0f);
+			_SoundManager->Play("will_swordAtk", 0.6f);
 			break;
 		case Player::State::RightSword2:
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
 			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x + 40, _position.y, _swordWidth, _swordHeight);  //칼 렉트
-			_SoundManager->Play("will_swordAtk", 1.0f);
+			_SoundManager->Play("will_swordAtk", 0.6f);
 			break;
 		case Player::State::UpSword2:
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
 			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y - 40, _swordHeight, _swordWidth);  //칼 렉트
-			_SoundManager->Play("will_swordAtk", 1.0f);
+			_SoundManager->Play("will_swordAtk", 0.6f);
 			break;
 		case Player::State::DownSword2:
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
 			if (_isChangeSword)this->_swordRect = RectMakeCenter(_position.x, _position.y + 40, _swordHeight, _swordWidth);  //칼 렉트
-			_SoundManager->Play("will_swordAtk", 1.0f);
+			_SoundManager->Play("will_swordAtk", 0.6f);
 			break;
 			//======================================================
 		case Player::State::LeftBow:
 			_isChangeSword = false;
 			_isStandardMove = false;
 			_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Left));
-			_SoundManager->Play("will_bowAtk", 1.0f);
+			_SoundManager->Play("will_bowAtk", 0.6f);
 			break;
 
 		case Player::State::RightBow:
 			_isChangeSword = false;
 			_isStandardMove = false;
 			_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Right));
-			_SoundManager->Play("will_bowAtk", 1.0f);
+			_SoundManager->Play("will_bowAtk", 0.6f);
 			break;
 
 		case Player::State::UpBow:
 			_isChangeSword = false;
 			_isStandardMove = false;
 			_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Up));
-			_SoundManager->Play("will_bowAtk", 1.0f);
+			_SoundManager->Play("will_bowAtk", 0.6f);
 			break;
 
 		case Player::State::DownBow:
 			_isChangeSword = false;
 			_isStandardMove = false;
 			_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Down));
-			_SoundManager->Play("will_bowAtk", 1.0f);
+			_SoundManager->Play("will_bowAtk", 0.6f);
 			break;
 
 		case Player::State::Die:
-			_SoundManager->Play("will_die", 1.0f);
+			_SoundManager->Play("will_die", 0.6f);
 			//_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(WinSizeX / 2, 500)));
 			break;
 
