@@ -13,6 +13,7 @@
 #include "Effect.h"
 #include "Dungeon_Map_02.h"
 #include "Plankton.h"
+#include "DungeonLobby.h"
 //여기서 필요한 리소스 로드 및 클래스 할당하시면 됩니다. 
 //Init은 ㄴㄴ new 하고 ObjectManager에 추가 ㅇㅇ
 
@@ -54,7 +55,9 @@ void Program::LoadResourceChan()
 	***********************/
 	//나뭇가지 이미지
 	_ImageManager->AddImage("item_brench", L"../Resources/Item/item_brench.png", false);
-
+	
+	//골렘 코어 이미지
+	_ImageManager->AddImage("item_golemCore", L"../Resources/Item/item_golemCore.png", false);
 
 
 	/**********************
@@ -80,11 +83,15 @@ void MainScene::ChanInit()
 	_ObjectManager->AddObject(ObjectType::UI, new Inventory);
 	
 	//무브 아이템 등록 및 랜덤한 개수 맵 뿌리기
-	for (UINT i = 0; i < 15; ++i) 
-	{
-		_ObjectManager->AddObject(ObjectType::Object, new MoveItem("brench", Vector2(Math::Random(0, WinSizeX), Math::Random(0, WinSizeY))));
-	}
+	//for (UINT i = 0; i < 15; ++i) 
+	//{
+	//	_ObjectManager->AddObject(ObjectType::Object, new MoveItem("brench", Vector2(Math::Random(0, WinSizeX), Math::Random(0, WinSizeY))));
+	//}
+
+ 	_ObjectManager->AddObject(ObjectType::Object, new MoveItem("item_brench",Vector2(0,0)));
 	
+	//_ObjectManager->AddObject(ObjectType::Object, new MoveItem("item_golemCore", Vector2(0, 2)));
+
 	//UI 무기 스왑 / UI 가방
 	_ObjectManager->AddObject(ObjectType::UI, new UIWeaponAndBag);
 
@@ -180,6 +187,36 @@ void Dungeon_Map_02::ChanInit()
 {
 	//인벤토리 등록
 	_ObjectManager->AddObject(ObjectType::UI, new Inventory);
+
+	//UI 무기 스왑 / UI 가방
+	_ObjectManager->AddObject(ObjectType::UI, new UIWeaponAndBag);
+
+	//UI 프로그래스 바
+	_ObjectManager->AddObject(ObjectType::UI, new ProgressBar);
+
+	//UI 돈 주머니
+	_ObjectManager->AddObject(ObjectType::UI, new UIMoneyPoket);
+
+	//이팩트
+	for (UINT i = 0; i < 30; ++i)
+	{
+		_ObjectManager->AddObject(ObjectType::Effect, new Effect);
+	}
+}
+
+void DungeonLobby::ChanInit()
+{
+	/**********************
+	   오브젝트 매니저 등록
+	***********************/
+	//인벤토리 등록
+	_ObjectManager->AddObject(ObjectType::UI, new Inventory);
+
+	////무브 아이템 등록 및 랜덤한 개수 맵 뿌리기
+	//for (UINT i = 0; i < 70; ++i) 
+	//{
+	//	_ObjectManager->AddObject(ObjectType::Object, new MoveItem("brench", Vector2(Math::Random(0, WinSizeX), Math::Random(0, WinSizeY))));
+	//}
 
 	//UI 무기 스왑 / UI 가방
 	_ObjectManager->AddObject(ObjectType::UI, new UIWeaponAndBag);

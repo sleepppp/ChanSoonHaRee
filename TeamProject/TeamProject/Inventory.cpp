@@ -184,6 +184,17 @@ void Inventory::Init()
 	//인벤토리 플레이어 렉트 생성
 	_invenPlayerRect = Figure::RectMake(_invenPlayerPosition.x, _invenPlayerPosition.y, 290, 290);
 
+
+	//플레이어 사망 시 메시지 받기
+	this->AddCallbackMessage("PlayerDie", [this](TagMessage message)
+	{
+		this->SprayItemPlayer();
+	});
+
+	////테스트용
+	//for (UINT i = 0; i < 200; ++i)
+	//	this->AddItem("brench");
+
 } 
 
 //인벤토리 Release
@@ -416,7 +427,7 @@ void Inventory::Render()
 bool Inventory::AddItem(string name)
 {
 	//만일 아이템 이름이 brench이면
-	if (name == "brench")
+	if (name == "item_brench")
 	{
 		//플레이어 슬롯 사이즈만큼
 		for (UINT i = 0; i < _playerSlotList.size(); ++i)
@@ -466,7 +477,7 @@ bool Inventory::AddItem(string name)
 					_bagSlotList[i]->data.itemDef = 0;
 
 					//아이템 카운트가 10개가 되거나 넘어가면 빈 공간 false 처리
-					if (_bagSlotList[i]->itemCount >= 10) 
+					if (_bagSlotList[i]->itemCount >= 10 ) 
 					{
 						_bagSlotList[i]->isEmpty = false;
 					}
@@ -475,9 +486,64 @@ bool Inventory::AddItem(string name)
 			}
 		}
 	}
-	else if (name == "asdas")
+	if (name == "item_golemCore")
 	{
+		//플레이어 슬롯 사이즈만큼
+		for (UINT i = 0; i < _playerSlotList.size(); ++i)
+		{
+			//플레이어 슬롯 해당 칸이 비어있으면
+			if (_playerSlotList[i]->isEmpty == true)
+			{
+				//플레이어 슬롯 아이템 카운트 증가
+				_playerSlotList[i]->itemCount++;
 
+				//만일 아이템 카운트가 0보다 크다면
+				if (_playerSlotList[i]->itemCount > 0)
+				{
+					//해당 아이템 이미지 찾기
+					_playerSlotList[i]->data.image = _ImageManager->FindImage("item_golemCore");
+					_playerSlotList[i]->data.itemDescription = "골렘의 코어";
+					_playerSlotList[i]->data.itemIndex = i;
+					_playerSlotList[i]->data.itemAtk = 0;
+					_playerSlotList[i]->data.itemDef = 0;
+
+					//아이템 카운트가 5개가 되거나 넘어가면 빈 공간 false 처리
+					if (_playerSlotList[i]->itemCount >= 5)
+					{
+						_playerSlotList[i]->isEmpty = false;
+					}
+				}
+				return true;
+			}
+		}
+
+		//가방 슬롯 사이즈만큼
+		for (UINT i = 0; i < _bagSlotList.size(); ++i)
+		{
+			//가방 슬롯이 비어있으면
+			if (_bagSlotList[i]->isEmpty == true)
+			{
+				//가방 슬롯 아이템 카운트 증가
+				_bagSlotList[i]->itemCount++;
+
+				//만일 아이템 카운트가 0보다 크다면
+				if (_bagSlotList[i]->itemCount > 0)
+				{
+					_bagSlotList[i]->data.image = _ImageManager->FindImage("item_golemCore");
+					_bagSlotList[i]->data.itemDescription = "골렘의 코어";
+					_bagSlotList[i]->data.itemIndex = i;
+					_bagSlotList[i]->data.itemAtk = 0;
+					_bagSlotList[i]->data.itemDef = 0;
+
+					//아이템 카운트가 5개가 되거나 넘어가면 빈 공간 false 처리
+					if (_bagSlotList[i]->itemCount >= 5)
+					{
+						_bagSlotList[i]->isEmpty = false;
+					}
+				}
+				return true;
+			}
+		}
 	}
 
 	return false;

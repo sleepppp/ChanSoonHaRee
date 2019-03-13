@@ -3,13 +3,15 @@
 #include "UIWeaponAndBag.h"
 #include "Inventory.h"
 #include "Player.h"
+#include "Plankton.h"
 MoveItem::MoveItem(string name, Vector2 position)
 {
 	_name = name;
 	_position = position;
 
-	_itemBrenchImg = _ImageManager->FindImage("item_brench");
+	_itemImg = _ImageManager->FindImage(name);
 	_itemShadowImg = _ImageManager->FindImage("Shadow");
+
 
 	_pivot = Pivot::LEFT_TOP;
 	_size = Vector2(50, 50);
@@ -31,7 +33,11 @@ MoveItem::~MoveItem()
 
 void MoveItem::Init()
 {
-	
+	//플레이어 사망 시 메시지 받기
+	this->AddCallbackMessage("EnemyDeath", [this](TagMessage message)
+	{
+		this->SprayItemEnemy();
+	});
 }
 
 void MoveItem::Release()
@@ -40,6 +46,8 @@ void MoveItem::Release()
 
 void MoveItem::Update()
 {
+
+
 
 	GameObject* _player = _ObjectManager->FindObject(ObjectType::Object,"Will");
 
@@ -153,9 +161,12 @@ void MoveItem::Render()
 	}
 	
 	//아이템
-	_itemBrenchImg->Render(_position.x, _position.y, Pivot::LEFT_TOP, true);
+	_itemImg->Render(_position.x, _position.y, Pivot::LEFT_TOP, true);
+
 	if (_isDebug)
 		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::red, true);
+
+
 
 	
 	//렉트 렌더 토글키
@@ -172,3 +183,5 @@ void MoveItem::Render()
 	}
 	
 }
+
+

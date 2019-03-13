@@ -719,11 +719,14 @@
     <ClCompile Include="Boss + SlimeArm.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Inventory+SprayItem.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Player + Ani.cpp">
       <Filter>PrivateForder\Ree</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory+SprayItem.cpp">
+      <Filter>PrivateForder\Chan\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveItem + SprayItem.cpp">
+      <Filter>PrivateForder\Chan\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
