@@ -82,18 +82,18 @@ DungeonGate::DungeonGate()
 	});
 	_renderInfoList.insert(make_pair(State::Exit, exitInfo));
 
-	this->ChangeState((State)_Database->GetIntData("GateState"));
-	_Database->AddIntData("GateState", (int)_state);
-
 	this->AddCallbackMessage("PlaySound", [this](TagMessage message) 
 	{
 		_SoundManager->Play("dungeon_entrance_slime_door_spit");
 	});
+
+	this->ChangeState((State)_Database->GetIntData("GateState"));
 }
 
 
 DungeonGate::~DungeonGate()
 {
+	_Database->AddIntData("GateState", (int)_state);
 }
 
 void DungeonGate::Init()
@@ -203,6 +203,7 @@ void DungeonGate::ChangeState(State state)
 		_size.y = _mainImage->GetFrameSize(0).y;
 		_LightingSystem->ChangeState(LightSystem::State::Evening);
 		this->SendCallbackMessage(TagMessage("PlaySound", 0.8f));
+		
 		break;
 	default:
 		break;
