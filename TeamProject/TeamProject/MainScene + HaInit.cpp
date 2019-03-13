@@ -80,6 +80,8 @@ void Program::LoadResourceHa()
 	//====================================사운드=====================================//
 	_SoundManager->AddSound("golemHit", "../Sounds/golem_hit.wav", false, false);
 	_SoundManager->AddSound("enemyDeath", "../Sounds/enemy_death.wav", false, false);
+	_SoundManager->AddSound("GolemKingRoom", "../Sounds/GolemKingRoom.mp3", false, false);
+	_SoundManager->AddSound("Weeds_Hit", "../Sounds/weed_hit.wav", false, false);
 }
 //여기서 필요한 리소스 로드 및 클래스 할당하시면 됩니다. 
 //Init은 ㄴㄴ new 하고 ObjectManager에 추가 ㅇㅇ
@@ -94,7 +96,7 @@ void Dungeon_Map_01::HaInit()
 {
 	_ObjectManager->AddObject(ObjectType::Object, new Golem(Vector2(100, 100)));
 	//_ObjectManager->AddObject(ObjectType::Object, new Golem(Vector2(400, 100)));
-	//_ObjectManager->AddObject(ObjectType::Object, new Weeds(Vector2(300, 400)));
+	_ObjectManager->AddObject(ObjectType::Object, new Weeds(Vector2(300, 400)));
 	//_ObjectManager->AddObject(ObjectType::Object, new Weeds(Vector2(700, 500)));
 }
 

@@ -163,7 +163,6 @@ void Boss::Render()
 void Boss::ChangeState(StateType state)
 {
 	//현제 상태와 바꿀 상태가 같다면 이 함수를 빠져나가라.
-	//멍충아
 	if (_state == state)
 		return;
 	//그게 아니라면 상태를 바꿔라.
@@ -632,6 +631,7 @@ void Boss::AttackedDamage(int damage)
 	}
 	else
 	{
+		_SoundManager->Play("golemHit", 1.0f);
 		_Camera->Shake(2.0f, 0.8f);
 		_isAttacked = true;
 	}

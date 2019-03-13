@@ -30,6 +30,7 @@ void Dungeon_Map_Boss::Init()
 	_Camera->SetMapSize(Vector2((float)_map->GetWidth(), (float)_map->GetHeight()));
 	_Camera->InitCameraToPlayer();
 	_LightingSystem->ChangeState(LightSystem::State::Afternoon);
+	_SoundManager->Play("GolemKingRoom", 0.5f);
 }
 
 void Dungeon_Map_Boss::Release()

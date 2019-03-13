@@ -3,7 +3,7 @@
 #include "Image.h"
 #include "Player.h"
 #include "MoveItem.h"
-
+#include "Effect.h"
 
 Weeds::Weeds(Vector2 pos)
 {
@@ -155,6 +155,8 @@ void Weeds::Move()
 
 	if (_attacked)
 	{
+		
+
 		_attackTime++;
 		if (_attackTime > 100)
 		{
@@ -189,4 +191,39 @@ void Weeds::Move()
 void Weeds::InvenStop(bool stop)
 {
 	_isStop = stop;
+}
+
+void Weeds::AttackedDemege(int damage)
+{
+	_SoundManager->Play("Weeds_Hit", 0.6f);
+	//누나가 데미지를 넘겨주면 데미지만큼 내 체력을 깎는다.
+	_hp -= damage;
+	//hp가 0보다 작거나 같으면
+	if (_hp <= 0)
+	{
+		//카메라 흔들기
+		_Camera->Shake();
+
+		//이팩트 : 폭발
+		Effect::PlayEffect(EFFECT_BOOM, _position);
+
+		_SoundManager->Play("enemyDeath", 1.0f);
+		//사라져라. 다른 죽는 모션이 존재할 경우 가상함수 상속을 통해서 내용을 바꿀 수도 있다.
+		this->Destroy();
+	}
+	//죽지 않았다면
+	else
+	{
+		//피격을 당했다는 변수를 트루로 만들어 주고
+		_attacked = true;
+
+		//카메라 흔들기
+		_Camera->Shake();
+
+		//데미지 폰트 출력용
+		_DamageFontManager->ShowDamage(_position, damage);
+
+		//뒤로 밀려난다. 플레이어의 앵글을 먼저 넣어주면 기존에 추격하면 방향에서 반대로 앵글값이 나오므로 반대방향으로 밀러날 수 있다.
+		this->_attackedAngle = Math::GetAngle(_player->GetPosition().x, _player->GetPosition().y, _position.x, _position.y);
+	}
 }
