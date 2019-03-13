@@ -14,9 +14,8 @@ class MoveItem : public GameObject
 private:
 	ItemState _itemState;	//아이템 상태 변수 선언
 
-	Image* _itemBrenchImg;
+	Image* _itemImg;
 	Image* _itemShadowImg;
-	
 
 	int _moveCount;
 
@@ -33,6 +32,6 @@ public:
 	void Render()override;
 
 
-
+	void SprayItemEnemy();	//에너미 아이템 뿌리기 함수
 };
 

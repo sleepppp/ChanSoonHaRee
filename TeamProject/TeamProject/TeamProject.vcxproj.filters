@@ -725,6 +725,9 @@
     <ClCompile Include="Inventory+SprayItem.cpp">
       <Filter>PrivateForder\Chan\Inventory</Filter>
     </ClCompile>
+    <ClCompile Include="MoveItem + SprayItem.cpp">
+      <Filter>PrivateForder\Chan\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TeamProject.rc">

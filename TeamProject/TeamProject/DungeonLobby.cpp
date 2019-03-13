@@ -42,10 +42,6 @@ void DungeonLobby::Render()
 	_ObjectManager->Render();
 }
 
-void DungeonLobby::ChanInit()
-{
-}
-
 void DungeonLobby::HaInit()
 {
 }

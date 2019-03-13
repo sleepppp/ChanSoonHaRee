@@ -114,5 +114,6 @@ public:
 	}
 
 	void SprayItemPlayer();						//아이템 뿌리기 함수
+
 };
 

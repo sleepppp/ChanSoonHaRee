@@ -344,6 +344,7 @@
     <ClCompile Include="Weeds.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Inventory+SprayItem.cpp" />
+    <ClCompile Include="MoveItem + SprayItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TeamProject.rc" />
