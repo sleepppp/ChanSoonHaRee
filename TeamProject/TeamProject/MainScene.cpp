@@ -26,6 +26,7 @@ void MainScene::Release()
 void MainScene::Update()
 {
 	_ObjectManager->Update();
+
 }
 
 void MainScene::Render()

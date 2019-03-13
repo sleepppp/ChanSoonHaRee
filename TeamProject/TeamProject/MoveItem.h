@@ -30,8 +30,5 @@ public:
 	void Release()override;
 	void Update()override;
 	void Render()override;
-
-
-	void SprayItemEnemy();	//에너미 아이템 뿌리기 함수
 };
 

@@ -33,11 +33,6 @@ MoveItem::~MoveItem()
 
 void MoveItem::Init()
 {
-	//플레이어 사망 시 메시지 받기
-	this->AddCallbackMessage("EnemyDeath", [this](TagMessage message)
-	{
-		this->SprayItemEnemy();
-	});
 }
 
 void MoveItem::Release()
