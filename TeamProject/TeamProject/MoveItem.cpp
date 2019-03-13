@@ -41,9 +41,6 @@ void MoveItem::Release()
 
 void MoveItem::Update()
 {
-
-
-
 	GameObject* _player = _ObjectManager->FindObject(ObjectType::Object,"Will");
 
 	//상태가 따라가기 상태이면

@@ -12,7 +12,6 @@ class ProgressBar :	public GameObject
 
 private:
 	
-
 	//이미지 클래스 선언 - 프로그래스바
 	class Image* _progressBarBackIMG;
 	class Image* _progressBarFrontIMG;

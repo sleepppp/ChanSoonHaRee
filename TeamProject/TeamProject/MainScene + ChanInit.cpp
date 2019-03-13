@@ -37,8 +37,13 @@ void Program::LoadResourceChan()
 
 	//UI 하트
 	_ImageManager->AddImage("heart", L"../Resources/UI/heart.png", false);
+	
+	//UI PLAYER HP 프로그래스 바
+	_ImageManager->AddFrameImage("hpBar1", L"../Resources/UI/hpBar.png", 1, 6, false);
+	_ImageManager->AddFrameImage("hpBar2", L"../Resources/UI/hpBar.png", 1, 6, false);
 
-
+	//UI BOSS HP 프로그래스 바
+	_ImageManager->AddFrameImage("bossHpBar", L"../Resources/UI/bossHpBar.png", 1, 5, false);
 
 	/**********************
 			이팩트
