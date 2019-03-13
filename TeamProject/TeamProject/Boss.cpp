@@ -54,7 +54,7 @@ Boss::Boss()
 
 	//초기 상태값은 보스가 움직이지 않아야 하니까 가만히 있는 상태를 만들어준다.
 	_state = StateType::Create;
-	this->ChangeState(StateType::Fist_Shoot_First);
+	this->ChangeState(StateType::Idle);
 }
 
 
@@ -631,6 +631,7 @@ void Boss::Dead()
 	//스킬을쓰는 도중에 체력이 0이나 0이하라면
 	if (_hp <= 0)
 	{
+		_Camera->Shake(10.0f, 7.0f);
 		//죽는상태로 넘겨라.
 		this->ChangeState(StateType::Dead);
 	}

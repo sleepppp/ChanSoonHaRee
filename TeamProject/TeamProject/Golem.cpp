@@ -72,7 +72,7 @@ void Golem::Init()
 
 void Golem::Release()
 {
-
+	//
 }
 
 void Golem::Update()

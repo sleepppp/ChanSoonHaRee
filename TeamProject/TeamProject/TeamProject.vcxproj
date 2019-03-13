@@ -171,6 +171,7 @@
     <ClInclude Include="FrameObject.h" />
     <ClInclude Include="LightParticle.h" />
     <ClInclude Include="LightParticleSystem.h" />
+    <ClInclude Include="NpcKids.h" />
     <ClInclude Include="OilLamp.h" />
     <ClInclude Include="OilLampLight.h" />
     <ClInclude Include="Plankton.h" />
@@ -267,6 +268,7 @@
     <ClCompile Include="FrameObject.cpp" />
     <ClCompile Include="LightParticle.cpp" />
     <ClCompile Include="LightParticleSystem.cpp" />
+    <ClCompile Include="NpcKids.cpp" />
     <ClCompile Include="OilLamp.cpp" />
     <ClCompile Include="OilLampLight.cpp" />
     <ClCompile Include="Plankton.cpp" />
