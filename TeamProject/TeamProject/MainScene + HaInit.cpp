@@ -52,8 +52,8 @@ void Program::LoadResourceHa()
 	_ImageManager->AddFrameImage("hand_Red", L"../Resources/Enemy/Boss/hand_Red.png", 19, 1, true);
 	_ImageManager->AddFrameImage("hand_White", L"../Resources/Enemy/Boss/hand_White.png", 19, 1, true);
 	//2번스킬 보스 이미지 피격
-	_ImageManager->AddFrameImage("Rock_Shoot_Red", L"../Resources/Enemy/Boss/Rock_Shoot_Red.png", 32, 1, true);
-	_ImageManager->AddFrameImage("Rock_Shoot_White", L"../Resources/Enemy/Boss/Rock_Shoot_White.png", 32, 1, true);
+	_ImageManager->AddFrameImage("Rock_Shoot_Red", L"../Resources/Enemy/Boss/rockShoot_Red.png", 32, 1, true);
+	_ImageManager->AddFrameImage("Rock_Shoot_White", L"../Resources/Enemy/Boss/rockShoot_White.png", 32, 1, true);
 	//3번스킬 보스 이미지 피격
 	_ImageManager->AddFrameImage("FistShoot_Red", L"../Resources/Enemy/Boss/FistShoot_Red.png", 22, 3, true);
 	_ImageManager->AddFrameImage("FistShoot_White", L"../Resources/Enemy/Boss/FistShoot_White.png", 22, 3, true);
