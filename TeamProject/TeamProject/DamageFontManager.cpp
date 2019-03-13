@@ -31,7 +31,6 @@ void DamageFontManager::Render()
 			StringHelper::StringToWString(to_string(_vDamageFont[i].damage)),
 			RGB(25, 42, 225), _vDamageFont[i].alpha, 22, DWRITE_TEXT_ALIGNMENT_LEADING, true,L"Cooper Std");
 	}
-
 }
 
 void DamageFontManager::ShowDamage(Vector2 position, int damage)

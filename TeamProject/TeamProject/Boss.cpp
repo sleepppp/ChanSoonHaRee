@@ -4,6 +4,8 @@
 #include "Animation.h"
 #include "Player.h"
 #include "Rock.h"
+#include "BossEffect.h"
+#include "StringHelper.h"
 Boss::Boss()
 {
 	//보스의 몸통을 생성할 기본적인 골격들
@@ -103,9 +105,14 @@ void Boss::Update()
 
 void Boss::Render()
 {
-	
+
+	//죽음 상태가 아닐 때
 	if (_state != StateType::Dead)
 	{
+		//골렘 이름 텍스트 렌더
+		_DXRenderer->RenderText(WinSizeX / 2 - 70, WinSizeY / 2 + 200, StringHelper::StringToWString("GOLEM KING"),
+			RGB(255, 255, 255), 1.0f, 25.f, DWRITE_TEXT_ALIGNMENT_LEADING, false, L"Cooper Std");
+
 		_shadowScale = 1.4f - (_distance * 0.007f);
 		if (_shadowScale < 0.5f)
 		{
@@ -220,6 +227,9 @@ void Boss::UpdateState()
 		{
 			//손날리는 공격의 시작으로 넘겨라.
 			ChangeState(StateType::Hand_Shoot_First);
+
+			//보스 : 카메라 흔들기 연출
+			_Camera->Shake(9.5f, 1.0f);
 		}
 		break;
 	case Boss::StateType::Dead:

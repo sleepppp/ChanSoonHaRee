@@ -153,6 +153,7 @@
     <ClInclude Include="BigSlime.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Arrow.h" />
+    <ClInclude Include="BossEffect.h" />
     <ClInclude Include="BossProgressBar.h" />
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="DamageFontManager.h" />
@@ -250,6 +251,7 @@
     <ClCompile Include="Boss + SlimeArm.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Arrow.cpp" />
+    <ClCompile Include="BossEffect.cpp" />
     <ClCompile Include="BossProgressBar.cpp" />
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="DamageFontManager.cpp" />

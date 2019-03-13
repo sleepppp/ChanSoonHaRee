@@ -10,9 +10,6 @@
 //Æø¹ß ÀÌÆÑÆ®
 #define EFFECT_BOOM "boomEffect"
 
-//º¸½º ½ºÅ©·Ñ ÀÌÆÑÆ®
-#define EFFECT_BOSSSCROLL "bossScrollEffect"
-
 class Effect : public GameObject
 {
 private:

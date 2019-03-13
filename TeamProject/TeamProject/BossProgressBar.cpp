@@ -69,6 +69,10 @@ void BossProgressBar::Render()
 {
 	//보스 프로그래스 바 이미지 크기
 	_bossProgressBarImg->SetSize(Vector2(_hpWidth * 1.6f, 45.f));
+
+	//보스 프로그래스 바 알파 값
+	_bossProgressBarImg->SetAlpha(0.7f);
+
 	//보스 프로그래스바 바 프레임 렌더
 	_bossProgressBarImg->FrameRender(_mainRect.left, _mainRect.top, _imgFrameX, _imgFrameY, Pivot::LEFT_TOP, false);
 }

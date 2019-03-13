@@ -468,6 +468,9 @@
     <ClInclude Include="BossProgressBar.h">
       <Filter>PrivateForder\Chan\ProgressBar\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="BossEffect.h">
+      <Filter>PrivateForder\Chan\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -766,6 +769,9 @@
     </ClCompile>
     <ClCompile Include="BossProgressBar.cpp">
       <Filter>PrivateForder\Chan\ProgressBar\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BossEffect.cpp">
+      <Filter>PrivateForder\Chan\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
