@@ -68,7 +68,7 @@ void BossProgressBar::Update()
 void BossProgressBar::Render()
 {
 	//보스 프로그래스 바 이미지 크기
-	_bossProgressBarImg->SetSize(Vector2(_hpWidth * 1.0f, 45.f));
+	_bossProgressBarImg->SetSize(Vector2(_hpWidth * 1.6f, 45.f));
 	//보스 프로그래스바 바 프레임 렌더
 	_bossProgressBarImg->FrameRender(_mainRect.left, _mainRect.top, _imgFrameX, _imgFrameY, Pivot::LEFT_TOP, false);
 }
@@ -83,7 +83,7 @@ bool BossProgressBar::SetGauge(int currentHp, int maxHp)
 	if (FLOAT_EQUAL(_saveHp, _boss->GetBossCurrentHp()) == false)
 	{
 		//saveHp를 깎는다.
-		_saveHp -= 25.0f * _TimeManager->DeltaTime();
+		_saveHp -= 60.0f * _TimeManager->DeltaTime();
 		_bossProgressState = BossProgressState::DamageState;
 
 		if (_saveHp <= _boss->GetBossCurrentHp())
@@ -111,12 +111,12 @@ void BossProgressBar::BossProgressBarState()
 	{
 		//맞은 상태 - 프로그래스 바
 	case BossProgressBar::BossProgressState::DamageState:
-		_imgFrameY = 2;
+		_imgFrameY = 1;
 		break;
 		//맞은 상태 종료 - 프로그래스 바
 	case BossProgressBar::BossProgressState::DamageEndState:
 		//프레임 카운트는 시간 적용
-		_frameCount += 16.f * _TimeManager->DeltaTime();
+		_frameCount += 35.f * _TimeManager->DeltaTime();
 
 		//프레임 카운트가 1초보다 같거나 높아지면
 		if (_frameCount >= 1.f)
@@ -129,15 +129,15 @@ void BossProgressBar::BossProgressBarState()
 			//프레임 Y가 4보다 커지면
 			if (_imgFrameY > 4)
 			{
-				//프레임 Y는 1로 초기화
-				_imgFrameY = 1;
+				//프레임 Y는 0로 초기화
+				_imgFrameY = 0;
 				_bossProgressState = BossProgressState::DefaultState;
 			}
 		}
 		break;
 		//디폴트 상태 - 프로그래스 바
 	case BossProgressBar::BossProgressState::DefaultState:
-		_imgFrameY = 1;
+		_imgFrameY = 0;
 		break;
 	case BossProgressBar::BossProgressState::End:
 

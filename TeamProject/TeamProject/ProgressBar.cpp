@@ -94,7 +94,7 @@ bool ProgressBar::SetGauge(int currentHp, int maxHp)
 	if (FLOAT_EQUAL(_saveHp, _player->GetPlayerCurrentHp()) == false)
 	{
 		//saveHp를 깎는다.
-		_saveHp -= 13.0f * _TimeManager->DeltaTime();
+		_saveHp -= 25.0f * _TimeManager->DeltaTime();
 		_barState = ProgressState::DamageState;
 
 		if (_saveHp <= _player->GetPlayerCurrentHp())
@@ -128,7 +128,7 @@ void ProgressBar::ProgressBarState()
 	//맞은 상태 종료 - 프로그래스 바
 	case ProgressBar::ProgressState::DamageEndState:
 		//프레임 카운트는 시간 적용
-		_frameCount += 16.f * _TimeManager->DeltaTime();
+		_frameCount += 35.f * _TimeManager->DeltaTime();
 		
 		//프레임 카운트가 1초보다 같거나 높아지면
 		if (_frameCount >= 1.f)

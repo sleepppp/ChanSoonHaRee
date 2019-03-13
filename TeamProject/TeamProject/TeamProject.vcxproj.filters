@@ -184,6 +184,12 @@
     <Filter Include="PrivateForder\Ha\Enemy\Weeds">
       <UniqueIdentifier>{b3d7532e-c8a9-47f8-a2ef-5f32d7fa6481}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PrivateForder\Chan\ProgressBar\Player">
+      <UniqueIdentifier>{42f8175a-167a-4e8a-9c43-cfdd1aef3920}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrivateForder\Chan\ProgressBar\Boss">
+      <UniqueIdentifier>{61342b1f-43c1-4a9a-aa47-ce6261634803}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -372,9 +378,6 @@
     <ClInclude Include="MoveItem.h">
       <Filter>PrivateForder\Chan\Item</Filter>
     </ClInclude>
-    <ClInclude Include="ProgressBar.h">
-      <Filter>PrivateForder\Chan\ProgressBar</Filter>
-    </ClInclude>
     <ClInclude Include="UIWeaponAndBag.h">
       <Filter>PrivateForder\Chan\UI</Filter>
     </ClInclude>
@@ -458,6 +461,12 @@
     </ClInclude>
     <ClInclude Include="NpcKids.h">
       <Filter>PrivateForder\Ha</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressBar.h">
+      <Filter>PrivateForder\Chan\ProgressBar\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="BossProgressBar.h">
+      <Filter>PrivateForder\Chan\ProgressBar\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -647,9 +656,6 @@
     <ClCompile Include="MoveItem.cpp">
       <Filter>PrivateForder\Chan\Item</Filter>
     </ClCompile>
-    <ClCompile Include="ProgressBar.cpp">
-      <Filter>PrivateForder\Chan\ProgressBar</Filter>
-    </ClCompile>
     <ClCompile Include="UIWeaponAndBag.cpp">
       <Filter>PrivateForder\Chan\UI</Filter>
     </ClCompile>
@@ -754,6 +760,12 @@
     </ClCompile>
     <ClCompile Include="NpcKids.cpp">
       <Filter>PrivateForder\Ha</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressBar.cpp">
+      <Filter>PrivateForder\Chan\ProgressBar\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="BossProgressBar.cpp">
+      <Filter>PrivateForder\Chan\ProgressBar\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

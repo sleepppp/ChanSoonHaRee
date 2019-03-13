@@ -12,6 +12,7 @@ Boss::Boss()
 	this->_size = Vector2(700, 700);		//크기
 	this->_pivot = Pivot::CENTER;			//중심위치
 	this->_hp = 800;						//체력
+	this->_maxHp = 800;						//최대 체력
 	this->_speed = 300.0f;					//속도
 	this->_damage = 25;						//공격력
 	this->_distance = 0.f;					//직선거리 (나중에 넣을거고 코드만짜려고)
