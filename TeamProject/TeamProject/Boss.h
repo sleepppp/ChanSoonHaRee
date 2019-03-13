@@ -57,6 +57,7 @@ private:
 #pragma endregion	
 
 	int _hp;					//체력이 있어야 할 거고
+	int _maxHp;					//보스 맥스 HP
 	int _damage;				//플레이어를 공격해야하니까 데미지도 있을 것이고,
 	float _speed;				//각 공격들은 속도를 가져야하니까 속도도 들어가겠지 뭐
 	float _mainSpeed;
@@ -164,6 +165,12 @@ public:
 	void Release()override;
 	void Update()override;
 	void Render()override;
+
+	//보스 현재 체력 GET함수
+	int GetBossCurrentHp() { return _hp; }
+
+	//보스 최대 체력 GET함수
+	int GetBossMaxHp() { return _maxHp; }
 
 public:
 	Boss();

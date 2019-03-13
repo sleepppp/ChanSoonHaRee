@@ -860,6 +860,7 @@ void Player::CreateAnimation()
 //해당 상태 종료 후 변경할 상태 
 void Player::EndAnimation()
 {
+	const vector<GameObject*>* objec = nullptr;
 	switch (_state)
 	{
 	case Player::State::LeftIdle:
@@ -948,7 +949,7 @@ void Player::EndAnimation()
 
 	case Player::State::Die:
 	{
-		const vector<GameObject*>* objec = _ObjectManager->GetObjectListPointer(ObjectType::UI);
+		objec = _ObjectManager->GetObjectListPointer(ObjectType::UI);
 		for (UINT i = 0; i < objec->size(); ++i)
 		{
 			objec->at(i)->SendCallbackMessage(TagMessage("PlayerDie"));

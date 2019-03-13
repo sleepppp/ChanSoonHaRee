@@ -14,6 +14,8 @@
 #include "Dungeon_Map_02.h"
 #include "Plankton.h"
 #include "DungeonLobby.h"
+#include "BossProgressBar.h"
+#include "BossEffect.h"
 //여기서 필요한 리소스 로드 및 클래스 할당하시면 됩니다. 
 //Init은 ㄴㄴ new 하고 ObjectManager에 추가 ㅇㅇ
 
@@ -37,8 +39,13 @@ void Program::LoadResourceChan()
 
 	//UI 하트
 	_ImageManager->AddImage("heart", L"../Resources/UI/heart.png", false);
+	
+	//UI PLAYER HP 프로그래스 바
+	_ImageManager->AddFrameImage("hpBar1", L"../Resources/UI/hpBar.png", 1, 6, false);
+	_ImageManager->AddFrameImage("hpBar2", L"../Resources/UI/hpBar.png", 1, 6, false);
 
-
+	//UI BOSS HP 프로그래스 바
+	_ImageManager->AddFrameImage("bossHpBar", L"../Resources/UI/bossHpBar.png", 1, 5, false);
 
 	/**********************
 			이팩트
@@ -49,6 +56,9 @@ void Program::LoadResourceChan()
 	_ImageManager->AddFrameImage("boomEffect", L"../Resources/Effect/fx_boom.png", 10, 1, false);
 	//활 공격 이팩트
 	_ImageManager->AddFrameImage("bowAtkEffect", L"../Resources/Effect/fx_hit_bow.png", 3, 1, false);
+	//보스 스크롤 이팩트
+	_ImageManager->AddFrameImage("bossScrollEffect", L"../Resources/Effect/fx_BossScroll.png", 17, 1, false);
+
 
 	/**********************
 			아이템
@@ -171,7 +181,15 @@ void Dungeon_Map_Boss::ChanInit()
 	{
 		_ObjectManager->AddObject(ObjectType::Effect, new Effect);
 	}
+
+	//UI 보스 프로그래스 바
+	_ObjectManager->AddObject(ObjectType::UI, new BossProgressBar);
+
+	//보스 스크롤 이팩트
+	_ObjectManager->AddObject(ObjectType::Effect, new BossEffect);
 }
+
+
 
 void Dungeon_Map_02::ChanInit()
 {

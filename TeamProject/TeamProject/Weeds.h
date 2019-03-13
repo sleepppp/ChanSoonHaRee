@@ -23,6 +23,7 @@ public:
 	void Collision();
 	void Move();
 	void InvenStop(bool stop);
+	void AttackedDemege(int damage)override;
 public:
 	Weeds(Vector2 pos);
 	~Weeds();

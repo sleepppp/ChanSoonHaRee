@@ -193,7 +193,7 @@ void Inventory::Init()
 
 	////테스트용
 	//for (UINT i = 0; i < 200; ++i)
-	//	this->AddItem("brench");
+	//	this->AddItem("item_brench");
 
 } 
 

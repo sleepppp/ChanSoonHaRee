@@ -153,6 +153,8 @@
     <ClInclude Include="BigSlime.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Arrow.h" />
+    <ClInclude Include="BossEffect.h" />
+    <ClInclude Include="BossProgressBar.h" />
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="DamageFontManager.h" />
     <ClInclude Include="Database.h" />
@@ -170,6 +172,7 @@
     <ClInclude Include="FrameObject.h" />
     <ClInclude Include="LightParticle.h" />
     <ClInclude Include="LightParticleSystem.h" />
+    <ClInclude Include="NpcKids.h" />
     <ClInclude Include="OilLamp.h" />
     <ClInclude Include="OilLampLight.h" />
     <ClInclude Include="Plankton.h" />
@@ -248,6 +251,8 @@
     <ClCompile Include="Boss + SlimeArm.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Arrow.cpp" />
+    <ClCompile Include="BossEffect.cpp" />
+    <ClCompile Include="BossProgressBar.cpp" />
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="DamageFontManager.cpp" />
     <ClCompile Include="Database.cpp" />
@@ -265,6 +270,7 @@
     <ClCompile Include="FrameObject.cpp" />
     <ClCompile Include="LightParticle.cpp" />
     <ClCompile Include="LightParticleSystem.cpp" />
+    <ClCompile Include="NpcKids.cpp" />
     <ClCompile Include="OilLamp.cpp" />
     <ClCompile Include="OilLampLight.cpp" />
     <ClCompile Include="Plankton.cpp" />

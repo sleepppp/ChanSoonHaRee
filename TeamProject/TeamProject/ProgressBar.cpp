@@ -14,8 +14,8 @@ ProgressBar::~ProgressBar()
 void ProgressBar::Init()
 {
 	//HP바 이미지 프레임렌더
-	_progressBarBackIMG = _ImageManager->AddFrameImage("hpBar1", L"../Resources/UI/hpBar.png", 1, 6, false);
-	_progressBarFrontIMG = _ImageManager->AddFrameImage("hpBar2", L"../Resources/UI/hpBar.png", 1, 6, false);
+	_progressBarBackIMG = _ImageManager->FindImage("hpBar1");
+	_progressBarFrontIMG = _ImageManager->FindImage("hpBar2");
 
 	//하트 이미지 렌더
 	_heartIMG = _ImageManager->AddImage("heart", L"../Resources/UI/heart.png", false);
@@ -32,19 +32,12 @@ void ProgressBar::Init()
 	_imgFrameX = 0;
 	_imgFrameY = 1;
 
-	//_testMaxHp = 100;
-	//_testCurrentHp = 100;
-
 	//세이브 hp 는 currentHp;
 	Player* _player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
 	_saveHp = _player->GetPlayerMaxHp();
-	//_saveHp = _testMaxHp; 
 
+	//디폴트 상태
 	_barState = ProgressState::DefaultState;
-
-	//테스트용 인자 초기화
-	//_testCurrentHp = 50;
-	//_testMaxHp = 100;
 
 	SetGauge(_player->GetPlayerCurrentHp(), _player->GetPlayerMaxHp());
 	this->_hpWidth = ((float)_saveHp / (float)_player->GetPlayerMaxHp()) * (float)_progressBarFrontIMG->GetWidth();
@@ -64,21 +57,9 @@ void ProgressBar::Update()
 	//플레이어 클래스 접근해서 플레이어 함수 가져오기
 	Player* _player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
 
-	//세이브 HP에 현재 HP에 담기
-	//_saveHp = _player->GetPlayerCurrentHp();
-
-	//if (_Input->GetKeyDown('P'))
-	//{
-	//	//플레이어 클래스 접근해서 플레이어 함수 가져오기
-	//	Player* _player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
-	//
-	//	_player->GetPlayerCurrentHp() -= 20;
-	//}
-
 
 	//변화한 HP바 길이 얻기
 	SetGauge(_player->GetPlayerCurrentHp(), _player->GetPlayerMaxHp());
-	//SetGauge(_testCurrentHp, _testMaxHp);
 
 	//프로그래스 바 상태 함수
 	ProgressBarState();
@@ -113,14 +94,8 @@ bool ProgressBar::SetGauge(int currentHp, int maxHp)
 	if (FLOAT_EQUAL(_saveHp, _player->GetPlayerCurrentHp()) == false)
 	{
 		//saveHp를 깎는다.
-		_saveHp -= 13.0f * _TimeManager->DeltaTime();
+		_saveHp -= 25.0f * _TimeManager->DeltaTime();
 		_barState = ProgressState::DamageState;
-		//만일 saveHp가 currentHp와 같거나 낮아지면 saveHp를 currentHp 값으로 맞춘다.
-		//if (_saveHp <= _testCurrentHp) 
-		//{
-		//	_saveHp = _testCurrentHp;
-		//	_barState = ProgressState::DamageEndState;
-		//}
 
 		if (_saveHp <= _player->GetPlayerCurrentHp())
 		{
@@ -153,7 +128,7 @@ void ProgressBar::ProgressBarState()
 	//맞은 상태 종료 - 프로그래스 바
 	case ProgressBar::ProgressState::DamageEndState:
 		//프레임 카운트는 시간 적용
-		_frameCount += 16.f * _TimeManager->DeltaTime();
+		_frameCount += 35.f * _TimeManager->DeltaTime();
 		
 		//프레임 카운트가 1초보다 같거나 높아지면
 		if (_frameCount >= 1.f)

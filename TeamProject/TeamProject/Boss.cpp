@@ -4,6 +4,8 @@
 #include "Animation.h"
 #include "Player.h"
 #include "Rock.h"
+#include "BossEffect.h"
+#include "StringHelper.h"
 Boss::Boss()
 {
 	//보스의 몸통을 생성할 기본적인 골격들
@@ -12,6 +14,7 @@ Boss::Boss()
 	this->_size = Vector2(700, 700);		//크기
 	this->_pivot = Pivot::CENTER;			//중심위치
 	this->_hp = 800;						//체력
+	this->_maxHp = 800;						//최대 체력
 	this->_speed = 300.0f;					//속도
 	this->_damage = 25;						//공격력
 	this->_distance = 0.f;					//직선거리 (나중에 넣을거고 코드만짜려고)
@@ -54,7 +57,7 @@ Boss::Boss()
 
 	//초기 상태값은 보스가 움직이지 않아야 하니까 가만히 있는 상태를 만들어준다.
 	_state = StateType::Create;
-	this->ChangeState(StateType::Fist_Shoot_First);
+	this->ChangeState(StateType::Idle);
 }
 
 
@@ -102,9 +105,14 @@ void Boss::Update()
 
 void Boss::Render()
 {
-	
+
+	//죽음 상태가 아닐 때
 	if (_state != StateType::Dead)
 	{
+		//골렘 이름 텍스트 렌더
+		_DXRenderer->RenderText(WinSizeX / 2 - 70, WinSizeY / 2 + 200, StringHelper::StringToWString("GOLEM KING"),
+			RGB(255, 255, 255), 1.0f, 25.f, DWRITE_TEXT_ALIGNMENT_LEADING, false, L"Cooper Std");
+
 		_shadowScale = 1.4f - (_distance * 0.007f);
 		if (_shadowScale < 0.5f)
 		{
@@ -155,7 +163,6 @@ void Boss::Render()
 void Boss::ChangeState(StateType state)
 {
 	//현제 상태와 바꿀 상태가 같다면 이 함수를 빠져나가라.
-	//멍충아
 	if (_state == state)
 		return;
 	//그게 아니라면 상태를 바꿔라.
@@ -219,6 +226,9 @@ void Boss::UpdateState()
 		{
 			//손날리는 공격의 시작으로 넘겨라.
 			ChangeState(StateType::Hand_Shoot_First);
+
+			//보스 : 카메라 흔들기 연출
+			_Camera->Shake(9.5f, 1.0f);
 		}
 		break;
 	case Boss::StateType::Dead:
@@ -621,6 +631,7 @@ void Boss::AttackedDamage(int damage)
 	}
 	else
 	{
+		_SoundManager->Play("golemHit", 1.0f);
 		_Camera->Shake(2.0f, 0.8f);
 		_isAttacked = true;
 	}
@@ -631,6 +642,7 @@ void Boss::Dead()
 	//스킬을쓰는 도중에 체력이 0이나 0이하라면
 	if (_hp <= 0)
 	{
+		_Camera->Shake(10.0f, 7.0f);
 		//죽는상태로 넘겨라.
 		this->ChangeState(StateType::Dead);
 	}

@@ -68,7 +68,7 @@ void Effect::ComeEffect(string name, Vector2 position)
 		//루프 안함
 		_effectAnimation->SetIsLoop(true);
 		//프레임 도는 시간
-		_effectAnimation->SetFrameUpdateTime(0.2f);
+		_effectAnimation->SetFrameUpdateTime(0.1f);
 
 		//애니메이션 실행
 		_effectAnimation->Play();
