@@ -926,21 +926,21 @@ void Player::EndAnimation()
 		break;
 
 	case Player::State::Die:
-		//GameObject* objec = _ObjectManager->FindObjects(ObjectType::Object, "a");
-		//_ObjectManager->SendCallbackMessage(TagMessage("Die"));
-		//
-		//
-		//GameObject* flowObject = _ObjectManager->FindObject(ObjectType::Object, "TitleFlowObject");
-		//if (flowObject)
-		//	flowObject->SendCallbackMessage(TagMessage("DoorOpened", 1.0f));
+	{
+		const vector<GameObject*>* objec = _ObjectManager->GetObjectListPointer(ObjectType::UI);
+		for (UINT i = 0; i < objec->size(); ++i)
+		{
+			objec->at(i)->SendCallbackMessage(TagMessage("PlayerDie"));
+		}
 		
 		_Database->AddVector2Data("PlayerPosition", Vector2(716, 996));
 		_Database->AddIntData("PlayerActive", 0);
 		_Database->AddIntData("GateState", 5);
 		_SoundManager->FadeoutBGM();
 		_SceneManager->LoadSceneByLoading("DungeonLobby");
-		break;
-
+	
+	}
+	break;
 	default:
 		break;
 	}
