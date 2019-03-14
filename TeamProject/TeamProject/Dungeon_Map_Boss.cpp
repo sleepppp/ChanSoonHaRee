@@ -16,6 +16,7 @@ void Dungeon_Map_Boss::Init()
 	this->ReeInit();
 	this->ChanInit();
 	this->SoonInit();
+
 	_ObjectManager->Init();
 
 	Door::_mapName = "Dungeon_Map_Boss";
@@ -30,7 +31,7 @@ void Dungeon_Map_Boss::Init()
 	_Camera->InitCameraToPlayer();
 	_LightingSystem->ChangeState(LightSystem::State::Afternoon);
 
-	_SoundManager->Play("GolemKingRoom", 0.5f);
+	_SoundManager->PlayBGM("GolemKingRoom");
 }
 
 void Dungeon_Map_Boss::Release()

@@ -16,6 +16,7 @@
 
 #define CameraDefaultStrength 2.58f
 #define CameraDefaultShakeTime 0.2f
+#define CameraDefaultChangeDirectionDelay 0.043f
 /*
 shakeStrength = 2.58f;
 shakeTime = 0.2f;
@@ -43,6 +44,8 @@ private:
 	float shakeTime;
 	float shakeDirection;
 	float moveStartDistance;
+	float shakeChangeDelayTime;
+	float shakeChangeDirectionTime;
 public:
 	void Update();
 	void OnGui();
@@ -62,7 +65,8 @@ public:
 	void SetTarget(class GameObject* object);
 	void SetCameraMoveDistance(float distance = CameraMoveStartDistance) { moveStartDistance = distance; }
 
-	void Shake(float strength = CameraDefaultStrength,float shakeTime = CameraDefaultShakeTime);
+	void Shake(float strength = CameraDefaultStrength,float shakeTime = CameraDefaultShakeTime,
+		float delayChangeDirection = CameraDefaultChangeDirectionDelay);
 	void InitCameraToPlayer();
 	void SetState(MoveState state) { this->state = state; }
 	void SetFreeCamera();
@@ -71,6 +75,7 @@ private:
 	void UpdateFreeCameraMode();
 	void UpdateTargetCameraMode();
 	void AmendCamera();
+	void ShakingUpdate();
 };
 
 #define _Camera CameraManager::Get()

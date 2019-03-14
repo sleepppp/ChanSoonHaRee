@@ -47,24 +47,6 @@ void BigSlime::ChangeState(StateType state)
 	this->_state = state;
 
 	this->ChangeAnimation(state);
-
-	switch (_state)
-	{
-	case BigSlime::StateType::Idle:
-		break;
-	case BigSlime::StateType::Create:
-		break;
-	case BigSlime::StateType::Chasing:
-		break;
-	case BigSlime::StateType::Attack:
-		break;
-	case BigSlime::StateType::Dead:
-		break;
-	case BigSlime::StateType::End:
-		break;
-	default:
-		break;
-	}
 }
 void BigSlime::ChangeAnimation(StateType state)
 {
