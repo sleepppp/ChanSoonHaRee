@@ -126,9 +126,9 @@ void MainScene::HaInit()
 void Dungeon_Map_01::HaInit()
 {
 	_ObjectManager->AddObject(ObjectType::Object, new Golem(Vector2(100, 100)));
-	//_ObjectManager->AddObject(ObjectType::Object, new Golem(Vector2(400, 100)));
-	_ObjectManager->AddObject(ObjectType::Object, new Weeds(Vector2(300, 400)));
-	//_ObjectManager->AddObject(ObjectType::Object, new Weeds(Vector2(700, 500)));
+	_ObjectManager->AddObject(ObjectType::Object, new Golem(Vector2(900, 100)));
+	_ObjectManager->AddObject(ObjectType::Object, new Weeds(Vector2(100, 400)));
+	_ObjectManager->AddObject(ObjectType::Object, new Weeds(Vector2(900, 400)));
 }
 
 void Dungeon_Map_02::HaInit()
