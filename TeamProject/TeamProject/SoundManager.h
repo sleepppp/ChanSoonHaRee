@@ -2,6 +2,7 @@
 ## Fmode Lib  ##
 **************************************************************************/
 #pragma once
+#include <map>
 //여유분의 채널 갯수 설정(버퍼)
 #define EXTRA_SOUND_CHANNEL 36
 #define SOUNDBUFFER 36

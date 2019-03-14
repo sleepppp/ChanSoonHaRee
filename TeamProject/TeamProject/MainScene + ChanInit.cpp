@@ -22,12 +22,20 @@
 
 void Program::LoadResourceChan()
 {
+	/**********************
+		     사운드
+	***********************/
+	_SoundManager->AddSound("SelectTarget", "../Sounds/gui_selector_movement.wav", false, false);
+	_SoundManager->AddSound("InvenOpenSound", "../Sounds/gui_inventory_mirror_action.wav", false, false);
+
 
 	/**********************
 			   UI
 	***********************/
 	//메인 인벤토리 이미지 
 	_ImageManager->AddImage("InventoryWindow", L"../Resources/UI/newInventory.png", false);
+	_ImageManager->AddImage("InvenGlasses", L"../Resources/UI/Bag_Mirror.png", false);
+
 
 	//UI 무기 스왑
 	_ImageManager->AddFrameImage("UI_WeaponSwap", L"../Resources/UI/UI_WeaponSwap.png", 4, 2, false);
