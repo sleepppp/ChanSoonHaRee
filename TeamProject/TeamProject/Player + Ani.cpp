@@ -215,7 +215,6 @@ void Player::Attack()
 					RECT temp;
 					if (IntersectRect(&temp, &_swordRect, &object->at(i)->GetCollisionRect()))
 					{
-						cout << "충돌 확인" << endl;
 						//충돌했을때 false상태일때(그 전에 충돌 상태가 아니었을때)
 				
 						//데미지값을 받아서 체력을 깎는다(전달)

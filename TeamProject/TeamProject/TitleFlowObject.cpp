@@ -21,9 +21,9 @@ TitleFlowObject::TitleFlowObject()
 		if (loadingScene != nullptr)
 		{
 			_ObjectManager->ChangeZOrdering(true);
-			loadingScene->SetNextSceneName("TownScene");
+			loadingScene->SetNextSceneName("MainScene");
 			loadingScene->SetLoadingFunc([]() {
-				_SceneManager->FindScene("TownScene")->Init();
+				_SceneManager->FindScene("MainScene")->Init();
 			});
 			_SceneManager->LoadScene("LoadingScene");
 			_LightingSystem->ChangeState(LightSystem::State::Afternoon);

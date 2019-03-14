@@ -130,7 +130,6 @@ void Arrow::ArrowAttack()
 		//화살 자신과의 충돌을 제외함
 		if (object->at(i)->GetName() != this->_name)// && player == nullptr)// && object->at(i)->GetName() !="WIll")
 		{
-			cout << "test" << endl;
 
 			//에너미제외,보스제외,아이템 제외,플레이어 제외한 벽등의 오브젝트들
 			RECT temp0;

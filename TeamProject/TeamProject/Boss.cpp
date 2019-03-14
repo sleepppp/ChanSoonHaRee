@@ -95,7 +95,6 @@ void Boss::Update()
 	//------------손날리기 스킬----------//
 	HandShootHand();
 	HandShootShadow();
-	cout << _hp << endl;
 	if (_Input->GetKeyDown('Q'))
 	{
 		_hp -= 800;
