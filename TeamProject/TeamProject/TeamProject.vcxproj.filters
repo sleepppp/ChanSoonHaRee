@@ -780,6 +780,12 @@
     <Image Include="TeamProject.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="icon1.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Bag_Emblem.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="Deferred.hlsl">

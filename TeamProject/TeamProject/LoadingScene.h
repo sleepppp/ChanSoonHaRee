@@ -7,7 +7,8 @@ private:
 	float _frameCount;
 
 	float _delayTime;
-
+	class Image* _loadingImage;
+	class Animation* _loadingAnimation;
 public:
 	LoadingScene();
 	~LoadingScene();

@@ -47,12 +47,14 @@ void Program::Init()
 
 	_SceneManager->SceneQueue();	
 
+	_SoundManager->SetMusicVolume(0.3f);
 	//1950,686
 	//_Database->AddVector2Data("PlayerPosition", Vector2(1950, 686));
 	_Database->AddVector2Data("PlayerPosition", Vector2(1050, 686));
 	_Database->AddIntData("GateState", 0);
 	_Database->AddIntData("PlayerActive", 1);
 	_Database->AddIntData("PlayerHP", 100);
+	_Camera->SetState(CameraManager::MoveState::End);
 }
 
 void Program::Release()
