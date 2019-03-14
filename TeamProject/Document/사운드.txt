@@ -1,0 +1,5 @@
+GolemKingHandCrush.wav : 보스골렘팔 땅찍는 사운드
+GolemKingWakeUp.wav : 보스골렘 활성화될 때 사운드
+GolemKingRockHitGround.wav : 보스골렘이 던진 돌 바닥찍을때 사운드
+gui_selector_movement.wav: 인벤토리 창 셀렉터 움직이는 사운드
+gui_inventory_mirror_action.wav : 인벤토리 창 나타날 때 사운드
