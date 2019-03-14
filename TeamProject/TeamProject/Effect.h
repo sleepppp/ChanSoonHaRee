@@ -16,8 +16,6 @@ private:
 	class Image* _effectIMG;					//이팩트 이미지
 	class Animation* _effectAnimation;			//애니메이션
 
-
-
 public:
 	Effect();
 	~Effect();
