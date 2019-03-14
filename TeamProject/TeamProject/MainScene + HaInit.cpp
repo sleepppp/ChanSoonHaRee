@@ -104,6 +104,14 @@ void Program::LoadResourceHa()
 	_SoundManager->AddSound("GolemKingHandCrush", "../Sounds/GolemKingHandCrush.wav", false, false);
 	_SoundManager->AddSound("GolemKingRockHitGround", "../Sounds/GolemKingRockHitGround.wav", false, false);
 	_SoundManager->AddSound("GolemKingRoom", "../Sounds/GolemKingRoom.mp3", true, true);
+	// 보스슬라임 나와있는 동안 계속 재생되는 사운드
+	_SoundManager->AddSound("dungeon_wanderer_idle", "../Sounds/dungeon_wanderer_idle.wav", false, false);
+	// 보스슬라임 등장 사운드
+	_SoundManager->AddSound("dungeon_wanderer_appears", "../Sounds/dungeon_wanderer_appears.wav", false, false);
+	// 보스 슬라임 공격 사운드
+	_SoundManager->AddSound("dungeon_wanderer_attack", "../Sounds/dungeon_wanderer_attack.wav", false, false);
+	//골렘 공격 사운드
+	_SoundManager->AddSound("golem_dungeon_golem_crash", "../Sounds/golem_dungeon_golem_crash.wav", false, false);
 
 }
 //여기서 필요한 리소스 로드 및 클래스 할당하시면 됩니다. 

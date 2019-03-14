@@ -48,6 +48,7 @@ private:
 	bool _isStop;
 	bool _isAttack;			//공격여부를 확인하기 위한 불변수
 	bool _attackedColor;
+	bool _attackSound;
 public:
 	//공격 실행만을 위해서 만들어 놓은 함수.
 	void Attack();
