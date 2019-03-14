@@ -23,7 +23,7 @@
     <ProjectGuid>{59369EAE-E275-4010-AA30-2C70122FFA8A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>TeamProject</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -172,7 +172,6 @@
     <ClInclude Include="FrameObject.h" />
     <ClInclude Include="LightParticle.h" />
     <ClInclude Include="LightParticleSystem.h" />
-    <ClInclude Include="NpcKids.h" />
     <ClInclude Include="OilLamp.h" />
     <ClInclude Include="OilLampLight.h" />
     <ClInclude Include="Plankton.h" />
@@ -270,7 +269,6 @@
     <ClCompile Include="FrameObject.cpp" />
     <ClCompile Include="LightParticle.cpp" />
     <ClCompile Include="LightParticleSystem.cpp" />
-    <ClCompile Include="NpcKids.cpp" />
     <ClCompile Include="OilLamp.cpp" />
     <ClCompile Include="OilLampLight.cpp" />
     <ClCompile Include="Plankton.cpp" />

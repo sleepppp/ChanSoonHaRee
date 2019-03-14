@@ -39,6 +39,15 @@ void Program::LoadResourceHa()
 	_ImageManager->AddFrameImage("FistShoot", L"../Resources/Enemy/Boss/FistShoot.png", 22, 3, true);
 
 	//++++++++++++++++++++++++++++++++++++++++++보스 충돌 시 이미지++++++++++++++++++++++++++++++++++++++++++//
+	//생성상태
+	_ImageManager->AddFrameImage("create_Red", L"../Resources/Enemy/Boss/CreateBoss_Red.png", 32, 1, true);
+	_ImageManager->AddFrameImage("create_White", L"../Resources/Enemy/Boss/CreateBoss_White.png", 32, 1, true);
+	//사망상태1
+	_ImageManager->AddFrameImage("dead1_Red", L"../Resources/Enemy/Boss/deadBoss1.png", 41, 1, true);
+	_ImageManager->AddFrameImage("dead1_White", L"../Resources/Enemy/Boss/deadBoss1.png", 41, 1, true);
+	//사망상태2
+	_ImageManager->AddFrameImage("dead2_Red", L"../Resources/Enemy/Boss/deadBoss2.png", 41, 1, true);
+	_ImageManager->AddFrameImage("dead2_White", L"../Resources/Enemy/Boss/deadBoss2.png", 41, 1, true);
 	//손날리는 처음모션 피격
 	_ImageManager->AddFrameImage("hand_Shoot_First_Red", L"../Resources/Enemy/Boss/hand_Shoot_First_Red.png", 20, 1, true);
 	_ImageManager->AddFrameImage("hand_Shoot_First_White", L"../Resources/Enemy/Boss/hand_Shoot_First_White.png", 20, 1, true);
@@ -57,6 +66,7 @@ void Program::LoadResourceHa()
 	//3번스킬 보스 이미지 피격
 	_ImageManager->AddFrameImage("FistShoot_Red", L"../Resources/Enemy/Boss/FistShoot_Red.png", 22, 3, true);
 	_ImageManager->AddFrameImage("FistShoot_White", L"../Resources/Enemy/Boss/FistShoot_White.png", 22, 3, true);
+	//============빅 슬라임 이미지============//
 
 	//------------골렘 이미지-----------------//
 	_ImageManager->AddFrameImage("GolemMove", L"../Resources/Enemy/Golem/GolemMove.png", 8, 4, true);

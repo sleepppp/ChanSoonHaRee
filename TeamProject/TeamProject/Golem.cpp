@@ -13,8 +13,8 @@ Golem::Golem(Vector2 pos)
 	this->_size = Vector2(100, 100);		//크기도 100, 100이야
 	this->_pivot = Pivot::CENTER;			//내 기준은 중심에있어
 	this->_speed = 90.0f;					//속도는 90.0f
-	this->_hp = 60;						//200의 체력
-	this->_damage = 12;						//34의 뎀지
+	this->_hp = 100;						//100의 체력
+	this->_damage = 12;						//12의 뎀지
 
 	this->_isAttack = false;				//공격은 처음에는 안하고있지
 	bool _attackedColor = false;

@@ -459,9 +459,6 @@
     <ClInclude Include="Slime.h">
       <Filter>PrivateForder\Ha\Enemy\Slime</Filter>
     </ClInclude>
-    <ClInclude Include="NpcKids.h">
-      <Filter>PrivateForder\Ha</Filter>
-    </ClInclude>
     <ClInclude Include="ProgressBar.h">
       <Filter>PrivateForder\Chan\ProgressBar\Player</Filter>
     </ClInclude>
@@ -760,9 +757,6 @@
     </ClCompile>
     <ClCompile Include="Slime.cpp">
       <Filter>PrivateForder\Ha\Enemy\Slime</Filter>
-    </ClCompile>
-    <ClCompile Include="NpcKids.cpp">
-      <Filter>PrivateForder\Ha</Filter>
     </ClCompile>
     <ClCompile Include="ProgressBar.cpp">
       <Filter>PrivateForder\Chan\ProgressBar\Player</Filter>
