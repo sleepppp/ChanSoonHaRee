@@ -87,6 +87,10 @@ private:
 
 	class Player* _player;						//플레이어 클래스 선언
 
+	class Image* _invenGlasses;					//인벤토리 돋보기 이미지
+	RECT _invenGlassesRect;						//인벤토리 돋보기 렉트
+	Vector2 _invenGlassesPosition;				//인벤토리 돋보기 포지션
+
 	//인벤토리에 플레이어 상태 표시용 렉트
 	RECT _invenPlayerRect;						//인벤토리 플레이어 상태 표시용 렉트
 	Vector2 _invenPlayerPosition;				//인벤토리 플레이어 상태 표시용 포지션

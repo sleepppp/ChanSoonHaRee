@@ -24,7 +24,7 @@ void Inventory::Init()
 	//이미지 추가
 	//LSTRING /.. 은 이전 폴더로 이동 /로 타고 타고 넘어갈 수 있다. png 파일도 사용 가능
 	//false는 픽셀 충돌 할 건지 말 건지 체크용
-	this->_inventoryImage = _ImageManager->AddImage("InventoryWindow", L"../Resources/UI/newInventory.png", false);
+	this->_inventoryImage = _ImageManager->FindImage("InventoryWindow");
 
 	//인벤토리 위치 잡기
 	//X 포지션은 화면 가로 중앙
@@ -168,9 +168,6 @@ void Inventory::Init()
 	//인벤 슬롯 상태 변경위한 bool
 	_isInvenSlot = false;
 
-	//인벤토리 상태 초기화
-	//_state = InventoryState::OpenSlide;
-
 	/*********************************
 		플레이어 현재 상태 가져오기
 	**********************************/
@@ -190,6 +187,16 @@ void Inventory::Init()
 	{
 		this->SprayItemPlayer();
 	});
+
+
+	//인벤토리 돋보기 이미지
+	this->_invenGlasses = _ImageManager->FindImage("InvenGlasses");
+
+	//인벤토리 돋보기 포지션
+	this->_invenGlassesPosition = Vector2(70, 447 + 895);
+
+	//인벤토리 돋보기 렉트
+	this->_invenGlassesRect = Figure::RectMake(_invenGlassesPosition.x, _invenGlassesPosition.y, 50, 50);
 
 	////테스트용
 	//for (UINT i = 0; i < 200; ++i)
@@ -419,6 +426,15 @@ void Inventory::Render()
 
 	//프레임 렌더
 	_invenPlayer->FrameRender(_invenPlayerPosition.x, _invenPlayerPosition.y, _player->GetPlayerIndex().x, _player->GetPlayerIndex().y, Pivot::CENTER, false);
+
+	//인벤토리 돋보기 렌더
+	_invenGlasses->Render(_invenGlassesPosition.x, _invenGlassesPosition.y, Pivot::LEFT_TOP, false);
+
+	//렉트 토글 F1
+	if (_isDebug)
+	{
+		_DXRenderer->DrawRectangle(_invenGlassesRect, DefaultBrush::red, false);
+	}
 }
 
 
@@ -587,11 +603,15 @@ void Inventory::InvenState()
 	{
 		//인벤토리 열기
 	case Inventory::InventoryState::OpenSlide:
-		//인벤토리 포지션 y 위로 1600.0f 만큼 이동하기
-		_position.y -= 1600.0f * _TimeManager->DeltaTime();
 
-		//인벤토리 포지션 y 위로 1600.0f 만큼 이동하기
-		_invenPlayerPosition.y -= 1600.0f * _TimeManager->DeltaTime();
+		//인벤토리 포지션 y 위로 2500.0f 만큼 이동하기
+		_position.y -= 2500.0f * _TimeManager->DeltaTime();
+
+		//인벤토리 돋보기 포지션 y 위로 2500.0f 만큼 이동하기
+		_invenGlassesPosition.y -= 2500.0f * _TimeManager->DeltaTime();
+
+		//인벤토리 포지션 y 위로 2500.0f 만큼 이동하기
+		_invenPlayerPosition.y -= 2500.0f * _TimeManager->DeltaTime();
 
 		//### 인벤토리가 계속 올라가는 걸 방지하기 위함 ###
 		//만일 포지션 y가 화면 중앙이거나 더 작으면  
@@ -644,10 +664,13 @@ void Inventory::InvenState()
 		//인벤토리 닫기
 	case Inventory::InventoryState::CloseSlide:
 		//인벤토리 포지션 y 아래로 800.0f 만큼 이동하기
-		_position.y += 1600.0f * _TimeManager->DeltaTime();
+		_position.y += 2500.0f * _TimeManager->DeltaTime();
 
-		//인벤토리 플레이어 상태 포지션 y 아래로 1600.0f 만큼 이동하기
-		_invenPlayerPosition.y += 1600.0f * _TimeManager->DeltaTime();
+		//인벤토리 돋보기 포지션 y 아래로 2500.0f 만큼 이동하기
+		_invenGlassesPosition.y += 2500.0f * _TimeManager->DeltaTime();
+
+		//인벤토리 플레이어 상태 포지션 y 아래로 2500.0f 만큼 이동하기
+		_invenPlayerPosition.y += 2500.0f * _TimeManager->DeltaTime();
 
 
 		//### 인벤토리가 계속 내려가는 걸 방지하기 위함 ###
@@ -709,6 +732,7 @@ void Inventory::InvenState()
 		//만일 I 누르면 인벤토리 닫기
 		if (_Input->GetKeyDown('I'))
 		{
+			_SoundManager->Play("InvenOpenSound", 0.7f);
 			_state = InventoryState::CloseSlide;
 
 			//벡터 포인터로 오브젝트 리스트 포인터로 받기
@@ -769,7 +793,7 @@ void Inventory::Enable()
 {
 	//인벤토리 화면 오픈
 	this->_state = InventoryState::OpenSlide;
-
+	_SoundManager->Play("InvenOpenSound", 0.7f);
 	//인벤토리 벡터에 포인터를 붙인 오브젝트 리스트 포인터 선언
 	const vector<GameObject*>* pObjectList = _ObjectManager->GetObjectListPointer(ObjectType::Object);
 	
@@ -787,6 +811,9 @@ void Inventory::KeyMove()
 	//인벤토리 타겟 왼쪽으로 이동
 	if (_Input->GetKeyDown('A'))
 	{
+		//타겟 사운드
+		_SoundManager->Play("SelectTarget", 0.6f);
+
 		--_invenIndex;
 
 		/****************************
@@ -889,6 +916,9 @@ void Inventory::KeyMove()
 	//인벤토리 타겟 오른쪽으로 이동
 	if (_Input->GetKeyDown('D'))
 	{
+		//타겟 사운드
+		_SoundManager->Play("SelectTarget", 0.6f);
+
 		++_invenIndex;
 
 		/****************************
@@ -988,6 +1018,9 @@ void Inventory::KeyMove()
 	//인벤토리 타겟 위로 이동
 	if (_Input->GetKeyDown('W'))
 	{
+		//타겟 사운드
+		_SoundManager->Play("SelectTarget", 0.6f);
+
 		_invenIndex -= 5;
 
 		/****************************
@@ -1135,6 +1168,9 @@ void Inventory::KeyMove()
 	//인벤토리 타겟 아래로 이동
 	if (_Input->GetKeyDown('S'))
 	{
+		//타겟 사운드
+		_SoundManager->Play("SelectTarget", 0.6f);
+
 		_invenIndex += 5;
 
 		/****************************
