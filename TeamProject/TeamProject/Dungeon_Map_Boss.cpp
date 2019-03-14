@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "Dungeon_Map_Boss.h"
 #include "Door.h"
+
+#include "EventManager.h"
+#include "InterfaceClass.h"
 Dungeon_Map_Boss::Dungeon_Map_Boss()
 {
 }
@@ -33,6 +36,11 @@ void Dungeon_Map_Boss::Init()
 	_LightingSystem->ChangeState(LightSystem::State::Afternoon);
 
 	_SoundManager->PlayBGM("GolemKingRoom");
+
+	//_ObjectManager->AddObject(ObjectType::Object, new GameObject("Empty", Vector2(1070, 340), Vector2(1, 1), Pivot::CENTER));
+	//_EventManager->PushEvent(new IEventCameraMove(_ObjectManager->FindObject(ObjectType::Object, "Empty")));
+	//_EventManager->PushEvent(new IEventDelay(3.f));
+	//_EventManager->PushEvent(new IEventCameraMove(_player));
 }
 
 void Dungeon_Map_Boss::Release()
@@ -43,6 +51,8 @@ void Dungeon_Map_Boss::Release()
 void Dungeon_Map_Boss::Update()
 {
 	_ObjectManager->Update();
+
+	_EventManager->Update();
 }
 
 void Dungeon_Map_Boss::Render()

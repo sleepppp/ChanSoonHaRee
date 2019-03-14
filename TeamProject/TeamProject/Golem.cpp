@@ -491,7 +491,7 @@ void Golem::AttackedDemege(int damage)
 	if (_hp <= 0)
 	{
 		//아이템 뿌리기
-		this->SprayItemEnemy();
+		this->SprayItemEnemy("item_golemCore");
 
 		//카메라 흔들기
 		_Camera->Shake();

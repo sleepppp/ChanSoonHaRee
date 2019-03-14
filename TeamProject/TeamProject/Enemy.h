@@ -75,7 +75,7 @@ public:
 	virtual void Update() {}
 	virtual void Render() {}
 
-	void SprayItemEnemy();	//에너미 아이템 뿌리기 함수
+	void SprayItemEnemy(string name);	//에너미 아이템 뿌리기 함수
 
 public:
 	Enemy();

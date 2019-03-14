@@ -16,6 +16,7 @@
 #include "DungeonLobby.h"
 #include "BossProgressBar.h"
 #include "BossEffect.h"
+#include "UICoin.h"
 //여기서 필요한 리소스 로드 및 클래스 할당하시면 됩니다. 
 //Init은 ㄴㄴ new 하고 ObjectManager에 추가 ㅇㅇ
 
@@ -36,6 +37,8 @@ void Program::LoadResourceChan()
 	_ImageManager->AddImage("InventoryWindow", L"../Resources/UI/newInventory.png", false);
 	_ImageManager->AddImage("InvenGlasses", L"../Resources/UI/Bag_Mirror.png", false);
 
+	//UI 코인
+	_ImageManager->AddImage("Coin", L"../Resources/UI/coin.png", false);
 
 	//UI 무기 스왑
 	_ImageManager->AddFrameImage("UI_WeaponSwap", L"../Resources/UI/UI_WeaponSwap.png", 4, 2, false);
@@ -77,6 +80,9 @@ void Program::LoadResourceChan()
 	//골렘 코어 이미지
 	_ImageManager->AddImage("item_golemCore", L"../Resources/Item/item_golemCore.png", false);
 
+	//레드 크리스탈 이미지
+	_ImageManager->AddImage("item_redCristal", L"../Resources/Item/item_redCristal.png", false);
+
 
 	/**********************
 			 몬스터
@@ -104,6 +110,9 @@ void MainScene::ChanInit()
 
 	//UI 돈 주머니
 	_ObjectManager->AddObject(ObjectType::UI, new UIMoneyPoket);
+
+	//UI 코인
+	_ObjectManager->AddObject(ObjectType::UI, new UICoin);
 	
 	//이팩트
 	for (UINT i = 0; i < 30; ++i) 
@@ -141,6 +150,9 @@ void TownScene::ChanInit()
 	//UI 돈 주머니
 	_ObjectManager->AddObject(ObjectType::UI, new UIMoneyPoket);
 
+	//UI 코인
+	_ObjectManager->AddObject(ObjectType::UI, new UICoin);
+
 	//이팩트
 	for (UINT i = 0; i < 30; ++i)
 	{
@@ -163,6 +175,9 @@ void Dungeon_Map_01::ChanInit()
 	//UI 돈 주머니
 	_ObjectManager->AddObject(ObjectType::UI, new UIMoneyPoket);
 
+	//UI 코인
+	_ObjectManager->AddObject(ObjectType::UI, new UICoin);
+
 	//이팩트
 	for (UINT i = 0; i < 30; ++i)
 	{
@@ -183,6 +198,9 @@ void Dungeon_Map_Boss::ChanInit()
 
 	//UI 돈 주머니
 	_ObjectManager->AddObject(ObjectType::UI, new UIMoneyPoket);
+
+	//UI 코인
+	_ObjectManager->AddObject(ObjectType::UI, new UICoin);
 
 	//이팩트
 	for (UINT i = 0; i < 30; ++i)
@@ -213,6 +231,9 @@ void Dungeon_Map_02::ChanInit()
 	//UI 돈 주머니
 	_ObjectManager->AddObject(ObjectType::UI, new UIMoneyPoket);
 
+	//UI 코인
+	_ObjectManager->AddObject(ObjectType::UI, new UICoin);
+
 	//이팩트
 	for (UINT i = 0; i < 30; ++i)
 	{
@@ -242,6 +263,9 @@ void DungeonLobby::ChanInit()
 
 	//UI 돈 주머니
 	_ObjectManager->AddObject(ObjectType::UI, new UIMoneyPoket);
+
+	//UI 코인
+	_ObjectManager->AddObject(ObjectType::UI, new UICoin);
 
 	//이팩트
 	for (UINT i = 0; i < 30; ++i)

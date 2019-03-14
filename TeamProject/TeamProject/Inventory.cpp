@@ -593,6 +593,82 @@ bool Inventory::AddItem(string name)
 
 		}
 	}
+
+	//만일 아이템 이름이 item_redCristal이면
+	if (name == "item_redCristal")
+	{
+		//플레이어 슬롯 사이즈만큼
+		for (UINT i = 0; i < _playerSlotList.size(); ++i)
+		{
+			//플레이어 슬롯 해당 칸이 비어있지 않으면
+			if (_playerSlotList[i]->itemCount > 0)
+			{
+				//만일 이미지 키 이름과 name이 같다면	
+				if (_playerSlotList[i]->data.image->GetKey() == name)
+				{
+					//아이템 카운트가 5개보다 낮으면
+					if (_playerSlotList[i]->itemCount < 5)
+					{
+						//플레이어 슬롯 아이템 카운트 증가
+						_playerSlotList[i]->itemCount++;
+						return true;
+					}
+				}
+			}
+		}
+
+		//플레이어 슬롯 사이즈만큼
+		for (UINT i = 0; i < _playerSlotList.size(); ++i)
+		{
+			//플레이어 슬롯 해당 칸이 비어있으면
+			if (_playerSlotList[i]->itemCount == 0)
+			{
+				//해당 아이템 이미지 찾기
+				_playerSlotList[i]->data.image = _ImageManager->FindImage(name);
+
+				//플레이어 슬롯 아이템 카운트 증가
+				_playerSlotList[i]->itemCount++;
+				return true;
+			}
+
+		}
+
+
+		//가방 슬롯 사이즈만큼
+		for (UINT i = 0; i < _bagSlotList.size(); ++i)
+		{
+			//플레이어 슬롯 해당 칸이 비어있지 않으면
+			if (_bagSlotList[i]->itemCount > 0)
+			{
+				//만일 이미지 키 이름과 name이 같다면	
+				if (_bagSlotList[i]->data.image->GetKey() == name)
+				{
+					//아이템 카운트가 5개보다 낮으면
+					if (_bagSlotList[i]->itemCount < 5)
+					{
+						//플레이어 슬롯 아이템 카운트 증가
+						_bagSlotList[i]->itemCount++;
+						return true;
+					}
+				}
+			}
+		}
+
+		//가방 슬롯 사이즈만큼
+		for (UINT i = 0; i < _bagSlotList.size(); ++i)
+		{
+			//가방 슬롯 해당 칸이 비어있으면
+			if (_bagSlotList[i]->itemCount == 0)
+			{
+				//해당 아이템 이미지 찾기
+				_bagSlotList[i]->data.image = _ImageManager->FindImage(name);
+
+				//플레이어 슬롯 아이템 카운트 증가
+				_bagSlotList[i]->itemCount++;
+				return true;
+			}
+		}
+	}
 }
 
 //인벤토리 상태 처리를 위한 switch문
@@ -620,6 +696,7 @@ void Inventory::InvenState()
 			//포지션 y를 화면 중앙에 고정시키고
 			_position.y = WinSizeY / 2;
 			_invenPlayerPosition.y = WinSizeY / 2;
+			_invenGlassesPosition.y = WinSizeY / 2 + 88;
 
 			//인벤토리 상태 유지하기
 			_state = InventoryState::Idle;

@@ -34,7 +34,7 @@ void ProgressBar::Init()
 
 	//세이브 hp 는 currentHp;
 	Player* _player = (Player*)_ObjectManager->FindObject(ObjectType::Object, "Will");
-	_saveHp = _player->GetPlayerMaxHp();
+	_saveHp = _player->GetPlayerCurrentHp();
 
 	//디폴트 상태
 	_barState = ProgressState::DefaultState;

@@ -8,7 +8,6 @@ private:
 	map<string, Vector2> vector2Data; 
 	map<string, string> stringData;
 public:
-
 	int GetIntData(string key);
 	Vector2 GetVector2Data(string key);
 	string GetStringData(string key);

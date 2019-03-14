@@ -23,7 +23,7 @@ Npc::Npc()
 	this->_isActive = true;
 	this->_pivot = Pivot::CENTER;
 	_position = movePoint[0];
-	_size = Vector2(100, 100);
+	_size = Vector2(60, 60);
 	
 	this->UpdateMainRect();
 	_speed = 40.f;
@@ -103,6 +103,11 @@ void Npc::Render()
 	//ImGui::Begin("aa");
 	//ImGui::Text("%d, %d", _Camera->GetWorldMousePoint().x, _Camera->GetWorldMousePoint.y);
 	//ImGui::End();
+
+	if (_isDebug)
+	{
+		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::blue, true);
+	}
 
 }
 

@@ -555,6 +555,7 @@ void Player::ChangeState(State state)
 			break;
 			//======================================================
 		case Player::State::LeftSword1:
+			this->_damage = 25;
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
@@ -562,6 +563,7 @@ void Player::ChangeState(State state)
 			_SoundManager->Play("will_swordAtk", 0.6f);
 			break;
 		case Player::State::RightSword1:
+			this->_damage = 25;
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
@@ -569,6 +571,7 @@ void Player::ChangeState(State state)
 			_SoundManager->Play("will_swordAtk", 0.6f);
 			break;
 		case Player::State::UpSword1:
+			this->_damage = 25;
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
@@ -576,6 +579,7 @@ void Player::ChangeState(State state)
 			_SoundManager->Play("will_swordAtk", 0.6f);
 			break;
 		case Player::State::DownSword1:
+			this->_damage = 25;
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
@@ -584,6 +588,7 @@ void Player::ChangeState(State state)
 			break;
 			//======================================================
 		case Player::State::LeftSword2:
+			this->_damage = 50;
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
@@ -591,6 +596,7 @@ void Player::ChangeState(State state)
 			_SoundManager->Play("will_swordAtk", 0.6f);
 			break;
 		case Player::State::RightSword2:
+			this->_damage = 50;
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
@@ -598,6 +604,7 @@ void Player::ChangeState(State state)
 			_SoundManager->Play("will_swordAtk", 0.6f);
 			break;
 		case Player::State::UpSword2:
+			this->_damage = 50;
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
@@ -605,6 +612,7 @@ void Player::ChangeState(State state)
 			_SoundManager->Play("will_swordAtk", 0.6f);
 			break;
 		case Player::State::DownSword2:
+			this->_damage = 50;
 			_isChangeSword = true;
 			_isAttacked = false;
 			_isStandardMove = false;
@@ -613,6 +621,7 @@ void Player::ChangeState(State state)
 			break;
 			//======================================================
 		case Player::State::LeftBow:
+			this->_damage = 20;
 			_isChangeSword = false;
 			_isStandardMove = false;
 			_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Left));
@@ -620,6 +629,7 @@ void Player::ChangeState(State state)
 			break;
 
 		case Player::State::RightBow:
+			this->_damage = 20;
 			_isChangeSword = false;
 			_isStandardMove = false;
 			_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Right));
@@ -627,6 +637,7 @@ void Player::ChangeState(State state)
 			break;
 
 		case Player::State::UpBow:
+			this->_damage = 20;
 			_isChangeSword = false;
 			_isStandardMove = false;
 			_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Up));
@@ -634,6 +645,7 @@ void Player::ChangeState(State state)
 			break;
 
 		case Player::State::DownBow:
+			this->_damage = 20;
 			_isChangeSword = false;
 			_isStandardMove = false;
 			_ObjectManager->AddObject(ObjectType::Object, new Arrow(Vector2(_position), Arrow::State::Down));
@@ -894,16 +906,19 @@ void Player::EndAnimation()
 		break;
 	case Player::State::RightSword1:
 		if (_Input->GetKey('J')) this->ChangeState(State::RightSword2);
+		else if (_Input->GetKeyDown('J')) this->ChangeState(State::RightSword2);
 		else if (_Input->GetKey('D')) this->ChangeState(State::RightRun);
 		else					this->ChangeState(State::RightIdle);
 		break;
 	case Player::State::UpSword1:
 		if (_Input->GetKey('J')) this->ChangeState(State::UpSword2);
+		else if (_Input->GetKeyDown('J')) this->ChangeState(State::UpSword2);
 		else if (_Input->GetKey('W')) this->ChangeState(State::UpRun);
 		else					this->ChangeState(State::UpIdle);
 		break;
 	case Player::State::DownSword1:
 		if (_Input->GetKey('J')) this->ChangeAnimation(State::DownSword2);
+		else if (_Input->GetKeyDown('J')) this->ChangeState(State::DownSword2);
 		else if (_Input->GetKey('S')) this->ChangeState(State::DownRun);
 		else					this->ChangeState(State::DownIdle);
 		break;
