@@ -187,8 +187,7 @@ void Player::Update()
 					else if (_Input->GetKeyDown(VK_SPACE)) this->ChangeState(State::LeftRoll);
 					else if (!_isChangeBow && _Input->GetKey('J')) this->ChangeState(State::LeftSword1);
 					else if (_isChangeBow && _Input->GetKey('J')) this->ChangeState(State::LeftBow);
-				}
-				
+				}				
 				break;
 
 			case Player::State::RightIdle:
@@ -368,7 +367,6 @@ void Player::Update()
 				{
 					moveValue += Vector2(2.0f, 0.0f);
 				}
-
 				break;
 				//=====================================================================================
 			case Player::State::LeftSword1:
@@ -457,8 +455,7 @@ void Player::Render()
 	_imgAtkSword->SetSize(_size);
 	_imgAtkBow->SetSize(_size);
 	_imgMove->SetAlpha(_alpha);
-
-	//
+		
 
 	//렌더링: 두개의 이미지를 상황에 맞게 번갈아가면서 사용하도록 조건을 준다.
 	//무기 교체만 하는 상태에도 기본 무브 사용해야 하므로 공격 버튼 누를때만 렌더하도록 다른 조건을 줄 것
@@ -484,7 +481,6 @@ void Player::Render()
 		//공격모션(이미지)가 true이고 공격판정이 false일때만 그린다
 		
 		if (_isChangeSword && !_isAttacked)_DXRenderer->DrawRectangle(_swordRect, DefaultBrush::green, true);
-		//_DXRenderer->DrawRectangle(_obColliRect, DefaultBrush::green, true);
 	}
 }
 
@@ -508,12 +504,10 @@ void Player::ChangeState(State state)
 		{
 		case Player::State::LeftIdle:
 			_isChangeSword = false;				//검공격 이미지 렌더를 위한 bool
-			//_isChangeBow = false;			
 			_isStandardMove = true;				//기본 무브 이미지 렌더 bool
 			break;
 		case Player::State::RightIdle:
 			_isChangeSword = false;
-			//_isChangeBow = false;
 			_isStandardMove = true;
 			break;
 		case Player::State::UpIdle:
@@ -650,7 +644,6 @@ void Player::ChangeState(State state)
 
 		case Player::State::Die:
 			_SoundManager->Play("will_die", 0.6f);
-			//_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(WinSizeX / 2, 500)));
 			break;
 
 

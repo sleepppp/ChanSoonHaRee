@@ -468,6 +468,9 @@
     <ClInclude Include="BossEffect.h">
       <Filter>PrivateForder\Chan\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Npc.h">
+      <Filter>PrivateForder\Ree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -766,6 +769,9 @@
     </ClCompile>
     <ClCompile Include="BossEffect.cpp">
       <Filter>PrivateForder\Chan\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Npc.cpp">
+      <Filter>PrivateForder\Ree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -202,8 +202,6 @@ void Player::Attack()
 					RECT temp;
 					if (IntersectRect(&temp, &_swordRect, &object->at(i)->GetCollisionRect()))
 					{
-						//충돌했을때 false상태일때(그 전에 충돌 상태가 아니었을때)
-
 						//데미지값을 받아서 체력을 깎는다(전달)
 						enemy->AttackedDemege(_damage);						
 						_isAttacked = true;
@@ -215,8 +213,6 @@ void Player::Attack()
 					RECT temp;
 					if (IntersectRect(&temp, &_swordRect, &object->at(i)->GetCollisionRect()))
 					{
-						//충돌했을때 false상태일때(그 전에 충돌 상태가 아니었을때)
-				
 						//데미지값을 받아서 체력을 깎는다(전달)
 						boss->AttackedDamage(_damage);
 						_isAttacked = true;
@@ -264,6 +260,7 @@ void Player::AttackedDamage(int damage)
 		}
 	}
 }
+
 
 //=======================================
 //에너미와 충돌시, 무적시간 부여/플레이어 깜빡임 함수
