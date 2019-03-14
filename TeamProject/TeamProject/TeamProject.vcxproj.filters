@@ -459,9 +459,6 @@
     <ClInclude Include="Slime.h">
       <Filter>PrivateForder\Ha\Enemy\Slime</Filter>
     </ClInclude>
-    <ClInclude Include="NpcKids.h">
-      <Filter>PrivateForder\Ha</Filter>
-    </ClInclude>
     <ClInclude Include="ProgressBar.h">
       <Filter>PrivateForder\Chan\ProgressBar\Player</Filter>
     </ClInclude>
@@ -470,6 +467,9 @@
     </ClInclude>
     <ClInclude Include="BossEffect.h">
       <Filter>PrivateForder\Chan\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Npc.h">
+      <Filter>PrivateForder\Ree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -761,9 +761,6 @@
     <ClCompile Include="Slime.cpp">
       <Filter>PrivateForder\Ha\Enemy\Slime</Filter>
     </ClCompile>
-    <ClCompile Include="NpcKids.cpp">
-      <Filter>PrivateForder\Ha</Filter>
-    </ClCompile>
     <ClCompile Include="ProgressBar.cpp">
       <Filter>PrivateForder\Chan\ProgressBar\Player</Filter>
     </ClCompile>
@@ -772,6 +769,9 @@
     </ClCompile>
     <ClCompile Include="BossEffect.cpp">
       <Filter>PrivateForder\Chan\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Npc.cpp">
+      <Filter>PrivateForder\Ree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
