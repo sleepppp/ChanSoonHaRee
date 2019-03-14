@@ -58,7 +58,7 @@ Boss::Boss()
 
 	//초기 상태값은 보스가 움직이지 않아야 하니까 가만히 있는 상태를 만들어준다.
 	_state = StateType::Create;
-	this->ChangeState(StateType::Fist_Shoot_First);
+	this->ChangeState(StateType::Idle);
 }
 
 
@@ -102,7 +102,7 @@ void Boss::Update()
 	//cout << _hp << endl;
 	if (_Input->GetKeyDown('Q'))
 	{
-		_hp -= 800;
+		this->AttackedDamage(800);
 	}
 	_aniImage->_animation->UpdateFrame();
 }
@@ -196,6 +196,7 @@ void Boss::ChangeState(StateType state)
 	case Boss::StateType::Idle:
 		break;
 	case Boss::StateType::Create:
+		_SoundManager->Play("bossCreate", 0.5f);
 		break;
 	case Boss::StateType::Dead:
 		//_imagePosition.y = 380.f;
@@ -213,6 +214,7 @@ void Boss::ChangeState(StateType state)
 	case Boss::StateType::Rock_Shoot_First:
 		break;
 	case Boss::StateType::Rock_Shoot_Second:
+		_SoundManager->Play("GolemKingHandCrush", 0.3f);
 		RockPattom();
 		break;
 	case Boss::StateType::Rock_Shoot_Last:
@@ -318,7 +320,7 @@ void Boss::UpdateState()
 		_plang = new Plankton(Vector2(_slimePosition.x , _slimePosition.y + 300));
 		_plang->Init();
 		
-		if (_timeCount > 0.5f)
+		if (_timeCount > 0.7f)
 		{
 			_ObjectManager->AddObject(ObjectType::Object, _plang);
 			_timeCount = 0.f;
@@ -378,7 +380,7 @@ void Boss::CreateAnimatiom()
 	create->_bossImage_W = _ImageManager->FindImage("create_White");
 	create->_animation->SetStartEndFrame(0, 0, 31, 0, false);
 	create->_animation->SetIsLoop(false);
-	create->_animation->SetFrameUpdateTime(0.15f);
+	create->_animation->SetFrameUpdateTime(0.1f);
 	_aniImgList.insert(make_pair(StateType::Create, create));
 
 	//보스가 죽을때 나오는 애니&이미지
@@ -389,7 +391,7 @@ void Boss::CreateAnimatiom()
 	dead1->_bossImage_W = _ImageManager->FindImage("dead1_White");
 	dead1->_animation->SetStartEndFrame(0, 0, 40, 0, false);
 	dead1->_animation->SetIsLoop(false);
-	dead1->_animation->SetFrameUpdateTime(0.15f);
+	dead1->_animation->SetFrameUpdateTime(0.1f);
 	dead1->_animation->SetCallbackFunc([this]() {this->NextAnimation(); });
 	_aniImgList.insert(make_pair(StateType::Dead, dead1));
 
@@ -401,7 +403,7 @@ void Boss::CreateAnimatiom()
 	dead2->_bossImage_W = _ImageManager->FindImage("dead2_White");
 	dead2->_animation->SetStartEndFrame(0, 0, 40, 0, false);
 	dead2->_animation->SetIsLoop(false);
-	dead2->_animation->SetFrameUpdateTime(0.15f);
+	dead2->_animation->SetFrameUpdateTime(0.1f);
 	_aniImgList.insert(make_pair(StateType::Dead2, dead2));
 
 	//보스의 1번째 공격패턴 손날려서 공격하기의 전조 손을 날리는 애니&이미지
@@ -532,14 +534,14 @@ void Boss::AttackedDamage(int damage)
 	_hp -= damage;
 	if (_hp <= 0)
 	{
-		_SoundManager->Play("bossDeath", 1.0f);
+		_SoundManager->Play("bossDeath", 0.7f);
 
 		ChangeState(StateType::Dead);
 	}
 	else
 	{
-		_SoundManager->Play("golemHit", 1.0f);
-		_Camera->Shake(2.0f, 0.8f);
+		_SoundManager->Play("golemHit", 0.5f);
+		_Camera->Shake(0.6f, 0.8f);
 		_isAttacked = true;
 	}
 }

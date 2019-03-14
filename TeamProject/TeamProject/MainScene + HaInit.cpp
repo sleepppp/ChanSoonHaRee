@@ -29,11 +29,11 @@ void Program::LoadResourceHa()
 	_ImageManager->AddFrameImage("hand_Shoot_Last", L"../Resources/Enemy/Boss/Hand_Shoot_Last.png", 11, 1, true);
 	//손
 	_ImageManager->AddFrameImage("hand", L"../Resources/Enemy/Boss/hand.png", 19, 1, true);
-	
+
 	//----------2번스킬------------//
 	//보스 이미지
 	_ImageManager->AddFrameImage("Rock_Shoot", L"../Resources/Enemy/Boss/rockShoot.png", 32, 1, true);
-	
+
 	//---------------3번 스킬----------------//
 	//보스 이미지
 	_ImageManager->AddFrameImage("FistShoot", L"../Resources/Enemy/Boss/FistShoot.png", 22, 3, true);
@@ -70,8 +70,8 @@ void Program::LoadResourceHa()
 
 	//------------골렘 이미지-----------------//
 	_ImageManager->AddFrameImage("GolemMove", L"../Resources/Enemy/Golem/GolemMove.png", 8, 4, true);
-	_ImageManager->AddFrameImage("GolemMove_Red", L"../Resources/Enemy/Golem/GolemMove_Red.png", 8, 4,true);
-	_ImageManager->AddFrameImage("GolemMove_White", L"../Resources/Enemy/Golem/GolemMove_White.png", 8, 4,true);
+	_ImageManager->AddFrameImage("GolemMove_Red", L"../Resources/Enemy/Golem/GolemMove_Red.png", 8, 4, true);
+	_ImageManager->AddFrameImage("GolemMove_White", L"../Resources/Enemy/Golem/GolemMove_White.png", 8, 4, true);
 	_ImageManager->AddFrameImage("GolemAttack", L"../Resources/Enemy/Golem/GolemAttack.png", 13, 4, true);
 	_ImageManager->AddFrameImage("GolemAttack_Red", L"../Resources/Enemy/Golem/GolemAttack_Red.png", 13, 4), true;
 	_ImageManager->AddFrameImage("GolemAttack_White", L"../Resources/Enemy/Golem/GolemAttack_White.png", 13, 4, true);
@@ -90,9 +90,13 @@ void Program::LoadResourceHa()
 	//====================================사운드=====================================//
 	_SoundManager->AddSound("golemHit", "../Sounds/golem_hit.wav", false, false);
 	_SoundManager->AddSound("enemyDeath", "../Sounds/enemy_death.wav", false, false);
-	_SoundManager->AddSound("GolemKingRoom", "../Sounds/GolemKingRoom.mp3", false, false);
 	_SoundManager->AddSound("Weeds_Hit", "../Sounds/weed_hit.wav", false, false);
 	_SoundManager->AddSound("bossDeath", "../Sounds/bossDeath.wav", false, false);
+	_SoundManager->AddSound("bossCreate", "../Sounds/GolemKingWakeUp.wav", false, false);
+	_SoundManager->AddSound("GolemKingHandCrush", "../Sounds/GolemKingHandCrush.wav", false, false);
+	_SoundManager->AddSound("GolemKingRockHitGround", "../Sounds/GolemKingRockHitGround.wav", false, false);
+	_SoundManager->AddSound("GolemKingRoom", "../Sounds/GolemKingRoom.mp3", true, true);
+
 }
 //여기서 필요한 리소스 로드 및 클래스 할당하시면 됩니다. 
 //Init은 ㄴㄴ new 하고 ObjectManager에 추가 ㅇㅇ

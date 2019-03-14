@@ -480,6 +480,9 @@ void Golem::AttackedDemege(int damage)
 	//hp가 0보다 작거나 같으면
 	if (_hp <= 0)
 	{
+		//아이템 뿌리기
+		this->SprayItemEnemy();
+
 		//카메라 흔들기
 		_Camera->Shake();
 

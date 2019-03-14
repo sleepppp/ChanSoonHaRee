@@ -22,12 +22,20 @@
 
 void Program::LoadResourceChan()
 {
+	/**********************
+		     사운드
+	***********************/
+	_SoundManager->AddSound("SelectTarget", "../Sounds/gui_selector_movement.wav", false, false);
+	_SoundManager->AddSound("InvenOpenSound", "../Sounds/gui_inventory_mirror_action.wav", false, false);
+
 
 	/**********************
 			   UI
 	***********************/
 	//메인 인벤토리 이미지 
 	_ImageManager->AddImage("InventoryWindow", L"../Resources/UI/newInventory.png", false);
+	_ImageManager->AddImage("InvenGlasses", L"../Resources/UI/Bag_Mirror.png", false);
+
 
 	//UI 무기 스왑
 	_ImageManager->AddFrameImage("UI_WeaponSwap", L"../Resources/UI/UI_WeaponSwap.png", 4, 2, false);
@@ -82,10 +90,6 @@ void Program::LoadResourceChan()
 void MainScene::ChanInit()
 {
 
-	//UI 프로그래스 바
-	//_ImageManager->AddFrameImage("hpBar1", L"../Resouces/UI/hpBar", 1, 6, false);
-	//_ImageManager->AddFrameImage("hpBar2", L"../Resouces/UI/hpBar", 1, 6, false);
-
 	/**********************
 	   오브젝트 매니저 등록
 	***********************/
@@ -110,14 +114,18 @@ void MainScene::ChanInit()
 	//몬스터
 	_ObjectManager->AddObject(ObjectType::Object, new Plankton(Vector2(150, 250)));
 
+	for (UINT i = 0; i < 50; ++i) 
+	{
+		_ObjectManager->AddObject(ObjectType::Object, new MoveItem("item_brench", Vector2(Math::Random(0, WinSizeX), Math::Random(0, WinSizeY))));
+	}
 
-	//for (UINT i = 0; i < 10; ++i)
-	//{
-	//	Vector2 randomPos = Vector2(Math::Random(0,WinSizeX), Math::Random(0,WinSizeY));
-	//	Vector2 randomSize= Vector2(Math::Random(50,100), Math::Random(50,100));
-	//	_ObjectManager->AddObject(ObjectType::Object, new TestDeadman(randomPos,randomSize));
-	//}
-}	//
+	for (UINT i = 0; i < 50; ++i)
+	{
+		_ObjectManager->AddObject(ObjectType::Object, new MoveItem("item_golemCore", Vector2(Math::Random(0, WinSizeX), Math::Random(0, WinSizeY))));
+	}
+	
+
+}
 
 
 void TownScene::ChanInit()
