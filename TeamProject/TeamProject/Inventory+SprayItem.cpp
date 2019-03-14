@@ -16,7 +16,7 @@ void Inventory::SprayItemPlayer()
 	for (UINT i = 0; i < _bagSlotList.size(); ++i)
 	{
 		//가방 슬롯이 비어있지 않으면
-		if (_bagSlotList[i]->isEmpty == false)
+		if (_bagSlotList[i]->itemCount > 0)
 		{
 			//아이템 카운트 체크
 			for (UINT i = 0; i < _bagSlotList[i]->itemCount; ++i)
@@ -34,8 +34,6 @@ void Inventory::SprayItemPlayer()
 			}
 			//아이템 개수 0으로 만들기
 			_bagSlotList[i]->itemCount = 0;
-			//가방 칸 비어있음 상태로 변경
-			_bagSlotList[i]->isEmpty = true;
 		}
 	}
 }

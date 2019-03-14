@@ -169,9 +169,12 @@
     <ClInclude Include="Dungeon_Map_01.h" />
     <ClInclude Include="Dungeon_Map_02.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="EventManager.h" />
     <ClInclude Include="FrameObject.h" />
+    <ClInclude Include="InterfaceClass.h" />
     <ClInclude Include="LightParticle.h" />
     <ClInclude Include="LightParticleSystem.h" />
+    <ClInclude Include="Npc.h" />
     <ClInclude Include="OilLamp.h" />
     <ClInclude Include="OilLampLight.h" />
     <ClInclude Include="Plankton.h" />
@@ -181,6 +184,7 @@
     <ClInclude Include="TestDeadman.h" />
     <ClInclude Include="TestHuman.h" />
     <ClInclude Include="Tree.h" />
+    <ClInclude Include="UICoin.h" />
     <ClInclude Include="UIMoneyPoket.h" />
     <ClInclude Include="UIWeaponAndBag.h" />
     <ClInclude Include="BinaryFile.h" />
@@ -266,9 +270,12 @@
     <ClCompile Include="Dungeon_Map_01.cpp" />
     <ClCompile Include="Dungeon_Map_02.cpp" />
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="FrameObject.cpp" />
+    <ClCompile Include="InterfaceClass.cpp" />
     <ClCompile Include="LightParticle.cpp" />
     <ClCompile Include="LightParticleSystem.cpp" />
+    <ClCompile Include="Npc.cpp" />
     <ClCompile Include="OilLamp.cpp" />
     <ClCompile Include="OilLampLight.cpp" />
     <ClCompile Include="Plankton.cpp" />
@@ -279,6 +286,7 @@
     <ClCompile Include="TestDeadman.cpp" />
     <ClCompile Include="TestHuman.cpp" />
     <ClCompile Include="Tree.cpp" />
+    <ClCompile Include="UICoin.cpp" />
     <ClCompile Include="UIMoneyPoket.cpp" />
     <ClCompile Include="UIWeaponAndBag.cpp" />
     <ClCompile Include="BinaryFile.cpp" />

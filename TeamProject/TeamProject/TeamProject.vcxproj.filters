@@ -468,8 +468,17 @@
     <ClInclude Include="BossEffect.h">
       <Filter>PrivateForder\Chan\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="UICoin.h">
+      <Filter>PrivateForder\Chan\UI</Filter>
+    </ClInclude>
     <ClInclude Include="Npc.h">
       <Filter>PrivateForder\Ree</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>PrivateForder\Chan</Filter>
+    </ClInclude>
+    <ClInclude Include="InterfaceClass.h">
+      <Filter>PrivateForder\Chan</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -770,8 +779,17 @@
     <ClCompile Include="BossEffect.cpp">
       <Filter>PrivateForder\Chan\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="UICoin.cpp">
+      <Filter>PrivateForder\Chan\UI</Filter>
+    </ClCompile>
     <ClCompile Include="Npc.cpp">
       <Filter>PrivateForder\Ree</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>PrivateForder\Chan</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceClass.cpp">
+      <Filter>PrivateForder\Chan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

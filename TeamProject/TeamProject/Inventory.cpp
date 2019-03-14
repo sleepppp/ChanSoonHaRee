@@ -620,6 +620,7 @@ void Inventory::InvenState()
 			//포지션 y를 화면 중앙에 고정시키고
 			_position.y = WinSizeY / 2;
 			_invenPlayerPosition.y = WinSizeY / 2;
+			_invenGlassesPosition.y = WinSizeY / 2 + 88;
 
 			//인벤토리 상태 유지하기
 			_state = InventoryState::Idle;
