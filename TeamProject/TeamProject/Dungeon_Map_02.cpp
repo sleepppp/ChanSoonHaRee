@@ -63,12 +63,14 @@ void Dungeon_Map_02::Init()
 	_Camera->InitCameraToPlayer();
 	_Camera->SetState(CameraManager::MoveState::End);
 
+	_SoundManager->SetMusicVolume(0.1f);
 	_SoundManager->PlayBGM("dungeonBGM");
 	_LightingSystem->ChangeState(LightSystem::State::Afternoon);
 }
 
 void Dungeon_Map_02::Release()
 {
+	_SoundManager->SetMusicVolume(0.3f);
 	_ObjectManager->Release();
 }
 void Dungeon_Map_02::Update()

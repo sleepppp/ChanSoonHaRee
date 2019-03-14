@@ -20,13 +20,16 @@ BigSlime::BigSlime(Vector2 pos)
 	_shadow = _ImageManager->FindImage("shadow");
 	this->_state = StateType::End;
 	ChangeState(StateType::Idle);
-	_SoundManager->PlayBGM("GolemKingRoom");
+	_SoundManager->Play("dungeon_wanderer_idle",0.3f);
+
+	this->AddCallbackMessage("InventoryOpen", [this](TagMessage message) {this->ChangeStop(true); });
+	this->AddCallbackMessage("InventoryClose", [this](TagMessage message) {this->ChangeStop(false); });
 }
 
 
 BigSlime::~BigSlime()
 {
-
+	_SoundManager->Stop("dungeon_wanderer_idle");
 }
 
 void BigSlime::Init()
@@ -47,10 +50,13 @@ void BigSlime::Release()
 
 void BigSlime::Update()
 {
-	UpdateState();
-	_renderRect = Figure::RectMakeCenter(_position, _size);
-	_shadowRc = Figure::RectMakeCenter(Vector2(_position.x, _position.y + 600), Vector2(150, 50));
-	this->ObjectCollision();
+	if (_isStop == false)
+	{
+		UpdateState();
+		_renderRect = Figure::RectMakeCenter(_position, Vector2(130,130));
+		_shadowRc = Figure::RectMakeCenter(Vector2(_position.x, _position.y + 600), Vector2(150, 50));
+		this->ObjectCollision();
+	}
 	_ani->_animation->UpdateFrame();
 
 }
@@ -137,7 +143,7 @@ void BigSlime::UpdateState()
 	{
 	case BigSlime::StateType::Idle:
 
-		if (_size.x * 2 > distance)
+		if (_size.x * 1.5f > distance)
 		{
 			ChangeState(StateType::Create);
 		}
@@ -165,19 +171,25 @@ void BigSlime::UpdateState()
 					ChangeState(StateType::Attack_L);
 				}
 			}
+			if (_position.x < _player->GetPosition().x)
+			{
+				ChangeState(StateType::Chasing_R);
+			}
 		break;
 	case BigSlime::StateType::Chasing_R:
 
 		_position.x += cosf(angle) * _speed * _TimeManager->DeltaTime();
 		_position.y += -sinf(angle) * _speed * _TimeManager->DeltaTime();
-
-	
 			if (100 > distance)
 			{
 				if (_position.x < _player->GetPosition().x)
 				{
 					ChangeState(StateType::Attack_R);
 				}
+			}
+			if (_position.x > _player->GetPosition().x)
+			{
+				ChangeState(StateType::Chasing_L);
 			}
 		break;
 	case BigSlime::StateType::Attack_L:

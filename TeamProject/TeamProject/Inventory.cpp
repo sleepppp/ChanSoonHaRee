@@ -809,7 +809,7 @@ void Inventory::InvenState()
 		//만일 I 누르면 인벤토리 닫기
 		if (_Input->GetKeyDown('I'))
 		{
-			_SoundManager->Play("InvenOpenSound", 0.7f);
+			_SoundManager->Play("InvenOpenSound", 1.f);
 			_state = InventoryState::CloseSlide;
 
 			//벡터 포인터로 오브젝트 리스트 포인터로 받기
@@ -870,7 +870,7 @@ void Inventory::Enable()
 {
 	//인벤토리 화면 오픈
 	this->_state = InventoryState::OpenSlide;
-	_SoundManager->Play("InvenOpenSound", 0.7f);
+	_SoundManager->Play("InvenOpenSound", 1.f);
 	//인벤토리 벡터에 포인터를 붙인 오브젝트 리스트 포인터 선언
 	const vector<GameObject*>* pObjectList = _ObjectManager->GetObjectListPointer(ObjectType::Object);
 	
@@ -889,7 +889,7 @@ void Inventory::KeyMove()
 	if (_Input->GetKeyDown('A'))
 	{
 		//타겟 사운드
-		_SoundManager->Play("SelectTarget", 0.6f);
+		_SoundManager->Play("SelectTarget", 0.15f);
 
 		--_invenIndex;
 
@@ -994,7 +994,7 @@ void Inventory::KeyMove()
 	if (_Input->GetKeyDown('D'))
 	{
 		//타겟 사운드
-		_SoundManager->Play("SelectTarget", 0.6f);
+		_SoundManager->Play("SelectTarget", 0.15f);
 
 		++_invenIndex;
 
@@ -1096,7 +1096,7 @@ void Inventory::KeyMove()
 	if (_Input->GetKeyDown('W'))
 	{
 		//타겟 사운드
-		_SoundManager->Play("SelectTarget", 0.6f);
+		_SoundManager->Play("SelectTarget", 0.15f);
 
 		_invenIndex -= 5;
 
@@ -1246,7 +1246,7 @@ void Inventory::KeyMove()
 	if (_Input->GetKeyDown('S'))
 	{
 		//타겟 사운드
-		_SoundManager->Play("SelectTarget", 0.6f);
+		_SoundManager->Play("SelectTarget", 0.15f);
 
 		_invenIndex += 5;
 

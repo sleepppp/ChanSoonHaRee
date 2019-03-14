@@ -100,11 +100,11 @@ void Boss::Update()
 
 	AttackedChangeColor();
 
-	//cout << _hp << endl;
-	if (_Input->GetKeyDown('Q'))
-	{
-		this->AttackedDamage(800);
-	}
+	////cout << _hp << endl;
+	//if (_Input->GetKeyDown('Q'))
+	//{
+	//	this->AttackedDamage(800);
+	//}
 	_aniImage->_animation->UpdateFrame();
 }
 

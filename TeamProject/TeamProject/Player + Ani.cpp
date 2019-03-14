@@ -260,6 +260,7 @@ void Player::AttackedDamage(int damage)
 			//데미지 폰트 출력
 			_DamageFontManager->ShowDamage(Vector2(_position),_damage);
 			_SoundManager->Play("will_damage", 0.6f);
+			_Camera->Shake();
 		}
 	}
 }

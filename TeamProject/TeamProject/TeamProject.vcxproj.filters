@@ -489,6 +489,9 @@
     <ClInclude Include="UIPotion.h">
       <Filter>PrivateForder\Chan\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Npc_Girl.h">
+      <Filter>PrivateForder\Ree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -805,6 +808,9 @@
     </ClCompile>
     <ClCompile Include="UIPotion.cpp">
       <Filter>PrivateForder\Chan\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Npc_Girl.cpp">
+      <Filter>PrivateForder\Ree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
