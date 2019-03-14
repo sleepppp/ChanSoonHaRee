@@ -80,6 +80,8 @@ void Program::LoadResourceChan()
 	//°ñ·½ ÄÚ¾î ÀÌ¹ÌÁö
 	_ImageManager->AddImage("item_golemCore", L"../Resources/Item/item_golemCore.png", false);
 
+	//·¹µå Å©¸®½ºÅ» ÀÌ¹ÌÁö
+	_ImageManager->AddImage("item_redCristal", L"../Resources/Item/item_redCristal.png", false);
 
 
 	/**********************

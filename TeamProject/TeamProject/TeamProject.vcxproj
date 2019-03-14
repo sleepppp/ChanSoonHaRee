@@ -159,6 +159,7 @@
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="DamageFontManager.h" />
     <ClInclude Include="Database.h" />
+    <ClInclude Include="DataManager.h" />
     <ClInclude Include="DebugCollider.h" />
     <ClInclude Include="DebugFrameObject.h" />
     <ClInclude Include="DebugObject.h" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Tree.h" />
     <ClInclude Include="UICoin.h" />
     <ClInclude Include="UIMoneyPoket.h" />
+    <ClInclude Include="UIPotion.h" />
     <ClInclude Include="UIWeaponAndBag.h" />
     <ClInclude Include="BinaryFile.h" />
     <ClInclude Include="Buffer.h" />
@@ -261,6 +263,7 @@
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="DamageFontManager.cpp" />
     <ClCompile Include="Database.cpp" />
+    <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="DebugCollider.cpp" />
     <ClCompile Include="DebugFrameObject.cpp" />
     <ClCompile Include="DebugObject.cpp" />
@@ -291,6 +294,7 @@
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="UICoin.cpp" />
     <ClCompile Include="UIMoneyPoket.cpp" />
+    <ClCompile Include="UIPotion.cpp" />
     <ClCompile Include="UIWeaponAndBag.cpp" />
     <ClCompile Include="BinaryFile.cpp" />
     <ClCompile Include="Buffer.cpp" />

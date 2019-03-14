@@ -77,6 +77,7 @@ void Boss::Release()
 	AniImgIter iter = _aniImgList.begin();
 	for (; iter != _aniImgList.end(); ++iter)
 	{
+		SafeDelete(iter->second->_animation);
 		SafeDelete(iter->second);
 	}
 	_aniImgList.clear();
@@ -99,11 +100,11 @@ void Boss::Update()
 
 	AttackedChangeColor();
 
-	//cout << _hp << endl;
-	if (_Input->GetKeyDown('Q'))
-	{
-		this->AttackedDamage(800);
-	}
+	////cout << _hp << endl;
+	//if (_Input->GetKeyDown('Q'))
+	//{
+	//	this->AttackedDamage(800);
+	//}
 	_aniImage->_animation->UpdateFrame();
 }
 

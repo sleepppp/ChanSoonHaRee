@@ -21,8 +21,12 @@ private:
 
 	StateType _state;
 	Ani* _ani;
-
+	class Image* _shadow;
+	float shadowCount;
 	RECT _attackRc;
+	RECT _shadowRc;
+
+	bool _isStop;
 public:
 	void Init()override;
 	void Release()override;
@@ -34,6 +38,8 @@ public:
 	void CreateAnimation();
 	void UpdateState();
 	void Move();
+
+	void ChangeStop(bool b) { _isStop = b; }
 
 	void ChasingMove();
 public:

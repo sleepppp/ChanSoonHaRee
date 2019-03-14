@@ -190,6 +190,9 @@
     <Filter Include="PrivateForder\Chan\ProgressBar\Boss">
       <UniqueIdentifier>{61342b1f-43c1-4a9a-aa47-ce6261634803}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PrivateForder\Chan\Data">
+      <UniqueIdentifier>{b786eda4-551a-41cd-a1e1-de50b3d10887}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeamProject.h">
@@ -480,8 +483,11 @@
     <ClInclude Include="InterfaceClass.h">
       <Filter>PrivateForder\Chan</Filter>
     </ClInclude>
-    <ClInclude Include="Npc_Girl.h">
-      <Filter>PrivateForder\Ree</Filter>
+    <ClInclude Include="DataManager.h">
+      <Filter>PrivateForder\Chan\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="UIPotion.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -794,8 +800,11 @@
     <ClCompile Include="InterfaceClass.cpp">
       <Filter>PrivateForder\Chan</Filter>
     </ClCompile>
-    <ClCompile Include="Npc_Girl.cpp">
-      <Filter>PrivateForder\Ree</Filter>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>PrivateForder\Chan\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="UIPotion.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

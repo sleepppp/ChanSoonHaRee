@@ -593,6 +593,82 @@ bool Inventory::AddItem(string name)
 
 		}
 	}
+
+	//만일 아이템 이름이 item_redCristal이면
+	if (name == "item_redCristal")
+	{
+		//플레이어 슬롯 사이즈만큼
+		for (UINT i = 0; i < _playerSlotList.size(); ++i)
+		{
+			//플레이어 슬롯 해당 칸이 비어있지 않으면
+			if (_playerSlotList[i]->itemCount > 0)
+			{
+				//만일 이미지 키 이름과 name이 같다면	
+				if (_playerSlotList[i]->data.image->GetKey() == name)
+				{
+					//아이템 카운트가 5개보다 낮으면
+					if (_playerSlotList[i]->itemCount < 5)
+					{
+						//플레이어 슬롯 아이템 카운트 증가
+						_playerSlotList[i]->itemCount++;
+						return true;
+					}
+				}
+			}
+		}
+
+		//플레이어 슬롯 사이즈만큼
+		for (UINT i = 0; i < _playerSlotList.size(); ++i)
+		{
+			//플레이어 슬롯 해당 칸이 비어있으면
+			if (_playerSlotList[i]->itemCount == 0)
+			{
+				//해당 아이템 이미지 찾기
+				_playerSlotList[i]->data.image = _ImageManager->FindImage(name);
+
+				//플레이어 슬롯 아이템 카운트 증가
+				_playerSlotList[i]->itemCount++;
+				return true;
+			}
+
+		}
+
+
+		//가방 슬롯 사이즈만큼
+		for (UINT i = 0; i < _bagSlotList.size(); ++i)
+		{
+			//플레이어 슬롯 해당 칸이 비어있지 않으면
+			if (_bagSlotList[i]->itemCount > 0)
+			{
+				//만일 이미지 키 이름과 name이 같다면	
+				if (_bagSlotList[i]->data.image->GetKey() == name)
+				{
+					//아이템 카운트가 5개보다 낮으면
+					if (_bagSlotList[i]->itemCount < 5)
+					{
+						//플레이어 슬롯 아이템 카운트 증가
+						_bagSlotList[i]->itemCount++;
+						return true;
+					}
+				}
+			}
+		}
+
+		//가방 슬롯 사이즈만큼
+		for (UINT i = 0; i < _bagSlotList.size(); ++i)
+		{
+			//가방 슬롯 해당 칸이 비어있으면
+			if (_bagSlotList[i]->itemCount == 0)
+			{
+				//해당 아이템 이미지 찾기
+				_bagSlotList[i]->data.image = _ImageManager->FindImage(name);
+
+				//플레이어 슬롯 아이템 카운트 증가
+				_bagSlotList[i]->itemCount++;
+				return true;
+			}
+		}
+	}
 }
 
 //인벤토리 상태 처리를 위한 switch문
@@ -733,7 +809,7 @@ void Inventory::InvenState()
 		//만일 I 누르면 인벤토리 닫기
 		if (_Input->GetKeyDown('I'))
 		{
-			_SoundManager->Play("InvenOpenSound", 0.7f);
+			_SoundManager->Play("InvenOpenSound", 1.f);
 			_state = InventoryState::CloseSlide;
 
 			//벡터 포인터로 오브젝트 리스트 포인터로 받기
@@ -794,7 +870,7 @@ void Inventory::Enable()
 {
 	//인벤토리 화면 오픈
 	this->_state = InventoryState::OpenSlide;
-	_SoundManager->Play("InvenOpenSound", 0.7f);
+	_SoundManager->Play("InvenOpenSound", 1.f);
 	//인벤토리 벡터에 포인터를 붙인 오브젝트 리스트 포인터 선언
 	const vector<GameObject*>* pObjectList = _ObjectManager->GetObjectListPointer(ObjectType::Object);
 	
@@ -813,7 +889,7 @@ void Inventory::KeyMove()
 	if (_Input->GetKeyDown('A'))
 	{
 		//타겟 사운드
-		_SoundManager->Play("SelectTarget", 0.6f);
+		_SoundManager->Play("SelectTarget", 0.15f);
 
 		--_invenIndex;
 
@@ -918,7 +994,7 @@ void Inventory::KeyMove()
 	if (_Input->GetKeyDown('D'))
 	{
 		//타겟 사운드
-		_SoundManager->Play("SelectTarget", 0.6f);
+		_SoundManager->Play("SelectTarget", 0.15f);
 
 		++_invenIndex;
 
@@ -1020,7 +1096,7 @@ void Inventory::KeyMove()
 	if (_Input->GetKeyDown('W'))
 	{
 		//타겟 사운드
-		_SoundManager->Play("SelectTarget", 0.6f);
+		_SoundManager->Play("SelectTarget", 0.15f);
 
 		_invenIndex -= 5;
 
@@ -1170,7 +1246,7 @@ void Inventory::KeyMove()
 	if (_Input->GetKeyDown('S'))
 	{
 		//타겟 사운드
-		_SoundManager->Play("SelectTarget", 0.6f);
+		_SoundManager->Play("SelectTarget", 0.15f);
 
 		_invenIndex += 5;
 

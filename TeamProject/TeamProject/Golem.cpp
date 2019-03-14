@@ -15,7 +15,7 @@ Golem::Golem(Vector2 pos)
 	this->_speed = 90.0f;					//속도는 90.0f
 	this->_hp = 100;						//100의 체력
 	this->_damage = 12;						//12의 뎀지
-
+	this->_attackSound = false;
 	this->_isAttack = false;				//공격은 처음에는 안하고있지
 	bool _attackedColor = false;
 	this->_renderRect = UpdateRect(_position, _size, Pivot::CENTER);
@@ -83,6 +83,7 @@ void Golem::Update()
 		_countMove = 0;
 		_moveCount++;
 	}
+
 	if (!_isStop)
 	{
 		this->Move();
@@ -119,6 +120,14 @@ void Golem::ImageCount()
 	//이미지 프레임 돌리기 (공격상태)
 	if (_state == StateType::attack)
 	{
+		if (_attackCount == 9)
+		{
+			if (_attackSound == false)
+			{
+				_SoundManager->Play("golem_dungeon_golem_crash", 0.3);
+				_attackSound = true;
+			}
+		}
 		if (_attackCount > 14)
 			_attackCount = 0;
 	}
@@ -146,6 +155,7 @@ void Golem::Attack()
 	{
 		_attackCount = 0;
 		_state = StateType::Chasing;
+		_attackSound = false;
 	}
 }
 

@@ -169,9 +169,9 @@ void MoveItem::Render()
 
 	if (_isDebug)
 	{
-		ImGui::Begin("Chan");
-		ImGui::Text("X : %d , Y : %d", (int)_Input->GetMousePosition().x,(int) _Input->GetMousePosition().y);
-		ImGui::End();
+		//ImGui::Begin("Chan");
+		//ImGui::Text("X : %d , Y : %d", (int)_Input->GetMousePosition().x,(int) _Input->GetMousePosition().y);
+		//ImGui::End();
 	}
 	
 }
