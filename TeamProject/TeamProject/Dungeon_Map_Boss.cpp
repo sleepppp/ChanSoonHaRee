@@ -27,6 +27,7 @@ void Dungeon_Map_Boss::Init()
 		_player->SetPosition(Vector2(2100 / 2, 1421 - 200));
 	}
 	_map = _ImageManager->AddImage("BoosRoom", L"../Resources/Scene/BossRoom.png", true);
+	_door = _ImageManager->AddFrameImage("doorDown", L"../Resources/Object/doordown.png", 5, 1, true);
 	_Camera->SetMapSize(Vector2((float)_map->GetWidth(), (float)_map->GetHeight()));
 	_Camera->InitCameraToPlayer();
 	_LightingSystem->ChangeState(LightSystem::State::Afternoon);
@@ -46,6 +47,9 @@ void Dungeon_Map_Boss::Update()
 
 void Dungeon_Map_Boss::Render()
 {
+	_door->SetSize(_door->GetFrameSize(0));
+	_door->SetScale(1.0f);
 	_map->Render(0, 0, Pivot::LEFT_TOP, true);
+	_door->FrameRender(1050, 1350, 0, 0, Pivot::CENTER, true);
 	_ObjectManager->Render();
 }
