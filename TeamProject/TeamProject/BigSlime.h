@@ -6,7 +6,7 @@ private:
 	enum class StateType
 	{
 		//기본 숨어서 대기하고있는 상태, 플레이어를 발견하고 생성되고 있는 상태, 플레이어를 추격하고 있는 상태, 플레이어를 공격하고 있는 상태, 죽는상태
-		Idle, Create, Chasing, Attack, Dead, End
+		Idle, Create, Chasing_L, Chasing_R, Attack_L, Attack_R, Dead, End
 	};
 	struct Ani
 	{

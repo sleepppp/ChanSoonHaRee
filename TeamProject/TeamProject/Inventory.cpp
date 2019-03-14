@@ -426,127 +426,157 @@ void Inventory::Render()
 //습득한 아이템 정보 추가 
 bool Inventory::AddItem(string name)
 {
-	//만일 아이템 이름이 brench이면
+	//만일 아이템 이름이 item_brench이면
 	if (name == "item_brench")
 	{
 		//플레이어 슬롯 사이즈만큼
 		for (UINT i = 0; i < _playerSlotList.size(); ++i)
 		{
-			//플레이어 슬롯 해당 칸이 비어있으면
-			if (_playerSlotList[i]->isEmpty == true)
+			//플레이어 슬롯 해당 칸이 비어있지 않으면
+			if (_playerSlotList[i]->itemCount > 0)
 			{
-				//플레이어 슬롯 아이템 카운트 증가
-				_playerSlotList[i]->itemCount++;
-
-				//만일 아이템 카운트가 0보다 크다면
-				if (_playerSlotList[i]->itemCount > 0)
+				//만일 이미지 키 이름과 name이 같다면	
+				if (_playerSlotList[i]->data.image->GetKey() == name)
 				{
-					//해당 아이템 이미지 찾기
-					_playerSlotList[i]->data.image = _ImageManager->FindImage("item_brench");
-					_playerSlotList[i]->data.itemDescription = "던전에서 흔히 보이는 나뭇가지";
-					_playerSlotList[i]->data.itemIndex = i;
-					_playerSlotList[i]->data.itemAtk = 0;
-					_playerSlotList[i]->data.itemDef = 0;
-
-					//아이템 카운트가 10개가 되거나 넘어가면 빈 공간 false 처리
-					if (_playerSlotList[i]->itemCount >= 10)
+					//아이템 카운트가 5개보다 낮으면
+					if (_playerSlotList[i]->itemCount < 5) 
 					{
-						_playerSlotList[i]->isEmpty = false;
-					}
-				}	
-				return true;
-			}
-		}
-
-		//가방 슬롯 사이즈만큼
-		for (UINT i = 0; i < _bagSlotList.size(); ++i) 
-		{
-			//가방 슬롯이 비어있으면
-			if (_bagSlotList[i]->isEmpty == true)
-			{
-				//가방 슬롯 아이템 카운트 증가
-				_bagSlotList[i]->itemCount++;
-
-				//만일 아이템 카운트가 0보다 크다면
-				if (_bagSlotList[i]->itemCount > 0) 
-				{
-					_bagSlotList[i]->data.image = _ImageManager->FindImage("item_brench");
-					_bagSlotList[i]->data.itemDescription = "던전에서 흔히 보이는 나뭇가지";
-					_bagSlotList[i]->data.itemIndex = i;
-					_bagSlotList[i]->data.itemAtk = 0;
-					_bagSlotList[i]->data.itemDef = 0;
-
-					//아이템 카운트가 10개가 되거나 넘어가면 빈 공간 false 처리
-					if (_bagSlotList[i]->itemCount >= 10 ) 
-					{
-						_bagSlotList[i]->isEmpty = false;
+						//플레이어 슬롯 아이템 카운트 증가
+						_playerSlotList[i]->itemCount++;
+						return true;
 					}
 				}
-				return true;
 			}
 		}
-	}
-	if (name == "item_golemCore")
-	{
+
 		//플레이어 슬롯 사이즈만큼
 		for (UINT i = 0; i < _playerSlotList.size(); ++i)
 		{
 			//플레이어 슬롯 해당 칸이 비어있으면
-			if (_playerSlotList[i]->isEmpty == true)
+			if (_playerSlotList[i]->itemCount == 0)
 			{
+				//해당 아이템 이미지 찾기
+				_playerSlotList[i]->data.image = _ImageManager->FindImage(name);
+
 				//플레이어 슬롯 아이템 카운트 증가
 				_playerSlotList[i]->itemCount++;
+				return true;
+			}
+			
+		}
 
-				//만일 아이템 카운트가 0보다 크다면
-				if (_playerSlotList[i]->itemCount > 0)
+
+		//가방 슬롯 사이즈만큼
+		for (UINT i = 0; i < _bagSlotList.size(); ++i)
+		{
+			//플레이어 슬롯 해당 칸이 비어있지 않으면
+			if (_bagSlotList[i]->itemCount > 0)
+			{
+				//만일 이미지 키 이름과 name이 같다면	
+				if (_bagSlotList[i]->data.image->GetKey() == name)
 				{
-					//해당 아이템 이미지 찾기
-					_playerSlotList[i]->data.image = _ImageManager->FindImage("item_golemCore");
-					_playerSlotList[i]->data.itemDescription = "골렘의 코어";
-					_playerSlotList[i]->data.itemIndex = i;
-					_playerSlotList[i]->data.itemAtk = 0;
-					_playerSlotList[i]->data.itemDef = 0;
-
-					//아이템 카운트가 5개가 되거나 넘어가면 빈 공간 false 처리
-					if (_playerSlotList[i]->itemCount >= 5)
+					//아이템 카운트가 5개보다 낮으면
+					if (_bagSlotList[i]->itemCount < 5)
 					{
-						_playerSlotList[i]->isEmpty = false;
+						//플레이어 슬롯 아이템 카운트 증가
+						_bagSlotList[i]->itemCount++;
+						return true;
 					}
 				}
-				return true;
 			}
 		}
 
 		//가방 슬롯 사이즈만큼
 		for (UINT i = 0; i < _bagSlotList.size(); ++i)
 		{
-			//가방 슬롯이 비어있으면
-			if (_bagSlotList[i]->isEmpty == true)
+			//가방 슬롯 해당 칸이 비어있으면
+			if (_bagSlotList[i]->itemCount == 0)
 			{
-				//가방 슬롯 아이템 카운트 증가
+				//해당 아이템 이미지 찾기
+				_bagSlotList[i]->data.image = _ImageManager->FindImage(name);
+
+				//플레이어 슬롯 아이템 카운트 증가
 				_bagSlotList[i]->itemCount++;
-
-				//만일 아이템 카운트가 0보다 크다면
-				if (_bagSlotList[i]->itemCount > 0)
-				{
-					_bagSlotList[i]->data.image = _ImageManager->FindImage("item_golemCore");
-					_bagSlotList[i]->data.itemDescription = "골렘의 코어";
-					_bagSlotList[i]->data.itemIndex = i;
-					_bagSlotList[i]->data.itemAtk = 0;
-					_bagSlotList[i]->data.itemDef = 0;
-
-					//아이템 카운트가 5개가 되거나 넘어가면 빈 공간 false 처리
-					if (_bagSlotList[i]->itemCount >= 5)
-					{
-						_bagSlotList[i]->isEmpty = false;
-					}
-				}
 				return true;
 			}
 		}
 	}
 
-	return false;
+	//만일 아이템 이름이 item_golemCore이면
+	if (name == "item_golemCore")
+	{
+		//플레이어 슬롯 사이즈만큼
+		for (UINT i = 0; i < _playerSlotList.size(); ++i)
+		{
+			//플레이어 슬롯 해당 칸이 비어있지 않으면
+			if (_playerSlotList[i]->itemCount > 0)
+			{
+				//만일 이미지 키 이름과 name이 같다면	
+				if (_playerSlotList[i]->data.image->GetKey() == name)
+				{
+					//아이템 카운트가 5개보다 낮으면
+					if (_playerSlotList[i]->itemCount < 5)
+					{
+						//플레이어 슬롯 아이템 카운트 증가
+						_playerSlotList[i]->itemCount++;
+						return true;
+					}
+				}
+			}
+		}
+
+		//플레이어 슬롯 사이즈만큼
+		for (UINT i = 0; i < _playerSlotList.size(); ++i)
+		{
+			//플레이어 슬롯 해당 칸이 비어있으면
+			if (_playerSlotList[i]->itemCount == 0)
+			{
+				//해당 아이템 이미지 찾기
+				_playerSlotList[i]->data.image = _ImageManager->FindImage(name);
+
+				//플레이어 슬롯 아이템 카운트 증가
+				_playerSlotList[i]->itemCount++;
+				return true;
+			}
+		}
+
+
+		//가방 슬롯 사이즈만큼
+		for (UINT i = 0; i < _bagSlotList.size(); ++i)
+		{
+			//플레이어 슬롯 해당 칸이 비어있지 않으면
+			if (_bagSlotList[i]->itemCount > 0)
+			{
+				//만일 이미지 키 이름과 name이 같다면	
+				if (_bagSlotList[i]->data.image->GetKey() == name)
+				{
+					//아이템 카운트가 5개보다 낮으면
+					if (_bagSlotList[i]->itemCount < 5)
+					{
+						//플레이어 슬롯 아이템 카운트 증가
+						_bagSlotList[i]->itemCount++;
+						return true;
+					}
+				}
+			}
+		}
+
+		//가방 슬롯 사이즈만큼
+		for (UINT i = 0; i < _bagSlotList.size(); ++i)
+		{
+			//가방 슬롯 해당 칸이 비어있으면
+			if (_bagSlotList[i]->itemCount == 0)
+			{
+				//해당 아이템 이미지 찾기
+				_bagSlotList[i]->data.image = _ImageManager->FindImage(name);
+
+				//플레이어 슬롯 아이템 카운트 증가
+				_bagSlotList[i]->itemCount++;
+				return true;
+			}
+
+		}
+	}
 }
 
 //인벤토리 상태 처리를 위한 switch문
@@ -891,7 +921,6 @@ void Inventory::KeyMove()
 			{
 				_targetState = InvenTargetState::EquipTarget;
 				_invenIndex = 1;
-				cout << "in" << endl;
 			}
 
 			//만일 인덱스가 15인 경우, 타겟 상태는 장비 타겟으로 넘어가기

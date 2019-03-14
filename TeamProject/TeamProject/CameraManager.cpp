@@ -16,6 +16,7 @@ CameraManager::CameraManager()
 	this->cameraRect = Figure::RectMake(
 		(int)this->position.x,(int)this->position.y, WinSizeX, WinSizeY);
 	this->saveMouse = _Input->GetMousePosition();
+	shakeChangeDelayTime = CameraDefaultChangeDirectionDelay;
 }
 
 /***************************************************************************
@@ -43,21 +44,7 @@ void CameraManager::Update()
 		this->UpdateFreeCameraMode();
 		break;
 	case CameraManager::End:
-		if (isShake == true)
-		{
-			shakeDirection = -1.f * shakeDirection;
-			shakeTime -= _TimeManager->DeltaTime();
-			shakeStrength -= (shakeTime / totalShakeTime) *_TimeManager->DeltaTime();
-			float strengh = shakeStrength * shakeDirection;
-			position += Vector2(strengh, 0.f);
-			this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
-
-			if (shakeTime <= 0.f)
-			{
-				isShake = false;
-			}
-			this->AmendCamera();
-		}
+		this->ShakingUpdate();
 		break;
 	default:
 		break;
@@ -76,6 +63,7 @@ void CameraManager::OnGui()
 	{
 		ImGui::SliderFloat("Strength", &strength, 0.5f, 10.f);
 		ImGui::SliderFloat("ShakeTime", &time, 0.1f, 2.f);
+		ImGui::SliderFloat("ShakeDelay", &shakeChangeDelayTime, 0.001f, 0.1f);
 		if (ImGui::Button("Shake"))
 			_Camera->Shake(strength, time);
 	}
@@ -247,22 +235,9 @@ void CameraManager::UpdateTargetCameraMode()
 			}
 			break;
 			}
+			this->ShakingUpdate();
 		}
-		if(isShake == true)
-		{
-			shakeDirection = -1.f * shakeDirection;
-			shakeTime -= _TimeManager->DeltaTime();
-			shakeStrength -= (shakeTime / totalShakeTime) *_TimeManager->DeltaTime();
-			float strengh = shakeStrength * shakeDirection;
-			position += Vector2(strengh, 0.f);
-			this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
-			
-			if (shakeTime <= 0.f)
-			{
-				isShake = false;
-			}
-			this->AmendCamera();
-		}
+
 	}
 }
 
@@ -287,6 +262,32 @@ void CameraManager::AmendCamera()
 	{
 		position.y -= (float(cameraRect.bottom)) - mapSize.y;
 		this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+	}
+}
+
+void CameraManager::ShakingUpdate()
+{
+	if (isShake == true)
+	{
+		shakeTime -= _TimeManager->DeltaTime();
+		shakeChangeDirectionTime += _TimeManager->DeltaTime();
+		if (shakeChangeDirectionTime >= shakeChangeDelayTime)
+		{
+			shakeDirection = -1.f * shakeDirection;
+			while (shakeChangeDirectionTime >= shakeChangeDelayTime)
+				shakeChangeDirectionTime -= shakeChangeDelayTime;
+		}
+		shakeStrength -= (shakeTime / totalShakeTime) *_TimeManager->DeltaTime();
+		float strengh = shakeStrength * shakeDirection;
+		position += Vector2(strengh, 0.f);
+		this->cameraRect = Figure::RectMake(position, Vector2(WinSizeX, WinSizeY));
+
+		if (shakeTime <= 0.f)
+		{
+			isShake = false;
+			shakeChangeDelayTime = CameraDefaultChangeDirectionDelay;
+		}
+		this->AmendCamera();
 	}
 }
 
@@ -331,13 +332,15 @@ void CameraManager::SetFreeCamera()
 	state = MoveState::FreeCamera;
 }
 
-void CameraManager::Shake(float strength,float shakeTime)
+void CameraManager::Shake(float strength,float shakeTime,float changeDirectionTime)
 {
 	if (isShake == false)
 	{
 		this->isShake = true; 
 		this->shakeStrength = strength;
 		this->shakeTime = this->totalShakeTime = shakeTime;
+		this->shakeChangeDirectionTime = 0.f;
+		this->shakeChangeDelayTime = changeDirectionTime;
 	}
 }
 

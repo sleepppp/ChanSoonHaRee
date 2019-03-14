@@ -29,6 +29,8 @@ private:
 	struct AniAndImage
 	{
 		class Image* _bossImage;
+		class Image* _bossImage_R;
+		class Image* _bossImage_W;
 		class Animation* _animation;
 	};
 private:

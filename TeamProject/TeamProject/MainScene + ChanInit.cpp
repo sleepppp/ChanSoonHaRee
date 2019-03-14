@@ -82,10 +82,6 @@ void Program::LoadResourceChan()
 void MainScene::ChanInit()
 {
 
-	//UI 프로그래스 바
-	//_ImageManager->AddFrameImage("hpBar1", L"../Resouces/UI/hpBar", 1, 6, false);
-	//_ImageManager->AddFrameImage("hpBar2", L"../Resouces/UI/hpBar", 1, 6, false);
-
 	/**********************
 	   오브젝트 매니저 등록
 	***********************/
@@ -110,14 +106,18 @@ void MainScene::ChanInit()
 	//몬스터
 	_ObjectManager->AddObject(ObjectType::Object, new Plankton(Vector2(150, 250)));
 
+	for (UINT i = 0; i < 50; ++i) 
+	{
+		_ObjectManager->AddObject(ObjectType::Object, new MoveItem("item_brench", Vector2(Math::Random(0, WinSizeX), Math::Random(0, WinSizeY))));
+	}
 
-	//for (UINT i = 0; i < 10; ++i)
-	//{
-	//	Vector2 randomPos = Vector2(Math::Random(0,WinSizeX), Math::Random(0,WinSizeY));
-	//	Vector2 randomSize= Vector2(Math::Random(50,100), Math::Random(50,100));
-	//	_ObjectManager->AddObject(ObjectType::Object, new TestDeadman(randomPos,randomSize));
-	//}
-}	//
+	for (UINT i = 0; i < 50; ++i)
+	{
+		_ObjectManager->AddObject(ObjectType::Object, new MoveItem("item_golemCore", Vector2(Math::Random(0, WinSizeX), Math::Random(0, WinSizeY))));
+	}
+	
+
+}
 
 
 void TownScene::ChanInit()

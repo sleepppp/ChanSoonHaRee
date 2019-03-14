@@ -101,6 +101,7 @@ void Boss::ChangeHandState(HandState hand)
 	case HandState::Down:
 		break;
 	case HandState::Stay:
+		_SoundManager->Play("GolemKingHandCrush", 0.6f);
 		RECT temp;
 		if (IntersectRect(&temp, &_handRc, &_player->GetCollisionRect()))
 		{

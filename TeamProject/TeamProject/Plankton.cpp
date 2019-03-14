@@ -30,7 +30,7 @@ Plankton::Plankton(Vector2 position)
 	//포지션
 	this->_position = position;
 	//데미지
-	this->_damage = 20;
+	this->_damage = 4;
 	//HP	
 	this->_hp = 75;
 	//스피드
@@ -97,7 +97,6 @@ void Plankton::Update()
 	if (IntersectRect(&temp, &_renderRect, &_player->GetCollisionRect()))
 	{
 		//공격 상태 변경
-		cout << "박음" << endl;
 		_planktonState = PlanktonState::Attack;
 	}
 
@@ -175,7 +174,6 @@ void Plankton::Render()
 //플랑크톤 상태 함수 (switch문)
 void Plankton::PlanktonStates()
 {
-	cout << (int)_planktonState << endl;
 	switch (_planktonState)
 	{
 	//상태 : 따라가기 Follow
