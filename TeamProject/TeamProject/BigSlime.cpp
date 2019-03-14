@@ -20,7 +20,10 @@ BigSlime::BigSlime(Vector2 pos)
 	_shadow = _ImageManager->FindImage("shadow");
 	this->_state = StateType::End;
 	ChangeState(StateType::Idle);
-	_SoundManager->PlayBGM("GolemKingRoom");
+	_SoundManager->Play("dungeon_wanderer_idle",1.f);
+
+	this->AddCallbackMessage("InventoryOpen", [this](TagMessage message) {this->ChangeStop(true); });
+	this->AddCallbackMessage("InventoryClose", [this](TagMessage message) {this->ChangeStop(false); });
 }
 
 
@@ -47,10 +50,13 @@ void BigSlime::Release()
 
 void BigSlime::Update()
 {
-	UpdateState();
-	_renderRect = Figure::RectMakeCenter(_position, _size);
-	_shadowRc = Figure::RectMakeCenter(Vector2(_position.x, _position.y + 600), Vector2(150, 50));
-	this->ObjectCollision();
+	if (_isStop == false)
+	{
+		UpdateState();
+		_renderRect = Figure::RectMakeCenter(_position, Vector2(130,130));
+		_shadowRc = Figure::RectMakeCenter(Vector2(_position.x, _position.y + 600), Vector2(150, 50));
+		this->ObjectCollision();
+	}
 	_ani->_animation->UpdateFrame();
 
 }

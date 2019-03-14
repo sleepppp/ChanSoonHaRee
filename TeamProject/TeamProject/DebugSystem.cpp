@@ -13,13 +13,11 @@ DebugSystem::~DebugSystem()
 
 void DebugSystem::DebugRender()
 {
-	static float shakeStrength = CameraDefaultStrength;
-	static float shakeTime = CameraDefaultShakeTime;
 
 	if (_isDebug)
 	{
 		_TimeManager->Render();
-		_LightingSystem->OnGui();
-		_Camera->OnGui();
+		//_LightingSystem->OnGui();
+		//_Camera->OnGui();
 	}
 }
