@@ -58,7 +58,7 @@ Boss::Boss()
 
 	//초기 상태값은 보스가 움직이지 않아야 하니까 가만히 있는 상태를 만들어준다.
 	_state = StateType::Create;
-	this->ChangeState(StateType::Fist_Shoot_First);
+	this->ChangeState(StateType::Rock_Shoot_First);
 }
 
 
@@ -196,6 +196,7 @@ void Boss::ChangeState(StateType state)
 	case Boss::StateType::Idle:
 		break;
 	case Boss::StateType::Create:
+		_SoundManager->Play("bossCreate", 1.0f);
 		break;
 	case Boss::StateType::Dead:
 		//_imagePosition.y = 380.f;
@@ -213,6 +214,7 @@ void Boss::ChangeState(StateType state)
 	case Boss::StateType::Rock_Shoot_First:
 		break;
 	case Boss::StateType::Rock_Shoot_Second:
+		_SoundManager->Play("GolemKingHandCrush", 0.6f);
 		RockPattom();
 		break;
 	case Boss::StateType::Rock_Shoot_Last:

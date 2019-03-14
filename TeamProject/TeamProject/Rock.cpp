@@ -118,6 +118,7 @@ void Rock::ChangeState(State state)
 		RECT temp;
 		if (IntersectRect(&temp, &_mainRect, &_player->GetCollisionRect()))
 		{
+			_SoundManager->Play("GolemKingRockHitGround", 0.6f);
 			_player->AttackedDamage(30);
 		}
 		break;
