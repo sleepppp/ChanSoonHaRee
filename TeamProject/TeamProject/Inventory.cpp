@@ -481,7 +481,6 @@ bool Inventory::AddItem(string name)
 			
 		}
 
-
 		//가방 슬롯 사이즈만큼
 		for (UINT i = 0; i < _bagSlotList.size(); ++i)
 		{

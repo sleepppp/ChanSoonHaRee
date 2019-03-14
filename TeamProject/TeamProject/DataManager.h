@@ -3,6 +3,9 @@ class DataManager
 {
 	SingletonHeader(DataManager)
 
+private:
+
+
 public:
 
 };
