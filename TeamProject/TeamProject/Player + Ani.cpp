@@ -204,7 +204,7 @@ void Player::Attack()
 					{
 						//데미지값을 받아서 체력을 깎는다(전달)
 						enemy->AttackedDemege(_damage);		
-						//_SoundManager->Play("enemy_death", 0.6f);
+						_SoundManager->Play("enemy_death", 0.6f);
 						_isAttacked = true;
 					}
 				}
