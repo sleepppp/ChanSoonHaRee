@@ -2,6 +2,7 @@
 #include "Window.h"
 
 #include "Program.h"
+#include "resource.h"
 //static 변수를 선언했으면 아래와 같이 반드시 cpp에서 초기화 해주어야 한다. 이유는 구글링 해보세요
 WindowDesc Window::windowDesc;
 Program* Window::program = nullptr;
@@ -117,18 +118,18 @@ LRESULT Window::WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
 void Window::SetRegister()
 {
 	WNDCLASS wndClass;
-	wndClass.cbClsExtra = 0;										//클래스 여분 메모리 설정
-	wndClass.cbWndExtra = 0;										//윈도우 여분 메모리 설정
-	wndClass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);	//윈도우 백그라운드
-	wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);					//윈도우 커서 모양
-	wndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);				//윈도우 아이콘 모양
-	wndClass.hInstance = windowDesc.Instance;						//윈도우 인스턴스 번호
-	wndClass.lpfnWndProc = (WNDPROC)WndProc;						//윈도우 프로시져
-	wndClass.lpszClassName = windowDesc.AppName.c_str();			//윈도우 클래스 이름
-	wndClass.lpszMenuName = NULL;									//윈도우 메뉴 이름
-	wndClass.style = CS_HREDRAW | CS_VREDRAW;						//윈도우 창 스타일
+	wndClass.cbClsExtra = 0;																		//클래스 여분 메모리 설정
+	wndClass.cbWndExtra = 0;																		//윈도우 여분 메모리 설정
+	wndClass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);									//윈도우 백그라운드
+	wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);													//윈도우 커서 모양
+	wndClass.hIcon = LoadIcon(Window::windowDesc.Instance, MAKEINTRESOURCE(IDI_ICON2));				//윈도우 아이콘 모양
+	wndClass.hInstance = windowDesc.Instance;														//윈도우 인스턴스 번호
+	wndClass.lpfnWndProc = (WNDPROC)WndProc;														//윈도우 프로시져
+	wndClass.lpszClassName = windowDesc.AppName.c_str();											//윈도우 클래스 이름
+	wndClass.lpszMenuName = NULL;																	//윈도우 메뉴 이름
+	wndClass.style = CS_HREDRAW | CS_VREDRAW;														//윈도우 창 스타일
 
-																	//윈도우 정보를 등록해준다
+																									//윈도우 정보를 등록해준다
 	RegisterClass(&wndClass);
 
 	if (windowDesc.bFullScreen == true)

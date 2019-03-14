@@ -30,7 +30,16 @@ using namespace std;
 #include "ModuleHeader.h"
 
 #define IsMouseOnGui ImGui::GetIO().WantCaptureMouse
+
+
+#ifdef _DEBUG
+
 //콘솔 창 출력
 #pragma comment(linker , "/entry:WinMainCRTStartup /subsystem:console")
+
+#else
+
+
+#endif
 
 extern bool _isDebug;

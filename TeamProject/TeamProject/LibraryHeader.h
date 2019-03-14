@@ -38,5 +38,5 @@
 #include "imgui.h"
 #include "imguiDx11.h"
 
-#include <json/json.h>
-#pragma comment(lib, "jsoncpp.lib")
+//#include <json/json.h>
+//#pragma comment(lib, "jsoncpp.lib")

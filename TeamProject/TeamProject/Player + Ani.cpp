@@ -202,10 +202,9 @@ void Player::Attack()
 					RECT temp;
 					if (IntersectRect(&temp, &_swordRect, &object->at(i)->GetCollisionRect()))
 					{
-						//충돌했을때 false상태일때(그 전에 충돌 상태가 아니었을때)
-
 						//데미지값을 받아서 체력을 깎는다(전달)
-						enemy->AttackedDemege(_damage);						
+						enemy->AttackedDemege(_damage);		
+						//_SoundManager->Play("enemy_death", 0.6f);
 						_isAttacked = true;
 					}
 				}
@@ -215,11 +214,9 @@ void Player::Attack()
 					RECT temp;
 					if (IntersectRect(&temp, &_swordRect, &object->at(i)->GetCollisionRect()))
 					{
-						cout << "충돌 확인" << endl;
-						//충돌했을때 false상태일때(그 전에 충돌 상태가 아니었을때)
-				
 						//데미지값을 받아서 체력을 깎는다(전달)
 						boss->AttackedDamage(_damage);
+						_SoundManager->Play("enemy_death", 0.6f);
 						_isAttacked = true;
 					}
 				}
@@ -262,9 +259,11 @@ void Player::AttackedDamage(int damage)
 			this->_currentHp -= damage;
 			//데미지 폰트 출력
 			_DamageFontManager->ShowDamage(Vector2(_position),_damage);
+			_SoundManager->Play("will_damage", 0.6f);
 		}
 	}
 }
+
 
 //=======================================
 //에너미와 충돌시, 무적시간 부여/플레이어 깜빡임 함수
@@ -273,7 +272,7 @@ void Player::AtkDelay2()
 {
 	if (_isDelay == true)
 	{
-		if (_currentHp > 0)
+		if (_currentHp > 0 && _state != Player::State::Die)
 		{
 			_count += _TimeManager->DeltaTime();
 			

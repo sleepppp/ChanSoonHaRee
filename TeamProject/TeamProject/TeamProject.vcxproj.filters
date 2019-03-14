@@ -468,6 +468,9 @@
     <ClInclude Include="BossEffect.h">
       <Filter>PrivateForder\Chan\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Npc.h">
+      <Filter>PrivateForder\Ree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -767,6 +770,9 @@
     <ClCompile Include="BossEffect.cpp">
       <Filter>PrivateForder\Chan\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Npc.cpp">
+      <Filter>PrivateForder\Ree</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TeamProject.rc">
@@ -778,6 +784,12 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="TeamProject.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="icon1.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Bag_Emblem.ico">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>
