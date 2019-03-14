@@ -17,6 +17,7 @@
 #include "BossProgressBar.h"
 #include "BossEffect.h"
 #include "UICoin.h"
+#include "UIPotion.h"
 //여기서 필요한 리소스 로드 및 클래스 할당하시면 됩니다. 
 //Init은 ㄴㄴ new 하고 ObjectManager에 추가 ㅇㅇ
 
@@ -57,6 +58,9 @@ void Program::LoadResourceChan()
 
 	//UI BOSS HP 프로그래스 바
 	_ImageManager->AddFrameImage("bossHpBar", L"../Resources/UI/bossHpBar.png", 1, 5, false);
+
+	//UI 포션
+	_ImageManager->AddImage("UI_Potion", L"../Resources/UI/UI_Potion.png", false);
 
 	/**********************
 			이팩트
@@ -114,6 +118,9 @@ void MainScene::ChanInit()
 	//UI 코인
 	_ObjectManager->AddObject(ObjectType::UI, new UICoin);
 	
+	//UI 포션
+	_ObjectManager->AddObject(ObjectType::UI, new UIPotion);
+
 	//이팩트
 	for (UINT i = 0; i < 30; ++i) 
 	{
@@ -153,6 +160,9 @@ void TownScene::ChanInit()
 	//UI 코인
 	_ObjectManager->AddObject(ObjectType::UI, new UICoin);
 
+	//UI 포션
+	_ObjectManager->AddObject(ObjectType::UI, new UIPotion);
+
 	//이팩트
 	for (UINT i = 0; i < 30; ++i)
 	{
@@ -178,6 +188,9 @@ void Dungeon_Map_01::ChanInit()
 	//UI 코인
 	_ObjectManager->AddObject(ObjectType::UI, new UICoin);
 
+	//UI 포션
+	_ObjectManager->AddObject(ObjectType::UI, new UIPotion);
+
 	//이팩트
 	for (UINT i = 0; i < 30; ++i)
 	{
@@ -198,6 +211,9 @@ void Dungeon_Map_Boss::ChanInit()
 
 	//UI 돈 주머니
 	_ObjectManager->AddObject(ObjectType::UI, new UIMoneyPoket);
+
+	//UI 포션
+	_ObjectManager->AddObject(ObjectType::UI, new UIPotion);
 
 	//UI 코인
 	_ObjectManager->AddObject(ObjectType::UI, new UICoin);
@@ -234,6 +250,9 @@ void Dungeon_Map_02::ChanInit()
 	//UI 코인
 	_ObjectManager->AddObject(ObjectType::UI, new UICoin);
 
+	//UI 포션
+	_ObjectManager->AddObject(ObjectType::UI, new UIPotion);
+
 	//이팩트
 	for (UINT i = 0; i < 30; ++i)
 	{
@@ -266,6 +285,9 @@ void DungeonLobby::ChanInit()
 
 	//UI 코인
 	_ObjectManager->AddObject(ObjectType::UI, new UICoin);
+
+	//UI 포션
+	_ObjectManager->AddObject(ObjectType::UI, new UIPotion);
 
 	//이팩트
 	for (UINT i = 0; i < 30; ++i)

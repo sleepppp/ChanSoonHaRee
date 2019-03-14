@@ -487,7 +487,7 @@
       <Filter>PrivateForder\Chan\Data</Filter>
     </ClInclude>
     <ClInclude Include="UIPotion.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>PrivateForder\Chan\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -804,7 +804,7 @@
       <Filter>PrivateForder\Chan\Data</Filter>
     </ClCompile>
     <ClCompile Include="UIPotion.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>PrivateForder\Chan\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
