@@ -66,7 +66,7 @@ void Rock::UpdateState()
 		}
 		break;
 	case Rock::State::Move:
-		_position.y += 500.f * _TimeManager->DeltaTime();
+		_position.y += 1000.f * _TimeManager->DeltaTime();
 		this->UpdateMainRect();
 		if (_firstPosition.y + 1000 < _position.y)
 		{
@@ -116,9 +116,9 @@ void Rock::ChangeState(State state)
 		break;
 	case Rock::State::Stop:
 		RECT temp;
+		_SoundManager->Play("GolemKingRockHitGround", 0.2f);
 		if (IntersectRect(&temp, &_mainRect, &_player->GetCollisionRect()))
 		{
-			_SoundManager->Play("GolemKingRockHitGround", 0.6f);
 			_player->AttackedDamage(30);
 		}
 		break;
