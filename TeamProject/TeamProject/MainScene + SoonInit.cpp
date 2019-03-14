@@ -74,7 +74,7 @@ void Dungeon_Map_02::SoonInit()
 
 void Dungeon_Map_Boss::SoonInit()
 {
-	_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
+	//_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
 
 	_ObjectManager->AddObject(ObjectType::Object, new GameObject({0,1340,2101,1422}));
 	_ObjectManager->AddObject(ObjectType::Object, new GameObject({ 0,0,73,1422 }));
@@ -181,7 +181,7 @@ void TownScene::SoonInit()
 		_SceneManager->LoadSceneByLoading("DungeonLobby");
 	}));
 
-	_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
+	//_ObjectManager->AddObject(ObjectType::UI, new DebugCollider);
 
 	//1310,1220
 	OilLamp* oilLamp = new OilLamp("Village_OilLamps_1", Vector2(2310, 1220));
