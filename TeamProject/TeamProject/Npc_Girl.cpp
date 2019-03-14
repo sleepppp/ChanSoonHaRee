@@ -99,14 +99,14 @@ void Npc_Girl::Render()
 	_imgGirl->SetScale(1.0f);
 	_imgGirl->FrameRender(_position.x, _position.y, _frameX, _frameY, Pivot::CENTER, true);
 
-	//ImGui::Begin("aa");
-	//ImGui::Text("%d, %d", _Camera->GetWorldMousePoint().x, _Camera->GetWorldMousePoint().y);
-	//ImGui::End();
-
 	if (_isDebug)
 	{
 		_DXRenderer->FillRectangle(_mainRect, DefaultBrush::blue, true);
 	}
+
+	ImGui::Begin("aa");
+	ImGui::Text("%d, %d", _Camera->GetWorldMousePoint().x, _Camera->GetWorldMousePoint().y);
+	ImGui::End();
 
 }
 

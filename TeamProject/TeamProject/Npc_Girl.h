@@ -22,11 +22,6 @@ protected:
 		Left, Right, Up, Down, end
 	};
 
-	//애니메이션을 담을 맵의 반복자
-	typedef map<State, class Animation*>::iterator AnimationIter;
-	class Animation* _mainAnimation;
-	map<State, class Animation*> _animationList;	//상태별 애니를 관리하기 위해 맵 사용
-
 	State _state;
 
 public:

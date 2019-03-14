@@ -1,36 +1,39 @@
 #pragma once
 #include "GameObject.h"
-
-class Npc :	public GameObject
+class Npc_Guy :	public GameObject
 {
-protected:	
-	class Image* _imgKids;
+	class Image* _imgGuy;
 	class Image* _imgShadow;
-	
-	float _count;
+		
 	RECT _npcRc;
 	vector<Vector2>movePoint;
-	Vector2 position;
 
 	float _speed;
 	int _index;
 	int _frameX;
 	int _frameY;
 
+	float _count;
+	float _pauseTime;
+	bool _isArrive;
+	float _angle;
+	
 	enum class State
 	{
 		Left, Right, Up, Down, end
 	};
-
 	State _state;
 
 public:
-	Npc();
-	~Npc();
+	Npc_Guy();
+	~Npc_Guy();
 
 	void Init()override;
 	void Release()override;
 	void Update()override;
 	void Render()override;
+
+	void MoveType();
+	void StateType();
 };
 

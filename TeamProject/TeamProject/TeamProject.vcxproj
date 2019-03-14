@@ -178,6 +178,8 @@
     <ClInclude Include="LightParticleSystem.h" />
     <ClInclude Include="Npc.h" />
     <ClInclude Include="Npc_Girl.h" />
+    <ClInclude Include="Npc_Guy.h" />
+    <ClInclude Include="Npc_Lunk.h" />
     <ClInclude Include="OilLamp.h" />
     <ClInclude Include="OilLampLight.h" />
     <ClInclude Include="Plankton.h" />
@@ -282,6 +284,8 @@
     <ClCompile Include="LightParticleSystem.cpp" />
     <ClCompile Include="Npc.cpp" />
     <ClCompile Include="Npc_Girl.cpp" />
+    <ClCompile Include="Npc_Guy.cpp" />
+    <ClCompile Include="Npc_Lunk.cpp" />
     <ClCompile Include="OilLamp.cpp" />
     <ClCompile Include="OilLampLight.cpp" />
     <ClCompile Include="Plankton.cpp" />

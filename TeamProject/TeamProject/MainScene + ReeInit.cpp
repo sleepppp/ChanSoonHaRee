@@ -9,8 +9,7 @@
 #include "Dungeon_Map_02.h"
 #include "Npc.h"
 #include "Npc_Girl.h"
-
-//â1152*721
+#include "Npc_Guy.h"
 
 void Program::LoadResourceRee()
 {
@@ -34,6 +33,7 @@ void TownScene::ReeInit()
 	_ObjectManager->AddObject(ObjectType::Object, new Player(Vector2(WinSizeX/2,500)));	
 	_ObjectManager->AddObject(ObjectType::Object, new Npc());
 	_ObjectManager->AddObject(ObjectType::Object, new Npc_Girl());
+	_ObjectManager->AddObject(ObjectType::Object, new Npc_Guy());
 }
 void Dungeon_Map_01::ReeInit()
 {

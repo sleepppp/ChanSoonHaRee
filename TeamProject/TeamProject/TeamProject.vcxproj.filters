@@ -492,6 +492,12 @@
     <ClInclude Include="Npc_Girl.h">
       <Filter>PrivateForder\Ree</Filter>
     </ClInclude>
+    <ClInclude Include="Npc_Guy.h">
+      <Filter>PrivateForder\Ree</Filter>
+    </ClInclude>
+    <ClInclude Include="Npc_Lunk.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -811,6 +817,12 @@
     </ClCompile>
     <ClCompile Include="Npc_Girl.cpp">
       <Filter>PrivateForder\Ree</Filter>
+    </ClCompile>
+    <ClCompile Include="Npc_Guy.cpp">
+      <Filter>PrivateForder\Ree</Filter>
+    </ClCompile>
+    <ClCompile Include="Npc_Lunk.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

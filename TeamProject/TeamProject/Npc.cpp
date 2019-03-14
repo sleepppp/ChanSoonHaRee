@@ -100,9 +100,7 @@ void Npc::Render()
 	_imgKids->SetScale(1.0f);
 	_imgKids->FrameRender(_position.x, _position.y, _frameX, _frameY, Pivot::CENTER, true);
 
-	//ImGui::Begin("aa");
-	//ImGui::Text("%d, %d", _Camera->GetWorldMousePoint().x, _Camera->GetWorldMousePoint.y);
-	//ImGui::End();
+	
 
 	if (_isDebug)
 	{
