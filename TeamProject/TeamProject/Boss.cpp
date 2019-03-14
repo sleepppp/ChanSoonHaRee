@@ -77,6 +77,7 @@ void Boss::Release()
 	AniImgIter iter = _aniImgList.begin();
 	for (; iter != _aniImgList.end(); ++iter)
 	{
+		SafeDelete(iter->second->_animation);
 		SafeDelete(iter->second);
 	}
 	_aniImgList.clear();

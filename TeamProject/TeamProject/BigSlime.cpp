@@ -14,9 +14,13 @@ BigSlime::BigSlime(Vector2 pos)
 	_hp = 500;
 	_damage = 20;
 	_renderRect = Figure::RectMakeCenter(_position, _size);
+	_shadowRc = Figure::RectMakeCenter(Vector2(_position.x, _position.y + 60), Vector2(150, 50));
 	CreateAnimation();
+	this->shadowCount = 0.0f;
+	_shadow = _ImageManager->FindImage("shadow");
 	this->_state = StateType::End;
 	ChangeState(StateType::Idle);
+	_SoundManager->PlayBGM("GolemKingRoom");
 }
 
 
@@ -32,12 +36,20 @@ void BigSlime::Init()
 
 void BigSlime::Release()
 {
+	_aniIter iter = _aniList.begin();
+	for (; iter != _aniList.end(); ++iter)
+	{
+		SafeDelete(iter->second->_animation);
+		SafeDelete(iter->second);
+	}
+	_aniList.clear();
 }
 
 void BigSlime::Update()
 {
 	UpdateState();
 	_renderRect = Figure::RectMakeCenter(_position, _size);
+	_shadowRc = Figure::RectMakeCenter(Vector2(_position.x, _position.y + 600), Vector2(150, 50));
 	this->ObjectCollision();
 	_ani->_animation->UpdateFrame();
 
@@ -45,13 +57,24 @@ void BigSlime::Update()
 
 void BigSlime::Render()
 {
+
+	_shadow->SetSize(_shadow->GetFrameSize(0));
+	_shadow->SetAlpha(shadowCount);
+	_shadow->SetScale(1.0f);
+	_shadow->Render(_position.x, _position.y + 60, Pivot::CENTER, true);
+
 	_ani->_CreateImage->SetSize(Vector2(_size.x * 2, _size.y * 2));
 	_ani->_CreateImage->FrameRender((int)_position.x, (int)_position.y, _ani->_animation->GetNowFrameX(), _ani->_animation->GetNowFrameY(), _pivot, true);
-
+	
 	if (_isDebug == true)
 	{
 		_DXRenderer->DrawEllipse(_position, _size.x * 0.55f, DefaultBrush::blue, true);
 		_DXRenderer->DrawRectangle(_renderRect, DefaultBrush::green, true);
+		if (_ani->_animation->GetNowFrameX() == 5)
+		{
+			_DXRenderer->DrawRectangle(_attackRc, DefaultBrush::red, true);
+		}
+		_DXRenderer->DrawRectangle(_shadowRc, DefaultBrush::black);
 	}
 }
 
@@ -64,21 +87,25 @@ void BigSlime::ChangeState(StateType state)
 
 	this->ChangeAnimation(state);
 
-	
+	//float angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
+
 	switch (_state)
 	{
 	case BigSlime::StateType::Idle:
 		break;
 	case BigSlime::StateType::Create:
+		_SoundManager->Play("dungeon_wanderer_appears", 0.5f);
 		break;
 	case BigSlime::StateType::Chasing_L:
 		break;
 	case BigSlime::StateType::Chasing_R:
 		break;
 	case BigSlime::StateType::Attack_L:
-		_attackRc = Figure::RectMakeCenter(Vector2(_position.x - 100, _position.y), Vector2(70, 70));
+		_SoundManager->Play("dungeon_wanderer_attack", 0.6f);
+		_attackRc = Figure::RectMakeCenter(Vector2(_player->GetPosition().x, _player->GetPosition().y), Vector2(70, 70));
 		break;
 	case BigSlime::StateType::Attack_R:
+		_SoundManager->Play("dungeon_wanderer_attack", 0.6f);
 		_attackRc = Figure::RectMakeCenter(Vector2(_position.x + 100, _position.y), Vector2(70, 70));
 		break;
 	case BigSlime::StateType::Dead:
@@ -116,6 +143,12 @@ void BigSlime::UpdateState()
 		}
 		break;
 	case BigSlime::StateType::Create:
+		shadowCount += 0.08f * _TimeManager->DeltaTime();
+		if (shadowCount > 0.3f)
+		{
+			shadowCount = 0.3f;
+		}
+
 		if (_ani->_animation->GetNowFrameX() == 36)
 		{
 			ChasingMove();
@@ -149,26 +182,36 @@ void BigSlime::UpdateState()
 		break;
 	case BigSlime::StateType::Attack_L:
 
-		if (_ani->_animation->GetNowFrameX() == 21)
+		if (_ani->_animation->GetNowFrameX() == 5)
 		{
+			_Camera->Shake(2.0f, 1.0f);
 			RECT temp;
 			if (IntersectRect(&temp, &_attackRc, &_player->GetCollisionRect()))
 			{
 				_player->AttackedDamage(_damage);
 			}
+		}
+		if (_ani->_animation->GetNowFrameX() == 21)
+		{
+			
 
 			ChasingMove();
 		}
 		break;
 	case BigSlime::StateType::Attack_R:
 
-		if (_ani->_animation->GetNowFrameX() == 21)
+		if (_ani->_animation->GetNowFrameX() == 5)
 		{
+			_Camera->Shake(2.0f, 1.0f);
 			RECT temp;
 			if (IntersectRect(&temp, &_attackRc, &_player->GetCollisionRect()))
 			{
 				_player->AttackedDamage(_damage);
 			}
+		}
+		if (_ani->_animation->GetNowFrameX() == 21)
+		{
+			
 			ChasingMove();
 		}
 		break;

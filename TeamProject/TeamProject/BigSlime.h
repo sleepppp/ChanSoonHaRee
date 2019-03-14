@@ -21,8 +21,10 @@ private:
 
 	StateType _state;
 	Ani* _ani;
-
+	class Image* _shadow;
+	float shadowCount;
 	RECT _attackRc;
+	RECT _shadowRc;
 public:
 	void Init()override;
 	void Release()override;
