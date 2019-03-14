@@ -45,7 +45,7 @@ void Door::Update()
 	RECT collisionRc;
 
 	_timeCount += _TimeManager->DeltaTime();
-	if (_timeCount > 1.f)
+	if (_timeCount > 0.2f)
 	{
 		_timeCount = 0;
 		_doorCount++;

@@ -133,7 +133,8 @@ void Dungeon_Map_01::HaInit()
 
 void Dungeon_Map_02::HaInit()
 {
-	_ObjectManager->AddObject(ObjectType::Object, new BigSlime(Vector2(300, 300)));
+	_ObjectManager->AddObject(ObjectType::Object, new BigSlime(Vector2(400, 320)));
+	_ObjectManager->AddObject(ObjectType::Object, new BigSlime(Vector2(900, 600)));
 }
 
 void Dungeon_Map_Boss::HaInit()
