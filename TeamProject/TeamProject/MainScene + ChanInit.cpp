@@ -81,6 +81,7 @@ void Program::LoadResourceChan()
 	_ImageManager->AddImage("item_golemCore", L"../Resources/Item/item_golemCore.png", false);
 
 
+
 	/**********************
 			 ∏ÛΩ∫≈Õ
 	***********************/

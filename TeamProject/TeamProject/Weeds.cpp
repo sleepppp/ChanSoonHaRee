@@ -204,6 +204,9 @@ void Weeds::AttackedDemege(int damage)
 		//카메라 흔들기
 		_Camera->Shake();
 
+		//아이템 뿌리기
+		SprayItemEnemy("item_brench");
+
 		//이팩트 : 폭발
 		Effect::PlayEffect(EFFECT_BOOM, _position);
 
