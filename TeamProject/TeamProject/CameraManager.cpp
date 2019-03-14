@@ -327,6 +327,13 @@ void CameraManager::SetTarget(GameObject * object)
 	}
 }
 
+void CameraManager::ChangeTarget(GameObject * object)
+{
+	pTarget = object;
+	state = MoveState::None;
+
+}
+
 void CameraManager::SetFreeCamera()
 {
 	state = MoveState::FreeCamera;

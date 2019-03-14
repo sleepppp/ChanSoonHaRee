@@ -63,6 +63,7 @@ public:
 	float GetZoom()const { return this->zoomFactor; }
 	void CameraProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void SetTarget(class GameObject* object);
+	void ChangeTarget(class GameObject* object);
 	void SetCameraMoveDistance(float distance = CameraMoveStartDistance) { moveStartDistance = distance; }
 
 	void Shake(float strength = CameraDefaultStrength,float shakeTime = CameraDefaultShakeTime,

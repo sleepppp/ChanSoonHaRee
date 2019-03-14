@@ -6,7 +6,7 @@
 
 
 //에너미 아이템 뿌리기
-void Enemy::SprayItemEnemy()
+void Enemy::SprayItemEnemy(string name)
 {
 	//x, y 포지션 
 	Vector2 randomPos;
@@ -17,5 +17,5 @@ void Enemy::SprayItemEnemy()
 	randomPos.y = Math::Random(this->_position.y - 30.f, this->_position.y + 30.f);
 
 	//아이템 뿌리기
-	_ObjectManager->AddObject(ObjectType::Object, new MoveItem("item_brench", randomPos));
+	_ObjectManager->AddObject(ObjectType::Object, new MoveItem(name, randomPos));
 }

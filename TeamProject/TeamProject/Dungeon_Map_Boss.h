@@ -4,6 +4,7 @@ class Dungeon_Map_Boss : public SceneBase
 {
 private:
 	class Image* _map;
+	class Image* _door;
 	class GameObject* _object;
 public:
 	void HaInit();

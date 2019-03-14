@@ -36,7 +36,7 @@ void Enemy::AttackedDemege(int damage)
 		_SoundManager->Play("enemyDeath", 1.0f);
 
 		//아이템 뿌리기
-		this->SprayItemEnemy();
+		this->SprayItemEnemy("item_brench");
 
 		//사라져라. 다른 죽는 모션이 존재할 경우 가상함수 상속을 통해서 내용을 바꿀 수도 있다.
 		this->Destroy();
