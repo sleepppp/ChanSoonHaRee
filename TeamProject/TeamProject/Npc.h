@@ -4,12 +4,14 @@
 class Npc :	public GameObject
 {
 protected:	
-	class Image* _ImgKids;
+	class Image* _imgKids;
+	class Image* _imgShadow;
+	
 	float _count;
 	RECT _npcRc;
 	vector<Vector2>movePoint;
 	Vector2 position;
-	//Vector2 size;
+
 	float _speed;
 	int _index;
 	int _frameX;
@@ -26,13 +28,7 @@ protected:
 	map<State, class Animation*> _animationList;	//상태별 애니를 관리하기 위해 맵 사용
 	
 	State _state;
-	//Move* _move;
 
-	//Math::GetAngle()
-	//각 위치 배열로 담고
-	//4번 배열이상 넘어가려할때 0으로 초기화 하여 0위치로 다시 돌도록 한다.
-
-	
 public:
 	Npc();
 	~Npc();
@@ -41,9 +37,5 @@ public:
 	void Release()override;
 	void Update()override;
 	void Render()override;
-
-	void ChangeAnimation(State state);
-	void NpcAni();
-
 };
 

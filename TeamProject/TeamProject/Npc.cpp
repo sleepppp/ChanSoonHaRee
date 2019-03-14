@@ -3,6 +3,7 @@
 #include "Time.h"
 #include "Image.h"
 #include "Animation.h"
+
 using namespace Figure;
 
 Npc::Npc()
@@ -14,7 +15,10 @@ Npc::Npc()
 	movePoint.push_back(Vector2(794,1585));
 
 	_ImageManager->AddFrameImage("Kids", L"../Resources/Npc/Kids.png", 6, 4);
-	_ImgKids = _ImageManager->FindImage("Kids");
+	_imgKids = _ImageManager->FindImage("Kids");
+
+	_ImageManager->AddImage("Shadow", L"../Resources/Object/Shadow.png");
+	this->_imgShadow = _ImageManager->FindImage("Shadow");
 
 	this->_isActive = true;
 	this->_pivot = Pivot::CENTER;
@@ -87,10 +91,14 @@ void Npc::Update()
 
 void Npc::Render()
 {
-	//_DXRenderer->FillRectangle(_npcRc, DefaultBrush::red, true);
-	_ImgKids->SetSize(Vector2(60,60));
-	_ImgKids->SetScale(1.0f);
-	_ImgKids->FrameRender(_position.x, _position.y, _frameX, _frameY, Pivot::CENTER, true);
+	//±×¸²ÀÚ
+	_imgShadow->SetAlpha(0.4f);
+	_imgShadow->SetSize(Vector2(48, 24));
+	_imgShadow->Render(this->_position.x, this->_position.y + 24, Pivot::CENTER, true);
+	
+	_imgKids->SetSize(Vector2(60,60));
+	_imgKids->SetScale(1.0f);
+	_imgKids->FrameRender(_position.x, _position.y, _frameX, _frameY, Pivot::CENTER, true);
 
 	//ImGui::Begin("aa");
 	//ImGui::Text("%d, %d", _Camera->GetWorldMousePoint().x, _Camera->GetWorldMousePoint.y);
