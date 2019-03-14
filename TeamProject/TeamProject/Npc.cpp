@@ -93,7 +93,7 @@ void Npc::Render()
 {
 	//±×¸²ÀÚ
 	_imgShadow->SetAlpha(0.4f);
-	_imgShadow->SetSize(Vector2(48, 24));
+	_imgShadow->SetSize(Vector2(28, 20));
 	_imgShadow->Render(this->_position.x, this->_position.y + 24, Pivot::CENTER, true);
 	
 	_imgKids->SetSize(Vector2(60,60));
