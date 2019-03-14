@@ -12,7 +12,6 @@ Effect::Effect()
 
 
 	this->_isActive = false;
-
 }
 
 
