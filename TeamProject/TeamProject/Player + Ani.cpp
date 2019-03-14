@@ -272,7 +272,7 @@ void Player::AtkDelay2()
 {
 	if (_isDelay == true)
 	{
-		if (_currentHp > 0)
+		if (_currentHp > 0 && _state != Player::State::Die)
 		{
 			_count += _TimeManager->DeltaTime();
 			
