@@ -64,11 +64,11 @@ void TitleFlowObject::Update()
 	}
 		break;
 	case TitleFlowObject::State::Open:
-		if (_Input->GetKeyDown(VK_DOWN))
+		if (_Input->GetKeyDown('S'))
 		{
 			_selectIndex = ++_selectIndex % 2;
 		}
-		if (_Input->GetKeyDown(VK_UP))
+		if (_Input->GetKeyDown('W'))
 		{
 			--_selectIndex;
 			if (_selectIndex < 0)
