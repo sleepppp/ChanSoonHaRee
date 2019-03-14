@@ -1,6 +1,5 @@
 ﻿#include "stdafx.h"
 #include "Player.h"
-
 #include "Image.h"
 #include "Animation.h"
 #include "Timer.h"
@@ -10,7 +9,6 @@
 #include "Arrow.h"
 #include "Effect.h"
 #include "DamageFontManager.h"
-//#include "MainScene + ReeInit.cpp"
 
 //에너미 공ㅇ격 받을때 무적 판정(약 1초)	ok
 //에너미 데미지 값 받을 함수				ok

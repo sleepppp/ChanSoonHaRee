@@ -203,7 +203,8 @@ void Player::Attack()
 					if (IntersectRect(&temp, &_swordRect, &object->at(i)->GetCollisionRect()))
 					{
 						//데미지값을 받아서 체력을 깎는다(전달)
-						enemy->AttackedDemege(_damage);						
+						enemy->AttackedDemege(_damage);		
+						//_SoundManager->Play("enemy_death", 0.6f);
 						_isAttacked = true;
 					}
 				}
@@ -215,6 +216,7 @@ void Player::Attack()
 					{
 						//데미지값을 받아서 체력을 깎는다(전달)
 						boss->AttackedDamage(_damage);
+						_SoundManager->Play("enemy_death", 0.6f);
 						_isAttacked = true;
 					}
 				}
@@ -257,6 +259,7 @@ void Player::AttackedDamage(int damage)
 			this->_currentHp -= damage;
 			//데미지 폰트 출력
 			_DamageFontManager->ShowDamage(Vector2(_position),_damage);
+			_SoundManager->Play("will_damage", 0.6f);
 		}
 	}
 }
@@ -269,7 +272,7 @@ void Player::AtkDelay2()
 {
 	if (_isDelay == true)
 	{
-		if (_currentHp > 0)
+		if (_currentHp > 0 && _state != Player::State::Die)
 		{
 			_count += _TimeManager->DeltaTime();
 			

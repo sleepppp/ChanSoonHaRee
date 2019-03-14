@@ -128,6 +128,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../Libraries/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -302,6 +303,7 @@
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="imgui_demo.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Inventory.cpp" />
@@ -362,6 +364,8 @@
     <ResourceCompile Include="TeamProject.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Bag_Emblem.ico" />
+    <Image Include="icon1.ico" />
     <Image Include="small.ico" />
     <Image Include="TeamProject.ico" />
   </ItemGroup>

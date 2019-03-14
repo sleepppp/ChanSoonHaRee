@@ -21,9 +21,9 @@ TitleFlowObject::TitleFlowObject()
 		if (loadingScene != nullptr)
 		{
 			_ObjectManager->ChangeZOrdering(true);
-			loadingScene->SetNextSceneName("Dungeon_Map_Boss");
+			loadingScene->SetNextSceneName("Dungeon_Map_01");
 			loadingScene->SetLoadingFunc([]() {
-				_SceneManager->FindScene("Dungeon_Map_Boss")->Init();
+				_SceneManager->FindScene("Dungeon_Map_01")->Init();
 			});
 			_SceneManager->LoadScene("LoadingScene");
 			_LightingSystem->ChangeState(LightSystem::State::Afternoon);
@@ -64,11 +64,11 @@ void TitleFlowObject::Update()
 	}
 		break;
 	case TitleFlowObject::State::Open:
-		if (_Input->GetKeyDown(VK_DOWN))
+		if (_Input->GetKeyDown('S'))
 		{
 			_selectIndex = ++_selectIndex % 2;
 		}
-		if (_Input->GetKeyDown(VK_UP))
+		if (_Input->GetKeyDown('W'))
 		{
 			--_selectIndex;
 			if (_selectIndex < 0)

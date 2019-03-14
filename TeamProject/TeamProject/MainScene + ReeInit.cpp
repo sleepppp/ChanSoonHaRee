@@ -18,7 +18,8 @@ void Program::LoadResourceRee()
 	_SoundManager->AddSound("will_bowAtk", "../Sounds/will_bowAttack.wav", false, false);				//활공격
 	_SoundManager->AddSound("will_damage", "../Sounds/will_damaged.wav", false, false);					//데미지입었을때
 	_SoundManager->AddSound("will_bowWall", "../Sounds/will_bowWall.wav", false, false);				//화살 벽에 꽂히는 소리
-	_SoundManager->AddSound("will_die", "../Sounds/will_death.wav", false, false);					//쥬금
+	_SoundManager->AddSound("will_die", "../Sounds/will_death.wav", false, false);						//쥬금
+	//_SoundManager->AddSound("Will_")
 }
 //여기서 필요한 리소스 로드 및 클래스 할당하시면 됩니다. 
 //Init은 ㄴㄴ new 하고 ObjectManager에 추가 ㅇㅇ

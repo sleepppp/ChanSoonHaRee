@@ -6,6 +6,7 @@
 #include "Dungeon_Map_Boss.h"
 #include "Enemy.h"
 #include "Player.h"
+#include "BigSlime.h"
 #include "Golem.h"
 #include "Boss.h"
 #include "Weeds.h"
@@ -67,7 +68,14 @@ void Program::LoadResourceHa()
 	_ImageManager->AddFrameImage("FistShoot_Red", L"../Resources/Enemy/Boss/FistShoot_Red.png", 22, 3, true);
 	_ImageManager->AddFrameImage("FistShoot_White", L"../Resources/Enemy/Boss/FistShoot_White.png", 22, 3, true);
 	//============ºò ½½¶óÀÓ ÀÌ¹ÌÁö============//
-
+	//»ý¼º
+	_ImageManager->AddFrameImage("Create", L"../Resources/Enemy/MiddleBoss/CreateSlime.png", 37, 1, true);
+	//¹«ºê
+	_ImageManager->AddFrameImage("Move", L"../Resources/Enemy/MiddleBoss/SlimeMove.png", 8, 2, true);
+	//°ø°Ý
+	_ImageManager->AddFrameImage("Attack", L"../Resources/Enemy/MiddleBoss/SlimeAttack.png", 22, 2, true);
+	//»ç¸Á
+	_ImageManager->AddFrameImage("Dead", L"../Resources/Enemy/MiddleBoss/SlimeDead.png", 37, 1, true);
 	//------------°ñ·½ ÀÌ¹ÌÁö-----------------//
 	_ImageManager->AddFrameImage("GolemMove", L"../Resources/Enemy/Golem/GolemMove.png", 8, 4, true);
 	_ImageManager->AddFrameImage("GolemMove_Red", L"../Resources/Enemy/Golem/GolemMove_Red.png", 8, 4, true);
@@ -104,7 +112,7 @@ void MainScene::HaInit()
 {
 	_ObjectManager->AddObject(ObjectType::Object, new Golem(Vector2(100, 100)));
 	_ObjectManager->AddObject(ObjectType::Object, new Weeds(Vector2(300, 100)));
-	//_ObjectManager->AddObject(ObjectType::Object, new BigSlime(Vector2(100, 500)));
+	_ObjectManager->AddObject(ObjectType::Object, new BigSlime(Vector2(100, 500)));
 }
 
 void Dungeon_Map_01::HaInit()
@@ -117,6 +125,7 @@ void Dungeon_Map_01::HaInit()
 
 void Dungeon_Map_02::HaInit()
 {
+	_ObjectManager->AddObject(ObjectType::Object, new BigSlime(Vector2(300, 300)));
 }
 
 void Dungeon_Map_Boss::HaInit()
