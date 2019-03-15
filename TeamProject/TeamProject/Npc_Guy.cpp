@@ -48,13 +48,19 @@ void Npc_Guy::Update()
 {	
 	//잠시 자리에 머물기 위한 조건과 타이머
 	if (_isArrive == true)
-	{		
+	{
 		_pauseTime += _TimeManager->DeltaTime();
 
 		if (_pauseTime > 2.0f)
 		{
-			_isArrive = false;			
+			_isArrive = false;
 			_pauseTime = 0.0f;
+			_index++;
+			if (movePoint.size() <= _index)
+			{
+				_index = 0;
+			}
+
 		}
 	}
 	else
@@ -62,19 +68,10 @@ void Npc_Guy::Update()
 		_position.x += cos(_angle)*_speed*_TimeManager->DeltaTime();
 		_position.y -= sin(_angle)*_speed*_TimeManager->DeltaTime();
 	}
-	
+
 	if (_distance <= 5.0f)
 	{
 		_isArrive = true;
-
-		if (_index==4)
-		{
-			_index = 0; 
-		}
-		else
-		{
-			_index++;
-		}
 	}
 	//거리값을 구해서 다음 위치값으로 이동을 했을때
 	//가까워지면 다음 위치값으로 값을 변경한다.
@@ -103,7 +100,7 @@ void Npc_Guy::Update()
 			}
 			_count = 0.0f;
 		}
-		
+
 	}
 
 	this->UpdateMainRect();

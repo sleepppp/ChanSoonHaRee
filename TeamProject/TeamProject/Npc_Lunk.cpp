@@ -10,7 +10,7 @@ Npc_Lunk::Npc_Lunk()
 	movePoint.push_back(Vector2(600, 712));
 	movePoint.push_back(Vector2(600, 987));
 	movePoint.push_back(Vector2(847, 987));
-	movePoint.push_back(Vector2(2326, 2108));
+	movePoint.push_back(Vector2(600, 987));
 
 	_ImageManager->AddFrameImage("Lunk", L"../Resources/Npc/Lunk.png", 9, 4);
 	_imgLunk = _ImageManager->FindImage("Lunk");
@@ -54,6 +54,12 @@ void Npc_Lunk::Update()
 		{
 			_isArrive = false;
 			_pauseTime = 0.0f;
+			_index++;
+			if (movePoint.size() <= _index)
+			{
+				_index = 0;
+			}
+
 		}
 	}
 	else
@@ -65,15 +71,6 @@ void Npc_Lunk::Update()
 	if (_distance <= 5.0f)
 	{
 		_isArrive = true;
-
-		if (_index == 4)
-		{
-			_index = 0;
-		}
-		else
-		{
-			_index++;
-		}
 	}
 	//거리값을 구해서 다음 위치값으로 이동을 했을때
 	//가까워지면 다음 위치값으로 값을 변경한다.
