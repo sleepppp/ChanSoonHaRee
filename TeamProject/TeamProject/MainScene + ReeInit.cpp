@@ -10,6 +10,7 @@
 #include "Npc.h"
 #include "Npc_Girl.h"
 #include "Npc_Guy.h"
+#include "Npc_Lunk.h"
 
 void Program::LoadResourceRee()
 {
@@ -34,6 +35,7 @@ void TownScene::ReeInit()
 	_ObjectManager->AddObject(ObjectType::Object, new Npc());
 	_ObjectManager->AddObject(ObjectType::Object, new Npc_Girl());
 	_ObjectManager->AddObject(ObjectType::Object, new Npc_Guy());
+	_ObjectManager->AddObject(ObjectType::Object, new Npc_Lunk());
 }
 void Dungeon_Map_01::ReeInit()
 {

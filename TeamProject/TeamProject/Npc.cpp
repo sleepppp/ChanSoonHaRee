@@ -63,7 +63,7 @@ void Npc::Update()
 		_index++;
 		if (movePoint.size() == _index)
 		{
-			_index = 0;
+			_index = 1;
 		}
 	}
 

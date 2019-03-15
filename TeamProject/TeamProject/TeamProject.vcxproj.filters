@@ -496,7 +496,7 @@
       <Filter>PrivateForder\Ree</Filter>
     </ClInclude>
     <ClInclude Include="Npc_Lunk.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>PrivateForder\Ree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -822,7 +822,7 @@
       <Filter>PrivateForder\Ree</Filter>
     </ClCompile>
     <ClCompile Include="Npc_Lunk.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>PrivateForder\Ree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

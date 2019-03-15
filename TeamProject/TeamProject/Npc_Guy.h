@@ -17,7 +17,7 @@ class Npc_Guy :	public GameObject
 	float _pauseTime;
 	bool _isArrive;
 	float _angle;
-	
+	float _distance;
 	enum class State
 	{
 		Left, Right, Up, Down, end
@@ -35,5 +35,6 @@ public:
 
 	void MoveType();
 	void StateType();
+	void Arrive();
 };
 

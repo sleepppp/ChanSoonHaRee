@@ -46,10 +46,6 @@ void Npc_Guy::Release()
 
 void Npc_Guy::Update()
 {	
-	this->_angle = Math::GetAngle(_position.x, _position.y, movePoint[_index].x, movePoint[_index].y);	
-	this->MoveType();
-	this->StateType();
-
 	//잠시 자리에 머물기 위한 조건과 타이머
 	if (_isArrive == true)
 	{		
@@ -57,8 +53,7 @@ void Npc_Guy::Update()
 
 		if (_pauseTime > 2.0f)
 		{
-			_isArrive = false;
-			_index++;
+			_isArrive = false;			
 			_pauseTime = 0.0f;
 		}
 	}
@@ -68,19 +63,26 @@ void Npc_Guy::Update()
 		_position.y -= sin(_angle)*_speed*_TimeManager->DeltaTime();
 	}
 	
-	//거리값을 구해서 다음 위치값으로 이동을 했을때
-	//가까워지면 다음 위치값으로 값을 변경한다.
-	float distance = Math::GetDistance(_position.x, _position.y, movePoint[_index].x, movePoint[_index].y);
-
-	if (distance <= 5.0f)
+	if (_distance <= 5.0f)
 	{
 		_isArrive = true;
 
-		if (movePoint.size() == _index)
+		if (_index==4)
 		{
-			_index = 0;
+			_index = 0; 
+		}
+		else
+		{
+			_index++;
 		}
 	}
+	//거리값을 구해서 다음 위치값으로 이동을 했을때
+	//가까워지면 다음 위치값으로 값을 변경한다.
+	_distance = Math::GetDistance(_position.x, _position.y, movePoint[_index].x, movePoint[_index].y);
+
+	this->_angle = Math::GetAngle(_position.x, _position.y, movePoint[_index].x, movePoint[_index].y);
+	this->MoveType();
+	this->StateType();
 
 
 	//위치값에 맞춰 프레임을 변경한다.
@@ -112,16 +114,15 @@ void Npc_Guy::Render()
 	//그림자
 	_imgShadow->SetAlpha(0.4f);
 	_imgShadow->SetSize(Vector2(64, 24));
-	_imgShadow->Render(this->_position.x - 6, this->_position.y + 46, Pivot::CENTER, true);
+	_imgShadow->Render(this->_position.x, this->_position.y + 38, Pivot::CENTER, true);
 
 	_imgGuy->SetSize(Vector2(92, 92));
 	_imgGuy->SetScale(1.0f);
 	_imgGuy->FrameRender(_position.x, _position.y, _frameX, _frameY, Pivot::CENTER, true);
-	//cout << _position.x << ", " <<_position.y<<endl;
 
 	if (_isDebug)
 	{
-		_DXRenderer->FillRectangle(_mainRect, DefaultBrush::blue, true);
+		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::blue, true);
 	}
 
 	

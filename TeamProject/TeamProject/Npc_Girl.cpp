@@ -47,6 +47,7 @@ void Npc_Girl::Release()
 
 void Npc_Girl::Update()
 {
+	/*
 	float angle;
 	angle = Math::GetAngle(_position.x, _position.y, movePoint[_index].x, movePoint[_index].y);
 	
@@ -86,27 +87,29 @@ void Npc_Girl::Update()
 	if (_index == 3)_frameY = 2;
 
 	this->UpdateMainRect();
+	*/
 }
 
 void Npc_Girl::Render()
 {
+	/*
 	//±×¸²ÀÚ
 	_imgShadow->SetAlpha(0.4f);
 	_imgShadow->SetSize(Vector2(52, 24));
 	_imgShadow->Render(this->_position.x-6, this->_position.y + 44, Pivot::CENTER, true);
 
-	_imgGirl->SetSize(Vector2(92, 92));
-	_imgGirl->SetScale(1.0f);
-	_imgGirl->FrameRender(_position.x, _position.y, _frameX, _frameY, Pivot::CENTER, true);
+	//_imgGirl->SetSize(Vector2(92, 92));
+	//_imgGirl->SetScale(1.0f);
+	//_imgGirl->FrameRender(_position.x, _position.y, _frameX, _frameY, Pivot::CENTER, true);
 
 	if (_isDebug)
 	{
-		_DXRenderer->FillRectangle(_mainRect, DefaultBrush::blue, true);
+		_DXRenderer->DrawRectangle(_mainRect, DefaultBrush::blue, true);
 	}
 
 	ImGui::Begin("aa");
 	ImGui::Text("%d, %d", _Camera->GetWorldMousePoint().x, _Camera->GetWorldMousePoint().y);
 	ImGui::End();
-
+	*/
 }
 
