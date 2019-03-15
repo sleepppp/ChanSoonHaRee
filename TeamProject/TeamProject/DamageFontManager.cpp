@@ -30,6 +30,7 @@ void DamageFontManager::Render()
 		_DXRenderer->RenderText(_vDamageFont[i].position.x - 15, _vDamageFont[i].position.y - 90,
 			StringHelper::StringToWString(to_string(_vDamageFont[i].damage)),
 			RGB(25, 42, 225), _vDamageFont[i].alpha, 22, DWRITE_TEXT_ALIGNMENT_LEADING, true,L"Cooper Std");
+
 	}
 }
 

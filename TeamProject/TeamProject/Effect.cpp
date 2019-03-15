@@ -64,7 +64,7 @@ void Effect::ComeEffect(string name, Vector2 position)
 		
 		//시작 프레임 x,y와 끝 프레임 x,y
 		_effectAnimation->SetStartEndFrame(0, 0, _effectIMG->GetMaxFrameX() - 1, 0, false);
-		//루프 안함
+		//루프 해야함
 		_effectAnimation->SetIsLoop(true);
 		//프레임 도는 시간
 		_effectAnimation->SetFrameUpdateTime(0.1f);

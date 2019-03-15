@@ -26,13 +26,7 @@ void UIMoneyPoket::Release()
 
 void UIMoneyPoket::Update()
 {
-	if (_Input->GetKeyDown('N'))
-	{
-		_DamageFontManager->ShowDamage(_Camera->GetWorldMouse(),50);
 
-
-		
-	}
 }
 
 void UIMoneyPoket::Render()
