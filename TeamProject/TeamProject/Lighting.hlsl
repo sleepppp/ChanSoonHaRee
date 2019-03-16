@@ -72,14 +72,17 @@ PixelInput VS(uint vertexID : SV_VertexID)
 
 float4 PS(PixelInput input) : SV_TARGET
 {
+    //·»´õÅ¸°Ù ÄÃ·¯ »ùÇÃ¸µ 
     float4 renderTargetColor = _gBuffer.Sample(_defaultSampler, input.uv);
+    //Àü¿ª±¤ »ö = ºûÀÇ »ö * ºû ¼¼±â 
     float4 lightColor = _sunColor * _sunIntensity;
+    //AmbientColor = Àå¸é»ö * ambient °­µµ 
     float4 ambientColor = renderTargetColor * _worldAmbient;
-
+    //uv -> pixel
     float2 pixelPos;
     pixelPos.x = input.uv.x * _WinSizeX;
     pixelPos.y = input.uv.y * _WinSzieY;
-
+    //Á¡±¤ °è»ê
     for (uint i = 0; i < _pointLightSize; ++i)
     {
         float2 lightPos = _pointLightList[i].origin;
@@ -90,6 +93,6 @@ float4 PS(PixelInput input) : SV_TARGET
             lightColor.rgb += _pointLightList[i].color.rgb * _pointLightList[i].intensity * factor;
         }
     }
-
+    
     return ambientColor + renderTargetColor * lightColor;
 }

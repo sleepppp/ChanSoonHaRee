@@ -41,7 +41,7 @@ void MoveItem::Release()
 
 void MoveItem::Update()
 {
-	GameObject* _player = _ObjectManager->FindObject(ObjectType::Object,"Will");
+	Player* _player = (Player*)_ObjectManager->FindObject(ObjectType::Object,"Will");
 
 	//상태가 따라가기 상태이면
 	if (_itemState == ItemState::Follow)
@@ -49,45 +49,52 @@ void MoveItem::Update()
 		//만일 _player가 있으면
 		if (_player)
 		{
-			//거리 구하기
-			float distance = Math::GetDistance(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
 
-			//상대 각도 구하기
-			float angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
+			if (_player->GetState() != Player::State::Die)
+			{
 
-			//만일 거리가 250보다 멀어지면
-			//아이템 둥둥 뜨게하기
-			if (250 < distance)
-			{
-				_angle += 0.05f;
-				if (_angle >= Math::PI * 2.0f)
-					_angle -= Math::PI * 2.0f;
 
-				_position.y += sinf(_angle) * 20.0f * _TimeManager->DeltaTime();
-				this->UpdateMainRect();
-			}
+				//거리 구하기
+				float distance = Math::GetDistance(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
 
-			//만일 거리가 250보다 낮고 150보다 높으면
-			else if (250 > distance && distance > 150)
-			{
-				float speed = 20.0f;
-				this->_position.x += cosf(angle) * speed * _TimeManager->DeltaTime();
-				this->_position.y -= sinf(angle) * speed * _TimeManager->DeltaTime();
-				this->UpdateMainRect();
-			}
-			//만일 거리가 150이랑 같거나 낮아지면
-			else if (distance <= 150)
-			{
-				float speed = 150.0f;
-				this->_position.x += cosf(angle) * speed * _TimeManager->DeltaTime();
-				this->_position.y -= sinf(angle) * speed * _TimeManager->DeltaTime();
-				this->UpdateMainRect();
-			}
-			//만일 거리가 10보다 낮아지면
-			if (distance <= 10)
-			{
-				//아이템 이동 상태 변경
-				_itemState = ItemState::MoveItem;
+				//상대 각도 구하기
+				float angle = Math::GetAngle(_position.x, _position.y, _player->GetPosition().x, _player->GetPosition().y);
+
+
+				//만일 거리가 250보다 멀어지면
+				//아이템 둥둥 뜨게하기
+				if (250 < distance)
+				{
+					_angle += 0.05f;
+					if (_angle >= Math::PI * 2.0f)
+						_angle -= Math::PI * 2.0f;
+
+					_position.y += sinf(_angle) * 20.0f * _TimeManager->DeltaTime();
+					this->UpdateMainRect();
+				}
+
+				//만일 거리가 250보다 낮고 150보다 높으면
+				else if (250 > distance && distance > 150)
+				{
+					float speed = 20.0f;
+					this->_position.x += cosf(angle) * speed * _TimeManager->DeltaTime();
+					this->_position.y -= sinf(angle) * speed * _TimeManager->DeltaTime();
+					this->UpdateMainRect();
+				}
+				//만일 거리가 150이랑 같거나 낮아지면
+				else if (distance <= 150)
+				{
+					float speed = 150.0f;
+					this->_position.x += cosf(angle) * speed * _TimeManager->DeltaTime();
+					this->_position.y -= sinf(angle) * speed * _TimeManager->DeltaTime();
+					this->UpdateMainRect();
+				}
+				//만일 거리가 10보다 낮아지면
+				if (distance <= 10)
+				{
+					//아이템 이동 상태 변경
+					_itemState = ItemState::MoveItem;
+				}
 			}
 		}
 	}

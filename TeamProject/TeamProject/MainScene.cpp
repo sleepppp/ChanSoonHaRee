@@ -9,7 +9,7 @@ void MainScene::Init()
 	this->SoonInit();
 	this->ReeInit();
 	this->ChanInit();
-	this->HaInit();
+	//this->HaInit();
 
 	_ObjectManager->Init();
 

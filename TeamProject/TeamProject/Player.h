@@ -3,6 +3,7 @@
 
 class Player : public GameObject
 {
+public:
 	enum class State : int
 	{
 		LeftIdle = 0, RightIdle, UpIdle, DownIdle,
