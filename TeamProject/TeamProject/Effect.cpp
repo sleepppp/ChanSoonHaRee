@@ -53,7 +53,7 @@ void Effect::Render()
 	_effectIMG->FrameRender(_position.x, _position.y, _effectAnimation->GetNowFrameX(), _effectAnimation->GetNowFrameY(), Pivot::CENTER, true);
 }
 
-void Effect::ComeEffect(string name, Vector2 position)
+void Effect::StartEffect(const string name,const Vector2 position)
 {
 	if (this->_isActive == false) 
 	{
@@ -78,7 +78,7 @@ void Effect::ComeEffect(string name, Vector2 position)
 
 }
 
-void Effect::PlayEffect(string name, Vector2 position)
+void Effect::PlayEffect(const string name,const Vector2 position)
 {
 	//벡터 포인터로 묶어 담기
 	const vector<GameObject*>* _effectTest;
@@ -94,7 +94,7 @@ void Effect::PlayEffect(string name, Vector2 position)
 			//static_cast<Effect*>(_effectTest->at(i));
 			if (dynamic_cast<Effect*>(_effectTest->at(i)) != nullptr)
 			{
-				dynamic_cast<Effect*>(_effectTest->at(i))->ComeEffect(name, position);
+				dynamic_cast<Effect*>(_effectTest->at(i))->StartEffect(name, position);
 				break;
 			}
 
