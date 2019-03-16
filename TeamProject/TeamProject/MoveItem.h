@@ -7,8 +7,6 @@ class MoveItem : public GameObject
 		Follow = 0,
 		MoveItem,
 		Inven
-
-
 	};
 
 private:
