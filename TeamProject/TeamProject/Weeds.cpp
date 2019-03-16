@@ -56,7 +56,7 @@ void Weeds::Update()
 	{
 		this->Move();
 	}
-	Collision();
+	ObjectCollision();
 
 	RECT collisionRc;
 	if (IntersectRect(&collisionRc, &_renderRect, &_player->GetMainRect()))
@@ -65,7 +65,10 @@ void Weeds::Update()
 	}
 	if (_isAttack)
 	{
+		_player->AttackedDamage(_damage);
+		_isAttack = false;
 	}
+
 	if (!_isAttack)
 	{
 		_state = StateType::Chasing;
@@ -113,29 +116,6 @@ void Weeds::Render()
 	if (_isDebug)
 	{
 		_DXRenderer->DrawRectangle(_renderRect, DefaultBrush::red, true);
-	}
-}
-
-void Weeds::Collision()
-{
-	//=======================================
-	//오브젝트와 충돌
-	//=======================================
-	const vector <class GameObject*>* object;
-	object = _ObjectManager->GetObjectListPointer(ObjectType::Object);
-	for (int i = 0; i < (*object).size(); i++)
-	{
-		Player* player = dynamic_cast<Player*>((*object)[i]);
-		MoveItem* item = dynamic_cast<MoveItem*>((*object)[i]);
-		if (this != (*object)[i] && item == nullptr)
-		{
-			if (this->IntersectReaction(&_renderRect, &(*object)[i]->GetCollisionRect()))
-			{
-				_position.x = (_renderRect.right - _renderRect.left) / 2 + _renderRect.left;
-				_position.y = (_renderRect.bottom - _renderRect.top) / 2 + _renderRect.top;
-				this->_renderRect = UpdateRect(_position, _size, _pivot);
-			}
-		}
 	}
 }
 
